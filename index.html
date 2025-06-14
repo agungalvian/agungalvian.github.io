@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Beng Beng - Dashboard</title>
+    <title>BengBro - Dashboard</title>
     <!-- Menggunakan Font Awesome untuk Ikon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <!-- Menggunakan Google Fonts untuk tampilan yang lebih baik -->
@@ -351,6 +351,50 @@
         #invoice-page .invoice-total { text-align: right; font-weight: bold; margin-top: 10px;}
         #invoice-page .footer { text-align: center; margin-top: 20px; }
 
+        /* Payment Method Styles */
+        .payment-method-container {
+            margin: 1em 0;
+        }
+        .payment-method-options {
+            display: flex;
+            gap: 0.5em;
+            margin-bottom: 1em;
+        }
+        .payment-method-option {
+            flex: 1;
+            text-align: center;
+            padding: 0.75em;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .payment-method-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+        .payment-method-option i {
+            font-size: 1.5em;
+            margin-bottom: 0.5em;
+            display: block;
+        }
+        .payment-method-details {
+            display: none;
+            padding: 1em;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-top: 1em;
+            text-align: center;
+        }
+        .payment-method-details.active {
+            display: block;
+        }
+        .qrcode-image {
+            max-width: 200px;
+            margin: 0 auto;
+            display: block;
+        }
+
         /* --- STYLES RESPONSIVE --- */
         @media (max-width: 768px) {
             #sidebar {
@@ -400,6 +444,10 @@
                 width: auto;
                 flex-grow: 1;
             }
+
+            .payment-method-options {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -408,7 +456,7 @@
     <!-- HALAMAN LOGIN -->
     <div id="login-page">
         <div id="login-card" class="card">
-            <h2><i class="fa-solid fa-warehouse"></i> Beng Beng</h2>
+            <h2><i class="fa-solid fa-warehouse"></i> BengBro</h2>
             <p style="color:var(--secondary); margin-bottom: 1.5em;">Silakan login untuk melanjutkan</p>
             <input type="text" id="username" placeholder="Username (coba: admin)" value="admin"/>
             <input type="password" id="password" placeholder="Password (coba: admin)" value="admin"/>
@@ -425,7 +473,7 @@
 
         <!-- SIDEBAR -->
         <aside id="sidebar">
-            <h1><i class="fa-solid fa-car-burst"></i> Beng Beng</h1>
+            <h1><i class="fa-solid fa-car-burst"></i> BengBro</h1>
             <nav>
                 <ul>
                     <li><a href="#" class="nav-link active" onclick="app.showPage('dashboard')"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
@@ -650,6 +698,7 @@
             transactions: [],
             cart: [],
             currentEditingId: null,
+            selectedPaymentMethod: 'cash', // default payment method
         },
 
         // INIT: Fungsi yang dijalankan pertama kali
@@ -1248,14 +1297,68 @@
                     <div style="font-size: 1.2em; margin-bottom: 1em;">Total Belanja:
                         <strong style="float: right;">${app.util.formatCurrency(total)}</strong>
                     </div>
-                    <input type="number" id="payment-amount" placeholder="Jumlah Uang Diterima" onkeyup="app.handlers.calculateChange(${total})" />
-                    <div style="font-size: 1.2em; margin-top: 1em;">Kembalian:
-                        <strong style="float: right;" id="payment-change">Rp 0</strong>
+                    
+                    <div class="payment-method-container">
+                        <h4>Metode Pembayaran</h4>
+                        <div class="payment-method-options">
+                            <div class="payment-method-option ${app.state.selectedPaymentMethod === 'cash' ? 'selected' : ''}" 
+                                 onclick="app.handlers.selectPaymentMethod('cash')">
+                                <i class="fa-solid fa-money-bill-wave"></i>
+                                <span>Cash</span>
+                            </div>
+                            <div class="payment-method-option ${app.state.selectedPaymentMethod === 'debit' ? 'selected' : ''}" 
+                                 onclick="app.handlers.selectPaymentMethod('debit')">
+                                <i class="fa-solid fa-credit-card"></i>
+                                <span>Debit</span>
+                            </div>
+                            <div class="payment-method-option ${app.state.selectedPaymentMethod === 'qris' ? 'selected' : ''}" 
+                                 onclick="app.handlers.selectPaymentMethod('qris')">
+                                <i class="fa-solid fa-qrcode"></i>
+                                <span>QRIS</span>
+                            </div>
+                        </div>
+                        
+                        <div id="cash-details" class="payment-method-details ${app.state.selectedPaymentMethod === 'cash' ? 'active' : ''}">
+                            <input type="number" id="payment-amount" placeholder="Jumlah Uang Diterima" onkeyup="app.handlers.calculateChange(${total})" />
+                            <div style="font-size: 1.2em; margin-top: 1em;">Kembalian:
+                                <strong style="float: right;" id="payment-change">Rp 0</strong>
+                            </div>
+                        </div>
+                        
+                        <div id="debit-details" class="payment-method-details ${app.state.selectedPaymentMethod === 'debit' ? 'active' : ''}">
+                            <p><strong>Nomor Rekening BCA: 123456789</strong></p>
+                            <p><strong>Atas Nama: BengBro Store</strong></p>
+                            <input type="text" id="debit-reference" placeholder="Nomor Referensi Pembayaran" />
+                        </div>
+                        
+                        <div id="qris-details" class="payment-method-details ${app.state.selectedPaymentMethod === 'qris' ? 'active' : ''}">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=BengBengStore-${Date.now()}" class="qrcode-image" alt="QR Code">
+                            <p style="margin-top: 1em;">Scan QR Code di atas untuk melakukan pembayaran</p>
+                            <input type="text" id="qris-reference" placeholder="Nomor Referensi Pembayaran" />
+                        </div>
                     </div>
+                    
                     <button class="btn btn-success" style="width:100%; margin-top: 2em;" onclick="app.handlers.processCheckout(${total})">Selesaikan Transaksi</button>
                 `;
                 document.getElementById('modal-container').style.display = 'flex';
-                document.getElementById('payment-amount').focus();
+                if (app.state.selectedPaymentMethod === 'cash') {
+                    document.getElementById('payment-amount').focus();
+                }
+            },
+            
+            selectPaymentMethod(method) {
+                app.state.selectedPaymentMethod = method;
+                // Update UI
+                document.querySelectorAll('.payment-method-option').forEach(el => {
+                    el.classList.remove('selected');
+                });
+                document.querySelector(`.payment-method-option[onclick="app.handlers.selectPaymentMethod('${method}')"]`).classList.add('selected');
+                
+                // Show correct details
+                document.querySelectorAll('.payment-method-details').forEach(el => {
+                    el.classList.remove('active');
+                });
+                document.getElementById(`${method}-details`).classList.add('active');
             },
            
             calculateChange(total) {
@@ -1265,11 +1368,26 @@
             },
 
             processCheckout(total) {
-                 const amountPaid = parseFloat(document.getElementById('payment-amount').value) || 0;
-                 if (amountPaid < total) {
-                     alert("Jumlah pembayaran kurang!");
-                     return;
-                 }
+                if (app.state.selectedPaymentMethod === 'cash') {
+                    const amountPaid = parseFloat(document.getElementById('payment-amount').value) || 0;
+                    if (amountPaid < total) {
+                        alert("Jumlah pembayaran kurang!");
+                        return;
+                    }
+                } else if (app.state.selectedPaymentMethod === 'debit') {
+                    const reference = document.getElementById('debit-reference').value.trim();
+                    if (!reference) {
+                        alert("Harap masukkan nomor referensi pembayaran!");
+                        return;
+                    }
+                } else if (app.state.selectedPaymentMethod === 'qris') {
+                    const reference = document.getElementById('qris-reference').value.trim();
+                    if (!reference) {
+                        alert("Harap masukkan nomor referensi pembayaran!");
+                        return;
+                    }
+                }
+                
                 const newId = app.state.transactions.length > 0 ? Math.max(...app.state.transactions.map(t => t.id)) + 1 : 1;
                 const newTransaction = {
                     id: newId,
@@ -1279,8 +1397,9 @@
                     vehicleModel: document.getElementById('pos-vehicle-model').value,
                     items: [...app.state.cart],
                     total: total,
-                    paid: amountPaid,
-                    change: amountPaid - total,
+                    paymentMethod: app.state.selectedPaymentMethod,
+                    paid: app.state.selectedPaymentMethod === 'cash' ? parseFloat(document.getElementById('payment-amount').value) : total,
+                    change: app.state.selectedPaymentMethod === 'cash' ? (parseFloat(document.getElementById('payment-amount').value) - total) : 0,
                     status: 'Selesai', // Default status saat checkout
                     cashier: app.state.currentUser.name
                 };
@@ -1325,13 +1444,27 @@
                     `;
                 });
 
+                // Payment method info
+                let paymentInfo = '';
+                if (trx.paymentMethod === 'cash') {
+                    paymentInfo = `
+                        <p>Metode: Tunai</p>
+                        <p>Dibayar: ${app.util.formatCurrency(trx.paid)}</p>
+                        <p>Kembali: ${app.util.formatCurrency(trx.change)}</p>
+                    `;
+                } else if (trx.paymentMethod === 'debit') {
+                    paymentInfo = `<p>Metode: Debit</p>`;
+                } else if (trx.paymentMethod === 'qris') {
+                    paymentInfo = `<p>Metode: QRIS</p>`;
+                }
+
                 invoiceEl.innerHTML = `
                     <div class="no-print" style="text-align:center; margin-bottom: 2em;">
                         <button class="btn btn-primary" onclick="window.print()"><i class="fa-solid fa-print"></i> Cetak</button>
                         <button class="btn btn-secondary" onclick="document.getElementById('invoice-page').style.display='none'">Tutup</button>
                     </div>
 
-                    <h2>Beng Beng</h2>
+                    <h2>BengBro</h2>
                     <p style="text-align: center;">Jl. Otomotif Raya No. 123</p>
                     <hr>
                     <p>No: TRX-${trx.id.toString().padStart(4, '0')}</p>
@@ -1345,8 +1478,7 @@
                     </table>
                     <hr>
                     <p class="invoice-total">Total: ${app.util.formatCurrency(trx.total)}</p>
-                    <p class="invoice-total">Bayar: ${app.util.formatCurrency(trx.paid)}</p>
-                    <p class="invoice-total">Kembali: ${app.util.formatCurrency(trx.change)}</p>
+                    ${paymentInfo}
                     <hr>
                     <p class="footer">-- Terima Kasih --<br>Servis berikutnya 3 bulan lagi</p>
                 `;
