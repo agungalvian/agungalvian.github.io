@@ -1257,7 +1257,6 @@
                 totalEl.innerText = app.util.formatCurrency(total, false);
             },
 
-            // New function to render unfinished transactions
             unfinishedTransactions() {
                 const tbody = document.getElementById('unfinished-transactions-table');
                 tbody.innerHTML = '';
@@ -1284,6 +1283,13 @@
                             <td>${app.util.formatCurrency(t.total)}</td>
                             <td><span class="status ${t.status.replace(' ', '')}">${t.status}</span></td>
                             <td>
+                                <select onchange="app.handlers.updateStatus(${t.id}, this.value)" style="width: auto; padding: 0.5em; font-size: 0.85em;">
+                                    <option ${t.status==='Estimasi'?'selected':''}>Estimasi</option>
+                                    <option ${t.status==='Antrian'?'selected':''}>Antrian</option>
+                                    <option ${t.status==='Dikerjakan'?'selected':''}>Dikerjakan</option>
+                                    <option ${t.status==='Selesai'?'selected':''}>Selesai</option>
+                                    <option ${t.status==='Batal'?'selected':''}>Batal</option>
+                                </select>
                                 <button class="edit-transaction-btn" onclick="app.handlers.editTransaction(${t.id})">
                                     <i class="fa-solid fa-pen"></i> Edit
                                 </button>
@@ -1333,7 +1339,6 @@
                 app.showPage('pos');
             },
 
-            // New function to edit existing transaction
             editTransaction(transactionId) {
                 const transaction = app.state.transactions.find(t => t.id === transactionId);
                 if (!transaction) return;
