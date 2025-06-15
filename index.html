@@ -482,6 +482,33 @@
                 flex-direction: column;
             }
         }
+
+        /* New styles for unfinished transactions */
+        .unfinished-transactions {
+            margin-top: 2em;
+        }
+
+        .unfinished-transactions .card-header {
+            padding-bottom: 0;
+            margin-bottom: 0.5em;
+        }
+
+        .unfinished-transactions table {
+            font-size: 0.9em;
+        }
+
+        .unfinished-transactions th, 
+        .unfinished-transactions td {
+            padding: 0.5em;
+        }
+
+        .edit-transaction-btn {
+            background-color: var(--warning);
+            color: white;
+            padding: 0.3em 0.6em;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
     </style>
 </head>
 <body>
@@ -611,6 +638,30 @@
                         <button class="btn btn-success" style="width: 100%; margin-top: 1.5em;" onclick="app.handlers.showProcessOptions()">
                             <i class="fa-solid fa-gears"></i> Proses
                         </button>
+                    </div>
+                </div>
+
+                <!-- Bagian baru: Daftar Transaksi Belum Selesai -->
+                <div class="unfinished-transactions">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Transaksi Belum Selesai</h2>
+                        </div>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>No. Transaksi</th>
+                                        <th>Pelanggan</th>
+                                        <th>Kendaraan</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="unfinished-transactions-table"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -850,6 +901,7 @@
             cart: [],
             currentEditingId: null,
             selectedPaymentMethod: 'cash',
+            editingTransaction: null
         },
 
         // INIT: Fungsi yang dijalankan pertama kali
@@ -896,7 +948,10 @@
 
             switch(pageId) {
                 case 'dashboard': this.render.dashboard(); break;
-                case 'pos': this.render.posPage(); break;
+                case 'pos': 
+                    this.render.posPage(); 
+                    this.render.unfinishedTransactions();
+                    break;
                 case 'transactions': this.render.reportTable(); break;
                 case 'products': this.render.productsTable(); break;
                 case 'customers': this.render.customersTable(); break;
@@ -1172,6 +1227,42 @@
                     `;
                 });
                 totalEl.innerText = app.util.formatCurrency(total, false);
+            },
+
+            // New function to render unfinished transactions
+            unfinishedTransactions() {
+                const tbody = document.getElementById('unfinished-transactions-table');
+                tbody.innerHTML = '';
+
+                // Get unfinished transactions (status not 'Selesai' or 'Batal')
+                const unfinished = app.state.transactions.filter(t => 
+                    t.status !== 'Selesai' && t.status !== 'Batal'
+                ).sort((a, b) => b.id - a.id);
+
+                if (unfinished.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--secondary);">Tidak ada transaksi yang belum selesai</td></tr>`;
+                    return;
+                }
+
+                unfinished.forEach(t => {
+                    const customer = app.state.customers.find(c => c.id == t.customerId);
+                    const customerName = customer ? customer.name : 'Pelanggan Umum';
+                    
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>TRX-${t.id.toString().padStart(4, '0')}</td>
+                            <td>${customerName}</td>
+                            <td>${t.plateNumber} (${t.vehicleModel})</td>
+                            <td>${app.util.formatCurrency(t.total)}</td>
+                            <td><span class="status ${t.status.replace(' ', '')}">${t.status}</span></td>
+                            <td>
+                                <button class="edit-transaction-btn" onclick="app.handlers.editTransaction(${t.id})">
+                                    <i class="fa-solid fa-pen"></i> Edit
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
             }
         },
 
@@ -1212,6 +1303,27 @@
 
                 alert(`Estimasi TRX-${newId.toString().padStart(4, '0')} berhasil dibuat!`);
                 app.showPage('pos');
+            },
+
+            // New function to edit existing transaction
+            editTransaction(transactionId) {
+                const transaction = app.state.transactions.find(t => t.id === transactionId);
+                if (!transaction) return;
+
+                // Set the transaction being edited
+                app.state.editingTransaction = transactionId;
+                
+                // Fill the form with transaction data
+                document.getElementById('pos-customer-select').value = transaction.customerId || '';
+                document.getElementById('pos-plate-number').value = transaction.plateNumber || '';
+                document.getElementById('pos-vehicle-model').value = transaction.vehicleModel || '';
+                
+                // Set the cart items
+                app.state.cart = [...transaction.items];
+                app.render.cartTable();
+                
+                // Scroll to the form
+                document.querySelector('#pos-page .grid-2').scrollIntoView({ behavior: 'smooth' });
             },
 
             showUserModal(id = null) {
@@ -1539,28 +1651,54 @@
                     }
                 }
                 
-                const newId = app.state.transactions.length > 0 ? Math.max(...app.state.transactions.map(t => t.id)) + 1 : 1;
-                const newTransaction = {
-                    id: newId,
-                    date: new Date().toISOString(),
-                    customerId: document.getElementById('pos-customer-select').value || null,
-                    plateNumber: document.getElementById('pos-plate-number').value,
-                    vehicleModel: document.getElementById('pos-vehicle-model').value,
-                    items: [...app.state.cart],
-                    total: total,
-                    paymentMethod: app.state.selectedPaymentMethod,
-                    paid: app.state.selectedPaymentMethod === 'cash' ? parseFloat(document.getElementById('payment-amount').value) : total,
-                    change: app.state.selectedPaymentMethod === 'cash' ? (parseFloat(document.getElementById('payment-amount').value) - total) : 0,
-                    status: 'Selesai',
-                    cashier: app.state.currentUser.name
-                };
-
-                app.state.transactions.push(newTransaction);
+                let newTransaction;
+                const isEditing = app.state.editingTransaction !== null;
+                
+                if (isEditing) {
+                    // Update existing transaction
+                    const index = app.state.transactions.findIndex(t => t.id === app.state.editingTransaction);
+                    if (index > -1) {
+                        app.state.transactions[index] = {
+                            ...app.state.transactions[index],
+                            customerId: document.getElementById('pos-customer-select').value || null,
+                            plateNumber: document.getElementById('pos-plate-number').value,
+                            vehicleModel: document.getElementById('pos-vehicle-model').value,
+                            items: [...app.state.cart],
+                            total: total,
+                            paymentMethod: app.state.selectedPaymentMethod,
+                            paid: app.state.selectedPaymentMethod === 'cash' ? parseFloat(document.getElementById('payment-amount').value) : total,
+                            change: app.state.selectedPaymentMethod === 'cash' ? (parseFloat(document.getElementById('payment-amount').value) - total) : 0,
+                            status: 'Selesai',
+                            cashier: app.state.currentUser.name
+                        };
+                        newTransaction = app.state.transactions[index];
+                    }
+                    app.state.editingTransaction = null;
+                } else {
+                    // Create new transaction
+                    const newId = app.state.transactions.length > 0 ? Math.max(...app.state.transactions.map(t => t.id)) + 1 : 1;
+                    newTransaction = {
+                        id: newId,
+                        date: new Date().toISOString(),
+                        customerId: document.getElementById('pos-customer-select').value || null,
+                        plateNumber: document.getElementById('pos-plate-number').value,
+                        vehicleModel: document.getElementById('pos-vehicle-model').value,
+                        items: [...app.state.cart],
+                        total: total,
+                        paymentMethod: app.state.selectedPaymentMethod,
+                        paid: app.state.selectedPaymentMethod === 'cash' ? parseFloat(document.getElementById('payment-amount').value) : total,
+                        change: app.state.selectedPaymentMethod === 'cash' ? (parseFloat(document.getElementById('payment-amount').value) - total) : 0,
+                        status: 'Selesai',
+                        cashier: app.state.currentUser.name
+                    };
+                    app.state.transactions.push(newTransaction);
+                }
+                
                 app.saveData();
                 app.closeModal();
 
-                if(confirm(`Transaksi TRX-${newId.toString().padStart(4, '0')} berhasil! Apakah Anda ingin mencetak struk?`)){
-                    this.printInvoice(newId);
+                if(confirm(`Transaksi TRX-${newTransaction.id.toString().padStart(4, '0')} berhasil! Apakah Anda ingin mencetak struk?`)){
+                    this.printInvoice(newTransaction.id);
                 }
                
                 app.showPage('pos');
@@ -1573,6 +1711,7 @@
                     app.saveData();
                     app.render.reportTable();
                     app.render.dashboard();
+                    app.render.unfinishedTransactions();
                 }
             },
 
