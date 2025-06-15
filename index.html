@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BengBro - Dashboard</title>
+    <title>Beng Beng - Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
    
@@ -426,6 +426,33 @@
             display: block;
         }
 
+        /* New styles for unfinished transactions */
+        .unfinished-transactions {
+            margin-top: 2em;
+        }
+
+        .unfinished-transactions .card-header {
+            padding-bottom: 0;
+            margin-bottom: 0.5em;
+        }
+
+        .unfinished-transactions table {
+            font-size: 0.9em;
+        }
+
+        .unfinished-transactions th, 
+        .unfinished-transactions td {
+            padding: 0.5em;
+        }
+
+        .edit-transaction-btn {
+            background-color: var(--warning);
+            color: white;
+            padding: 0.3em 0.6em;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+
         @media (max-width: 768px) {
             #sidebar {
                 position: fixed;
@@ -482,33 +509,6 @@
                 flex-direction: column;
             }
         }
-
-        /* New styles for unfinished transactions */
-        .unfinished-transactions {
-            margin-top: 2em;
-        }
-
-        .unfinished-transactions .card-header {
-            padding-bottom: 0;
-            margin-bottom: 0.5em;
-        }
-
-        .unfinished-transactions table {
-            font-size: 0.9em;
-        }
-
-        .unfinished-transactions th, 
-        .unfinished-transactions td {
-            padding: 0.5em;
-        }
-
-        .edit-transaction-btn {
-            background-color: var(--warning);
-            color: white;
-            padding: 0.3em 0.6em;
-            border-radius: 4px;
-            font-size: 0.8em;
-        }
     </style>
 </head>
 <body>
@@ -516,7 +516,7 @@
     <!-- HALAMAN LOGIN -->
     <div id="login-page">
         <div id="login-card" class="card">
-            <h2><i class="fa-solid fa-warehouse"></i> BengBro</h2>
+            <h2><i class="fa-solid fa-warehouse"></i> Beng Beng</h2>
             <p style="color:var(--secondary); margin-bottom: 1.5em;">Silakan login untuk melanjutkan</p>
             <input type="text" id="username" placeholder="Username (coba: admin)" value="admin"/>
             <input type="password" id="password" placeholder="Password (coba: admin)" value="admin"/>
@@ -533,7 +533,7 @@
 
         <!-- SIDEBAR -->
         <aside id="sidebar">
-            <h1><i class="fa-solid fa-car-burst"></i> BengBro</h1>
+            <h1><i class="fa-solid fa-car-burst"></i> Beng Beng</h1>
             <nav>
                 <ul>
                     <li><a href="#" class="nav-link active" onclick="app.showPage('dashboard')"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
@@ -1042,37 +1042,65 @@
                 const ctx = document.getElementById('chartCanvas').getContext('2d');
                 if (window.myChart instanceof Chart) window.myChart.destroy();
 
+                // Group transactions by status and count them
                 const statusCounts = app.state.transactions.reduce((acc, t) => {
                     acc[t.status] = (acc[t.status] || 0) + 1;
                     return acc;
                 }, {});
 
+                // Define status order for consistent display
+                const statusOrder = ['Estimasi', 'Antrian', 'Dikerjakan', 'Selesai', 'Batal'];
+                const labels = statusOrder.filter(status => statusCounts[status] !== undefined);
+                const data = labels.map(status => statusCounts[status] || 0);
+
+                // Define colors for each status
+                const backgroundColors = labels.map(status => {
+                    switch (status) {
+                        case 'Estimasi': return 'rgba(245, 158, 11, 0.7)';
+                        case 'Antrian': return 'rgba(59, 130, 246, 0.7)';
+                        case 'Dikerjakan': return 'rgba(79, 70, 229, 0.7)';
+                        case 'Selesai': return 'rgba(16, 185, 129, 0.7)';
+                        case 'Batal': return 'rgba(100, 116, 139, 0.7)';
+                        default: return 'rgba(201, 203, 207, 0.7)';
+                    }
+                });
+
                 window.myChart = new Chart(ctx, {
-                    type: 'doughnut',
+                    type: 'bar',
                     data: {
-                        labels: Object.keys(statusCounts),
+                        labels: labels,
                         datasets: [{
                             label: 'Jumlah Transaksi',
-                            data: Object.values(statusCounts),
-                            backgroundColor: Object.keys(statusCounts).map(status => {
-                                switch (status) {
-                                    case 'Estimasi': return 'rgba(245, 158, 11, 0.8)';
-                                    case 'Antrian': return 'rgba(59, 130, 246, 0.8)';
-                                    case 'Dikerjakan': return 'rgba(79, 70, 229, 0.8)';
-                                    case 'Selesai': return 'rgba(16, 185, 129, 0.8)';
-                                    case 'Batal': return 'rgba(100, 116, 139, 0.8)';
-                                    default: return '#ccc';
-                                }
-                            }),
-                            borderColor: '#fff',
-                            borderWidth: 2
+                            data: data,
+                            backgroundColor: backgroundColors,
+                            borderColor: backgroundColors.map(color => color.replace('0.7', '1')),
+                            borderWidth: 1
                         }]
                     },
                     options: {
                         responsive: true,
                         plugins: {
-                            legend: { position: 'top' },
-                            title: { display: false }
+                            legend: { 
+                                display: false
+                            },
+                            title: { 
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.parsed.y} transaksi`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    precision: 0
+                                }
+                            }
                         }
                     }
                 });
@@ -1590,7 +1618,7 @@
                         
                         <div id="debit-details" class="payment-method-details ${app.state.selectedPaymentMethod === 'debit' ? 'active' : ''}">
                             <p><strong>Nomor Rekening BCA: 123456789</strong></p>
-                            <p><strong>Atas Nama: BengBro Store</strong></p>
+                            <p><strong>Atas Nama: Beng Beng Store</strong></p>
                             <input type="text" id="debit-reference" placeholder="Nomor Referensi Pembayaran" />
                         </div>
                         
@@ -1753,7 +1781,7 @@
                         <button class="btn btn-secondary" onclick="document.getElementById('invoice-page').style.display='none'">Tutup</button>
                     </div>
 
-                    <h2>BengBro</h2>
+                    <h2>Beng Beng</h2>
                     <p style="text-align: center;">Jl. Otomotif Raya No. 123</p>
                     <hr>
                     <p>No: TRX-${trx.id.toString().padStart(4, '0')}</p>
