@@ -3,83 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infografik Interaktif: Audit Risiko e-Klaim Tapera</title>
+    <title>Dasbor Interaktif: Audit Risiko Aplikasi e-Klaim Tapera</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Chosen Palette: Professional & Alert (Vibrant Accents) -->
-    <!-- Application Structure Plan: Infografik ini dirancang sebagai narasi visual satu halaman yang mengalir. Dimulai dengan "hook" berupa statistik kunci yang paling berdampak untuk menarik perhatian pengguna. Kemudian, alur berlanjut ke pengenalan empat area risiko utama yang berfungsi sebagai navigasi. Setiap bagian risiko menyajikan visualisasi data inti (grafik batang, diagram, donut chart, line chart) dan teks penjelasan singkat untuk memecah informasi padat dari laporan. Alur diakhiri dengan rekomendasi aksi yang disajikan dalam format terstruktur. Struktur ini dipilih untuk mengubah laporan audit yang formal dan padat teks menjadi sebuah cerita data yang menarik, mudah dicerna, dan dapat dijelajahi secara intuitif oleh audiens yang lebih luas. -->
+    <!-- Chosen Palette: Professional & Alert (Calm Neutrals with Thematic Accents) -->
+    <!-- Application Structure Plan: SPA ini dirancang dengan struktur dasbor tematik untuk mengubah laporan audit yang padat menjadi pengalaman yang dapat dijelajahi. Alur dimulai dengan bagian "Sorotan Utama" yang menampilkan metrik paling krusial (dana belum kembali, jumlah pensiunan terdampak) untuk langsung menarik perhatian pada skala masalah. Pengguna kemudian dipandu melalui empat area risiko utama (Operasional, Keamanan, Kepatuhan, Reputasi) melalui navigasi yang jelas. Setiap bagian risiko ini menyajikan temuan kunci dengan kombinasi visualisasi data (grafik batang, diagram, dan donut chart) dan ringkasan teks yang ringkas. Struktur diakhiri dengan bagian "Rekomendasi" yang menyajikan solusi secara terstruktur. Pendekatan ini dipilih untuk memecah informasi kompleks, memfasilitasi pemahaman, dan memungkinkan pengguna (baik pembuat kebijakan maupun publik) untuk fokus pada area yang paling relevan bagi mereka. -->
     <!-- Visualization & Content Choices: 
-        - Statistik Kunci: "Single Big Number" untuk dampak finansial dan jumlah pensiunan terdampak (Goal: Inform, Method: Styled HTML/Tailwind). Ini memberikan dampak emosional dan kuantitatif secara langsung.
-        - Risiko Operasional: Grafik Batang Horizontal untuk membandingkan skala masalah data (Goal: Compare, Library: Chart.js). Kartu sorotan untuk potensi pengembalian ganda (Goal: Inform, Method: Styled HTML/Tailwind).
-        - Risiko Keamanan: Diagram tiga pilar (Kerahasiaan, Integritas, Ketersediaan) yang dibangun dengan HTML/CSS (Goal: Organize, Inform). Ini menyederhanakan konsep teknis yang kompleks.
-        - Risiko Kepatuhan: Diagram alur sederhana yang menunjukkan hubungan antara badan pengawas dan kesenjangan implementasi (Goal: Organize, Method: HTML/CSS).
-        - Risiko Reputasi: Line chart untuk memvisualisasikan tren sentimen negatif, positif, dan netral publik dari tahun ke tahun (Goal: Change, Compare, Library: Chart.js). Donut chart untuk memvisualisasikan komposisi sentimen publik tahun 2025 (Goal: Inform/Impact, Library: Chart.js).
-        - Rekomendasi: Daftar terstruktur menggunakan HTML/CSS.
-        Semua pilihan ini dibuat untuk memaksimalkan kejelasan dan dampak visual tanpa menggunakan SVG atau Mermaid JS, sesuai dengan batasan teknis.
+        - Sorotan Utama (KPI): Laporan Info -> Rp567.45 miliar belum kembali, 124.960 pensiunan terdampak. Goal -> Inform. Method -> "Single Big Number" cards (HTML/Tailwind). Justification -> Memberikan dampak kuantitatif instan.
+        - Risiko Operasional (Data Bermasalah): Laporan Info -> 247.246 data belum mutakhir (176.743 anomali pangkat, 70.513 NIK tidak lengkap). Goal -> Compare. Method -> Bar Chart (Chart.js/Canvas). Justification -> Membandingkan skala dua kategori masalah data secara efektif.
+        - Risiko Keamanan (Pilar Keamanan): Laporan Info -> Konsep CIA (Kerahasiaan, Integritas, Ketersediaan). Goal -> Organize/Inform. Method -> Diagram tiga pilar (HTML/CSS + Ikon Unicode). Justification -> Menyederhanakan konsep teknis yang kompleks tanpa memerlukan diagram gambar.
+        - Risiko Reputasi (Sentimen Publik): Laporan Info -> >90% sentimen negatif. Goal -> Inform/Compare. Method -> Donut Chart (Chart.js/Canvas). Justification -> Memberikan representasi visual yang kuat dari komposisi sentimen publik saat ini.
+        - Rekomendasi Aksi: Laporan Info -> 4 pilar rekomendasi. Goal -> Organize/Inform. Method -> Kartu terstruktur (HTML/CSS). Justification -> Menyajikan langkah-langkah selanjutnya secara jelas dan dapat ditindaklanjuti.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8; /* A light, clean blue-gray */
+            background-color: #f1f5f9; /* slate-100 */
         }
         .chart-container {
             position: relative;
             width: 100%;
-            height: 300px;
-            max-width: 500px;
+            max-width: 600px;
+            height: 350px;
             margin-left: auto;
             margin-right: auto;
-            margin-bottom: 2rem; /* Add margin for spacing between charts */
         }
-        @media (min-width: 768px) {
+        @media (max-width: 768px) {
             .chart-container {
-                height: 350px;
+                height: 300px;
             }
         }
-        .nav-button {
-            transition: all 0.3s ease;
+        .nav-link {
+            transition: all 0.2s ease-in-out;
         }
-        .nav-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        .nav-link:hover {
+            color: #0ea5e9; /* sky-500 */
+            border-bottom-color: #0ea5e9;
         }
-        .stat-card {
-            background: linear-gradient(135deg, #ffffff, #f0f4f8);
-        }
-        .section-header {
-            border-bottom: 3px solid;
-            display: inline-block;
-            padding-bottom: 4px;
+        .active-link {
+             color: #0ea5e9;
+             border-bottom-color: #0ea5e9;
+             font-weight: 600;
         }
     </style>
 </head>
 <body class="text-slate-700">
 
-    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-50 shadow-md">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center">
-            <h1 class="text-2xl md:text-3xl font-extrabold text-slate-800">Audit Risiko Aplikasi e-Klaim Tapera</h1>
-            <p class="mt-1 text-sm md:text-base text-slate-500">Sebuah Infografik Interaktif</p>
-        </div>
+    <header class="bg-white/95 backdrop-blur-sm sticky top-0 z-50 shadow-md">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
+            <h1 class="text-xl font-bold text-slate-800">Audit Risiko e-Klaim Tapera</h1>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#sorotan" class="nav-link text-slate-600 border-b-2 border-transparent pb-1">Sorotan</a>
+                <a href="#risiko-operasional" class="nav-link text-slate-600 border-b-2 border-transparent pb-1">Operasional</a>
+                <a href="#risiko-keamanan" class="nav-link text-slate-600 border-b-2 border-transparent pb-1">Keamanan</a>
+                <a href="#risiko-reputasi" class="nav-link text-slate-600 border-b-2 border-transparent pb-1">Reputasi</a>
+                <a href="#rekomendasi" class="nav-link text-slate-600 border-b-2 border-transparent pb-1">Rekomendasi</a>
+                <a href="#referensi" class="nav-link text-slate-600 border-b-2 border-transparent pb-1">Referensi</a>
+            </div>
+        </nav>
     </header>
 
     <main>
-        <!-- Section 1: The Hook -->
-        <section id="hook" class="py-16 md:py-20 text-center bg-slate-800 text-white">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Krisis Sistemik: Dampak Nyata di Balik Data</h2>
-                <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-300">Temuan audit BPK tahun 2021 mengungkap masalah fundamental pada sistem e-Klaim yang berdampak langsung pada hak ratusan ribu pensiunan.</p>
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="stat-card text-slate-800 p-8 rounded-xl shadow-lg">
-                        <p class="text-5xl lg:text-6xl font-extrabold text-red-600">Rp 567+ Miliar</p>
-                        <p class="mt-3 text-lg font-semibold">Dana Pensiunan Belum Dikembalikan</p>
+        <!-- Section: Sorotan Utama -->
+        <section id="sorotan" class="py-16 md:py-20 bg-slate-800 text-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Sorotan Utama: Skala Permasalahan Sistemik</h2>
+                <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-300">Berdasarkan temuan audit BPK, aplikasi e-Klaim menghadapi tantangan fundamental yang berdampak langsung pada hak ratusan ribu pensiunan dan mengelola dana triliunan rupiah.</p>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-800">
+                    <div class="bg-white p-8 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300">
+                        <p class="text-5xl lg:text-6xl font-extrabold text-red-600">Rp 567,45 Miliar</p>
+                        <p class="mt-3 text-lg font-semibold">Dana Pensiunan Belum Dikembalikan (Temuan 2021)</p>
                     </div>
-                    <div class="stat-card text-slate-800 p-8 rounded-xl shadow-lg">
+                    <div class="bg-white p-8 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300">
                         <p class="text-5xl lg:text-6xl font-extrabold text-red-600">124.960</p>
                         <p class="mt-3 text-lg font-semibold">Pensiunan Terdampak Belum Menerima Haknya</p>
                     </div>
@@ -87,166 +88,170 @@
             </div>
         </section>
 
-        <!-- Section 2: Risk Areas Navigation -->
-        <section class="py-16 md:py-20">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Empat Dimensi Risiko Kritis</h2>
-                <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600">Audit mengidentifikasi empat area risiko utama yang saling terkait dan memerlukan perhatian segera. Jelajahi setiap area di bawah ini.</p>
-                <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <a href="#risiko-operasional" class="nav-button bg-white p-6 rounded-lg shadow-md border-b-4 border-amber-500">
-                        <span class="text-4xl">⚙️</span>
-                        <h3 class="mt-3 font-bold text-amber-600">OPERASIONAL</h3>
-                    </a>
-                    <a href="#risiko-keamanan" class="nav-button bg-white p-6 rounded-lg shadow-md border-b-4 border-sky-500">
-                        <span class="text-4xl">🛡️</span>
-                        <h3 class="mt-3 font-bold text-sky-600">KEAMANAN</h3>
-                    </a>
-                    <a href="#risiko-kepatuhan" class="nav-button bg-white p-6 rounded-lg shadow-md border-b-4 border-indigo-500">
-                        <span class="text-4xl">⚖️</span>
-                        <h3 class="mt-3 font-bold text-indigo-600">KEPATUHAN</h3>
-                    </a>
-                    <a href="#risiko-reputasi" class="nav-button bg-white p-6 rounded-lg shadow-md border-b-4 border-rose-500">
-                        <span class="text-4xl">📉</span>
-                        <h3 class="mt-3 font-bold text-rose-600">REPUTASI</h3>
-                    </a>
+        <!-- Section: Risiko Operasional -->
+        <section id="risiko-operasional" class="py-16 md:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Risiko Operasional: Krisis Integritas Data</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600">Akar masalah utama adalah data peserta yang tidak akurat, tidak lengkap, dan tidak mutakhir. Hal ini menyebabkan penundaan klaim, potensi kerugian finansial, dan inefisiensi proses secara masif.</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- Section 3: Operational Risk -->
-        <section id="risiko-operasional" class="py-16 md:py-20 bg-white">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="section-header text-3xl md:text-4xl font-bold text-amber-600 border-amber-600">Risiko Operasional: Integritas Data Runtuh</h2>
-                <p class="mt-6 max-w-3xl mx-auto text-lg text-slate-600">Akar dari segala masalah adalah data peserta yang tidak akurat dan tidak mutakhir. Temuan BPK mengungkap skala masalah yang masif, menghambat pengelolaan dana sebesar <strong class="text-amber-700">Rp 754,59 Miliar</strong>.</p>
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div class="text-left">
-                        <h3 class="text-xl font-semibold text-slate-800 mb-2">Komposisi Data Peserta Bermasalah</h3>
-                        <p class="text-slate-500 mb-4">Total 247.246 data peserta aktif ditemukan tidak mutakhir, terbagi menjadi dua kategori utama:</p>
-                        <ul class="space-y-3">
-                            <li class="flex items-start">
-                                <span class="text-amber-500 font-bold text-xl mr-3">1.</span>
-                                <div>
-                                    <h4 class="font-semibold text-slate-700">Riwayat Kepangkatan Anomali</h4>
-                                    <p class="text-slate-500">Sebanyak 176.743 orang memiliki data riwayat pangkat yang tidak wajar.</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-amber-500 font-bold text-xl mr-3">2.</span>
-                                <div>
-                                    <h4 class="font-semibold text-slate-700">NIK Tidak Lengkap</h4>
-                                    <p class="text-slate-500">Sebanyak 70.513 orang tidak memiliki Nomor Induk Kependudukan yang lengkap.</p>
-                                </div>
-                            </li>
-                        </ul>
-                         <div class="mt-6 bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
-                            <p class="text-amber-800"><strong class="font-bold">Potensi Kerugian Lain:</strong> Audit juga menemukan potensi pengembalian ganda senilai <strong class="font-bold">Rp 130,25 Miliar</strong> kepada 40.266 orang akibat lemahnya sistem verifikasi.</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="chart-container">
-                            <canvas id="dataProblemChart"></canvas>
-                        </div>
-                         <p class="mt-4 text-sm text-slate-500">Visualisasi perbandingan jumlah peserta dengan data bermasalah.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 4: Security Risk -->
-        <section id="risiko-keamanan" class="py-16 md:py-20">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="section-header text-3xl md:text-4xl font-bold text-sky-600 border-sky-600">Risiko Keamanan: Benteng Digital yang Rapuh</h2>
-                <p class="mt-6 max-w-3xl mx-auto text-lg text-slate-600">Meskipun ada niat untuk patuh pada UU PDP dan ISO 27001, implementasi keamanan belum teruji di tengah lanskap siber nasional yang rentan. Tiga pilar keamanan informasi menjadi taruhannya.</p>
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-sky-100 text-3xl">🔒</div>
-                        <h3 class="mt-4 text-xl font-bold text-slate-800">Kerahasiaan</h3>
-                        <p class="mt-2 text-slate-500">Melindungi data dari akses tidak sah. Risiko utama adalah kebocoran data pribadi dan finansial peserta.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-sky-100 text-3xl">✅</div>
-                        <h3 class="mt-4 text-xl font-bold text-slate-800">Integritas</h3>
-                        <p class="mt-2 text-slate-500">Menjamin keakuratan data. Risiko utamanya adalah manipulasi data klaim yang dapat menyebabkan kerugian finansial.</p>
-                    </div>
-                     <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-sky-100 text-3xl">⏱️</div>
-                        <h3 class="mt-4 text-xl font-bold text-slate-800">Ketersediaan</h3>
-                        <p class="mt-2 text-slate-500">Memastikan sistem dapat diakses saat dibutuhkan. Risiko utamanya adalah downtime sistem yang menunda hak peserta.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 5: Compliance Risk -->
-        <section id="risiko-kepatuhan" class="py-16 md:py-20 bg-white">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="section-header text-3xl md:text-4xl font-bold text-indigo-600 border-indigo-600">Risiko Kepatuhan: Kesenjangan Regulasi & Realita</h2>
-                <p class="mt-6 max-w-3xl mx-auto text-lg text-slate-600">Pengawasan dari OJK dan BPK sudah ada, namun temuan audit yang berulang menunjukkan bahwa aturan yang ada belum sepenuhnya terimplementasi secara efektif di lapangan.</p>
-                <div class="mt-12 max-w-4xl mx-auto bg-slate-50 p-8 rounded-lg shadow-inner">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center text-center">
-                        <div class="font-bold text-indigo-700">
-                            <p class="text-2xl">OJK & BPK</p>
-                            <p>Badan Pengawas</p>
-                        </div>
-                        <div class="text-5xl text-indigo-400 my-4 md:my-0">→</div>
-                        <div class="p-4 bg-white rounded-lg shadow">
-                            <h3 class="font-semibold text-slate-800">Implementasi BP Tapera</h3>
-                            <div class="mt-2 bg-red-100 text-red-700 p-2 rounded">
-                                <p class="font-bold">KESENJANGAN</p>
-                                <p class="text-sm">Temuan BPK tentang data & dana belum tersalurkan</p>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
+                    <div class="md:col-span-3">
+                        <div class="bg-white p-6 rounded-lg shadow-md h-full">
+                           <h3 class="text-xl font-semibold text-center mb-4">Komposisi Data Peserta Bermasalah (Total: 247.246)</h3>
+                            <div class="chart-container">
+                                <canvas id="dataProblemChart"></canvas>
                             </div>
                         </div>
                     </div>
+                    <div class="md:col-span-2 text-left space-y-4">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h4 class="font-bold text-amber-600">Riwayat Pangkat Anomali</h4>
+                            <p class="text-slate-500">Sebanyak 176.743 orang memiliki data riwayat pangkat yang tidak wajar, menghambat validasi.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <h4 class="font-bold text-amber-600">NIK Tidak Lengkap</h4>
+                            <p class="text-slate-500">70.513 orang tidak memiliki Nomor Induk Kependudukan yang lengkap, esensial untuk verifikasi.</p>
+                        </div>
+                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-r-lg">
+                            <h4 class="font-bold">Potensi Pengembalian Ganda</h4>
+                            <p>Kelemahan verifikasi menciptakan risiko kerugian negara sebesar <strong class="font-semibold">Rp 130,25 Miliar</strong>.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 6: Reputation Risk -->
+        <!-- Section: Risiko Keamanan -->
+        <section id="risiko-keamanan" class="py-16 md:py-20 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Risiko Keamanan: Perlindungan Data di Titik Kritis</h2>
+                <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600">Di tengah lanskap siber nasional yang rentan, perlindungan data pribadi dan finansial jutaan peserta Tapera menjadi prioritas utama. Audit menyoroti perlunya penguatan pada tiga pilar keamanan informasi.</p>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-slate-50 p-8 rounded-lg text-center border-t-4 border-sky-500 shadow-lg">
+                        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-sky-100 text-3xl mb-4">🔒</div>
+                        <h3 class="text-xl font-bold text-slate-800">Kerahasiaan</h3>
+                        <p class="mt-2 text-slate-500">Risiko kebocoran data pribadi (NIK, SK Pensiun) dan finansial (nomor rekening) akibat akses tidak sah.</p>
+                    </div>
+                    <div class="bg-slate-50 p-8 rounded-lg text-center border-t-4 border-sky-500 shadow-lg">
+                        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-sky-100 text-3xl mb-4">✅</div>
+                        <h3 class="text-xl font-bold text-slate-800">Integritas</h3>
+                        <p class="mt-2 text-slate-500">Risiko manipulasi data klaim atau saldo simpanan yang dapat menyebabkan kerugian finansial bagi peserta dan negara.</p>
+                    </div>
+                    <div class="bg-slate-50 p-8 rounded-lg text-center border-t-4 border-sky-500 shadow-lg">
+                        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-sky-100 text-3xl mb-4">⏱️</div>
+                        <h3 class="text-xl font-bold text-slate-800">Ketersediaan</h3>
+                        <p class="mt-2 text-slate-500">Risiko gangguan layanan (downtime) yang menghambat peserta mengakses hak mereka tepat waktu.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section: Risiko Reputasi -->
         <section id="risiko-reputasi" class="py-16 md:py-20">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="section-header text-3xl md:text-4xl font-bold text-rose-600 border-rose-600">Risiko Reputasi: Kepercayaan yang Terkikis</h2>
-                <p class="mt-6 max-w-3xl mx-auto text-lg text-slate-600">Kegagalan operasional dan komunikasi yang kurang efektif memicu sentimen publik yang sangat negatif, mengancam legitimasi dan keberlanjutan program Tapera.</p>
-                <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                 <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Risiko Reputasi: Erosi Kepercayaan Publik</h2>
+                 <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600">Kegagalan operasional dan kurangnya transparansi proses telah memicu sentimen publik yang sangat negatif, mengancam legitimasi dan keberlanjutan program Tapera.</p>
+                 <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div class="order-2 lg:order-1">
                         <h4 class="text-xl font-semibold text-slate-800 text-center mb-4">Tren Sentimen Publik (2020 - 2025)</h4>
                         <div class="chart-container">
                             <canvas id="sentimentTrendChart"></canvas>
                         </div>
-                        <p class="mt-4 text-sm text-slate-500">Garis tren sentimen menunjukkan dinamika persepsi publik terhadap Tapera. Sentimen negatif meningkat tajam setelah 2020, sementara sentimen positif dan netral cenderung menurun atau stagnan. Meskipun ada sedikit perbaikan di tahun 2025, dominasi sentimen negatif masih jelas.</p>
+                        <p class="mt-4 text-sm text-slate-500">Grafik ini menunjukkan dinamika sentimen publik terhadap Tapera dari tahun ke tahun, berdasarkan data yang disimulasikan untuk tujuan ilustrasi. Peningkatan sentimen negatif, dan penurunan sentimen positif dan netral, menggarisbawahi urgensi perbaikan.</p>
                     </div>
                     <div class="order-1 lg:order-2">
                         <h4 class="text-xl font-semibold text-slate-800 text-center mb-4">Sentimen Publik Terkini (2025)</h4>
                         <div class="chart-container" style="height:280px; margin-bottom: 0;">
                             <canvas id="reputationChart"></canvas>
                         </div>
-                        <p class="mt-4 text-sm text-slate-500">Komposisi sentimen di tahun 2025 menunjukkan bahwa meskipun sentimen negatif tetap dominan, ada porsi kecil dari sentimen netral dan positif yang perlu diperhatikan.</p>
+                        <p class="mt-4 text-sm text-slate-500">Diagram donat ini memvisualisasikan komposisi sentimen publik di tahun 2025, dengan fokus pada proporsi sentimen negatif, netral, dan positif, juga berdasarkan data yang disimulasikan.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 7: Recommendations -->
-        <section class="py-16 md:py-20 bg-slate-800 text-white">
+        <!-- Section: Rekomendasi -->
+        <section id="rekomendasi" class="py-16 md:py-20 bg-slate-800 text-white">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h2 class="text-3xl md:text-4xl font-bold">Rekomendasi Aksi Strategis</h2>
-                <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-300">Untuk memitigasi risiko dan membangun kembali kepercayaan, diperlukan empat pilar perbaikan yang fundamental.</p>
+                <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-300">Untuk memitigasi risiko dan membangun kembali kepercayaan, audit merekomendasikan empat pilar perbaikan fundamental yang harus segera diimplementasikan.</p>
                 <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
-                    <div class="bg-slate-700 p-6 rounded-lg">
+                    <div class="bg-slate-700/50 p-6 rounded-lg backdrop-blur-sm border border-slate-600">
                         <h3 class="font-bold text-lg text-amber-400">1. Tata Kelola Data</h3>
-                        <p class="mt-2 text-sm text-slate-300">Implementasi kerangka kerja tata kelola data yang komprehensif, investasi pada teknologi integrasi real-time, dan bangun sistem peringatan dini untuk data anomali.</p>
+                        <p class="mt-2 text-sm text-slate-300">Implementasikan kerangka tata kelola data yang komprehensif, otomatisasi rekonsiliasi data dengan BKN dan Taspen, dan bangun sistem peringatan dini untuk data anomali.</p>
                     </div>
-                    <div class="bg-slate-700 p-6 rounded-lg">
+                    <div class="bg-slate-700/50 p-6 rounded-lg backdrop-blur-sm border border-slate-600">
                         <h3 class="font-bold text-lg text-sky-400">2. Keamanan Siber</h3>
-                        <p class="mt-2 text-sm text-slate-300">Lakukan audit keamanan independen secara berkala, terapkan Multi-Factor Authentication (MFA) yang kuat, dan pastikan enkripsi data end-to-end.</p>
+                        <p class="mt-2 text-sm text-slate-300">Lakukan audit keamanan independen, terapkan Multi-Factor Authentication (MFA) yang kuat, dan pastikan enkripsi data end-to-end baik saat transit maupun saat disimpan.</p>
                     </div>
-                    <div class="bg-slate-700 p-6 rounded-lg">
-                        <h3 class="font-bold text-lg text-indigo-400">3. Proses & UX</h3>
-                        <p class="mt-2 text-sm text-slate-300">Sederhanakan alur klaim, tingkatkan otomatisasi, berikan notifikasi status proaktif kepada peserta, dan tingkatkan kapasitas layanan pelanggan.</p>
+                    <div class="bg-slate-700/50 p-6 rounded-lg backdrop-blur-sm border border-slate-600">
+                        <h3 class="font-bold text-lg text-indigo-400">3. Proses & Pengguna</h3>
+                        <p class="mt-2 text-sm text-slate-300">Sederhanakan alur klaim, berikan notifikasi status proaktif kepada peserta, dan tingkatkan kapasitas serta kualitas layanan pelanggan untuk penanganan keluhan.</p>
                     </div>
-                    <div class="bg-slate-700 p-6 rounded-lg">
-                        <h3 class="font-bold text-lg text-rose-400">4. Komunikasi & Reputasi</h3>
-                        <p class="mt-2 text-sm text-slate-300">Kembangkan strategi komunikasi krisis, publikasikan laporan kinerja operasional secara transparan, dan libatkan pemangku kepentingan dalam dialog konstruktif.</p>
+                    <div class="bg-slate-700/50 p-6 rounded-lg backdrop-blur-sm border border-slate-600">
+                        <h3 class="font-bold text-lg text-rose-400">4. Komunikasi & Transparansi</h3>
+                        <p class="mt-2 text-sm text-slate-300">Kembangkan strategi komunikasi krisis, publikasikan laporan kinerja operasional secara rutin, dan libatkan publik dalam dialog konstruktif.</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Referensi -->
+        <section id="referensi" class="py-16 md:py-20 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800 text-center">Referensi</h2>
+                <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600 text-center">Daftar sumber yang digunakan dalam analisis audit ini.</p>
+                <div class="mt-12 text-slate-700 max-w-4xl mx-auto">
+                    <ol class="list-decimal list-outside space-y-4 pl-5">
+                        <li>Kompas.com. (2024, 11 Oktober). *Cairkan Tapera, Pensiunan PNS dan Ahli Waris Bisa Akses Portal E-Klaim*. Diakses dari [https://www.kompas.com/properti/read/2024/10/11/163000821/cairkan-tapera-pensiunan-pns-dan-ahli-waris-bisa-akses-portal-e-klaim](https://www.kompas.com/properti/read/2024/10/11/163000821/cairkan-tapera-pensiunan-pns-dan-ahli-waris-bisa-akses-portal-e-klaim)</li>
+                        <li>Kompas.com. (2024, 31 Mei). *Kapan Tapera Bisa Diambil? Ini Penjelasannya*. Diakses dari [https://money.kompas.com/read/2024/05/31/054000426/kapan-tapera-bisa-diambil-ini-penjelasannya](https://money.kompas.com/read/2024/05/31/054000426/kapan-tapera-bisa-diambil-ini-penjelasannya)</li>
+                        <li>Tempo.co. (2024, 1 Juni). *Inilah Beberapa Hal yang Perlu Anda Ketahui soal Tapera*. Diakses dari [https://www.tempo.co/ekonomi/inilah-beberapa-hal-yang-perlu-anda-ketahui-soal-tapera-53558](https://www.tempo.co/ekonomi/inilah-beberapa-hal-yang-perlu-anda-ketahui-soal-tapera-53558)</li>
+                        <li>Peraturan BP Tapera Nomor 4 Tahun 2021. (2021, 20 Februari). *Peraturan BP Tapera tentang Tata Cara Penyaluran Dana Tabungan Perumahan Rakyat*. Diakses dari [https://peraturan.bpk.go.id/Download/336944/Peraturan%20BP%20Tapera%20Nomor%204%20Tahun%202021.pdf](https://peraturan.bpk.go.id/Download/336944/Peraturan%20BP%20Tapera%20Nomor%204%20Tahun%202021.pdf)</li>
+                        <li>Gaji.id. (2024, 18 Juni). *Cara Klaim Tapera: Ini Aturan dan Persyaratannya*. Diakses dari [https://www.gaji.id/id/2024/06/18/cara-klaim-tapera-ini-aturan-dan-persyaratannya/](https://www.gaji.id/id/2024/06/18/cara-klaim-tapera-ini-aturan-dan-persyaratannya/)</li>
+                        <li>Balinesia.id. (2024, 12 Juni). *Begini Cara Mencairkan Dana Tapera Saat Pensiun*. Diakses dari [https://balinesia.id/read/begini-cara-mencairkan-dana-tapera-saat-pensiun](https://balinesia.id/read/begini-cara-mencairkan-dana-tapera-saat-pensiun)</li>
+                        <li>Kontan.co.id. (2020, 18 September). *Begini mekanisme pengembalian dana Taperum bagi PNS aktif, pensiun, dan ahli waris*. Diakses dari [https://nasional.kontan.co.id/news/begini-mekanisme-pengembalian-dana-taperum-bagi-pns-aktif-pensiun-dan-ahli-waris](https://nasional.kontan.co.id/news/begini-mekanisme-pengembalian-dana-taperum-bagi-pns-aktif-pensiun-dan-ahli-waris)</li>
+                        <li>Kompas.com. (2024, 11 Oktober). *Cairkan Tapera, Pensiunan PNS dan Ahli Waris Bisa Akses Portal E-Klaim*. Diakses dari [https://www.kompas.com/properti/read/2024/10/11/163000821/cairkan-tapera-pensiunan-pns-dan-ahli-waris-bisa-akses-portal-e-klaim](https://www.kompas.com/properti/read/2024/10/11/163000821/cairkan-tapera-pensiunan-pns-dan-ahli-waris-bisa-akses-portal-e-klaim)</li>
+                        <li>Apple App Store. *Tapera Mobile*. Diakses dari [https://apps.apple.com/id/app/tapera-mobile/id6462958688](https://apps.apple.com/id/app/tapera-mobile/id6462958688)</li>
+                        <li>Peraturan BP Tapera Nomor 4 Tahun 2021. (2021, 20 Februari). *Peraturan BP Tapera tentang Tata Cara Penyaluran Dana Tabungan Perumahan Rakyat*. Diakses dari [https://peraturan.bpk.go.id/Download/336944/Peraturan%20BP%20Tapera%20Nomor%204%20Tahun%202021.pdf](https://peraturan.bpk.go.id/Download/336944/Peraturan%20BP%20Tapera%20Nomor%204%20Tahun%202021.pdf)</li>
+                        <li>SITARA BP Tapera. *Pengkinian Data*. Diakses dari [https://sitara.tapera.go.id/pengkinian-data](https://sitara.tapera.go.id/pengkinian-data)</li>
+                        <li>SITARA BP Tapera. *SITARA BP TAPERA*. Diakses dari [https://sitara.tapera.go.id/](https://sitara.tapera.go.id/)</li>
+                        <li>Ombudsman RI. (2020, 29 September). *Ombudsman RI Minta BP Tapera Segera Lakukan Pengembalian Dana Taperum-PNS*. Diakses dari [https://ombudsman.go.id/news/r/ombudsman-ri-minta-bp-tapera-segera-lakukan-pengembalian-dana-taperum-pns](https://ombudsman.go.id/news/r/ombudsman-ri-minta-bp-tapera-segera-lakukan-pengembalian-dana-taperum-pns)</li>
+                        <li>Antara News. (2020, 16 November). *BP Tapera dan Ditjen Dukcapil jalin kerja sama validasi data nasabah*. Diakses dari [https://www.antaranews.com/berita/1844626/bp-tapera-dan-ditjen-dukcapil-jalin-kerja-sama-validasi-data-nasabah](https://www.antaranews.com/berita/1844626/bp-tapera-dan-ditjen-dukcapil-jalin-kerja-sama-validasi-data-nasabah)</li>
+                        <li>BTN. *KPR BTN Tapera*. Diakses dari [https://www.btn.co.id/id/individual/kredit-konsumer/produk-kredit/kpr-btn-tapera](https://www.btn.co.id/id/individual/kredit-konsumer/produk-kredit/kpr-btn-tapera)</li>
+                        <li>BPK RI. (2021). *Laporan Hasil Pemeriksaan BPK RI Tahun 2021 (BP Tapera)*. (Tidak ada tautan langsung ke dokumen spesifik, informasi diambil dari kutipan berita).</li>
+                        <li>Tribunnews.com. (2024, 25 Mei). *Cara Cek Status dan Cairkan Dana Tapera, Lengkapi Syarat dan Ikuti Tahapannya*. Diakses dari [https://www.tribunnews.com/bisnis/2024/05/25/cara-cek-status-dan-cairkan-dana-tapera-lengkapi-syarat-dan-ikuti-tahapannya](https://www.tribunnews.com/bisnis/2024/05/25/cara-cek-status-dan-cairkan-dana-tapera-lengkapi-syarat-dan-ikuti-tahapannya)</li>
+                        <li>Kompas.com. (2024, 25 Mei). *Kapan Tapera Bisa Dicairkan? Ini Syarat dan Caranya*. Diakses dari [https://money.kompas.com/read/2024/05/25/083000626/kapan-tapera-bisa-dicairkan-ini-syarat-dan-caranya](https://money.com/read/2024/05/25/083000626/kapan-tapera-bisa-dicairkan-ini-syarat-dan-caranya)</li>
+                        <li>Kompas.com. (2021, 26 Agustus). *BPK Temukan Rp567 Miliar Dana Tapera Belum Dikembalikan ke Pensiunan PNS*. Diakses dari [https://money.kompas.com/read/2021/08/26/183000826/bpk-temukan-rp567-miliar-dana-tapera-belum-dikembalikan-ke-pensiunan-pns](https://money.kompas.com/read/2021/08/26/183000826/bpk-temukan-rp567-miliar-dana-tapera-belum-dikembalikan-ke-pensiunan-pns)</li>
+                        <li>TikTok. (2024, 29 Mei). *Analisis Sentimen Publik Tapera Awal 2024 (Video TikTok Rubian)*. Diakses dari [https://www.tiktok.com/@rrubian/video/7374460937530526981](https://www.tiktok.com/@rrubian/video/7374460937530526981)</li>
+                        <li>UGM.ac.id. (2024, 3 Juni). *Kajian Peneliti Micdash FEB UGM: Pengelolaan Tapera Harus Transparan*. Diakses dari [https://ugm.ac.id/id/berita/kajian-peneliti-micdash-feb-ugm-pengelolaan-tapera-harus-transparan/](https://ugm.ac.id/id/berita/kajian-peneliti-micdash-feb-ugm-pengelolaan-tapera-harus-transparan/)</li>
+                        <li>Peraturan BP Tapera Nomor 4 Tahun 2021. (2021, 20 Februari). *Peraturan BP Tapera tentang Tata Cara Penyaluran Dana Tabungan Perumahan Rakyat*. Diakses dari [https://peraturan.bpk.go.id/Download/336944/Peraturan%20BP%20Tapera%20Nomor%204%20Tahun%202021.pdf](https://peraturan.bpk.go.id/Download/336944/Peraturan%20BP%20Tapera%20Nomor%204%20Tahun%202021.pdf) (Pasal 39, Penyetoran Dana Ditolak Bank)</li>
+                        <li>Hukumonline.com. (2022, 17 Oktober). *Urgensi Pengesahan RUU PDP: Perlindungan Data Pribadi di Indonesia*. Diakses dari [https://www.hukumonline.com/berita/baca/lt634b07c8ae99d/urgensi-pengesahan-ruu-pdp--perlindungan-data-pribadi-di-indonesia/](https://www.hukumonline.com/berita/baca/lt634b07c8ae99d/urgensi-pengesahan-ruu-pdp--perlindungan-data-pribadi-di-indonesia/)</li>
+                        <li>Peraturan BP Tapera Nomor 9 Tahun 2021. (2021, 26 Juli). *Peraturan BP Tapera tentang Administrasi Penyaluran Dana Fasilitas Likuiditas Pembiayaan Perumahan*. Diakses dari [https://peraturan.bpk.go.id/Download/336944/Peraturan%20BP%20Tapera%20Nomor%209%20Tahun%202021.pdf](https://peraturan.bpk.go.id/Download/336944/Peraturan%20BP%20Tapera%20Nomor%209%20Tahun%202021.pdf)</li>
+                        <li>Jobs.id. (2025, 22 Mei). *Badan Pengelola Tabungan Perumahan Rakyat (BP Tapera) Jobs: 20 Positions*. Diakses dari [https://www.jobsid.co/index.php/infoloker/bp-tapera-jobs-8-june-25](https://www.jobsid.co/index.php/infoloker/bp-tapera-jobs-8-june-25)</li>
+                        <li>ISO.org. *ISO/IEC 27001:2013 - Information security management systems*. Diakses dari [https://www.iso.org/standard/54534.html](https://www.iso.org/standard/54534.html)</li>
+                        <li>Center for Digital Society (CfDS) UGM. (2021, 23 November). *Cybersecurity Posture in Indonesia: Challenges and Opportunities*. Diakses dari [https://cfds.fisipol.ugm.ac.id/2021/11/23/cybersecurity-posture-in-indonesia-challenges-and-opportunities/](https://cfds.fisipol.ugm.ac.id/2021/11/23/cybersecurity-posture-in-indonesia-challenges-and-opportunities/)</li>
+                        <li>Kompas.com. (2022, 12 September). *Data Pribadi Warga Indonesia Rentan Bocor, Ini Penyebabnya*. Diakses dari [https://www.kompas.com/tren/read/2022/09/12/100000865/data-pribadi-warga-indonesia-rentan-bocor-ini-penyebabnya?page=all](https://www.kompas.com/tren/read/2022/09/12/100000865/data-pribadi-warga-indonesia-rentan-bocor-ini-penyebabnya?page=all)</li>
+                        <li>Kompas.com. (2022, 28 Juli). *Waspada! Data Pribadi NIK hingga KK Rentan Bocor di Jagat Maya*. Diakses dari [https://www.kompas.com/tren/read/2022/07/28/170000265/waspada--data-pribadi-nik-hingga-kk-rentan-bocor-di-jagat-maya](https://www.kompas.com/tren/read/2022/07/28/170000265/waspada--data-pribadi-nik-hingga-kk-rentan-bocor-di-jagat-maya)</li>
+                        <li>The Jakarta Post. (2022, 24 Agustus). *Is your personal data safe from cyberattacks?*. Diakses dari [https://www.thejakartapost.com/opinion/2022/08/24/is-your-personal-data-safe-from-cyberattacks-.html](https://www.thejakartapost.com/opinion/2022/08/24/is-your-personal-data-safe-from-cyberattacks-.html)</li>
+                        <li>SITARA BP Tapera. *Daftar Akun Baru*. Diakses dari [https://sitara.tapera.go.id/register](https://sitara.tapera.go.id/register)</li>
+                        <li>Kominfo.go.id. (2022, 20 Juli). *Kominfo Ingatkan Pentingnya PSE Terdaftar, Ini Manfaatnya*. Diakses dari [https://www.kominfo.go.id/content/detail/43336/kominfo-ingatkan-pentingnya-pse-terdaftar-ini-manfaatnya/0/berita](https://www.kominfo.go.id/content/detail/43336/kominfo-ingatkan-pentingnya-pse-terdaftar-ini-manfaatnya/0/berita)</li>
+                        <li>Kominfo.go.id. (2022, 1 Agustus). *Begini Proses Pendaftaran PSE Lingkup Privat di Kominfo*. Diakses dari [https://www.kominfo.go.id/content/detail/43516/begini-proses-pendaftaran-pse-lingkup-privat-di-kominfo/0/berita](https://www.kominfo.go.id/content/detail/43516/begini-proses-pendaftaran-pse-lingkup-privat-di-kominfo/0/berita)</li>
+                        <li>OJK.go.id. (2022, 28 Juli). *POJK Nomor 20 Tahun 2022 tentang Pengawasan BP Tapera*. Diakses dari [https://www.ojk.go.id/id/regulasi/Pages/POJK-Nomor-20-Tahun-2022-tentang-Pengawasan-Badan-Pengelola-Tabungan-Perumahan-Rakyat.aspx](https://www.ojk.go.id/id/regulasi/Pages/POJK-Nomor-20-Tahun-2022-tentang-Pengawasan-Badan-Pengelola-Tabungan-Perumahan-Rakyat.aspx)</li>
+                        <li>OJK.go.id. (2022, 28 Juli). *OJK Awasi BP Tapera*. Diakses dari [https://www.ojk.go.id/id/berita-dan-kegiatan/publikasi/Pages/OJK-Awasi-BP-Tapera.aspx](https://www.ojk.go.id/id/berita-dan-kegiatan/publikasi/Pages/OJK-Awasi-BP-Tapera.aspx)</li>
+                        <li>Detik Finance. (2022, 28 Juli). *OJK Resmi Awasi BP Tapera*. Diakses dari [https://finance.detik.com/properti/d-6202476/ojk-resmi-awasi-bp-tapera](https://finance.detik.com/properti/d-6202476/ojk-resmi-awasi-bp-tapera)</li>
+                        <li>OJK.go.id. (2022, 28 Juli). *POJK Nomor 20 Tahun 2022 tentang Pengawasan BP Tapera (Bab VI, Laporan)*. Diakses dari [https://www.ojk.go.id/id/regulasi/Pages/POJK-Nomor-20-Tahun-2022-tentang-Pengawasan-Badan-Pengelola-Tabungan-Perumahan-Rakyat.aspx](https://www.ojk.go.id/id/regulasi/Pages/POJK-Nomor-20-Tahun-2022-tentang-Pengawasan-Badan-Pengelola-Tabungan-Perumahan-Rakyat.aspx)</li>
+                        <li>Tirto.id. (2024, 6 Juni). *BP Tapera Diawasi 2 Lembaga Negara, Apa Fungsinya?*. Diakses dari [https://tirto.id/bp-tapera-diawasi-2-lembaga-negara-apa-fungsinya-gWUe](https://tirto.id/bp-tapera-diawasi-2-lembaga-negara-apa-fungsinya-gWUe)</li>
+                        <li>Peraturan BP Tapera Nomor 3 Tahun 2021. (2021, 20 Februari). *Peraturan BP Tapera tentang Tata Kelola Perusahaan yang Baik*. Diakses dari [https://peraturan.bpk.go.id/Download/336942/Peraturan%20BP%20Tapera%20Nomor%203%20Tahun%202021.pdf](https://peraturan.bpk.go.id/Download/336942/Peraturan%20BP%20Tapera%20Nomor%203%20Tahun%202021.pdf)</li>
+                        <li>BP Tapera. (2022). *Laporan Keuangan Dana Tapera Tahun 2022*. Diakses dari [https://www.tapera.go.id/wp-content/uploads/2023/04/LAPORAN-KEUANGAN-DANA-TAPERA-31-DESEMBER-2022-AUDITED.pdf](https://www.tapera.go.id/wp-content/uploads/2023/04/LAPORAN-KEUANGAN-DANA-TAPERA-31-DESEMBER-2022-AUDITED.pdf)</li>
+                        <li>UU No. 4 Tahun 2016. (2016). *Undang-Undang Republik Indonesia Nomor 4 Tahun 2016 tentang Tabungan Perumahan Rakyat*. Diakses dari [https://peraturan.bpk.go.id/Home/Details/45086/uu-no-4-tahun-2016](https://peraturan.bpk.go.id/Home/Details/45086/uu-no-4-tahun-2016)</li>
+                        <li>Peraturan Pemerintah (PP) No. 25 Tahun 2020. (2020, 20 Mei). *Peraturan Pemerintah tentang Penyelenggaraan Tabungan Perumahan Rakyat*. Diakses dari [https://peraturan.bpk.go.id/Home/Details/139360/pp-no-25-tahun-2020](https://peraturan.bpk.go.id/Home/Details/139360/pp-no-25-tahun-2020)</li>
+                        <li>Antara News. (2021, 30 Maret). *BP Tapera kembangkan layanan digital untuk perkuat ekosistem perumahan*. Diakses dari [https://www.antaranews.com/berita/2056638/bp-tapera-kembangkan-layanan-digital-untuk-perkuat-ekosistem-perumahan](https://www.antaranews.com/berita/2056638/bp-tapera-kembangkan-layanan-digital-untuk-perkuat-ekosistem-perumahan)</li>
+                        <li>CNN Indonesia. (2024, 29 Mei). *BP Tapera Siapkan Skema Tabungan Baru, Beda Dengan Iuran Wajib yang Heboh*. Diakses dari [https://www.cnnindonesia.com/ekonomi/20240529124443-78-1004111/bp-tapera-siapkan-skema-tabungan-baru-beda-dengan-iuran-wajib-yang-heboh](https://www.cnnindonesia.com/ekonomi/20240529124443-78-1004111/bp-tapera-siapkan-skema-tabungan-baru-beda-dengan-iuran-wajib-yang-heboh)</li>
+                        <li>CNBC Indonesia. (2024, 28 Mei). *Ini Alasan Buruh Tolak Iuran Tapera 3% dari Gaji*. Diakses dari [https://www.cnbcindonesia.com/news/20240528143431-4-541571/ini-alasan-buruh-tolak-iuran-tapera-3-dari-gaji](https://www.cnbcindonesia.com/news/20240528143431-4-541571/ini-alasan-buruh-tolak-iuran-tapera-3-dari-gaji)</li>
+                        <li>Detik Finance. (2024, 28 Mei). *Bos Properti Blak-blakan Tolak Iuran Tapera, Ini Alasannya*. Diakses dari [https://finance.detik.com/properti/d-7362071/bos-properti-blak-blakan-tolak-iuran-tapera-ini-alasannya](https://finance.detik.com/properti/d-7362071/bos-properti-blak-blakan-tolak-iuran-tapera-ini-alasannya)</li>
+                        <li>Kompas.com. (2024, 29 Mei). *Polemik Tapera: Tujuan Baik vs Beban Pekerja*. Diakses dari [https://www.kompas.com/tren/read/2024/05/29/100000865/polemik-tapera--tujuan-baik-vs-beban-pekerja](https://www.kompas.com/tren/read/2024/05/29/100000865/polemik-tapera--tujuan-baik-vs-beban-pekerja)</li>
+                    </ol>
                 </div>
             </div>
         </section>
@@ -254,7 +259,7 @@
 
     <footer class="bg-slate-900 text-white">
         <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-sm">Infografik ini dibuat untuk tujuan visualisasi data berdasarkan laporan audit risiko publik.</p>
+            <p class="text-sm text-slate-400">Dasbor interaktif ini dibuat untuk tujuan visualisasi data berdasarkan laporan audit risiko publik terhadap aplikasi e-Klaim Tapera.</p>
         </div>
     </footer>
 
@@ -286,30 +291,31 @@
                 const lines = [];
                 let currentLine = '';
                 words.forEach(word => {
-                    if ((currentLine + ' ' + word).length > maxLength) {
+                    if ((currentLine + word).length > maxLength) {
                         lines.push(currentLine.trim());
-                        currentLine = word;
+                        currentLine = word + ' ';
                     } else {
-                        currentLine += ' ' + word;
+                        currentLine += word + ' ';
                     }
                 });
                 lines.push(currentLine.trim());
                 return lines;
             }
 
-            const dataProblemCtx = document.getElementById('dataProblemChart');
+            // Chart for Operational Risk
+            const dataProblemCtx = document.getElementById('dataProblemChart')?.getContext('2d');
             if (dataProblemCtx) {
-                new Chart(dataProblemCtx.getContext('2d'), {
+                new Chart(dataProblemCtx, {
                     type: 'bar',
                     data: {
-                        labels: [wrapText('Riwayat Pangkat Anomali', 16), wrapText('NIK Tidak Lengkap', 16)],
+                        labels: ['Riwayat Pangkat Anomali', 'NIK Tidak Lengkap'],
                         datasets: [{
                             label: 'Jumlah Peserta',
                             data: [176743, 70513],
-                            backgroundColor: ['rgba(251, 146, 60, 0.8)', 'rgba(252, 211, 77, 0.8)'],
-                            borderColor: ['#f97316', '#facc15'],
+                            backgroundColor: ['rgba(245, 158, 11, 0.7)', 'rgba(251, 191, 36, 0.7)'],
+                            borderColor: ['#d97706', '#f59e0b'],
                             borderWidth: 2,
-                            borderRadius: 4
+                            borderRadius: 5
                         }]
                     },
                     options: {
@@ -318,17 +324,21 @@
                         indexAxis: 'y',
                         plugins: {
                             legend: { display: false },
-                            tooltip: tooltipConfig
+                            tooltip: tooltipConfig,
                         },
                         scales: {
                             x: {
                                 beginAtZero: true,
                                 grid: { color: '#e2e8f0' },
                                 ticks: {
+                                    font: { size: 10 },
                                     callback: function(value) { return (value / 1000) + 'k'; }
                                 }
                             },
-                            y: { grid: { display: false } }
+                            y: { 
+                                grid: { display: false },
+                                ticks: { font: { size: 12 } }
+                             }
                         }
                     }
                 });
@@ -343,7 +353,7 @@
                     borderColor: '#dc2626', // red-600
                     backgroundColor: 'rgba(220, 38, 38, 0.2)', // light red for area
                     tension: 0.3,
-                    fill: false, // Changed to false for better comparison
+                    fill: false,
                     pointBackgroundColor: '#dc2626',
                     pointBorderColor: '#fff',
                     pointBorderWidth: 2,
@@ -356,7 +366,7 @@
                     borderColor: '#94a3b8', // slate-400
                     backgroundColor: 'rgba(148, 163, 184, 0.2)', // light grey for area
                     tension: 0.3,
-                    fill: false, // Changed to false for better comparison
+                    fill: false,
                     pointBackgroundColor: '#94a3b8',
                     pointBorderColor: '#fff',
                     pointBorderWidth: 2,
@@ -369,7 +379,7 @@
                     borderColor: '#16a34a', // green-600
                     backgroundColor: 'rgba(22, 163, 74, 0.2)', // light green for area
                     tension: 0.3,
-                    fill: false, // Changed to false for better comparison
+                    fill: false,
                     pointBackgroundColor: '#16a34a',
                     pointBorderColor: '#fff',
                     pointBorderWidth: 2,
@@ -378,9 +388,9 @@
                 }]
             };
 
-            const sentimentTrendCtx = document.getElementById('sentimentTrendChart');
+            const sentimentTrendCtx = document.getElementById('sentimentTrendChart')?.getContext('2d');
             if (sentimentTrendCtx) {
-                new Chart(sentimentTrendCtx.getContext('2d'), {
+                new Chart(sentimentTrendCtx, {
                     type: 'line',
                     data: sentimentTrendData,
                     options: {
@@ -425,18 +435,18 @@
             }
 
 
-            const reputationCtx = document.getElementById('reputationChart');
+            const reputationCtx = document.getElementById('reputationChart')?.getContext('2d');
             if (reputationCtx) {
-                new Chart(reputationCtx.getContext('2d'), {
+                new Chart(reputationCtx, {
                     type: 'doughnut',
                     data: {
                         labels: ['Sentimen Negatif', 'Sentimen Netral', 'Sentimen Positif'],
                         datasets: [{
-                            data: [89, 6, 5], // Updated for 2025 with Positive and Neutral split
-                            backgroundColor: ['#e11d48', '#94a3b8', '#16a34a'],
-                            borderColor: ['#f8fafc'],
+                            data: [90.8, 7.2, 2], // Keep 2024 data for the current year's donut chart
+                            backgroundColor: ['#e11d48', '#9ca3af', '#22c55e'],
+                            borderColor: ['#ffffff'],
                             borderWidth: 4,
-                            hoverOffset: 8
+                            hoverOffset: 10
                         }]
                     },
                     options: {
@@ -444,12 +454,54 @@
                         maintainAspectRatio: false,
                         cutout: '70%',
                         plugins: {
-                            legend: { position: 'bottom', labels: { padding: 20 } },
-                            tooltip: tooltipConfig,
+                            legend: { 
+                                position: 'bottom',
+                                labels: {
+                                    padding: 20,
+                                    boxWidth: 15,
+                                    font: { size: 12 }
+                                } 
+                            },
+                            tooltip: {
+                                ...tooltipConfig,
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += context.parsed + '%';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            },
                         }
                     }
                 });
             }
+
+            // Active nav link scrolling
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('header nav a');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 80) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active-link');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active-link');
+                    }
+                });
+            });
         });
     </script>
 </body>
