@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografik Interaktif: Audit Risiko e-Klaim Tapera</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Professional & Alert (Vibrant Accents) -->
+    <!-- Application Structure Plan: Infografik ini dirancang sebagai narasi visual satu halaman yang mengalir. Dimulai dengan "hook" berupa statistik kunci yang paling berdampak untuk menarik perhatian pengguna. Kemudian, alur berlanjut ke pengenalan empat area risiko utama yang berfungsi sebagai navigasi. Setiap bagian risiko menyajikan visualisasi data inti (grafik batang, diagram, donut chart) dan teks penjelasan singkat untuk memecah informasi padat dari laporan. Alur diakhiri dengan rekomendasi aksi yang disajikan dalam format terstruktur. Struktur ini dipilih untuk mengubah laporan audit yang formal dan padat teks menjadi sebuah cerita data yang menarik, mudah dicerna, dan dapat dijelajahi secara intuitif oleh audiens yang lebih luas. -->
+    <!-- Visualization & Content Choices: 
+        - Statistik Kunci: "Single Big Number" untuk dampak finansial dan jumlah pensiunan terdampak (Goal: Inform, Method: Styled HTML/Tailwind). Ini memberikan dampak emosional dan kuantitatif secara langsung.
+        - Risiko Operasional: Grafik Batang Horizontal untuk membandingkan skala masalah data (Goal: Compare, Library: Chart.js). Kartu sorotan untuk potensi pengembalian ganda (Goal: Inform, Method: Styled HTML/Tailwind).
+        - Risiko Keamanan: Diagram tiga pilar (Kerahasiaan, Integritas, Ketersediaan) yang dibangun dengan HTML/CSS (Goal: Organize, Inform). Ini menyederhanakan konsep teknis yang kompleks.
+        - Risiko Kepatuhan: Diagram alur sederhana yang menunjukkan hubungan antara badan pengawas dan kesenjangan implementasi (Goal: Organize, Method: HTML/CSS).
+        - Risiko Reputasi: Donut chart untuk memvisualisasikan sentimen publik yang sangat negatif (Goal: Inform/Impact, Library: Chart.js).
+        - Rekomendasi: Daftar terstruktur menggunakan HTML/CSS.
+        Semua pilihan ini dibuat untuk memaksimalkan kejelasan dan dampak visual tanpa menggunakan SVG atau Mermaid JS, sesuai dengan batasan teknis.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* A light, clean blue-gray */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #ffffff, #f0f4f8);
+        }
+        .section-header {
+            border-bottom: 3px solid;
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center">
+            <h1 class="text-2xl md:text-3xl font-extrabold text-slate-800">Audit Risiko Aplikasi e-Klaim Tapera</h1>
+            <p class="mt-1 text-sm md:text-base text-slate-500">Sebuah Infografik Interaktif</p>
+        </div>
+    </header>
+
+    <main>
+        <!-- Section 1: The Hook -->
+        <section id="hook" class="py-16 md:py-20 text-center bg-slate-800 text-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Krisis Sistemik: Dampak Nyata di Balik Data</h2>
+                <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-300">Temuan audit BPK tahun 2021 mengungkap masalah fundamental pada sistem e-Klaim yang berdampak langsung pada hak ratusan ribu pensiunan.</p>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="stat-card text-slate-800 p-8 rounded-xl shadow-lg">
+                        <p class="text-5xl lg:text-6xl font-extrabold text-red-600">Rp 567+ Miliar</p>
+                        <p class="mt-3 text-lg font-semibold">Dana Pensiunan Belum Dikembalikan</p>
+                    </div>
+                    <div class="stat-card text-slate-800 p-8 rounded-xl shadow-lg">
+                        <p class="text-5xl lg:text-6xl font-extrabold text-red-600">124.960</p>
+                        <p class="mt-3 text-lg font-semibold">Pensiunan Terdampak Belum Menerima Haknya</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Risk Areas Navigation -->
+        <section class="py-16 md:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Empat Dimensi Risiko Kritis</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600">Audit mengidentifikasi empat area risiko utama yang saling terkait dan memerlukan perhatian segera. Jelajahi setiap area di bawah ini.</p>
+                <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <a href="#risiko-operasional" class="nav-button bg-white p-6 rounded-lg shadow-md border-b-4 border-amber-500">
+                        <span class="text-4xl">⚙️</span>
+                        <h3 class="mt-3 font-bold text-amber-600">OPERASIONAL</h3>
+                    </a>
+                    <a href="#risiko-keamanan" class="nav-button bg-white p-6 rounded-lg shadow-md border-b-4 border-sky-500">
+                        <span class="text-4xl">🛡️</span>
+                        <h3 class="mt-3 font-bold text-sky-600">KEAMANAN</h3>
+                    </a>
+                    <a href="#risiko-kepatuhan" class="nav-button bg-white p-6 rounded-lg shadow-md border-b-4 border-indigo-500">
+                        <span class="text-4xl">⚖️</span>
+                        <h3 class="mt-3 font-bold text-indigo-600">KEPATUHAN</h3>
+                    </a>
+                    <a href="#risiko-reputasi" class="nav-button bg-white p-6 rounded-lg shadow-md border-b-4 border-rose-500">
+                        <span class="text-4xl">📉</span>
+                        <h3 class="mt-3 font-bold text-rose-600">REPUTASI</h3>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Operational Risk -->
+        <section id="risiko-operasional" class="py-16 md:py-20 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="section-header text-3xl md:text-4xl font-bold text-amber-600 border-amber-600">Risiko Operasional: Integritas Data Runtuh</h2>
+                <p class="mt-6 max-w-3xl mx-auto text-lg text-slate-600">Akar dari segala masalah adalah data peserta yang tidak akurat dan tidak mutakhir. Temuan BPK mengungkap skala masalah yang masif, menghambat pengelolaan dana sebesar <strong class="text-amber-700">Rp 754,59 Miliar</strong>.</p>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="text-left">
+                        <h3 class="text-xl font-semibold text-slate-800 mb-2">Komposisi Data Peserta Bermasalah</h3>
+                        <p class="text-slate-500 mb-4">Total 247.246 data peserta aktif ditemukan tidak mutakhir, terbagi menjadi dua kategori utama:</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span class="text-amber-500 font-bold text-xl mr-3">1.</span>
+                                <div>
+                                    <h4 class="font-semibold text-slate-700">Riwayat Kepangkatan Anomali</h4>
+                                    <p class="text-slate-500">Sebanyak 176.743 orang memiliki data riwayat pangkat yang tidak wajar.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-500 font-bold text-xl mr-3">2.</span>
+                                <div>
+                                    <h4 class="font-semibold text-slate-700">NIK Tidak Lengkap</h4>
+                                    <p class="text-slate-500">Sebanyak 70.513 orang tidak memiliki Nomor Induk Kependudukan yang lengkap.</p>
+                                </div>
+                            </li>
+                        </ul>
+                         <div class="mt-6 bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+                            <p class="text-amber-800"><strong class="font-bold">Potensi Kerugian Lain:</strong> Audit juga menemukan potensi pengembalian ganda senilai <strong class="font-bold">Rp 130,25 Miliar</strong> kepada 40.266 orang akibat lemahnya sistem verifikasi.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="chart-container">
+                            <canvas id="dataProblemChart"></canvas>
+                        </div>
+                         <p class="mt-4 text-sm text-slate-500">Visualisasi perbandingan jumlah peserta dengan data bermasalah.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Security Risk -->
+        <section id="risiko-keamanan" class="py-16 md:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="section-header text-3xl md:text-4xl font-bold text-sky-600 border-sky-600">Risiko Keamanan: Benteng Digital yang Rapuh</h2>
+                <p class="mt-6 max-w-3xl mx-auto text-lg text-slate-600">Meskipun ada niat untuk patuh pada UU PDP dan ISO 27001, implementasi keamanan belum teruji di tengah lanskap siber nasional yang rentan. Tiga pilar keamanan informasi menjadi taruhannya.</p>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-sky-100 text-3xl">🔒</div>
+                        <h3 class="mt-4 text-xl font-bold text-slate-800">Kerahasiaan</h3>
+                        <p class="mt-2 text-slate-500">Melindungi data dari akses tidak sah. Risiko utama adalah kebocoran data pribadi dan finansial peserta.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-sky-100 text-3xl">✅</div>
+                        <h3 class="mt-4 text-xl font-bold text-slate-800">Integritas</h3>
+                        <p class="mt-2 text-slate-500">Menjamin keakuratan data. Risiko utamanya adalah manipulasi data klaim yang dapat menyebabkan kerugian finansial.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-sky-100 text-3xl">⏱️</div>
+                        <h3 class="mt-4 text-xl font-bold text-slate-800">Ketersediaan</h3>
+                        <p class="mt-2 text-slate-500">Memastikan sistem dapat diakses saat dibutuhkan. Risiko utamanya adalah downtime sistem yang menunda hak peserta.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Compliance Risk -->
+        <section id="risiko-kepatuhan" class="py-16 md:py-20 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="section-header text-3xl md:text-4xl font-bold text-indigo-600 border-indigo-600">Risiko Kepatuhan: Kesenjangan Regulasi & Realita</h2>
+                <p class="mt-6 max-w-3xl mx-auto text-lg text-slate-600">Pengawasan dari OJK dan BPK sudah ada, namun temuan audit yang berulang menunjukkan bahwa aturan yang ada belum sepenuhnya terimplementasi secara efektif di lapangan.</p>
+                <div class="mt-12 max-w-4xl mx-auto bg-slate-50 p-8 rounded-lg shadow-inner">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center text-center">
+                        <div class="font-bold text-indigo-700">
+                            <p class="text-2xl">OJK & BPK</p>
+                            <p>Badan Pengawas</p>
+                        </div>
+                        <div class="text-5xl text-indigo-400 my-4 md:my-0">→</div>
+                        <div class="p-4 bg-white rounded-lg shadow">
+                            <h3 class="font-semibold text-slate-800">Implementasi BP Tapera</h3>
+                            <div class="mt-2 bg-red-100 text-red-700 p-2 rounded">
+                                <p class="font-bold">KESENJANGAN</p>
+                                <p class="text-sm">Temuan BPK tentang data & dana belum tersalurkan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Reputation Risk -->
+        <section id="risiko-reputasi" class="py-16 md:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="section-header text-3xl md:text-4xl font-bold text-rose-600 border-rose-600">Risiko Reputasi: Kepercayaan yang Terkikis</h2>
+                <p class="mt-6 max-w-3xl mx-auto text-lg text-slate-600">Kegagalan operasional dan komunikasi yang kurang efektif memicu sentimen publik yang sangat negatif, mengancam legitimasi dan keberlanjutan program Tapera.</p>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="chart-container" style="height:280px;">
+                            <canvas id="reputationChart"></canvas>
+                        </div>
+                        <p class="mt-4 text-sm text-slate-500">Analisis Sentimen Publik di Media Sosial (Awal 2024)</p>
+                    </div>
+                    <div class="text-left">
+                        <h3 class="text-2xl font-bold text-slate-800">Badai Opini Negatif</h3>
+                        <p class="mt-2 text-slate-600">Sentimen negatif ini didorong oleh beberapa faktor kunci:</p>
+                        <ul class="mt-4 space-y-3 list-disc list-inside">
+                            <li>Laporan Ombudsman mengenai kendala pencairan dana.</li>
+                            <li>Pemberitaan media yang luas mengenai 124.960 pensiunan yang belum menerima dana.</li>
+                            <li>Polemik dan penolakan kebijakan dari serikat pekerja dan pengusaha.</li>
+                            <li>Penyebaran informasi (dan misinformasi) yang cepat di media sosial.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Recommendations -->
+        <section class="py-16 md:py-20 bg-slate-800 text-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold">Rekomendasi Aksi Strategis</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-300">Untuk memitigasi risiko dan membangun kembali kepercayaan, diperlukan empat pilar perbaikan yang fundamental.</p>
+                <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
+                    <div class="bg-slate-700 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg text-amber-400">1. Tata Kelola Data</h3>
+                        <p class="mt-2 text-sm text-slate-300">Implementasi kerangka kerja tata kelola data yang komprehensif, investasi pada teknologi integrasi real-time, dan bangun sistem peringatan dini untuk data anomali.</p>
+                    </div>
+                    <div class="bg-slate-700 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg text-sky-400">2. Keamanan Siber</h3>
+                        <p class="mt-2 text-sm text-slate-300">Lakukan audit keamanan independen secara berkala, terapkan Multi-Factor Authentication (MFA) yang kuat, dan pastikan enkripsi data end-to-end.</p>
+                    </div>
+                    <div class="bg-slate-700 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg text-indigo-400">3. Proses & UX</h3>
+                        <p class="mt-2 text-sm text-slate-300">Sederhanakan alur klaim, tingkatkan otomatisasi, berikan notifikasi status proaktif kepada peserta, dan tingkatkan kapasitas layanan pelanggan.</p>
+                    </div>
+                    <div class="bg-slate-700 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg text-rose-400">4. Komunikasi & Reputasi</h3>
+                        <p class="mt-2 text-sm text-slate-300">Kembangkan strategi komunikasi krisis, publikasikan laporan kinerja operasional secara transparan, dan libatkan pemangku kepentingan dalam dialog konstruktif.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-900 text-white">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm">Infografik ini dibuat untuk tujuan visualisasi data berdasarkan laporan audit risiko publik.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            Chart.defaults.color = '#334155'; // slate-700
+
+            const tooltipConfig = {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        } else {
+                            return label;
+                        }
+                    }
+                }
+            };
+            
+            function wrapText(text, maxLength) {
+                if (typeof text !== 'string' || text.length <= maxLength) {
+                    return text;
+                }
+                const words = text.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + ' ' + word).length > maxLength) {
+                        lines.push(currentLine.trim());
+                        currentLine = word;
+                    } else {
+                        currentLine += ' ' + word;
+                    }
+                });
+                lines.push(currentLine.trim());
+                return lines;
+            }
+
+            const dataProblemCtx = document.getElementById('dataProblemChart');
+            if (dataProblemCtx) {
+                new Chart(dataProblemCtx.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: [wrapText('Riwayat Pangkat Anomali', 16), wrapText('NIK Tidak Lengkap', 16)],
+                        datasets: [{
+                            label: 'Jumlah Peserta',
+                            data: [176743, 70513],
+                            backgroundColor: ['rgba(251, 146, 60, 0.8)', 'rgba(252, 211, 77, 0.8)'],
+                            borderColor: ['#f97316', '#facc15'],
+                            borderWidth: 2,
+                            borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: tooltipConfig
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                grid: { color: '#e2e8f0' },
+                                ticks: {
+                                    callback: function(value) { return (value / 1000) + 'k'; }
+                                }
+                            },
+                            y: { grid: { display: false } }
+                        }
+                    }
+                });
+            }
+
+            const reputationCtx = document.getElementById('reputationChart');
+            if (reputationCtx) {
+                new Chart(reputationCtx.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Sentimen Negatif', 'Lainnya'],
+                        datasets: [{
+                            data: [90.8, 9.2],
+                            backgroundColor: ['#e11d48', '#e2e8f0'],
+                            borderColor: ['#f8fafc'],
+                            borderWidth: 4,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            legend: { position: 'bottom', labels: { padding: 20 } },
+                            tooltip: tooltipConfig,
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
