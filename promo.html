@@ -6,175 +6,278 @@
     <title>Wujudkan Rumah Impian - Fasilitas Pembiayaan KPR FLPP dari BPTAPERA</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* Gaya kustom untuk font Inter dan warna dasar */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* Warna latar belakang sangat terang */
-            color: #334155; /* Warna teks gelap */
+            background-color: #f0fdf4; /* Warna latar belakang hijau sangat terang */
+            color: #1f2937; /* Warna teks abu-abu gelap */
         }
         /* Custom scrollbar for better aesthetics */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #e0f2f1; /* Hijau muda */
             border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb {
-            background: #888;
+            background: #34d399; /* Hijau terang */
             border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #555;
+            background: #10b981; /* Hijau lebih gelap */
+        }
+
+        /* Custom animation for fade-in */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-fade-in-down {
+            animation: fadeInDown 1s ease-out forwards;
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+            animation-delay: 0.3s; /* Delay untuk efek berurutan */
+        }
+        .animate-pop-in {
+            animation: popIn 0.8s ease-out forwards;
         }
     </style>
 </head>
 <body class="antialiased">
     <!-- Header Section -->
-    <header class="bg-gradient-to-r from-emerald-700 to-green-600 text-white py-8 px-4 shadow-lg rounded-b-xl relative">
-        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between text-center md:text-left">
+    <header class="bg-gradient-to-br from-emerald-800 to-green-700 text-white py-12 px-4 shadow-xl rounded-b-3xl relative overflow-hidden">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between text-center md:text-left relative z-10">
             <!-- Logo BP Tapera (Kiri Atas) -->
-            <div class="absolute top-4 left-4 md:static">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Logo_BP_Tapera.png" alt="Logo BP Tapera" class="h-16 md:h-20 rounded-full shadow-md">
+            <div class="absolute top-6 left-6 md:static animate-pop-in" style="animation-delay: 0.2s;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Logo_BP_Tapera.png" alt="Logo BP Tapera" class="h-20 md:h-24 rounded-full shadow-lg border-2 border-white">
             </div>
 
             <!-- Header Text -->
             <div class="flex-grow text-center mt-8 md:mt-0 md:order-2">
-                <h1 class="text-3xl md:text-5xl font-extrabold mb-2 animate-fade-in-down">
-                    Wujudkan Rumah Impian Anda dengan Fasilitas Pembiayaan KPR FLPP dari BPTAPERA!
+                <h1 class="text-4xl lg:text-6xl font-extrabold mb-4 leading-tight animate-fade-in-down">
+                    Wujudkan Rumah Impian Anda <br class="hidden md:block"> Bersama Fasilitas Pembiayaan KPR FLPP dari BPTAPERA!
                 </h1>
-                <p class="text-lg md:text-xl font-light opacity-90 animate-fade-in-up">
-                    Solusi Pembiayaan Perumahan Subsidi Terbaik untuk Seluruh Pekerja Indonesia
+                <p class="text-xl md:text-2xl font-light opacity-90 animate-fade-in-up">
+                    Solusi Pembiayaan Perumahan Subsidi Terbaik <br class="hidden md:block"> untuk Seluruh Pekerja Indonesia
                 </p>
             </div>
 
             <!-- Logo Kementerian PKP (Kanan Atas) -->
-            <div class="absolute top-4 right-4 md:static md:order-3">
-                <img src="uploaded:image_6a3d9f.png-0e5c5aaa-0bf7-470b-ae00-b28c2d88caed" alt="Logo Kementerian Perumahan dan Kawasan Permukiman" class="h-16 md:h-20 rounded-full shadow-md">
+            <div class="absolute top-6 right-6 md:static md:order-3 animate-pop-in" style="animation-delay: 0.4s;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Logo_Kementerian_Perumahan_dan_Kawasan_Permukiman_RI_%282025%29_%28logo_only%29.svg" alt="Logo Kementerian Perumahan dan Kawasan Permukiman" class="h-20 md:h-24 rounded-full shadow-lg border-2 border-white">
             </div>
         </div>
+        <!-- Decorative background elements -->
+        <div class="absolute inset-0 bg-pattern opacity-10"></div>
     </header>
 
     <!-- Main Content Container -->
     <main class="container mx-auto p-4 md:p-8">
 
         <!-- About FLPP Section -->
-        <section class="bg-white rounded-lg shadow-xl p-6 md:p-10 mb-12 transform hover:scale-105 transition-transform duration-300">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-emerald-800 mb-8 border-b-2 border-emerald-500 pb-4">
+        <section class="bg-white rounded-xl shadow-2xl p-6 md:p-10 mb-16 transform hover:scale-[1.01] transition-transform duration-300 ring-2 ring-green-100 hover:ring-green-300">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-emerald-800 mb-8 border-b-4 border-emerald-500 pb-4">
                 Apa itu Fasilitas Pembiayaan KPR FLPP dari BPTAPERA?
             </h2>
-            <p class="text-lg text-gray-700 leading-relaxed text-center max-w-3xl mx-auto mb-8">
-                Fasilitas Likuiditas Pembiayaan Perumahan (FLPP) dari BPTAPERA adalah program unggulan pemerintah untuk membantu Anda, para pekerja berpenghasilan rendah, memiliki rumah layak huni dengan skema pembiayaan yang sangat ringan dan terjangkau. Kami hadir untuk mewujudkan impian kepemilikan rumah bagi setiap keluarga Indonesia.
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed text-center max-w-4xl mx-auto mb-10">
+                Fasilitas Likuiditas Pembiayaan Perumahan (FLPP) dari BPTAPERA adalah program unggulan pemerintah yang dirancang khusus untuk membantu Anda, para pekerja berpenghasilan rendah, mewujudkan impian memiliki rumah layak huni. Dengan skema pembiayaan yang ringan dan terjangkau, kami berkomitmen penuh untuk mendukung setiap keluarga Indonesia mendapatkan hunian pribadi yang nyaman dan aman.
             </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-green-50 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold text-emerald-700 mb-3">Suku Bunga Tetap Rendah</h3>
-                    <p class="text-gray-600">Nikmati suku bunga flat yang stabil dan sangat kompetitif, membuat cicilan Anda ringan sepanjang tenor.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-green-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border border-green-200">
+                    <div class="text-emerald-600 text-4xl mb-4 text-center">🏠</div> <!-- Icon -->
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-3 text-center">Suku Bunga Tetap Rendah</h3>
+                    <p class="text-gray-600 text-center">Nikmati suku bunga flat yang stabil dan sangat kompetitif, membuat cicilan bulanan Anda jauh lebih ringan dan terprediksi.</p>
                 </div>
-                <div class="bg-green-50 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold text-emerald-700 mb-3">Tenor Pembiayaan Panjang</h3>
-                    <p class="text-gray-600">Pilih jangka waktu pembiayaan hingga 20 tahun, sesuaikan dengan kemampuan finansial Anda.</p>
+                <div class="bg-green-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border border-green-200">
+                    <div class="text-emerald-600 text-4xl mb-4 text-center">⏳</div> <!-- Icon -->
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-3 text-center">Tenor Pembiayaan Panjang</h3>
+                    <p class="text-gray-600 text-center">Pilih jangka waktu pembiayaan yang fleksibel hingga 20 tahun, memberikan kemudahan dalam perencanaan finansial jangka panjang Anda.</p>
                 </div>
-                <div class="bg-green-50 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold text-emerald-700 mb-3">Proses Mudah & Cepat</h3>
-                    <p class="text-gray-600">Prosedur pengajuan yang sederhana, transparan, dan didukung oleh layanan responsif.</p>
+                <div class="bg-green-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border border-green-200">
+                    <div class="text-emerald-600 text-4xl mb-4 text-center">🚀</div> <!-- Icon -->
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-3 text-center">Proses Mudah & Cepat</h3>
+                    <p class="text-gray-600 text-center">Prosedur pengajuan yang sederhana, transparan, dan didukung oleh tim layanan responsif yang siap membantu Anda.</p>
                 </div>
-                <div class="bg-green-50 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold text-emerald-700 mb-3">Bebas Biaya Tertentu</h3>
-                    <p class="text-gray-600">Dapatkan keuntungan pembebasan beberapa biaya seperti PPN dan BPHTB.</p>
+                <div class="bg-green-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border border-green-200">
+                    <div class="text-emerald-600 text-4xl mb-4 text-center">💰</div> <!-- Icon -->
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-3 text-center">Bebas Biaya Tertentu</h3>
+                    <p class="text-gray-600 text-center">Dapatkan keuntungan ekstra dengan pembebasan beberapa biaya penting seperti PPN dan BPHTB, mengurangi beban awal Anda.</p>
                 </div>
-                <div class="bg-green-50 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold text-emerald-700 mb-3">Jaringan Bank Luas</h3>
-                    <p class="text-gray-600">Bekerja sama dengan berbagai bank penyalur terkemuka di seluruh Indonesia.</p>
+                <div class="bg-green-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border border-green-200">
+                    <div class="text-emerald-600 text-4xl mb-4 text-center">🌐</div> <!-- Icon -->
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-3 text-center">Jaringan Bank Luas</h3>
+                    <p class="text-gray-600 text-center">Bekerja sama dengan berbagai bank penyalur terkemuka di seluruh Indonesia, memudahkan akses Anda ke pembiayaan.</p>
                 </div>
-                <div class="bg-green-50 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold text-emerald-700 mb-3">Kualitas Terjamin</h3>
-                    <p class="text-gray-600">Rumah subsidi berkualitas di lokasi strategis yang terus berkembang.</p>
+                <div class="bg-green-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border border-green-200">
+                    <div class="text-emerald-600 text-4xl mb-4 text-center">✅</div> <!-- Icon -->
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-3 text-center">Kualitas Rumah Terjamin</h3>
+                    <p class="text-gray-600 text-center">Pilihan rumah subsidi berkualitas di lokasi strategis yang terus berkembang, siap menjadi hunian impian Anda.</p>
                 </div>
             </div>
         </section>
 
+        <!-- Infographic Section: Simple Process Flow -->
+        <section class="bg-gradient-to-br from-teal-50 to-emerald-100 rounded-xl shadow-2xl p-6 md:p-10 mb-16 ring-2 ring-emerald-300">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-emerald-800 mb-10 border-b-4 border-emerald-500 pb-4">
+                Langkah Mudah Menuju Rumah Impian Anda
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-center">
+                <!-- Step 1 -->
+                <div class="flex flex-col items-center text-center p-4">
+                    <div class="bg-emerald-600 text-white rounded-full h-16 w-16 flex items-center justify-center text-3xl font-bold mb-4 shadow-lg animate-pop-in" style="animation-delay: 0.1s;">1</div>
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-2">Penuhi Persyaratan</h3>
+                    <p class="text-gray-600">Pastikan Anda memenuhi kriteria yang ditetapkan.</p>
+                </div>
+                <!-- Arrow 1 -->
+                <div class="hidden lg:flex items-center justify-center">
+                    <svg class="w-16 h-16 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </div>
+                <!-- Step 2 -->
+                <div class="flex flex-col items-center text-center p-4">
+                    <div class="bg-emerald-600 text-white rounded-full h-16 w-16 flex items-center justify-center text-3xl font-bold mb-4 shadow-lg animate-pop-in" style="animation-delay: 0.3s;">2</div>
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-2">Pilih Rumah Subsidi</h3>
+                    <p class="text-gray-600">Pilih rumah impian Anda dari pengembang terdaftar.</p>
+                </div>
+                <!-- Arrow 2 -->
+                <div class="hidden lg:flex items-center justify-center">
+                    <svg class="w-16 h-16 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </div>
+                <!-- Step 3 -->
+                <div class="flex flex-col items-center text-center p-4">
+                    <div class="bg-emerald-600 text-white rounded-full h-16 w-16 flex items-center justify-center text-3xl font-bold mb-4 shadow-lg animate-pop-in" style="animation-delay: 0.5s;">3</div>
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-2">Ajukan & Verifikasi</h3>
+                    <p class="text-gray-600">Proses pengajuan melalui bank penyalur dan verifikasi.</p>
+                </div>
+                <!-- Arrow 3 -->
+                <div class="hidden lg:flex items-center justify-center">
+                    <svg class="w-16 h-16 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </div>
+                <!-- Step 4 -->
+                <div class="flex flex-col items-center text-center p-4">
+                    <div class="bg-emerald-600 text-white rounded-full h-16 w-16 flex items-center justify-center text-3xl font-bold mb-4 shadow-lg animate-pop-in" style="animation-delay: 0.7s;">4</div>
+                    <h3 class="text-xl font-semibold text-emerald-700 mb-2">Akad Kredit & Huni</h3>
+                    <p class="text-gray-600">Akad kredit sukses, rumah impian Anda siap dihuni!</p>
+                </div>
+            </div>
+        </section>
+
+
         <!-- Target Audience Section -->
-        <section class="bg-white rounded-lg shadow-xl p-6 md:p-10 mb-12 transform hover:scale-105 transition-transform duration-300">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-emerald-800 mb-8 border-b-2 border-emerald-500 pb-4">
+        <section class="bg-white rounded-xl shadow-2xl p-6 md:p-10 mb-16 transform hover:scale-[1.01] transition-transform duration-300 ring-2 ring-green-100 hover:ring-green-300">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-emerald-800 mb-8 border-b-4 border-emerald-500 pb-4">
                 Siapa Saja yang Bisa Mengajukan Fasilitas Pembiayaan KPR FLPP dari BPTAPERA?
             </h2>
-            <p class="text-lg text-gray-700 leading-relaxed text-center max-w-3xl mx-auto mb-8">
-                Program Fasilitas Pembiayaan KPR FLPP dari BPTAPERA didedikasikan untuk menjangkau berbagai profesi dan lapisan masyarakat. Jika Anda termasuk salah satu dari daftar di bawah ini, Anda berpeluang besar untuk memiliki rumah sendiri!
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed text-center max-w-4xl mx-auto mb-10">
+                Program Fasilitas Pembiayaan KPR FLPP dari BPTAPERA didedikasikan untuk menjangkau berbagai profesi dan lapisan masyarakat di seluruh Indonesia. Jika Anda termasuk salah satu dari daftar di bawah ini, peluang Anda untuk memiliki rumah sendiri terbuka lebar!
             </p>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Pekerja Migran</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Petani & ASN Kementan</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Nelayan</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Buruh</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Pegawai POLRI</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Pegawai TNI AD</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Perawat</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Bidan</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Tenaga Kesehatan</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Masyarakat Umum</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Pegawai Kemendagri</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Pegawai BPS</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Pegawai Kemenkeu</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Pegawai BKKBN</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Asisten Rumah Tangga (ART)</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Driver Grab</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Driver Gojek</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Wartawan</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Pegawai Kemenpan RB</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Pegawai Imipas</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Pegawai In Journey</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Pegawai Ombudsman RI</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Pegawai Pemprov Jabar</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Karyawan Blue Bird</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Pegawai BKN</div>
-                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 transition-colors duration-200">Pegawai ANRI</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Pekerja Migran</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Petani & ASN Kementan</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Nelayan</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Buruh</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Pegawai POLRI</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Pegawai TNI AD</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Perawat</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Bidan</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Tenaga Kesehatan</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Masyarakat Umum</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Pegawai Kemendagri</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Pegawai BPS</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Pegawai Kemenkeu</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Pegawai BKKBN</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Asisten Rumah Tangga (ART)</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Driver Grab</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Driver Gojek</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Wartawan</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Pegawai Kemenpan RB</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Pegawai Imipas</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Pegawai In Journey</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Pegawai Ombudsman RI</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Pegawai Pemprov Jabar</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Karyawan Blue Bird</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Pegawai BKN</div>
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm text-center text-blue-800 font-medium hover:bg-blue-100 hover:shadow-md transition-all duration-200 cursor-pointer">Pegawai ANRI</div>
             </div>
         </section>
 
         <!-- How to Apply Section -->
-        <section class="bg-white rounded-lg shadow-xl p-6 md:p-10 mb-12 transform hover:scale-105 transition-transform duration-300">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-emerald-800 mb-8 border-b-2 border-emerald-500 pb-4">
+        <section class="bg-white rounded-xl shadow-2xl p-6 md:p-10 mb-16 transform hover:scale-[1.01] transition-transform duration-300 ring-2 ring-green-100 hover:ring-green-300">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-emerald-800 mb-8 border-b-4 border-emerald-500 pb-4">
                 Bagaimana Cara Mengajukan Fasilitas Pembiayaan KPR FLPP dari BPTAPERA?
             </h2>
-            <p class="text-lg text-gray-700 leading-relaxed text-center max-w-3xl mx-auto mb-8">
-                Proses pengajuan FLPP sangat mudah dan transparan. Ikuti langkah-langkah sederhana ini untuk memulai perjalanan Anda memiliki rumah impian:
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed text-center max-w-4xl mx-auto mb-10">
+                Proses pengajuan Fasilitas Pembiayaan KPR FLPP sangat mudah dan transparan. Ikuti langkah-langkah sederhana ini untuk memulai perjalanan Anda memiliki rumah impian:
             </p>
             <ol class="list-decimal list-inside text-lg text-gray-700 space-y-4 max-w-2xl mx-auto">
-                <li class="bg-gray-50 p-3 rounded-md shadow-sm">
-                    <strong>Penuhi Persyaratan Umum:</strong> Pastikan Anda memenuhi kriteria dan persyaratan yang ditetapkan oleh BP Tapera.
+                <li class="bg-gray-50 p-3 rounded-md shadow-sm border border-gray-200">
+                    <strong>Penuhi Persyaratan Umum:</strong> Pastikan Anda memenuhi kriteria dan persyaratan yang ditetapkan oleh BP Tapera, termasuk status sebagai WNI, usia, penghasilan, dan belum memiliki rumah.
                 </li>
-                <li class="bg-gray-50 p-3 rounded-md shadow-sm">
-                    <strong>Pilih Rumah Subsidi:</strong> Cari dan pilih unit rumah subsidi dari pengembang yang telah bekerja sama dengan BP Tapera di wilayah pilihan Anda.
+                <li class="bg-gray-50 p-3 rounded-md shadow-sm border border-gray-200">
+                    <strong>Pilih Rumah Subsidi:</strong> Cari dan pilih unit rumah subsidi dari daftar pengembang yang telah bekerja sama dengan BP Tapera di wilayah pilihan Anda. Tim kami siap membantu Anda menemukan pilihan terbaik.
                 </li>
-                <li class="bg-gray-50 p-3 rounded-md shadow-sm">
-                    <strong>Siapkan Dokumen:</strong> Lengkapi semua dokumen yang diperlukan, seperti KTP, Kartu Keluarga, NPWP, slip gaji, dan surat keterangan kerja.
+                <li class="bg-gray-50 p-3 rounded-md shadow-sm border border-gray-200">
+                    <strong>Siapkan Dokumen:</strong> Lengkapi semua dokumen yang diperlukan, seperti KTP, Kartu Keluarga, NPWP, slip gaji/surat keterangan penghasilan, dan surat keterangan kerja. Pastikan semua dokumen asli dan fotokopi lengkap.
                 </li>
-                <li class="bg-gray-50 p-3 rounded-md shadow-sm">
-                    <strong>Ajukan ke Bank Penyalur:</strong> Datangi bank penyalur FLPP terdekat (daftar bank bisa dilihat di website BP Tapera) untuk mengajukan permohonan pembiayaan.
+                <li class="bg-gray-50 p-3 rounded-md shadow-sm border border-gray-200">
+                    <strong>Ajukan ke Bank Penyalur:</strong> Datangi bank penyalur FLPP terdekat yang bekerja sama dengan BP Tapera untuk mengajukan permohonan pembiayaan. Anda akan dibantu mengisi formulir aplikasi.
                 </li>
-                <li class="bg-gray-50 p-3 rounded-md shadow-sm">
-                    <strong>Proses Verifikasi & Persetujuan:</strong> Bank akan melakukan verifikasi data dan proses persetujuan.
+                <li class="bg-gray-50 p-3 rounded-md shadow-sm border border-gray-200">
+                    <strong>Proses Verifikasi & Persetujuan:</strong> Bank akan melakukan verifikasi data dan analisis kelayakan kredit Anda. Proses ini akan memastikan semua persyaratan terpenuhi sebelum persetujuan akhir.
                 </li>
-                <li class="bg-gray-50 p-3 rounded-md shadow-sm">
-                    <strong>Akad Kredit & Serah Terima:</strong> Setelah disetujui, Anda akan melakukan akad kredit dan rumah impian Anda siap dihuni!
+                <li class="bg-gray-50 p-3 rounded-md shadow-sm border border-gray-200">
+                    <strong>Akad Kredit & Serah Terima:</strong> Setelah permohonan Anda disetujui, Anda akan diundang untuk melakukan akad kredit. Setelah proses akad selesai, rumah impian Anda secara resmi siap untuk dihuni!
                 </li>
             </ol>
         </section>
 
         <!-- Call to Action Section -->
-        <section class="text-center bg-gradient-to-r from-emerald-600 to-green-500 text-white p-8 rounded-lg shadow-2xl mb-12 transform hover:scale-105 transition-transform duration-300">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+        <section class="text-center bg-gradient-to-br from-emerald-600 to-green-500 text-white p-8 rounded-xl shadow-2xl mb-12 transform hover:scale-[1.01] transition-transform duration-300 ring-2 ring-green-100 hover:ring-green-300">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 leading-tight">
                 Jangan Tunda Lagi, Wujudkan Rumah Idaman Anda Sekarang!
             </h2>
-            <p class="text-lg mb-8">
-                Tim kami siap membantu Anda di setiap langkah. Klik tombol di bawah untuk informasi lebih lanjut atau mulai pengajuan Anda.
+            <p class="text-lg md:text-xl mb-8">
+                Tim profesional kami siap membantu Anda di setiap langkah. Klik tombol di bawah ini untuk informasi lebih lanjut atau mulai pengajuan Anda.
             </p>
             <a href="https://www.tapera.go.id/program/flpp/" target="_blank"
-               class="inline-block bg-orange-500 hover:bg-orange-600 text-white text-xl md:text-2xl font-bold py-4 px-10 rounded-full shadow-lg transform hover:scale-110 transition-all duration-300 ease-in-out">
+               class="inline-block bg-orange-500 hover:bg-orange-600 text-white text-xl md:text-2xl font-extrabold py-4 px-12 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out border-2 border-orange-400 hover:border-orange-500">
                 Ajukan Sekarang!
             </a>
         </section>
@@ -182,12 +285,12 @@
     </main>
 
     <!-- Footer Section -->
-    <footer class="bg-gray-800 text-white py-8 px-4 rounded-t-xl shadow-inner">
-        <div class="container mx-auto text-center text-sm">
+    <footer class="bg-gray-900 text-white py-8 px-4 rounded-t-3xl shadow-inner">
+        <div class="container mx-auto text-center text-sm md:text-base">
             <p class="mb-2">&copy; 2025 BP Tapera. Hak Cipta Dilindungi Undang-Undang.</p>
             <p>
-                Informasi lebih lanjut:
-                <a href="https://www.tapera.go.id" target="_blank" class="text-green-300 hover:text-green-100 transition-colors duration-200 underline">www.tapera.go.id</a>
+                Informasi lebih lanjut kunjungi situs resmi kami:
+                <a href="https://www.tapera.go.id" target="_blank" class="text-green-300 hover:text-green-100 transition-colors duration-200 underline font-semibold">www.tapera.go.id</a>
             </p>
             <p class="mt-4 text-xs text-gray-400">
                 Catatan: Syarat dan ketentuan berlaku. Informasi dapat berubah sewaktu-waktu sesuai kebijakan BP Tapera.
