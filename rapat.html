@@ -1,71 +1,106 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Demografi Progress Pekerjaan</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        h2 { color: #2c3e50; }
-        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
-        th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
-        th { background-color: #f7f7f7; }
-        .summary-box { background-color: #eaf2f8; padding: 15px; margin-bottom: 20px; border-radius: 5px;}
-        .highlight { font-weight: bold; color: #2980b9; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Demografi Perbandingan Tahun 2024 Q1 dan 2025 Q1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      background: #f9f9f9;
+      color: #333;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .bar-chart {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      height: 300px;
+      border-left: 2px solid #333;
+      border-bottom: 2px solid #333;
+      padding-left: 40px;
+      position: relative;
+    }
+    .bar {
+      width: 100px;
+      position: relative;
+      text-align: center;
+    }
+    .bar-2024 {
+      height: 210px; /* scaled from 83,720 */
+      background-color: #0074D9;
+      border-radius: 4px 4px 0 0;
+      margin-bottom: 5px;
+      color: white;
+      font-weight: bold;
+      line-height: 210px;
+      font-size: 16px;
+    }
+    .bar-2025 {
+      height: 305px; /* scaled from 120,976 */
+      background-color: #2ECC40;
+      border-radius: 4px 4px 0 0;
+      margin-bottom: 5px;
+      color: white;
+      font-weight: bold;
+      line-height: 305px;
+      font-size: 16px;
+    }
+    .label {
+      font-weight: bold;
+      margin-top: 8px;
+    }
+    .percentage {
+      position: absolute;
+      top: -30px;
+      width: 100px;
+      color: red;
+      font-weight: bold;
+      font-size: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .y-axis-labels {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 300px;
+      font-size: 12px;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
-    <h2>Demografi Progress Pekerjaan Digitalisasi Layanan</h2>
-
-    <div class="summary-box">
-        <h3>Ringkasan Progress dan Proyek</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Indikator Kinerja Utama (IKU)</th>
-                    <th>% Progress</th>
-                    <th>Total Proyek</th>
-                    <th>NY Started</th>
-                    <th>Bispro & BRD</th>
-                    <th>Develop</th>
-                    <th>Testing</th>
-                    <th>Deploy</th>
-                    <th>Production</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>IKU 6.a</td>
-                    <td class="highlight">67%</td>
-                    <td>14</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>8</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>4</td>
-                </tr>
-                <tr>
-                    <td>IKU 6.b</td>
-                    <td class="highlight">49%</td>
-                    <td>20</td>
-                    <td>4</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>5</td>
-                    <td>0</td>
-                    <td>2</td>
-                </tr>
-                <tr style="font-weight:bold; background:#dff0d8;">
-                    <td>Summary</td>
-                    <td class="highlight">58%</td>
-                    <td>34</td>
-                    <td>5</td>
-                    <td>5</td>
-                    <td>13</td>
-                    <td>5</td>
-                    <td>0</td>
-                    <td>6</td>
-                </tr>
-           
+  <h2>Perbandingan Tahun 2024 Q1 dan 2025 Q1</h2>
+  <div style="position: relative;">
+    <div class="y-axis-labels">
+      <div>130,000</div>
+      <div>100,000</div>
+      <div>70,000</div>
+      <div>40,000</div>
+      <div>10,000</div>
+      <div>0</div>
+    </div>
+    <div class="bar-chart">
+      <div class="bar">
+        <div class="bar-2024" title="83,720">83,720</div>
+        <div class="label">Tahun 2024 Q1</div>
+      </div>
+      <div class="bar">
+        <div class="percentage" style="top: -35px; left: calc(100px + 22px);">+44.5%</div>
+        <div class="bar-2025" title="120,976">120,976</div>
+        <div class="label">Tahun 2025 Q1</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
