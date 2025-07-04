@@ -22,13 +22,13 @@
   h1 {
     text-align: center;
     color: #0074D9;
-    margin-bottom: 10px; /* diperbesar jarak bawah */
+    margin-bottom: 25px; /* diperbesar jarak bawah dari judul utama */
   }
   h2 {
     color: #444;
     font-weight: normal;
     font-size: 1.25rem;
-    margin-bottom: 30px; /* diperbesar jarak bawah */
+    margin-bottom: 40px; /* diperbesar jarak bawah subjudul */
     text-align: center;
     font-style: italic;
   }
@@ -42,7 +42,7 @@
     position: relative;
     height: 320px;
     margin-bottom: 40px;
-    margin-top: 20px; /* jarak tambahan atas chart */
+    margin-top: 0; /* jarak atas chart dibuat 0 karena jarak sudah diatur di heading */
   }
   .bar-chart {
     display: flex;
@@ -155,7 +155,7 @@
   <div class="container">
     <h1>Demografi Perbandingan</h1>
     <h2>Tahun 2024 Q1 vs Tahun 2025 Q1</h2>
-    <div class="chart-wrapper">
+    <div class="chart-wrapper" aria-label="Diagram batang perbandingan">
       <div class="y-axis-labels">
         <div>130,000</div>
         <div>100,000</div>
@@ -164,7 +164,7 @@
         <div>10,000</div>
         <div>0</div>
       </div>
-      <div class="bar-chart" aria-label="Diagram batang perbandingan" role="img">
+      <div class="bar-chart" role="img">
         <div class="bar">
           <div class="bar-2024" title="83,720">83,720</div>
           <div class="label">Tahun 2024 Q1</div>
