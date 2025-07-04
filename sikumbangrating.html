@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title id="mainTitle">Sikumbang</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="theme-color" content="#333333">
+
+  <meta name="google-site-verification" content="56vslk2wvkHxjhVboPy3RIRS2oAfdW6piWyGQpbxE4w">
+
+  <link rel="stylesheet" href="css/css-global.css">
+  <link rel="stylesheet" href="css/public-index-3.23.0.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  
+  <link rel="icon" href="favicons/images-literasi.ico" type="image/x-icon">
+
+  <style>
+    /* Gaya tambahan untuk halaman tunggal */
+    .page-section {
+      display: none; /* Sembunyikan semua bagian halaman secara default */
+    }
+    .rating-star {
+      color: gold;
+      font-size: 1.2em;
+    }
+    .detail-section {
+      margin-bottom: 20px;
+      border: 1px solid #e0e0e0;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,.05);
+    }
+    .carousel-item img {
+      max-height: 450px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .info-label {
+      font-weight: 600;
+      color: #555;
+    }
+    .info-value {
+      color: #333;
+    }
+    .status-box {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .status-box h4 {
+      color: #007bff;
+      margin-bottom: 15px;
+    }
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px dashed #e9ecef;
+    }
+    .status-item:last-child {
+      border-bottom: none;
+    }
+    .btn-contact {
+      background-color: #28a745;
+      border-color: #28a745;
+      color: white;
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 1.1em;
+    }
+    .btn-contact:hover {
+      background-color: #218838;
+      border-color: #1e7e34;
+    }
+    .bg-white { background-color: #fff !important; }
+    .bg-light { background-color: #f8f9fa !important; }
+    .bg-blue { background-color: #007bff !important; }
+    .logo-pu, .logo-tapera, .logo-sikumbang {
+      height: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <!-- Header Umum untuk Semua Halaman -->
+    <div class="bg-white p-4">
+      <div class="container mx-auto">
+        <div class="row justify-between">
+          <div class="col-md-6">
+            <img src="images/images-pkp_logo.webp" alt="PKP" class="inline-block logo-pu svelte-keobj1" style="width: 10.5rem">
+            <img src="images/images-tapera.png" alt="LPDPP" class="inline-block px-3 logo-tapera svelte-keobj1" style="width: 10rem">
+          </div>
+          <div class="col-md-6">
+            <a href="#home" class="float-end"><img src="images/images-sikumbang_logo.png" alt="Sikumbang" class="inline-block align-middle logo-sikumbang svelte-keobj1" style="margin:13px; width: 8rem"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Konten Utama Aplikasi (Berbagai Bagian Halaman) -->
+    <div id="main-content" class="bg-light pb-20">
+      <!-- Bagian Halaman Beranda -->
+      <div id="home-page" class="page-section">
+        <div class="pt-4 border-b-2">
+          <div class="container mx-auto menu-header svelte-1fbtnp1">
+            <div class="">
+              <a href="login.html" class="btn btn-primary mt-1"><strong>LOGIN PENGEMBANG </strong></a>
+              <a href="grafik.html" class="btn btn-primary mt-1"><strong>GRAFIK SUPPLY DEMAND </strong></a>
+            </div>
+          </div>
+        </div>
+        <hr>
+
+        <div class="container mx-auto">
+          <div class="row">
+            <div class="col-md-12 text-center ">
+              <ul class="nav nav-pills mb-3 mt-2 justify-content-center" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation"><button class="nav-link active" id="pills-wilayah-tab" data-bs-toggle="pill" data-bs-target="#pills-wilayah" type="button" role="tab" aria-controls="pills-wilayah" aria-selected="true">Wilayah Lokasi</button></li>
+                <li class="nav-item" role="presentation"><button class="nav-link" id="pills-nama-perumahan-tab" data-bs-toggle="pill" data-bs-target="#pills-data-lokasi" type="button" role="tab" aria-controls="pills-data-lokasi" aria-selected="false">Data Lokasi</button></li>
+                <li class="nav-item" role="presentation"><button class="nav-link" id="pills-id-lokasi-tab" data-bs-toggle="pill" data-bs-target="#pills-id-lokasi" type="button" role="tab" aria-controls="pills-id-lokasi" aria-selected="false">ID Lokasi</button></li>
+                <li class="nav-item" role="presentation"><button class="nav-link" id="pills-id-rumah-tab" data-bs-toggle="pill" data-bs-target="#pills-id-rumah" type="button" role="tab" aria-controls="pills-id-rumah" aria-selected="false">ID Rumah</button></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tab-content pt-3" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-wilayah" role="tabpanel" aria-labelledby="pills-wilayah-tab">
+              <div class="row ">
+                <div class="col-md-3 col-sm-6 themeSelect svelte-13zigdt">
+                  <div class="selectContainer  svelte-17l1npl" style=""><span aria-live="polite" aria-atomic="false" aria-relevant="additions text" class="a11yText svelte-17l1npl"></span>
+                    <input autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" tabindex="0" type="text" aria-autocomplete="list" placeholder="Pilih Provinsi" style="" class="svelte-17l1npl" value="">
+                    <input type="hidden" class="svelte-17l1npl">
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-6 themeSelect svelte-13zigdt">
+                  <div class="selectContainer  svelte-17l1npl" style=""><span aria-live="polite" aria-atomic="false" aria-relevant="additions text" class="a11yText svelte-17l1npl"></span>
+                    <input autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" tabindex="0" type="text" aria-autocomplete="list" placeholder="Pilih Kabupaten/Kota" style="" class="svelte-17l1npl" value="">
+                    <input type="hidden" class="svelte-17l1npl">
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-6 themeSelect svelte-13zigdt">
+                  <div class="selectContainer  svelte-17l1npl" style=""><span aria-live="polite" aria-atomic="false" aria-relevant="additions text" class="a11yText svelte-17l1npl"></span>
+                    <input autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" tabindex="0" type="text" aria-autocomplete="list" placeholder="Pilih Kecamatan" style="" class="svelte-17l1npl" value="">
+                    <input type="hidden" class="svelte-17l1npl">
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-6 themeSelect svelte-13zigdt">
+                  <div class="selectContainer  svelte-17l1npl" style=""><span aria-live="polite" aria-atomic="false" aria-relevant="additions text" class="a11yText svelte-17l1npl"></span>
+                    <input autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" tabindex="0" type="text" aria-autocomplete="list" placeholder="Pilih Asosiasi" style="" class="svelte-17l1npl" value="">
+                    <input type="hidden" class="svelte-17l1npl">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="pills-data-lokasi" role="tabpanel" aria-labelledby="pills-data-lokasi-tab">
+              <div class="row">
+                <div class="col-md-3 col-form-label text-md-end text-sm-center themeSelect svelte-13zigdt">Cari Berdasarkan:</div>
+                <div class="col-md-3 themeSelect svelte-13zigdt">
+                  <div class="selectContainer  svelte-17l1npl" style=""><span aria-live="polite" aria-atomic="false" aria-relevant="additions text" class="a11yText svelte-17l1npl"></span>
+                    <input autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" tabindex="0" type="text" aria-autocomplete="list" placeholder="" style="" class="svelte-17l1npl" value="">
+                    <div class="selectedItem svelte-17l1npl">
+                      <div class="selection svelte-pu1q1n">Nama Perumahan</div>
+                    </div>
+                    <div class="clearSelect svelte-17l1npl" aria-hidden="true"><svg width="100%" height="100%" viewbox="-2 -2 50 50" focusable="false" aria-hidden="true" role="presentation"><path fill="currentColor" d="M34.923,37.251L24,26.328L13.077,37.251L9.436,33.61l10.923-10.923L9.436,11.765l3.641-3.641L24,19.047L34.923,8.124l3.641,3.641L27.641,22.688L38.564,33.61L34.923,37.251z"></path></svg></div>
+                    <input type="hidden" value="Nama Perumahan" class="svelte-17l1npl">
+                  </div>
+                </div>
+                <div class="col-md-4 themeSelect svelte-13zigdt"><input type="text" class="form-control" placeholder="Masukan kata kunci pencarian..."></div>
+                <div class="col-md-2 themeSelect svelte-13zigdt"><button class="btn btn-primary">CARI</button></div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="pills-id-lokasi" role="tabpanel" aria-labelledby="pills-id-lokasi-tab">
+              <div class="row">
+                <div class="col-md-4 col-form-label text-md-end text-center themeSelect svelte-13zigdt">Masukan ID Lokasi:</div>
+                <div class="col-md-4 themeSelect svelte-13zigdt"><input type="text" class="form-control"></div>
+                <div class="col-md-4 themeSelect text-md-start text-center svelte-13zigdt"><button class="btn btn-primary">C A R I</button></div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="pills-id-rumah" role="tabpanel" aria-labelledby="pills-id-rumah-tab">
+              <div class="row">
+                <div class="col-md-4 col-form-label text-md-end text-center themeSelect svelte-13zigdt">Masukan ID Rumah:</div>
+                <div class="col-md-4 themeSelect svelte-13zigdt"><input type="text" class="form-control"></div>
+                <div class="col-md-4 text-md-start text-center themeSelect svelte-13zigdt"><button class="btn btn-primary">C A R I</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+
+        <div class="container mx-auto">
+          <div class="row">
+            <div class="col-12 text-center fond-bold mb-2"><b>1.234 PENGEMBANG, 5.678 LOKASI, 12.345 UNIT</b></div>
+            <div class="col-12 border rounded p-3" style="background-color: #ddd;">
+              <div><b>Komersil</b> Antrian : 1.234</div>
+              <div class="row mx-0 mt-2 d-none d-md-flex">
+                <div class="col mx-1 rounded text-white p-2" style="background-color: #718096"><b>3.456</b> Kavling</div>
+                <div class="col mx-1 rounded text-white p-2" style="background-color: #855831"><b>1.234</b> Pembangunan</div>
+                <div class="col mx-1 rounded text-white p-2" style="background-color: #362825"><b>2.345</b> Ready Stock</div>
+                <div class="col mx-1 rounded text-white p-2" style="background-color: #4C1D95"><b>567</b> Dipesan</div>
+                <div class="col mx-1 rounded text-white p-2" style="background-color: #343a40"><b>4.321</b> Terjual</div>
+              </div>
+              <div class="row mx-0 mt-2 d-flex d-md-none">
+                <div class="col-12 mb-1 mx-1 rounded text-white p-2" style="background-color: #718096"><b>3.456</b> Kavling</div>
+                <div class="col-12 mb-1 mx-1 rounded text-white p-2" style="background-color: #855831"><b>1.234</b> Pembangunan</div>
+                <div class="col-12 mb-1 mx-1 rounded text-white p-2" style="background-color: #362825"><b>2.345</b> Ready Stock</div>
+                <div class="col-12 mb-1 mx-1 rounded text-white p-2" style="background-color: #4C1D95"><b>567</b> Dipesan</div>
+                <div class="col-12 mb-1 mx-1 rounded text-white p-2" style="background-color: #343a40"><b>4.321</b> Terjual</div>
+              </div>
+            </div>
+
+            <div class="col-12 border rounded p-3 mt-3" style="background-color: rgba(255, 255, 0, 0.22)">
+              <div><b>Subsidi</b> Antrian : 5.678</div>
+              <div class="row mx-0 mt-2 d-none d-md-flex">
+                <div class="col mx-1 rounded p-2" style="background-color: #f7ca18"><b>7.890</b> Kavling</div>
+                <div class="col mx-1 rounded p-2" style="background-color: #e67e22"><b>3.456</b> Pembangunan</div>
+                <div class="col mx-1 rounded p-2 text-white" style="background-color: #28a745"><b>4.567</b> Ready Stock</div>
+                <div class="col mx-1 rounded p-2 text-white" style="background-color: #007bff"><b>1.234</b> Proses Bank</div>
+                <div class="col mx-1 rounded p-2 text-white" style="background-color: #dc3545"><b>6.789</b> Terjual</div>
+              </div>
+              <div class="row mx-0 mt-2 d-flex d-md-none">
+                <div class="col-12 mb-1 mx-1 rounded p-2" style="background-color: #f7ca18"><b>7.890</b> Kavling</div>
+                <div class="col-12 mb-1 mx-1 rounded p-2" style="background-color: #e67e22"><b>3.456</b> Pembangunan</div>
+                <div class="col-12 mb-1 mx-1 rounded p-2 text-white" style="background-color: #28a745"><b>4.567</b> Ready Stock</div>
+                <div class="col-12 mb-1 mx-1 rounded p-2 text-white" style="background-color: #007bff"><b>1.234</b> Proses Bank</div>
+                <div class="col-12 mb-1 mx-1 rounded p-2 text-white" style="background-color: #dc3545"><b>6.789</b> Terjual</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+
+        <div class="container">
+          <div class="row" style="min-height: 500px">
+            <div class="col-md-12">
+              <div class="row" id="house-listings">
+                <!-- Data Perumahan akan dirender di sini oleh JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <div class="row pb-5">
+            <div class="col-4 text-start"><button class="btn btn-primary" disabled>Sebelumnya</button></div>
+            <div class="col-4 text-center">
+              <select class="form-control mx-auto" style="width: 80px">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+            <div class="col-4 text-end"><button class="btn btn-primary">Selanjutnya</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bagian Halaman Rating dan Review -->
+      <div id="rating-review-page" class="page-section container mx-auto pt-4">
+        <h1 id="ratingPageTitle" class="mb-4"></h1>
+        <hr>
+        <div id="ratingContent">
+          <h3 class="mb-3">Rating Keseluruhan: <span id="overallRating"></span> <span id="starRating"></span></h3>
+          <div class="mb-4">
+            <h4>Ulasan:</h4>
+            <ul class="list-group" id="reviewList">
+              <!-- Ulasan dummy akan dimasukkan di sini oleh JavaScript -->
+            </ul>
+          </div>
+          <h4>Tambahkan Ulasan Anda:</h4>
+          <form id="reviewForm">
+            <div class="mb-3">
+              <label for="reviewerName" class="form-label">Nama Anda</label>
+              <input type="text" class="form-control" id="reviewerName" required>
+            </div>
+            <div class="mb-3">
+              <label for="reviewScore" class="form-label">Rating (1-5)</label>
+              <input type="number" class="form-control" id="reviewScore" min="1" max="5" required>
+            </div>
+            <div class="mb-3">
+              <label for="reviewText" class="form-label">Ulasan</label>
+              <textarea class="form-control" id="reviewText" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Kirim Ulasan</button>
+          </form>
+          <div id="messageBox" class="alert mt-3 d-none" role="alert"></div>
+        </div>
+        <p class="mt-4"><a href="#home" class="btn btn-secondary">Kembali ke Beranda</a></p>
+      </div>
+
+      <!-- Bagian Halaman Detail Rumah -->
+      <div id="detail-rumah-page" class="page-section container mx-auto pt-4">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#home">Beranda</a></li>
+            <li class="breadcrumb-item active" aria-current="page" id="detailBreadcrumbName"></li>
+          </ol>
+        </nav>
+
+        <h2 id="detailHouseName" class="mb-4 text-primary"></h2>
+
+        <div class="row">
+          <div class="col-md-8">
+            <!-- Carousel Gambar -->
+            <div id="detailCarouselControls" class="carousel slide mb-4" data-bs-ride="carousel">
+              <div class="carousel-inner" id="detailCarouselImages">
+                <!-- Gambar akan dimuat secara dinamis di sini -->
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#detailCarouselControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#detailCarouselControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+            
+            <!-- Informasi Lokasi -->
+            <div class="detail-section">
+              <h3 class="text-info">Informasi Lokasi</h3>
+              <p><span class="info-label">ID Lokasi:</span> <span id="detailIdLokasi" class="info-value"></span></p>
+              <p><span class="info-label">Alamat:</span> <span id="detailAlamat" class="info-value"></span></p>
+              <p><span class="info-label">Provinsi:</span> <span id="detailProvinsi" class="info-value"></span></p>
+              <p><span class="info-label">Kabupaten/Kota:</span> <span id="detailKabupaten" class="info-value"></span></p>
+              <p><span class="info-label">Kecamatan:</span> <span id="detailKecamatan" class="info-value"></span></p>
+              <p><span class="info-label">Kelurahan:</span> <span id="detailKelurahan" class="info-value"></span></p>
+            </div>
+
+            <!-- Informasi Pengembang -->
+            <div class="detail-section">
+              <h3 class="text-info">Informasi Pengembang</h3>
+              <p><span class="info-label">Nama Pengembang:</span> <span id="detailPengembangNama" class="info-value"></span></p>
+              <p><span class="info-label">Asosiasi:</span> <span id="detailPengembangAsosiasi" class="info-value"></span></p>
+            </div>
+
+            <!-- Informasi Unit -->
+            <div class="detail-section">
+              <h3 class="text-info">Informasi Unit</h3>
+              <p><span class="info-label">Jenis Perumahan:</span> <span id="detailJenisPerumahan" class="info-value"></span></p>
+              <p><span class="info-label">Jumlah Unit Tersedia:</span> <span id="detailJumlahUnit" class="info-value"></span></p>
+              <p><span class="info-label">Jumlah Unit Komersil:</span> <span id="detailJumlahUnitKomersil" class="info-value"></span></p>
+            </div>
+
+            <!-- Bagian lain yang disalin dari halaman asli (contoh) -->
+            <div class="detail-section">
+              <h3 class="text-info">Legalitas dan Perizinan</h3>
+              <p><strong>SK Penunjukan Lokasi:</strong> SK.123/BP2P/2023</p>
+              <p><strong>IMB:</strong> 12345/IMB/2023</p>
+              <p><strong>Sertifikat Tanah:</strong> SHM No. 00123</p>
+              <p class="text-muted"><small>Data legalitas ini adalah dummy dan hanya untuk contoh.</small></p>
+            </div>
+
+            <div class="detail-section">
+              <h3 class="text-info">Fasilitas Perumahan</h3>
+              <ul>
+                <li>Jalan Lingkungan Lebar</li>
+                <li>Drainase Baik</li>
+                <li>Taman Bermain Anak</li>
+                <li>Keamanan 24 Jam</li>
+                <li>Dekat dengan Fasilitas Umum (Sekolah, Rumah Sakit, Pasar)</li>
+              </ul>
+            </div>
+
+          </div>
+          <div class="col-md-4">
+            <!-- Status Penjualan -->
+            <div class="status-box">
+              <h4>Status Penjualan</h4>
+              <div class="status-item">
+                <span class="info-label">Terjual:</span> <span id="statusTerjual" class="info-value"></span> Unit
+              </div>
+              <div class="status-item">
+                <span class="info-label">Ready Stock:</span> <span id="statusReadyStock" class="info-value"></span> Unit
+              </div>
+              <div class="status-item">
+                <span class="info-label">Pembangunan:</span> <span id="statusPembangunan" class="info-value"></span> Unit
+              </div>
+              <div class="status-item">
+                <span class="info-label">Proses Bank:</span> <span id="statusProsesBank" class="info-value"></span> Unit
+              </div>
+            </div>
+            
+            <!-- Kontak Pengembang -->
+            <div class="detail-section text-center">
+              <h3 class="text-info">Kontak Pengembang</h3>
+              <p>Untuk informasi lebih lanjut, silakan hubungi pengembang melalui:</p>
+              <button class="btn btn-contact">Hubungi Via WhatsApp</button>
+              <p class="mt-3"><small>Jam Kerja: Senin - Jumat, 09.00 - 17.00 WIB</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Umum untuk Semua Halaman -->
+    <div class="bg-blue py-8 svelte-1jsifgz">
+      <div class="container">
+        <div class="text-center row pt-4">
+          <div class="col-md-12"><span class="text-light">Terintegrasi dengan</span></div>
+          <div class="col-md-12"><a href="https://play.google.com/store/apps/details?id=com.lpdpp.sikasep" target="_blank"><img src="images/images-Sikasep_logo.png" alt="sikasep" class="mx-auto w-24 py-2 logo-sikasep svelte-1jsifgz" style="width: 6rem"></a></div>
+        </div>
+        <hr class="border-b-2 my-4" style="border-color: #0069d9">
+        <div class="text-center py-2"><span class="text-light"><small>Pusat Pengelolaan Dana Pembiayaan Perumahan</small></span><br>
+          <span class="text-light"><small>Kementerian Pekerjaan Umum dan Perumahan Rakyat</small></span><br>
+          <a href="#home" class="text-light text-decoration-none border-bottom mx-1"><small>Beranda</small></a>
+          <a href="disclaimer.html" class="text-light text-decoration-none border-bottom mx-1"><small>Disclaimer</small></a>
+          <a href="kontak-asosiasi.html" class="text-light text-decoration-none border-bottom mx-1"><small>Kontak Asosiasi</small></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script>
+    // Data dummy SIKUMBANG_DATA
+    window.SIKUMBANG_DATA = {
+      "page": 1, "maxPage": 1006,
+      "count": { "countUnitTotal": "12.345", "countUnitSubsidi": "7.890", "countUnitKomersilTerjual": "4.321", "countUnitPembangunan": "4.690", "countUnitReady": "6.912", "countUnitTerjual": "11.110", "countUnitKomersil": "3.456", "countPengembang": "1.234", "totalBookingSubsidi": "5.678", "totalBookingKomersil": "1.234", "totalLokasi": "5.678", "totalPilihan": "12.345", "totalPeminatan": null },
+      "listLokasi": [
+        { "idLokasi": "KWG2920062025T001", "namaPerumahan": "Bumi Gesya Karawang", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "250", "jumlahUnitKomersil": "120", "foto": ["/public/upload/2025/07/04/file-lokasi-1a55e874-2276-41da-9271-af2282213688.jpg", "https://placehold.co/600x400/FF5733/FFFFFF?text=Gambar+2"], "wilayah": { "kodeWilayah": "3215292006", "namaWilayah": "Cengkong", "provinsi": "JAWA BARAT", "kabupaten": "KAB KARAWANG", "kecamatan": "Purwasari", "kelurahan": "Cengkong", "kbsni": "   " }, "pengembang": { "nama": "GEMINI SURYA ABADI BEKASI", "asosiasi": "APERSI" } },
+        { "idLokasi": "BTA1410142025T002", "namaPerumahan": "PESONA AHSAN SRIWIJAYA", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "180", "jumlahUnitKomersil": "80", "foto": ["/public/upload/2025/07/04/file-lokasi-659c583c-5a0b-4c1e-a95b-79b5d2dd0d8d.jpg"], "wilayah": { "kodeWilayah": "1601141014", "namaWilayah": "Sekar Jaya", "provinsi": "SUMATERA SELATAN", "kabupaten": "KAB OGAN KOMERING ULU", "kecamatan": "Baturaja Timur", "kelurahan": "Sekar Jaya", "kbsni": "   " }, "pengembang": { "nama": "AHSAN ALFAREZEL PROPERTY", "asosiasi": "REI" } },
+        { "idLokasi": "KAG0520142025T001", "namaPerumahan": "Landsum Kayari", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "320", "jumlahUnitKomersil": "150", "foto": ["/public/upload/2025/07/03/file-lokasi-6130d34b-c860-4c85-bfb5-89334889c6ee.jpeg"], "wilayah": { "kodeWilayah": "1602052014", "namaWilayah": "Arisan Buntal", "provinsi": "SUMATERA SELATAN", "kabupaten": "KAB OGAN KOMERING ILIR", "kecamatan": "Kayu Agung", "kelurahan": "Arisan Buntal", "kbsni": "   " }, "pengembang": { "nama": "AGUNG RAHAYU BARU", "asosiasi": "REI" } },
+        { "idLokasi": "WAT0220072025T001", "namaPerumahan": "PERUMAHAN BALE GANGSAR", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "210", "jumlahUnitKomersil": "90", "foto": ["/public/upload/2025/07/03/file-a56fe068-f5c1-4856-8ec3-bc0cfdddad04.jpg"], "wilayah": { "kodeWilayah": "3401022007", "namaWilayah": "Giripeni", "provinsi": "DAERAH ISTIMEWA YOGYAKARTA", "kabupaten": "KAB KULON PROGO", "kecamatan": "Wates", "kelurahan": "Giripeni", "kbsni": "   " }, "pengembang": { "nama": "SHANKARA ABIRAMA PROPERTI", "asosiasi": "HIMPERRA" } },
+        { "idLokasi": "WSB0920012025T001", "namaPerumahan": "Wonolelo Residence", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "175", "jumlahUnitKomersil": "75", "foto": ["/public/upload/2025/07/03/file-lokasi-2fb6eef4-2b5c-48e3-8974-155c782e8c58.jpg"], "wilayah": { "kodeWilayah": "3307092001", "namaWilayah": "Wonolelo", "provinsi": "JAWA TENGAH", "kabupaten": "KAB WONOSOBO", "kecamatan": "Wonosobo", "kelurahan": "Wonolelo", "kbsni": "   " }, "pengembang": { "nama": "GOSANKE HOKI PROPERTI", "asosiasi": "ASPRUMNAS" } },
+        { "idLokasi": "CBI0220052025T001", "namaPerumahan": "BUKIT RAYA", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "280", "jumlahUnitKomersil": "130", "foto": ["/public/upload/2025/07/03/file-lokasi-886c39f2-22d6-47ac-a4a0-3b45747e3d27.jpg"], "wilayah": { "kodeWilayah": "3201022005", "namaWilayah": "Bojong Nangka", "provinsi": "JAWA BARAT", "kabupaten": "KAB BOGOR", "kecamatan": "Gunung Putri", "kelurahan": "Bojong Nangka", "kbsni": "   " }, "pengembang": { "nama": "JUMBO PRIMA PROPERTI", "asosiasi": "APERSI" } },
+        { "idLokasi": "SPA2420052025T001", "namaPerumahan": "MARGAMULYA RAYA", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "190", "jumlahUnitKomersil": "85", "foto": ["/public/upload/2025/07/03/file-lokasi-2d586174-6143-4986-b267-d92903dd4828.jpg"], "wilayah": { "kodeWilayah": "3206242005", "namaWilayah": "Cikunir", "provinsi": "JAWA BARAT", "kabupaten": "KAB TASIKMALAYA", "kecamatan": "Singaparna", "kelurahan": "Cikunir", "kbsni": "   " }, "pengembang": { "nama": "GRIYA BINTANG PESONA", "asosiasi": "REI" } },
+        { "idLokasi": "PKK1220062025T001", "namaPerumahan": "Puncak Lestari", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "230", "jumlahUnitKomersil": "110", "foto": ["/public/upload/2025/07/03/file-lokasi-ba71ebaf-4780-4d5a-8615-aee1c359fc90.jpg"], "wilayah": { "kodeWilayah": "1405122006", "namaWilayah": "Angkasa", "provinsi": "RIAU", "kabupaten": "KAB PELALAWAN", "kecamatan": "Bandar Petalangan", "kelurahan": "Angkasa", "kbsni": "   " }, "pengembang": { "nama": "HIJRAH SENTOSA MAS", "asosiasi": "APERNAS" } },
+        { "idLokasi": "BKN0320132025T005", "namaPerumahan": "BERLIAN JAYA SENTOSA", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "260", "jumlahUnitKomersil": "120", "foto": ["/public/upload/2025/07/03/file-ba2a1d2d-fb3f-4631-b0cc-bd1dadd35d77.JPG"], "wilayah": { "kodeWilayah": "1401032013", "namaWilayah": "Tarai Bangun", "provinsi": "RIAU", "kabupaten": "KAB KAMPAR", "kecamatan": "Tambang", "kelurahan": "Tarai Bangun", "kbsni": "   " }, "pengembang": { "nama": "SUKA JAYA MANDIRI", "asosiasi": "APPERNAS JAYA" } },
+        { "idLokasi": "SNT0120212025T001", "namaPerumahan": "PURI HALIM 4", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "200", "jumlahUnitKomersil": "90", "foto": ["/public/upload/2025/07/02/file-lokasi-c0375371-59b8-42ae-9c24-afb8cc2f7f91.jpg"], "wilayah": { "kodeWilayah": "1505012021", "namaWilayah": "Mendalo Indah", "provinsi": "JAMBI", "kabupaten": "KAB MUARO JAMBI", "kecamatan": "Jambi Luar Kota", "kelurahan": "Mendalo Indah", "kbsni": "   " }, "pengembang": { "nama": "HALIM FANONA", "asosiasi": "APERSI" } },
+        { "idLokasi": "MTP0520362025T003", "namaPerumahan": "PERUMAHAN ZAHRAH 4", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "240", "jumlahUnitKomersil": "115", "foto": ["/public/upload/2025/07/02/file-lokasi-025992e0-f61a-4ad8-ba89-0b903c82d4aa.jpg"], "wilayah": { "kodeWilayah": "6303052036", "namaWilayah": "Tungkaran", "provinsi": "KALIMANTAN SELATAN", "kabupaten": "KAB BANJAR", "kecamatan": "Martapura", "kelurahan": "Tungkaran", "kbsni": "   " }, "pengembang": { "nama": "ZAHRAH SALIM BANUA", "asosiasi": "REI" } },
+        { "idLokasi": "MAM0110122025T003", "namaPerumahan": "PADANG PANGA HILLS RESIDENCE", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "270", "jumlahUnitKomersil": "125", "foto": ["/public/upload/2025/07/02/file-lokasi-f1bdc20f-26a5-4093-b153-63c629e30dbc.jpg"], "wilayah": { "kodeWilayah": "7602011012", "namaWilayah": "Karema", "provinsi": "SULAWESI BARAT", "kabupaten": "KAB MAMUJU", "kecamatan": "Mamuju", "kelurahan": "Karema", "kbsni": "   " }, "pengembang": { "nama": "PUTRA INDO KONSTRUKSI", "asosiasi": "REI" } },
+        { "idLokasi": "PLP0510022025T003", "namaPerumahan": "HARMONI HARTACO", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "220", "jumlahUnitKomersil": "100", "foto": ["/public/upload/2025/07/02/file-lokasi-f510712d-34bf-4f1a-9445-634fe082250b.jpg"], "wilayah": { "kodeWilayah": "7373051002", "namaWilayah": "Benteng", "provinsi": "SULAWESI SELATAN", "kabupaten": "KOTA PALOPO", "kecamatan": "Wara Timur", "kelurahan": "Benteng", "kbsni": "   " }, "pengembang": { "nama": "SOLUSI HIDUP MANDIRI", "asosiasi": "REI" } },
+        { "idLokasi": "KDI0710012025T002", "namaPerumahan": "BARUGA HARMONI 5", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "290", "jumlahUnitKomersil": "140", "foto": ["/public/upload/2025/07/02/file-lokasi-9d9849ac-39cd-4899-97d0-20d24085a33f.jpg"], "wilayah": { "kodeWilayah": "7471071001", "namaWilayah": "Wua Wua", "provinsi": "SULAWESI TENGGARA", "kabupaten": "KOTA KENDARI", "kecamatan": "Wua-Wua", "kelurahan": "Wua Wua", "kbsni": "   " }, "pengembang": { "nama": "RASYA DWI MANDIRI", "asosiasi": "APERSI" } },
+        { "idLokasi": "PTI1420032025T001", "namaPerumahan": "Perumahan Graha Rejo Asri", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "250", "jumlahUnitKomersil": "120", "foto": ["/public/upload/2025/07/02/file-lokasi-aa3c4f34-6c1f-4cd1-966c-034c50c81cd3.jpg"], "wilayah": { "kodeWilayah": "3318142003", "namaWilayah": "Tlogorejo", "provinsi": "JAWA TENGAH", "kabupaten": "KAB PATI", "kecamatan": "Tlogowungu", "kelurahan": "Tlogorejo", "kbsni": "   " }, "pengembang": { "nama": "HAYYU DYRA KUSUMA", "asosiasi": "REI" } },
+        { "idLokasi": "PAL0410012025T002", "namaPerumahan": "SELEBES LAND MAMBORO", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "210", "jumlahUnitKomersil": "95", "foto": ["/public/upload/2025/07/02/file-lokasi-51295c38-6e95-42dd-a982-57fd7f1f0dea.jpg"], "wilayah": { "kodeWilayah": "7271041001", "namaWilayah": "Mamboro", "provinsi": "SULAWESI TENGAH", "kabupaten": "KOTA PALU", "kecamatan": "Palu Utara", "kelurahan": "Mamboro", "kbsni": "   " }, "pengembang": { "nama": "SELEBES MEMBANGUN PERSADA", "asosiasi": "APERSI" } },
+        { "idLokasi": "LMJ1020072025T001", "namaPerumahan": "GRIYA CITRA LESTARI", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "230", "jumlahUnitKomersil": "110", "foto": ["/public/upload/2025/07/02/file-97b0bd42-e348-4e8b-87a5-10a0d27c8a46.jpg"], "wilayah": { "kodeWilayah": "3508102007", "namaWilayah": "Blukon", "provinsi": "JAWA TIMUR", "kabupaten": "KAB LUMAJANG", "kecamatan": "Lumajang", "kelurahan": "Blukon", "kbsni": "   " }, "pengembang": { "nama": "PODO LANCAR GROUP", "asosiasi": "APERSI" } },
+        { "idLokasi": "NGA0110062025T001", "namaPerumahan": "Pesona BB Agung Residence", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "240", "jumlahUnitKomersil": "115", "foto": ["/public/upload/2025/07/02/file-lokasi-fefc0812-6ecf-46d9-ab98-71517674ef45.jpg"], "wilayah": { "kodeWilayah": "5101011006", "namaWilayah": "Baler Bale Agung", "provinsi": "BALI", "kabupaten": "KAB JEMBRANA", "kecamatan": "Negara", "kelurahan": "Baler Bale Agung", "kbsni": "   " }, "pengembang": { "nama": "MULYAJAYA PROPERTI", "asosiasi": "HIMPERRA" } },
+        { "idLokasi": "SGB1420092025T003", "namaPerumahan": "Jinggaland Binangga", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "260", "jumlahUnitKomersil": "125", "foto": ["/public/upload/2025/07/02/file-lokasi-d5b67df3-cc87-4c44-895e-257bb78d52fc.JPG"], "wilayah": { "kodeWilayah": "7210142009", "namaWilayah": "Binangga", "provinsi": "SULAWESI TENGAH", "kabupaten": "KAB SIGI", "kecamatan": "Marawola", "kelurahan": "Binangga", "kbsni": "   " }, "pengembang": { "nama": "JINGGA PROPERTI INDONESIA", "asosiasi": "REI" } },
+        { "idLokasi": "SGL0420072025T001", "namaPerumahan": "DELANO RESIDENCE 7", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "220", "jumlahUnitKomersil": "100", "foto": ["/public/upload/2025/07/01/file-lokasi-379633c5-0371-483b-b033-585c000c0084.jpg"], "wilayah": { "kodeWilayah": "1901042007", "namaWilayah": "Kace", "provinsi": "KEPULAUAN BANGKA BELITUNG", "kabupaten": "KAB BANGKA", "kecamatan": "Mendo Barat", "kelurahan": "Kace", "kbsni": "   " }, "pengembang": { "nama": "DELANO JAYA PROPERTI", "asosiasi": "REI" } },
+        { "idLokasi": "SNT0120222025T009", "namaPerumahan": "Griya Azkayra", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "250", "jumlahUnitKomersil": "120", "foto": ["/public/upload/2025/07/01/file-lokasi-e2df06f3-b09e-4850-8f03-b9bd20facd45.jpg"], "wilayah": { "kodeWilayah": "1505012022", "namaWilayah": "Pematang Gajah", "provinsi": "JAMBI", "kabupaten": "KAB MUARO JAMBI", "kecamatan": "Jambi Luar Kota", "kelurahan": "Pematang Gajah", "kbsni": "   " }, "pengembang": { "nama": "PUTRA BULUH CAWANG", "asosiasi": "APERSI" } },
+        { "idLokasi": "PMN0110142025T001", "namaPerumahan": "FLOVAN REGENCY", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "230", "jumlahUnitKomersil": "110", "foto": ["/public/upload/2025/07/01/file-lokasi-a92e2926-22e0-4644-a706-9daa987ee484.jpg"], "wilayah": { "kodeWilayah": "1377011014", "namaWilayah": "Jalan Kereta Api", "provinsi": "SUMATERA BARAT", "kabupaten": "KOTA PARIAMAN", "kecamatan": "Pariaman Tengah", "kelurahan": "Jalan Kereta Api", "kbsni": "   " }, "pengembang": { "nama": "DOKA BESTARINDO NUSANTARA", "asosiasi": "APERSI" } },
+        { "idLokasi": "MJN0110092025T002", "namaPerumahan": "MALEWA CITRA RESIDENCE", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "240", "jumlahUnitKomersil": "115", "foto": ["/public/upload/2025/07/01/file-lokasi-2e27676a-753a-4978-ae5f-fa927916169c.jpg"], "wilayah": { "kodeWilayah": "7605011009", "namaWilayah": "Totoli", "provinsi": "SULAWESI BARAT", "kabupaten": "KAB MAJENE", "kecamatan": "Banggae", "kelurahan": "Totoli", "kbsni": "   " }, "pengembang": { "nama": "SAMALEWA CITRA PROPERTI", "asosiasi": "REI" } },
+        { "idLokasi": "SDA0820032025T002", "namaPerumahan": "Mutiara City Cluster Modena", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "270", "jumlahUnitKomersil": "130", "foto": ["/public/upload/2025/07/01/file-lokasi-a9623a8e-1b2c-45e6-9554-49ebbde296e0.jpg"], "wilayah": { "kodeWilayah": "3515082003", "namaWilayah": "Banjarbendo", "provinsi": "JAWA TIMUR", "kabupaten": "KAB SIDOARJO", "kecamatan": "Sidoarjo", "kelurahan": "Banjarbendo", "kbsni": "   " }, "pengembang": { "nama": "PURNAMA INDO INVESTAMA", "asosiasi": "REI" } },
+        { "idLokasi": "SGI1620342025T001", "namaPerumahan": "GRIYA MAKMUR GAJAH AYEE", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "250", "jumlahUnitKomersil": "120", "foto": ["/public/upload/2025/07/01/file-lokasi-ebe3a895-1459-4361-b9c6-ec64b5d6fbd0.jpg"], "wilayah": { "kodeWilayah": "1107162034", "namaWilayah": "Gajah Aye", "provinsi": "ACEH", "kabupaten": "KAB PIDIE", "kecamatan": "Pidie", "kelurahan": "Gajah Aye", "kbsni": "   " }, "pengembang": { "nama": "KUALA MAKMUR", "asosiasi": "REI" } },
+        { "idLokasi": "PBR1010032025T002", "namaPerumahan": "GRIYA DARU DARU BLOK D", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "220", "jumlahUnitKomersil": "100", "foto": ["/public/upload/2025/07/01/file-lokasi-438f6756-3eb4-4b45-a54c-c95737f4a84e.jpg"], "wilayah": { "kodeWilayah": "1471101003", "namaWilayah": "Tangkerang Timur", "provinsi": "RIAU", "kabupaten": "KOTA PEKANBARU", "kecamatan": "Tenayan Raya", "kelurahan": "Tangkerang Timur", "kbsni": "   " }, "pengembang": { "nama": "TARUKO JAYA BERSAMA", "asosiasi": "REI" } },
+        { "idLokasi": "NPM0320042025T001", "namaPerumahan": "NADINE RESIDENCE", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "230", "jumlahUnitKomersil": "110", "foto": ["/public/upload/2025/07/01/file-lokasi-5ac0140c-e1d6-408f-b711-d4924edca281.jpg"], "wilayah": { "kodeWilayah": "1305032004", "namaWilayah": "Kurai Taji", "provinsi": "SUMATERA BARAT", "kabupaten": "KAB PADANG PARIAMAN", "kecamatan": "Nan Sabaris", "kelurahan": "Kurai Taji", "kbsni": "   " }, "pengembang": { "nama": "DOKA BESTARINDO NUSANTARA", "asosiasi": "APERSI" } },
+        { "idLokasi": "SGM0720102025T001", "namaPerumahan": "Jenetallasa Residence 2 Pengembangan", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "240", "jumlahUnitKomersil": "115", "foto": ["/public/upload/2025/07/01/file-lokasi-7b193e0b-6bb4-434f-8924-aaebea50ef74.jpg"], "wilayah": { "kodeWilayah": "7306072010", "namaWilayah": "Jenetallasa", "provinsi": "SULAWESI SELATAN", "kabupaten": "KAB GOWA", "kecamatan": "Palangga", "kelurahan": "Jenetallasa", "kbsni": "   " }, "pengembang": { "nama": "ANUGRAH PRATAMA GOWA", "asosiasi": "REI" } },
+        { "idLokasi": "NPH0920102025T001", "namaPerumahan": "THE AWANI RESIDENCE 3 Tahap 2", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "260", "jumlahUnitKomersil": "125", "foto": ["/public/upload/2025/06/30/file-lokasi-20f0dd8a-e07d-4287-83a3-19c248e454d7.jpg"], "wilayah": { "kodeWilayah": "3217092010", "namaWilayah": "Giriasih", "provinsi": "JAWA BARAT", "kabupaten": "KAB BANDUNG BARAT", "kecamatan": "Batujajar", "kelurahan": "Giriasih", "kbsni": "   " }, "pengembang": { "nama": "AWANI BANDUNG REALTY", "asosiasi": "ASPRUMNAS" } },
+        { "idLokasi": "PLG1210012025T006", "namaPerumahan": "ALAM HIJAU 4", "jenisPerumahan": "Rumah Tapak", "jumlahUnit": "250", "jumlahUnitKomersil": "120", "foto": ["/public/upload/2025/06/30/file-lokasi-fbd8082f-103a-432e-a5f1-b49fdee7b5ae.JPG"], "wilayah": { "kodeWilayah": "1671121001", "namaWilayah": "Gandus", "provinsi": "SUMATERA SELATAN", "kabupaten": "KOTA PALEMBANG", "kecamatan": "Gandus", "kelurahan": "Gandus", "kbsni": "   " }, "pengembang": { "nama": "SIBER DIGITAL SRIWIJAYA", "asosiasi": "PI" } }
+      ]
+    };
+
+    // Data dummy untuk rating dan review
+    const dummyRatings = {
+      developer: {
+        "GEMINI SURYA ABADI BEKASI": { rating: 4.5, reviews: [{ name: 'Budi Santoso', score: 4, text: 'Pelayanan pengembang sangat baik, kualitas bangunan memuaskan.' }, { name: 'Siti Aminah', score: 5, text: 'Proses pembelian rumah berjalan lancar dan responsif.' }] },
+        "AHSAN ALFAREZEL PROPERTY": { rating: 4.0, reviews: [{ name: 'Agus Wijaya', score: 3, text: 'Ada sedikit keterlambatan, tapi akhirnya selesai dengan baik.' }] },
+        "AGUNG RAHAYU BARU": { rating: 4.8, reviews: [{ name: 'Rina Dewi', score: 5, text: 'Sangat profesional dan transparan.' }] },
+        "SHANKARA ABIRAMA PROPERTI": { rating: 3.9, reviews: [{ name: 'Joko Susilo', score: 4, text: 'Cukup baik, perlu peningkatan komunikasi.' }] },
+        "GOSANKE HOKI PROPERTI": { rating: 4.1, reviews: [{ name: 'Anita Sari', score: 4, text: 'Respon cepat dan membantu.' }] },
+        "JUMBO PRIMA PROPERTI": { rating: 4.3, reviews: [{ name: 'Faisal Akbar', score: 5, text: 'Pengembang terpercaya, kualitas bangunan sesuai janji.' }] },
+        "GRIYA BINTANG PESONA": { rating: 3.7, reviews: [{ name: 'Dian Permata', score: 3, text: 'Perlu perbaikan dalam manajemen proyek.' }] },
+        "HIJRAH SENTOSA MAS": { rating: 4.6, reviews: [{ name: 'Bayu Pratama', score: 5, text: 'Sangat direkomendasikan, proses mudah.' }] },
+        "SUKA JAYA MANDIRI": { rating: 4.0, reviews: [{ name: 'Citra Kirana', score: 4, text: 'Cukup baik, ada beberapa hal kecil yang bisa ditingkatkan.' }] },
+        "HALIM FANONA": { rating: 4.2, reviews: [{ name: 'Eko Prasetyo', score: 4, text: 'Pengembang responsif dan kooperatif.' }] },
+        "ZAHRAH SALIM BANUA": { rating: 4.7, reviews: [{ name: 'Putri Indah', score: 5, text: 'Puas dengan pelayanan dan produknya.' }] },
+        "PUTRA INDO KONSTRUKSI": { rating: 3.8, reviews: [{ name: 'Rizky Ramadhan', score: 3, text: 'Ada beberapa isu kecil, tapi bisa diselesaikan.' }] },
+        "SOLUSI HIDUP MANDIRI": { rating: 4.4, reviews: [{ name: 'Maya Lestari', score: 4, text: 'Pelayanan cepat dan ramah.' }] },
+        "RASYA DWI MANDIRI": { rating: 4.1, reviews: [{ name: 'Andi Saputra', score: 4, text: 'Cukup memuaskan, lokasi strategis.' }] },
+        "HAYYU DYRA KUSUMA": { rating: 4.9, reviews: [{ name: 'Sinta Bella', score: 5, text: 'Pengembang terbaik! Sangat direkomendasikan.' }] },
+        "SELEBES MEMBANGUN PERSADA": { rating: 3.5, reviews: [{ name: 'Doni Kurniawan', score: 3, text: 'Perlu lebih banyak perhatian terhadap detail.' }] },
+        "PODO LANCAR GROUP": { rating: 4.2, reviews: [{ name: 'Kartika Sari', score: 4, text: 'Proses lancar, rumah sesuai ekspektasi.' }] },
+        "MULYAJAYA PROPERTI": { rating: 4.0, reviews: [{ name: 'Dedi Iskandar', score: 4, text: 'Cukup baik, harga bersaing.' }] },
+        "JINGGA PROPERTI INDONESIA": { rating: 4.3, reviews: [{ name: 'Lia Amelia', score: 4, text: 'Pengembang inovatif dan modern.' }] },
+        "DELANO JAYA PROPERTI": { rating: 3.6, reviews: [{ name: 'Rio Pratama', score: 3, text: 'Ada beberapa masalah kecil, tapi bisa diatasi.' }] },
+        "PUTRA BULUH CAWANG": { rating: 4.5, reviews: [{ name: 'Nia Ramadhani', score: 5, text: 'Sangat puas, rumah impian jadi kenyataan.' }] },
+        "DOKA BESTARINDO NUSANTARA": { rating: 4.1, reviews: [{ name: 'Taufik Hidayat', score: 4, text: 'Cukup baik, pelayanan ramah.' }] },
+        "SAMALEWA CITRA PROPERTI": { rating: 3.9, reviews: [{ name: 'Wulan Guritno', score: 4, text: 'Perlu peningkatan dalam responsivitas.' }] },
+        "PURNAMA INDO INVESTAMA": { rating: 4.7, reviews: [{ name: 'Zaskia Adya Mecca', score: 5, text: 'Pengembang yang sangat baik, kualitas terjamin.' }] },
+        "KUALA MAKMUR": { rating: 4.0, reviews: [{ name: 'Vino G Bastian', score: 4, text: 'Cukup baik, lokasi strategis.' }] },
+        "TARUKO JAYA BERSAMA": { rating: 3.8, reviews: [{ name: 'Chelsea Islan', score: 3, text: 'Ada beberapa hal yang bisa diperbaiki.' }] },
+        "ANUGRAH PRATAMA GOWA": { rating: 4.2, reviews: [{ name: 'Reza Rahadian', score: 4, text: 'Pelayanan baik, proses mudah.' }] },
+        "AWANI BANDUNG REALTY": { rating: 4.5, reviews: [{ name: 'Maia Estianty', score: 5, text: 'Sangat puas dengan perumahan ini.' }] },
+        "SIBER DIGITAL SRIWIJAYA": { rating: 3.7, reviews: [{ name: 'Ari Lasso', score: 3, text: 'Perlu peningkatan dalam informasi.' }] }
+      },
+      bank: {
+        "Bank Dummy": { rating: 4.0, reviews: [{ name: 'Dewi Lestari', score: 3, text: 'Proses KPR agak lama, tapi suku bunga yang ditawarkan cukup kompetitif.' }, { name: 'Rahmat Hidayat', score: 4, text: 'Customer service bank ramah dan sangat membantu dalam pengajuan.' }, { name: 'Fitriani', score: 5, text: 'Sangat puas dengan kecepatan proses dan kemudahan persyaratan.' }] }
+      }
+    };
+
+    // Fungsi untuk menampilkan bintang rating
+    function renderStars(rating) {
+      let starsHtml = '';
+      for (let i = 1; i <= 5; i++) {
+        if (i <= Math.floor(rating)) {
+          starsHtml += '<span class="rating-star">&#9733;</span>'; // Bintang penuh
+        } else if (i - 0.5 === Math.floor(rating) && rating % 1 !== 0) {
+          starsHtml += '<span class="rating-star">&#9733;</span>'; // Untuk setengah bintang (opsional, bisa diganti ikon)
+        } else {
+          starsHtml += '<span class="rating-star" style="color: lightgray;">&#9733;</span>'; // Bintang kosong
+        }
+      }
+      return starsHtml;
+    }
+
+    // Fungsi untuk merender daftar rumah di halaman beranda
+    function renderHomePage() {
+      document.getElementById('mainTitle').innerText = 'Sikumbang';
+      document.querySelectorAll('.page-section').forEach(section => section.style.display = 'none');
+      document.getElementById('home-page').style.display = 'block';
+
+      const houseListingsContainer = document.getElementById('house-listings');
+      houseListingsContainer.innerHTML = ''; // Bersihkan konten yang ada
+
+      window.SIKUMBANG_DATA.listLokasi.forEach(house => {
+        const bankName = 'Bank Dummy'; // Nama bank dummy
+        const cardHtml = `
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <img src="${house.foto[0] || 'https://placehold.co/600x400/CCCCCC/000000?text=Gambar+Tidak+Tersedia'}" class="card-img-top" alt="${house.namaPerumahan}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/CCCCCC/000000?text=Gambar+Tidak+Tersedia';">
+              <div class="card-body">
+                <h5 class="card-title">${house.namaPerumahan}</h5>
+                <p class="card-text">
+                  <strong>Lokasi:</strong> ${house.wilayah.namaWilayah}, ${house.wilayah.kecamatan}, ${house.wilayah.kabupaten}, ${house.wilayah.provinsi}<br>
+                  <strong>Pengembang:</strong> ${house.pengembang.nama}
+                  <a href="#rating-review?type=developer&name=${encodeURIComponent(house.pengembang.nama)}" class="text-decoration-none">[Rating Pengembang]</a><br>
+                  <strong>Jumlah Unit:</strong> ${house.jumlahUnit}<br>
+                  <strong>Jenis:</strong> ${house.jenisPerumahan}<br>
+                  <strong>Bank Kerjasama:</strong> ${bankName}
+                  <a href="#rating-review?type=bank&name=${encodeURIComponent(bankName)}" class="text-decoration-none">[Rating Bank]</a>
+                </p>
+              </div>
+              <div class="card-footer bg-white">
+                <small class="text-muted">ID Lokasi: ${house.idLokasi}</small><br>
+                <a href="#detail-rumah?id=${house.idLokasi}" class="btn btn-primary btn-sm mt-2">Lihat Detail</a>
+              </div>
+            </div>
+          </div>
+        `;
+        houseListingsContainer.insertAdjacentHTML('beforeend', cardHtml);
+      });
+    }
+
+    // Fungsi untuk merender halaman rating dan review
+    function renderRatingReviewPage(type, name) {
+      document.getElementById('mainTitle').innerText = `Rating dan Review - ${decodeURIComponent(name)}`;
+      document.querySelectorAll('.page-section').forEach(section => section.style.display = 'none');
+      document.getElementById('rating-review-page').style.display = 'block';
+
+      const ratingPageTitle = document.getElementById('ratingPageTitle');
+      const overallRatingSpan = document.getElementById('overallRating');
+      const starRatingSpan = document.getElementById('starRating');
+      const reviewList = document.getElementById('reviewList');
+      const reviewForm = document.getElementById('reviewForm');
+      const messageBox = document.getElementById('messageBox');
+
+      let displayType = '';
+      let displayName = decodeURIComponent(name);
+      let targetData = null;
+
+      if (type === 'developer') {
+        displayType = 'Pengembang';
+        targetData = dummyRatings.developer[displayName];
+      } else if (type === 'bank') {
+        displayType = 'Bank';
+        targetData = dummyRatings.bank[displayName];
+      }
+
+      if (!targetData) {
+        // Fallback if no specific data found, use generic dummy
+        targetData = { rating: 3.5, reviews: [{ name: 'Pengguna', score: 3, text: 'Belum ada ulasan spesifik untuk ini.' }] };
+      }
+
+      // Pastikan reviewForm direset dan event listener hanya dipasang sekali
+      if (!reviewForm.dataset.listenerAttached) {
+        reviewForm.addEventListener('submit', function(event) {
+          event.preventDefault();
+
+          const reviewerName = document.getElementById('reviewerName').value;
+          const reviewScore = parseInt(document.getElementById('reviewScore').value);
+          const reviewText = document.getElementById('reviewText').value;
+
+          if (reviewerName && reviewScore >= 1 && reviewScore <= 5 && reviewText) {
+            const newReview = { name: reviewerName, score: reviewScore, text: reviewText };
+            targetData.reviews.unshift(newReview); // Tambahkan ulasan baru ke awal
+
+            // Hitung ulang rating rata-rata
+            const totalScore = targetData.reviews.reduce((sum, r) => sum + r.score, 0);
+            targetData.rating = totalScore / targetData.reviews.length;
+            
+            renderReviews(); // Render ulang daftar ulasan
+            overallRatingSpan.innerText = targetData.rating.toFixed(1) + '/5';
+            starRatingSpan.innerHTML = renderStars(targetData.rating);
+            reviewForm.reset();
+            showMessage('Ulasan Anda telah berhasil ditambahkan!', 'success');
+          } else {
+            showMessage('Mohon lengkapi semua kolom dengan benar.', 'danger');
+          }
+        });
+        reviewForm.dataset.listenerAttached = true;
+      }
+      reviewForm.reset(); // Reset form setiap kali halaman dirender
+
+      ratingPageTitle.innerText = `Rating dan Review untuk ${displayType}: ${displayName}`;
+      overallRatingSpan.innerText = targetData.rating.toFixed(1) + '/5';
+      starRatingSpan.innerHTML = renderStars(targetData.rating);
+
+      function renderReviews() {
+        reviewList.innerHTML = '';
+        targetData.reviews.forEach(review => {
+          const li = document.createElement('li');
+          li.classList.add('list-group-item', 'mb-2');
+          li.innerHTML = `
+            <div>
+              <strong>${review.name}</strong> - Rating: ${review.score}/5 ${renderStars(review.score)}
+            </div>
+            <p class="mb-0">${review.text}</p>
+          `;
+          reviewList.appendChild(li);
+        });
+      }
+      renderReviews();
+
+      function showMessage(message, type) {
+        messageBox.innerText = message;
+        messageBox.classList.remove('d-none', 'alert-success', 'alert-danger');
+        messageBox.classList.add(`alert-${type}`);
+        setTimeout(() => {
+          messageBox.classList.add('d-none');
+        }, 3000);
+      }
+    }
+
+    // Fungsi untuk merender halaman detail rumah
+    function renderDetailRumahPage(idLokasi) {
+      document.getElementById('mainTitle').innerText = 'Detail Rumah';
+      document.querySelectorAll('.page-section').forEach(section => section.style.display = 'none');
+      document.getElementById('detail-rumah-page').style.display = 'block';
+
+      const houseData = window.SIKUMBANG_DATA.listLokasi.find(item => item.idLokasi === idLokasi);
+
+      if (houseData) {
+        document.getElementById('detailHouseName').innerText = houseData.namaPerumahan;
+        document.getElementById('detailBreadcrumbName').innerText = houseData.namaPerumahan;
+        document.getElementById('detailIdLokasi').innerText = houseData.idLokasi;
+        document.getElementById('detailAlamat').innerText = `${houseData.wilayah.namaWilayah}, ${houseData.wilayah.kecamatan}, ${houseData.wilayah.kabupaten}, ${houseData.wilayah.provinsi}`;
+        document.getElementById('detailProvinsi').innerText = houseData.wilayah.provinsi;
+        document.getElementById('detailKabupaten').innerText = houseData.wilayah.kabupaten;
+        document.getElementById('detailKecamatan').innerText = houseData.wilayah.kecamatan;
+        document.getElementById('detailKelurahan').innerText = houseData.wilayah.kelurahan;
+        document.getElementById('detailPengembangNama').innerText = houseData.pengembang.nama;
+        document.getElementById('detailPengembangAsosiasi').innerText = houseData.pengembang.asosiasi;
+        document.getElementById('detailJenisPerumahan').innerText = houseData.jenisPerumahan;
+        document.getElementById('detailJumlahUnit').innerText = houseData.jumlahUnit;
+        document.getElementById('detailJumlahUnitKomersil').innerText = houseData.jumlahUnitKomersil;
+
+        const totalUnits = parseInt(houseData.jumlahUnit);
+        document.getElementById('statusTerjual').innerText = Math.floor(totalUnits * 0.6);
+        document.getElementById('statusReadyStock').innerText = Math.floor(totalUnits * 0.2);
+        document.getElementById('statusPembangunan').innerText = Math.floor(totalUnits * 0.1);
+        document.getElementById('statusProsesBank').innerText = Math.floor(totalUnits * 0.1);
+
+        const carouselImages = document.getElementById('detailCarouselImages');
+        carouselImages.innerHTML = ''; // Bersihkan gambar sebelumnya
+        if (houseData.foto && houseData.foto.length > 0) {
+          houseData.foto.forEach((imgSrc, index) => {
+            const div = document.createElement('div');
+            div.classList.add('carousel-item');
+            if (index === 0) {
+              div.classList.add('active');
+            }
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.classList.add('d-block', 'w-100');
+            img.alt = `Gambar Rumah ${index + 1}`;
+            img.onerror = function() {
+                this.onerror=null;
+                this.src='https://placehold.co/600x400/CCCCCC/000000?text=Gambar+Tidak+Tersedia';
+            };
+            div.appendChild(img);
+            carouselImages.appendChild(div);
+          });
+        } else {
+          const div = document.createElement('div');
+          div.classList.add('carousel-item', 'active');
+          const img = document.createElement('img');
+          img.src = 'https://placehold.co/600x400/CCCCCC/000000?text=Gambar+Tidak+Tersedia';
+          img.classList.add('d-block', 'w-100');
+          img.alt = 'Gambar Tidak Tersedia';
+          div.appendChild(img);
+          carouselImages.appendChild(div);
+        }
+        // Inisialisasi ulang carousel Bootstrap
+        new bootstrap.Carousel(document.getElementById('detailCarouselControls'));
+
+      } else {
+        document.getElementById('detailHouseName').innerText = 'Detail rumah tidak ditemukan.';
+        document.getElementById('detailBreadcrumbName').innerText = 'Tidak Ditemukan';
+        // Sembunyikan bagian detail lainnya jika data tidak ditemukan
+        document.querySelector('#detail-rumah-page .row').innerHTML = '<div class="col-12"><p class="text-center">Data rumah tidak ditemukan.</p></div>';
+      }
+    }
+
+    // Router utama untuk mengelola navigasi halaman
+    function router() {
+      const hash = window.location.hash;
+      if (hash.startsWith('#rating-review')) {
+        const params = new URLSearchParams(hash.split('?')[1]);
+        const type = params.get('type');
+        const name = params.get('name');
+        renderRatingReviewPage(type, name);
+      } else if (hash.startsWith('#detail-rumah')) {
+        const params = new URLSearchParams(hash.split('?')[1]);
+        const id = params.get('id');
+        renderDetailRumahPage(id);
+      } else {
+        // Default ke halaman beranda jika hash tidak dikenal atau kosong
+        renderHomePage();
+      }
+    }
+
+    // Panggil router saat DOM dimuat dan setiap kali hash berubah
+    document.addEventListener('DOMContentLoaded', router);
+    window.addEventListener('hashchange', router);
+
+    // Inisialisasi Bootstrap components yang mungkin diperlukan di halaman awal
+    // (misalnya tab pills di halaman home)
+    var tabEl = document.querySelector('#pills-tab button[data-bs-toggle="pill"]');
+    if (tabEl) {
+      var tab = new bootstrap.Tab(tabEl);
+      tab.show();
+    }
+  </script>
+  <!-- Script Bootstrap Bundle harus dimuat setelah elemen HTML ada -->
+  <script src="js/js-bootstrap.bundle.min.js" xintegrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="js/public-index-3.23.0.js"></script>
+</body>
+
+</html>
