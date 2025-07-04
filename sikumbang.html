@@ -1,869 +1,341 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RumahSubsidiKu - Platform Jual Beli Rumah Subsidi Terpercaya</title>
-    <style>
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        /* Header Styles */
-        header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ecf0f1;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 20px;
-        }
-        
-        .nav-links a {
-            color: #ecf0f1;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: #3498db;
-        }
-        
-        /* Banner Styles */
-        .banner {
-            height: 400px;
-            background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            margin-bottom: 30px;
-            position: relative;
-        }
-        
-        .banner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
-        
-        .banner-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            padding: 0 20px;
-        }
-        
-        .banner h1 {
-            font-size: 42px;
-            margin-bottom: 20px;
-        }
-        
-        .banner p {
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: #3498db;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        
-        .btn:hover {
-            background-color: #2980b9;
-        }
-        
-        /* Search Section */
-        .search-section {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-        }
-        
-        .search-section h2 {
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-        
-        .search-form {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        
-        .form-group select, 
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        
-        .search-btn {
-            background-color: #2ecc71;
-            border: none;
-            color: white;
-            padding: 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            align-self: flex-end;
-        }
-        
-        .search-btn:hover {
-            background-color: #27ae60;
-        }
-        
-        /* Property Listing */
-        .property-section {
-            margin-bottom: 50px;
-        }
-        
-        .section-title {
-            margin-bottom: 30px;
-            color: #2c3e50;
-            font-size: 28px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background-color: #3498db;
-        }
-        
-        .property-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-        }
-        
-        .property-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .property-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .property-image {
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .property-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .property-card:hover .property-image img {
-            transform: scale(1.05);
-        }
-        
-        .property-info {
-            padding: 20px;
-        }
-        
-        .property-price {
-            font-size: 22px;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        
-        .subsidi-badge {
-            display: inline-block;
-            background-color: #2ecc71;
-            color: white;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-left: 10px;
-        }
-        
-        .property-address {
-            color: #7f8c8d;
-            margin-bottom: 15px;
-        }
-        
-        .property-features {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            color: #7f8c8d;
-        }
-        
-        .property-features span {
-            display: flex;
-            align-items: center;
-        }
-        
-        .property-features i {
-            margin-right: 5px;
-        }
-        
-        .property-developer {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .developer-logo {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin-right: 10px;
-        }
-        
-        .developer-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .developer-info h4 {
-            font-size: 16px;
-            margin-bottom: 3px;
-        }
-        
-        .developer-rating {
-            display: flex;
-            align-items: center;
-            color: #f39c12;
-        }
-        
-        .property-bank {
-            border-top: 1px solid #eee;
-            padding-top: 15px;
-            margin-top: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .bank-logo-text {
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 12px;
-            display: inline-block;
-        }
-        
-        .bank-logo.btn {
-            background-color: #004B91;
-            color: white;
-        }
-        
-        .bank-logo.mandiri {
-            background-color: #0033A0;
-            color: white;
-        }
-        
-        .bank-logo.bri {
-            background-color: #003580;
-            color: #FFD700;
-        }
-        
-        .bank-logo.bsi {
-            background-color: #ED1C24;
-            color: white;
-        }
-        
-        .bank-rating {
-            display: flex;
-            align-items: center;
-            color: #f39c12;
-        }
-        
-        .property-actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-        }
-        
-        .btn-detail {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            flex-grow: 1;
-            margin-right: 10px;
-        }
-        
-        .btn-finance {
-            background-color: #2ecc71;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            flex-grow: 1;
-        }
-        
-        /* Price Filter */
-        .price-filter {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .price-filter label {
-            margin-right: 10px;
-            font-weight: 500;
-        }
-        
-        .price-filter select {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            padding: 40px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .footer-column h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: #3498db;
-        }
-        
-        .footer-column ul {
-            list-style: none;
-        }
-        
-        .footer-column ul li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-column ul li a {
-            color: #bdc3c7;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-column ul li a:hover {
-            color: #3498db;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #34495e;
-            color: #bdc3c7;
-            font-size: 14px;
-        }
-        
-        /* Rating Stars */
-        .rating {
-            display: inline-flex;
-            flex-direction: row-reverse;
-            unicode-bidi: bidi-override;
-            direction: rtl;
-        }
-        
-        .rating > span {
-            display: inline-block;
-            position: relative;
-            width: 1.1em;
-            font-size: 16px;
-            color: #f39c12;
-        }
-        
-        .rating > span:hover:before,
-        .rating > span:hover ~ span:before {
-            content: "\2605";
-            position: absolute;
-            color: #f39c12;
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <title>Sikumbang</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="theme-color" content="#333333">
+
+  <meta name="google-site-verification" content="56vslk2wvkHxjhVboPy3RIRS2oAfdW6piWyGQpbxE4w">
+
+  <link rel="stylesheet" href="css/css-global.css">
+  <link rel="stylesheet" href="css/public-index-3.23.0.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="js/js-bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <link rel="icon" href="favicons/images-literasi.ico" type="image/x-icon">
+
+  <noscript id="start-head"></noscript><title>Sikumbang - Daftar lokasi perumahan</title><meta name="description" content="Daftar lokasi rumah subsidi se-Indonesia"><noscript id="end-head"></noscript>
 </head>
+
 <body>
-    <!-- Header Navigation -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">RumahSubsidiKu</div>
-                <ul class="nav-links">
-                    <li><a href="#">Beranda</a></li>
-                    <li><a href="#">Cari Rumah</a></li>
-                    <li><a href="#">Pembiayaan</a></li>
-                    <li><a href="#">Pengembang</a></li>
-                    <li><a href="#">Bank Partner</a></li>
-                    <li><a href="#">Tentang Kami</a></li>
-                </ul>
-            </nav>
+  <!-- The application will be rendered inside this element,
+	     because `src/client.js` references it -->
+  <div id="root">
+
+<div class="bg-white p-4"><div class="container mx-auto"><div class="row justify-between"><div class="col-md-6"><img src="images/images-pkp_logo.webp" alt="PKP" class="inline-block logo-pu  svelte-keobj1" style="width: 10.5rem">
+        <img src="images/images-tapera.png" alt="LPDPP" class="inline-block px-3 logo-tapera svelte-keobj1" style="width: 10rem"></div>
+      <div class="col-md-6"><a href="sikumbang.tapera.go.html" class="float-end"><img src="images/images-sikumbang_logo.png" alt="Sikumbang" class="inline-block align-middle logo-sikumbang svelte-keobj1" style="margin:13px; width: 8rem"></a></div></div></div>
+</div>
+
+<div class="bg-light pb-20"><div class="pt-4 border-b-2"><div class="container mx-auto menu-header svelte-1fbtnp1"><div class=""><a href="login.html" class="btn btn-primary mt-1"><strong>LOGIN PENGEMBANG </strong></a>
+
+        <a href="grafik.html" class="btn btn-primary mt-1"><strong>GRAFIK SUPPLY DEMAND </strong></a>
+
+        </div></div></div>
+  <hr>
+
+  <div class="container mx-auto"><div class="row"><div class="col-md-12 text-center "><ul class="nav nav-pills mb-3 mt-2 justify-content-center" id="pills-tab" role="tablist"><li class="nav-item" role="presentation"><button class="nav-link active" id="pills-wilayah-tab" data-bs-toggle="pill" data-bs-target="#pills-wilayah" type="button" role="tab" aria-controls="pills-wilayah" aria-selected="true">Wilayah Lokasi
+          </button></li>
+        <li class="nav-item" role="presentation"><button class="nav-link" id="pills-nama-perumahan-tab" data-bs-toggle="pill" data-bs-target="#pills-data-lokasi" type="button" role="tab" aria-controls="pills-data-lokasi" aria-selected="false">Data Lokasi
+          </button></li>
+        <li class="nav-item" role="presentation"><button class="nav-link" id="pills-id-lokasi-tab" data-bs-toggle="pill" data-bs-target="#pills-id-lokasi" type="button" role="tab" aria-controls="pills-id-lokasi" aria-selected="false">ID Lokasi
+          </button></li>
+        <li class="nav-item" role="presentation"><button class="nav-link" id="pills-id-rumah-tab" data-bs-toggle="pill" data-bs-target="#pills-id-rumah" type="button" role="tab" aria-controls="pills-id-rumah" aria-selected="false">ID Rumah
+          </button></li></ul></div></div>
+
+  <div class="tab-content pt-3" id="pills-tabContent"><div class="tab-pane fade show active" id="pills-wilayah" role="tabpanel" aria-labelledby="pills-wilayah-tab"><div class="row ">
+        <div class="col-md-3 col-sm-6 themeSelect svelte-13zigdt">
+
+<div class="selectContainer  svelte-17l1npl" style=""><span aria-live="polite" aria-atomic="false" aria-relevant="additions text" class="a11yText svelte-17l1npl"></span>
+
+    
+
+    
+
+    <input autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" tabindex="0" type="text" aria-autocomplete="list" placeholder="Pilih Provinsi" style="" class="svelte-17l1npl" value="">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <input type="hidden" class="svelte-17l1npl">
+
+    </div></div>
+
+        
+        <div class="col-md-3 col-sm-6 themeSelect svelte-13zigdt">
+
+<div class="selectContainer  svelte-17l1npl" style=""><span aria-live="polite" aria-atomic="false" aria-relevant="additions text" class="a11yText svelte-17l1npl"></span>
+
+    
+
+    
+
+    <input autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" tabindex="0" type="text" aria-autocomplete="list" placeholder="Pilih Kabupaten/Kota" style="" class="svelte-17l1npl" value="">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <input type="hidden" class="svelte-17l1npl">
+
+    </div></div>
+
+        
+        <div class="col-md-3 col-sm-6 themeSelect svelte-13zigdt">
+
+<div class="selectContainer  svelte-17l1npl" style=""><span aria-live="polite" aria-atomic="false" aria-relevant="additions text" class="a11yText svelte-17l1npl"></span>
+
+    
+
+    
+
+    <input autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" tabindex="0" type="text" aria-autocomplete="list" placeholder="Pilih Kecamatan" style="" class="svelte-17l1npl" value="">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <input type="hidden" class="svelte-17l1npl">
+
+    </div></div>
+
+        
+        <div class="col-md-3 col-sm-6 themeSelect svelte-13zigdt">
+
+<div class="selectContainer  svelte-17l1npl" style=""><span aria-live="polite" aria-atomic="false" aria-relevant="additions text" class="a11yText svelte-17l1npl"></span>
+
+    
+
+    
+
+    <input autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" tabindex="0" type="text" aria-autocomplete="list" placeholder="Pilih Asosiasi" style="" class="svelte-17l1npl" value="">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <input type="hidden" class="svelte-17l1npl">
+
+    </div></div></div></div>
+    <div class="tab-pane fade" id="pills-data-lokasi" role="tabpanel" aria-labelledby="pills-data-lokasi-tab"><div class="row"><div class="col-md-3 col-form-label text-md-end text-sm-center themeSelect svelte-13zigdt">Cari Berdasarkan:
         </div>
-    </header>
+        <div class="col-md-3 themeSelect svelte-13zigdt">
 
-    <!-- Banner Section -->
-    <section class="banner">
-        <div class="banner-content">
-            <h1>Rumah Subsidi untuk Keluarga Indonesia</h1>
-            <p>Dapatkan rumah dengan harga terjangkau mulai dari Rp 100 juta hingga Rp 200 juta dengan fasilitas KPR Subsidi</p>
-            <a href="#" class="btn">Lihat Program Subsidi</a>
+<div class="selectContainer  svelte-17l1npl" style=""><span aria-live="polite" aria-atomic="false" aria-relevant="additions text" class="a11yText svelte-17l1npl"></span>
+
+    
+
+    
+
+    <input autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" tabindex="0" type="text" aria-autocomplete="list" placeholder="" style="" class="svelte-17l1npl" value="">
+
+    <div class="selectedItem svelte-17l1npl"><div class="selection svelte-pu1q1n">Nama Perumahan</div></div>
+
+    <div class="clearSelect svelte-17l1npl" aria-hidden="true"><svg width="100%" height="100%" viewbox="-2 -2 50 50" focusable="false" aria-hidden="true" role="presentation"><path fill="currentColor" d="M34.923,37.251L24,26.328L13.077,37.251L9.436,33.61l10.923-10.923L9.436,11.765l3.641-3.641L24,19.047L34.923,8.124
+    l3.641,3.641L27.641,22.688L38.564,33.61L34.923,37.251z"></path></svg></div>
+
+    
+
+    
+
+    
+
+    <input type="hidden" value="Nama Perumahan" class="svelte-17l1npl">
+
+    </div></div>
+        <div class="col-md-4 themeSelect svelte-13zigdt"><input type="text" class="form-control" placeholder="Masukan kata kunci pencarian..."></div>
+        <div class="col-md-2 themeSelect svelte-13zigdt"><button class="btn btn-primary">CARI</button></div></div></div>
+    <div class="tab-pane fade" id="pills-id-lokasi" role="tabpanel" aria-labelledby="pills-id-lokasi-tab"><div class="row"><div class="col-md-4 col-form-label text-md-end text-center themeSelect svelte-13zigdt">Masukan ID Lokasi:
         </div>
-    </section>
-
-    <!-- Main Content -->
-    <main class="container">
-        <!-- Search Section -->
-        <section class="search-section">
-            <h2>Cari Rumah Subsidi Anda</h2>
-            <form class="search-form">
-                <div class="form-group">
-                    <label for="location">Lokasi</label>
-                    <select id="location">
-                        <option value="">Semua Lokasi</option>
-                        <option value="jakarta">Jakarta</option>
-                        <option value="bogor">Bogor</option>
-                        <option value="depok">Depok</option>
-                        <option value="tangerang">Tangerang</option>
-                        <option value="bekasi">Bekasi</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="type">Tipe Rumah</label>
-                    <select id="type">
-                        <option value="">Semua Tipe</option>
-                        <option value="21">Tipe 21</option>
-                        <option value="36">Tipe 36</option>
-                        <option value="45">Tipe 45</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="price">Harga Maksimal</label>
-                    <select id="price">
-                        <option value="200">Rp 200 juta</option>
-                        <option value="150">Rp 150 juta</option>
-                        <option value="100">Rp 100 juta</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="bedrooms">Kamar Tidur</label>
-                    <select id="bedrooms">
-                        <option value="">Semua</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </select>
-                </div>
-                <button type="submit" class="search-btn">Cari Properti</button>
-            </form>
-        </section>
-
-        <!-- Property Listing Section -->
-        <section class="property-section">
-            <div class="price-filter">
-                <label for="sort-price">Urutkan Harga:</label>
-                <select id="sort-price">
-                    <option value="low-high">Termurah ke Termahal</option>
-                    <option value="high-low">Termahal ke Termurah</option>
-                </select>
-            </div>
-            
-            <h2 class="section-title">Daftar Rumah Subsidi (≤ Rp 200 Juta)</h2>
-            <div class="property-grid">
-                <!-- Property 1 -->
-                <div class="property-card">
-                    <div class="property-image">
-                        <img src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Rumah Subsidi Tipe 36">
-                    </div>
-                    <div class="property-info">
-                        <div class="property-price">Rp 180 juta <span class="subsidi-badge">SUBSIDI</span></div>
-                        <div class="property-address">Perumahan Griya Asri, Cibinong, Bogor</div>
-                        <div class="property-features">
-                            <span><i class="fas fa-bed"></i> 2 KT</span>
-                            <span><i class="fas fa-bath"></i> 1 KM</span>
-                            <span><i class="fas fa-ruler-combined"></i> 36 m²</span>
-                        </div>
-                        <div class="property-developer">
-                            <div class="developer-logo">
-                                <img src="https://via.placeholder.com/100/4CAF50/FFFFFF?text=GAP" alt="Logo Pengembang">
-                            </div>
-                            <div class="developer-info">
-                                <h4>Griya Asri Properti</h4>
-                                <div class="developer-rating">
-                                    <div class="rating">
-                                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                    </div>
-                                    <span>(42)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="property-bank">
-                            <span class="bank-logo-text btn">Bank BTN</span>
-                            <div class="bank-rating">
-                                <div class="rating">
-                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                </div>
-                                <span>(35)</span>
-                            </div>
-                        </div>
-                        <div class="property-actions">
-                            <button class="btn-detail">Lihat Detail</button>
-                            <button class="btn-finance">Ajukan KPR</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Property 2 -->
-                <div class="property-card">
-                    <div class="property-image">
-                        <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Rumah Subsidi Tipe 21">
-                    </div>
-                    <div class="property-info">
-                        <div class="property-price">Rp 120 juta <span class="subsidi-badge">SUBSIDI</span></div>
-                        <div class="property-address">Perumahan Bumi Mulya, Cikarang, Bekasi</div>
-                        <div class="property-features">
-                            <span><i class="fas fa-bed"></i> 1 KT</span>
-                            <span><i class="fas fa-bath"></i> 1 KM</span>
-                            <span><i class="fas fa-ruler-combined"></i> 21 m²</span>
-                        </div>
-                        <div class="property-developer">
-                            <div class="developer-logo">
-                                <img src="https://via.placeholder.com/100/2196F3/FFFFFF?text=BMP" alt="Logo Pengembang">
-                            </div>
-                            <div class="developer-info">
-                                <h4>Bumi Mulya Property</h4>
-                                <div class="developer-rating">
-                                    <div class="rating">
-                                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                    </div>
-                                    <span>(38)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="property-bank">
-                            <span class="bank-logo-text mandiri">Bank Mandiri</span>
-                            <div class="bank-rating">
-                                <div class="rating">
-                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                </div>
-                                <span>(29)</span>
-                            </div>
-                        </div>
-                        <div class="property-actions">
-                            <button class="btn-detail">Lihat Detail</button>
-                            <button class="btn-finance">Ajukan KPR</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Property 3 -->
-                <div class="property-card">
-                    <div class="property-image">
-                        <img src="https://images.unsplash.com/photo-1600566752225-220f4385fbb2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Rumah Subsidi Tipe 36">
-                    </div>
-                    <div class="property-info">
-                        <div class="property-price">Rp 175 juta <span class="subsidi-badge">SUBSIDI</span></div>
-                        <div class="property-address">Perumahan Cempaka Mas, Depok</div>
-                        <div class="property-features">
-                            <span><i class="fas fa-bed"></i> 2 KT</span>
-                            <span><i class="fas fa-bath"></i> 1 KM</span>
-                            <span><i class="fas fa-ruler-combined"></i> 36 m²</span>
-                        </div>
-                        <div class="property-developer">
-                            <div class="developer-logo">
-                                <img src="https://via.placeholder.com/100/9C27B0/FFFFFF?text=CMD" alt="Logo Pengembang">
-                            </div>
-                            <div class="developer-info">
-                                <h4>Cempaka Mas Development</h4>
-                                <div class="developer-rating">
-                                    <div class="rating">
-                                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                    </div>
-                                    <span>(45)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="property-bank">
-                            <span class="bank-logo-text bri">Bank BRI</span>
-                            <div class="bank-rating">
-                                <div class="rating">
-                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                </div>
-                                <span>(31)</span>
-                            </div>
-                        </div>
-                        <div class="property-actions">
-                            <button class="btn-detail">Lihat Detail</button>
-                            <button class="btn-finance">Ajukan KPR</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Property 4 -->
-                <div class="property-card">
-                    <div class="property-image">
-                        <img src="https://images.unsplash.com/photo-1600607688969-a5bfa4ce2c8a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Rumah Subsidi Tipe 45">
-                    </div>
-                    <div class="property-info">
-                        <div class="property-price">Rp 195 juta <span class="subsidi-badge">SUBSIDI</span></div>
-                        <div class="property-address">Perumahan Melati Indah, Tangerang</div>
-                        <div class="property-features">
-                            <span><i class="fas fa-bed"></i> 2 KT</span>
-                            <span><i class="fas fa-bath"></i> 1 KM</span>
-                            <span><i class="fas fa-ruler-combined"></i> 45 m²</span>
-                        </div>
-                        <div class="property-developer">
-                            <div class="developer-logo">
-                                <img src="https://via.placeholder.com/100/FF5722/FFFFFF?text=MIP" alt="Logo Pengembang">
-                            </div>
-                            <div class="developer-info">
-                                <h4>Melati Indah Property</h4>
-                                <div class="developer-rating">
-                                    <div class="rating">
-                                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                    </div>
-                                    <span>(50)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="property-bank">
-                            <span class="bank-logo-text bsi">Bank BSI</span>
-                            <div class="bank-rating">
-                                <div class="rating">
-                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                </div>
-                                <span>(40)</span>
-                            </div>
-                        </div>
-                        <div class="property-actions">
-                            <button class="btn-detail">Lihat Detail</button>
-                            <button class="btn-finance">Ajukan KPR</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Property 5 -->
-                <div class="property-card">
-                    <div class="property-image">
-                        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Rumah Subsidi Tipe 21">
-                    </div>
-                    <div class="property-info">
-                        <div class="property-price">Rp 110 juta <span class="subsidi-badge">SUBSIDI</span></div>
-                        <div class="property-address">Perumahan Bunga Raya, Bekasi</div>
-                        <div class="property-features">
-                            <span><i class="fas fa-bed"></i> 1 KT</span>
-                            <span><i class="fas fa-bath"></i> 1 KM</span>
-                            <span><i class="fas fa-ruler-combined"></i> 21 m²</span>
-                        </div>
-                        <div class="property-developer">
-                            <div class="developer-logo">
-                                <img src="https://via.placeholder.com/100/607D8B/FFFFFF?text=BRD" alt="Logo Pengembang">
-                            </div>
-                            <div class="developer-info">
-                                <h4>Bunga Raya Development</h4>
-                                <div class="developer-rating">
-                                    <div class="rating">
-                                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                    </div>
-                                    <span>(36)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="property-bank">
-                            <span class="bank-logo-text btn">Bank BTN</span>
-                            <div class="bank-rating">
-                                <div class="rating">
-                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                </div>
-                                <span>(28)</span>
-                            </div>
-                        </div>
-                        <div class="property-actions">
-                            <button class="btn-detail">Lihat Detail</button>
-                            <button class="btn-finance">Ajukan KPR</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Property 6 -->
-                <div class="property-card">
-                    <div class="property-image">
-                        <img src="https://images.unsplash.com/photo-1600607688969-a5bfa4ce2c8a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Rumah Subsidi Tipe 36">
-                    </div>
-                    <div class="property-info">
-                        <div class="property-price">Rp 165 juta <span class="subsidi-badge">SUBSIDI</span></div>
-                        <div class="property-address">Perumahan Mutiara Damai, Bogor</div>
-                        <div class="property-features">
-                            <span><i class="fas fa-bed"></i> 2 KT</span>
-                            <span><i class="fas fa-bath"></i> 1 KM</span>
-                            <span><i class="fas fa-ruler-combined"></i> 36 m²</span>
-                        </div>
-                        <div class="property-developer">
-                            <div class="developer-logo">
-                                <img src="https://via.placeholder.com/100/795548/FFFFFF?text=MDP" alt="Logo Pengembang">
-                            </div>
-                            <div class="developer-info">
-                                <h4>Mutiara Damai Property</h4>
-                                <div class="developer-rating">
-                                    <div class="rating">
-                                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                    </div>
-                                    <span>(41)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="property-bank">
-                            <span class="bank-logo-text mandiri">Bank Mandiri</span>
-                            <div class="bank-rating">
-                                <div class="rating">
-                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                </div>
-                                <span>(33)</span>
-                            </div>
-                        </div>
-                        <div class="property-actions">
-                            <button class="btn-detail">Lihat Detail</button>
-                            <button class="btn-finance">Ajukan KPR</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Tentang RumahSubsidiKu</h3>
-                    <p>Platform khusus untuk membantu masyarakat mendapatkan rumah subsidi dengan harga terjangkau dan proses pembiayaan yang mudah melalui bank-bank partner kami.</p>
-                </div>
-                <div class="footer-column">
-                    <h3>Link Cepat</h3>
-                    <ul>
-                        <li><a href="#">Syarat Rumah Subsidi</a></li>
-                        <li><a href="#">Persyaratan KPR Subsidi</a></li>
-                        <li><a href="#">Cara Daftar Rumah Subsidi</a></li>
-                        <li><a href="#">Pengembang Terdaftar</a></li>
-                        <li><a href="#">Bank Penyedia KPR</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Layanan</h3>
-                    <ul>
-                        <li><a href="#">KPR Subsidi</a></li>
-                        <li><a href="#">Kalkulator KPR</a></li>
-                        <li><a href="#">Simulasi Angsuran</a></li>
-                        <li><a href="#">Cek Kelayakan</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Hubungi Kami</h3>
-                    <ul>
-                        <li><i class="fas fa-phone"></i> (021) 12345678</li>
-                        <li><i class="fas fa-envelope"></i> info@rumahsubsidiku.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Jl. Sudirman No. 1, Jakarta</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                &copy; 2023 RumahSubsidiKu. All Rights Reserved.
-            </div>
+        <div class="col-md-4 themeSelect svelte-13zigdt"><input type="text" class="form-control"></div>
+        <div class="col-md-4 themeSelect text-md-start text-center svelte-13zigdt"><button class="btn btn-primary">C A R I
+          </button></div></div></div>
+    <div class="tab-pane fade" id="pills-id-rumah" role="tabpanel" aria-labelledby="pills-id-rumah-tab"><div class="row"><div class="col-md-4 col-form-label text-md-end text-center themeSelect svelte-13zigdt">Masukan ID Rumah:
         </div>
-    </footer>
+        <div class="col-md-4 themeSelect svelte-13zigdt"><input type="text" class="form-control"></div>
+        <div class="col-md-4 text-md-start text-center themeSelect svelte-13zigdt"><button class="btn btn-primary">C A R I
+          </button></div></div></div></div>
+
+  </div>
+
+<hr>
+
+  <div class="container mx-auto"><div class="row"><div class="col-12 text-center fond-bold mb-2"><b>1.234 PENGEMBANG, 5.678 LOKASI, 12.345 UNIT
+        </b></div>
+
+      <div class="col-12 border rounded p-3" style="background-color: #ddd;"><div><b>Komersil</b>
+          Antrian : 1.234</div>
+
+        <div class="row mx-0 mt-2 d-none d-md-flex"><div class="col mx-1 rounded text-white p-2" style="background-color: #718096"><b>3.456</b> Kavling
+          </div>
+          <div class="col mx-1 rounded text-white p-2" style="background-color: #855831"><b>1.234</b> Pembangunan
+          </div>
+          <div class="col mx-1 rounded text-white p-2" style="background-color: #362825"><b>2.345</b> Ready Stock
+          </div>
+          <div class="col mx-1 rounded text-white p-2" style="background-color: #4C1D95"><b>567</b> Dipesan
+          </div>
+          <div class="col mx-1 rounded text-white p-2" style="background-color: #343a40"><b>4.321</b> Terjual
+          </div></div>
+
+        <div class="row mx-0 mt-2 d-flex d-md-none"><div class="col-12 mb-1 mx-1 rounded text-white p-2" style="background-color: #718096"><b>3.456</b> Kavling
+          </div>
+          <div class="col-12 mb-1 mx-1 rounded text-white p-2" style="background-color: #855831"><b>1.234</b> Pembangunan
+          </div>
+          <div class="col-12 mb-1 mx-1 rounded text-white p-2" style="background-color: #362825"><b>2.345</b> Ready Stock
+          </div>
+          <div class="col-12 mb-1 mx-1 rounded text-white p-2" style="background-color: #4C1D95"><b>567</b> Dipesan
+          </div>
+          <div class="col-12 mb-1 mx-1 rounded text-white p-2" style="background-color: #343a40"><b>4.321</b> Terjual
+          </div></div></div>
+
+      <div class="col-12 border rounded p-3 mt-3" style="background-color: rgba(255, 255, 0, 0.22)"><div><b>Subsidi</b>
+          Antrian : 5.678</div>
+
+        <div class="row mx-0 mt-2 d-none d-md-flex"><div class="col mx-1 rounded p-2" style="background-color: #f7ca18"><b>7.890</b> Kavling
+          </div>
+          <div class="col mx-1 rounded p-2" style="background-color: #e67e22"><b>3.456</b> Pembangunan
+          </div>
+          <div class="col mx-1 rounded p-2 text-white" style="background-color: #28a745"><b>4.567</b> Ready Stock
+          </div>
+          <div class="col mx-1 rounded p-2 text-white" style="background-color: #007bff"><b>1.234</b> Proses Bank
+          </div>
+          <div class="col mx-1 rounded p-2 text-white" style="background-color: #dc3545"><b>6.789</b> Terjual
+          </div></div>
+
+        <div class="row mx-0 mt-2 d-flex d-md-none"><div class="col-12 mb-1 mx-1 rounded p-2" style="background-color: #f7ca18"><b>7.890</b> Kavling
+          </div>
+          <div class="col-12 mb-1 mx-1 rounded p-2" style="background-color: #e67e22"><b>3.456</b> Pembangunan
+          </div>
+          <div class="col-12 mb-1 mx-1 rounded p-2 text-white" style="background-color: #28a745"><b>4.567</b> Ready Stock
+          </div>
+          <div class="col-12 mb-1 mx-1 rounded p-2 text-white" style="background-color: #007bff"><b>1.234</b> Proses Bank
+          </div>
+          <div class="col-12 mb-1 mx-1 rounded p-2 text-white" style="background-color: #dc3545"><b>6.789</b> Terjual
+          </div></div></div></div></div>
+
+  <hr>
+
+  <div class="container"><div class="row" style="min-height: 500px">
+    <div class="col-md-12">
+      <div class="row">
+        <!-- Data Perumahan 1 -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <img src="/public/upload/2025/07/04/file-lokasi-1a55e874-2276-41da-9271-af2282213688.jpg" class="card-img-top" alt="Bumi Gesya Karawang">
+            <div class="card-body">
+              <h5 class="card-title">Bumi Gesya Karawang</h5>
+              <p class="card-text">
+                <strong>Lokasi:</strong> Cengkong, Purwasari, Kab. Karawang, Jawa Barat<br>
+                <strong>Pengembang:</strong> GEMINI SURYA ABADI BEKASI<br>
+                <strong>Jumlah Unit:</strong> 250<br>
+                <strong>Jenis:</strong> Rumah Tapak
+              </p>
+            </div>
+            <div class="card-footer bg-white">
+              <small class="text-muted">ID Lokasi: KWG2920062025T001</small>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Data Perumahan 2 -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <img src="/public/upload/2025/07/04/file-lokasi-659c583c-5a0b-4c1e-a95b-79b5d2dd0d8d.jpg" class="card-img-top" alt="PESONA AHSAN SRIWIJAYA">
+            <div class="card-body">
+              <h5 class="card-title">PESONA AHSAN SRIWIJAYA</h5>
+              <p class="card-text">
+                <strong>Lokasi:</strong> Sekar Jaya, Baturaja Timur, Kab. Ogan Komering Ulu, Sumatera Selatan<br>
+                <strong>Pengembang:</strong> AHSAN ALFAREZEL PROPERTY<br>
+                <strong>Jumlah Unit:</strong> 180<br>
+                <strong>Jenis:</strong> Rumah Tapak
+              </p>
+            </div>
+            <div class="card-footer bg-white">
+              <small class="text-muted">ID Lokasi: BTA1410142025T002</small>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Data Perumahan 3 -->
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <img src="/public/upload/2025/07/03/file-lokasi-6130d34b-c860-4c85-bfb5-89334889c6ee.jpeg" class="card-img-top" alt="Landsum Kayari">
+            <div class="card-body">
+              <h5 class="card-title">Landsum Kayari</h5>
+              <p class="card-text">
+                <strong>Lokasi:</strong> Arisan Buntal, Kayu Agung, Kab. Ogan Komering Ilir, Sumatera Selatan<br>
+                <strong>Pengembang:</strong> AGUNG RAHAYU BARU<br>
+                <strong>Jumlah Unit:</strong> 320<br>
+                <strong>Jenis:</strong> Rumah Tapak
+              </p>
+            </div>
+            <div class="card-footer bg-white">
+              <small class="text-muted">ID Lokasi: KAG0520142025T001</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="row pb-5"><div class="col-4 text-start"><button class="btn btn-primary" disabled>Sebelumnya
+        </button></div>
+      <div class="col-4 text-center">
+        <select class="form-control mx-auto" style="width: 80px">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select></div>
+      <div class="col-4 text-end"><button class="btn btn-primary">Selanjutnya
+        </button></div></div></div></div>
+
+<div class="bg-blue py-8 svelte-1jsifgz"><div class="container"><div class="text-center row pt-4"><div class="col-md-12"><span class="text-light">Terintegrasi dengan</span></div>
+      <div class="col-md-12"><a href="https://play.google.com/store/apps/details?id=com.lpdpp.sikasep" target="_blank"><img src="images/images-Sikasep_logo.png" alt="sikasep" class="mx-auto w-24 py-2 logo-sikasep svelte-1jsifgz" style="width: 6rem"></a></div></div></div>
+
+  <hr class="border-b-2 my-4" style="border-color: #0069d9">
+
+  <div class="text-center py-2"><span class="text-light"><small>Pusat Pengelolaan Dana Pembiayaan Perumahan</small></span>
+    <br>
+    <span class="text-light"><small>Kementerian Pekerjaan Umum dan Perumahan Rakyat</small></span>
+    <br>
+
+    <a href="sikumbang.tapera.go.html" class="text-light text-decoration-none border-bottom mx-1"><small>Home</small></a>
+    <a href="disclaimer.html" class="text-light text-decoration-none border-bottom mx-1"><small>Disclaimer</small></a>
+    <a href="kontak-asosiasi.html" class="text-light text-decoration-none border-bottom mx-1"><small>Kontak Asosiasi</small></a></div>
+</div></div>
+
+  <script>window.SIKUMBANG_PAGE='index';window.SIKUMBANG_DATA={"page":1,"maxPage":1006,"count":{"countUnitTotal":"12.345","countUnitSubsidi":"7.890","countUnitKomersilTerjual":"4.321","countUnitPembangunan":"4.690","countUnitReady":"6.912","countUnitTerjual":"11.110","countUnitKomersil":"3.456","countPengembang":"1.234","totalBookingSubsidi":"5.678","totalBookingKomersil":"1.234","totalLokasi":"5.678","totalPilihan":"12.345","totalPeminatan":null},"listLokasi":[{"idLokasi":"KWG2920062025T001","namaPerumahan":"Bumi Gesya Karawang","jenisPerumahan":"Rumah Tapak","jumlahUnit":"250","jumlahUnitKomersil":"120","foto":["/public/upload/2025/07/04/file-lokasi-1a55e874-2276-41da-9271-af2282213688.jpg"],"wilayah":{"kodeWilayah":"3215292006","namaWilayah":"Cengkong","provinsi":"JAWA BARAT","kabupaten":"KAB KARAWANG","kecamatan":"Purwasari","kelurahan":"Cengkong","kbsni":"   "},"pengembang":{"nama":"GEMINI SURYA ABADI BEKASI","asosiasi":"APERSI"}},{"idLokasi":"BTA1410142025T002","namaPerumahan":"PESONA AHSAN SRIWIJAYA","jenisPerumahan":"Rumah Tapak","jumlahUnit":"180","jumlahUnitKomersil":"80","foto":["/public/upload/2025/07/04/file-lokasi-659c583c-5a0b-4c1e-a95b-79b5d2dd0d8d.jpg"],"wilayah":{"kodeWilayah":"1601141014","namaWilayah":"Sekar Jaya","provinsi":"SUMATERA SELATAN","kabupaten":"KAB OGAN KOMERING ULU","kecamatan":"Baturaja Timur","kelurahan":"Sekar Jaya","kbsni":"   "},"pengembang":{"nama":"AHSAN ALFAREZEL PROPERTY","asosiasi":"REI"}},{"idLokasi":"KAG0520142025T001","namaPerumahan":"Landsum Kayari","jenisPerumahan":"Rumah Tapak","jumlahUnit":"320","jumlahUnitKomersil":"150","foto":["/public/upload/2025/07/03/file-lokasi-6130d34b-c860-4c85-bfb5-89334889c6ee.jpeg"],"wilayah":{"kodeWilayah":"1602052014","namaWilayah":"Arisan Buntal","provinsi":"SUMATERA SELATAN","kabupaten":"KAB OGAN KOMERING ILIR","kecamatan":"Kayu Agung","kelurahan":"Arisan Buntal","kbsni":"   "},"pengembang":{"nama":"AGUNG RAHAYU BARU","asosiasi":"REI"}},{"idLokasi":"WAT0220072025T001","namaPerumahan":"PERUMAHAN BALE GANGSAR","jenisPerumahan":"Rumah Tapak","jumlahUnit":"210","jumlahUnitKomersil":"90","foto":["/public/upload/2025/07/03/file-a56fe068-f5c1-4856-8ec3-bc0cfdddad04.jpg"],"wilayah":{"kodeWilayah":"3401022007","namaWilayah":"Giripeni","provinsi":"DAERAH ISTIMEWA YOGYAKARTA","kabupaten":"KAB KULON PROGO","kecamatan":"Wates","kelurahan":"Giripeni","kbsni":"   "},"pengembang":{"nama":"SHANKARA ABIRAMA PROPERTI","asosiasi":"HIMPERRA"}},{"idLokasi":"WSB0920012025T001","namaPerumahan":"Wonolelo Residence","jenisPerumahan":"Rumah Tapak","jumlahUnit":"175","jumlahUnitKomersil":"75","foto":["/public/upload/2025/07/03/file-lokasi-2fb6eef4-2b5c-48e3-8974-155c782e8c58.jpg"],"wilayah":{"kodeWilayah":"3307092001","namaWilayah":"Wonolelo","provinsi":"JAWA TENGAH","kabupaten":"KAB WONOSOBO","kecamatan":"Wonosobo","kelurahan":"Wonolelo","kbsni":"   "},"pengembang":{"nama":"GOSANKE HOKI PROPERTI","asosiasi":"ASPRUMNAS"}},{"idLokasi":"CBI0220052025T001","namaPerumahan":"BUKIT RAYA","jenisPerumahan":"Rumah Tapak","jumlahUnit":"280","jumlahUnitKomersil":"130","foto":["/public/upload/2025/07/03/file-lokasi-886c39f2-22d6-47ac-a4a0-3b45747e3d27.jpg"],"wilayah":{"kodeWilayah":"3201022005","namaWilayah":"Bojong Nangka","provinsi":"JAWA BARAT","kabupaten":"KAB BOGOR","kecamatan":"Gunung Putri","kelurahan":"Bojong Nangka","kbsni":"   "},"pengembang":{"nama":"JUMBO PRIMA PROPERTI","asosiasi":"APERSI"}},{"idLokasi":"SPA2420052025T001","namaPerumahan":"MARGAMULYA RAYA","jenisPerumahan":"Rumah Tapak","jumlahUnit":"190","jumlahUnitKomersil":"85","foto":["/public/upload/2025/07/03/file-lokasi-2d586174-6143-4986-b267-d92903dd4828.jpg"],"wilayah":{"kodeWilayah":"3206242005","namaWilayah":"Cikunir","provinsi":"JAWA BARAT","kabupaten":"KAB TASIKMALAYA","kecamatan":"Singaparna","kelurahan":"Cikunir","kbsni":"   "},"pengembang":{"nama":"GRIYA BINTANG PESONA","asosiasi":"REI"}},{"idLokasi":"PKK1220062025T001","namaPerumahan":"Puncak Lestari","jenisPerumahan":"Rumah Tapak","jumlahUnit":"230","jumlahUnitKomersil":"110","foto":["/public/upload/2025/07/03/file-lokasi-ba71ebaf-4780-4d5a-8615-aee1c359fc90.jpg"],"wilayah":{"kodeWilayah":"1405122006","namaWilayah":"Angkasa","provinsi":"RIAU","kabupaten":"KAB PELALAWAN","kecamatan":"Bandar Petalangan","kelurahan":"Angkasa","kbsni":"   "},"pengembang":{"nama":"HIJRAH SENTOSA MAS","asosiasi":"APERNAS"}},{"idLokasi":"BKN0320132025T005","namaPerumahan":"BERLIAN JAYA SENTOSA","jenisPerumahan":"Rumah Tapak","jumlahUnit":"260","jumlahUnitKomersil":"120","foto":["/public/upload/2025/07/03/file-ba2a1d2d-fb3f-4631-b0cc-bd1dadd35d77.JPG"],"wilayah":{"kodeWilayah":"1401032013","namaWilayah":"Tarai Bangun","provinsi":"RIAU","kabupaten":"KAB KAMPAR","kecamatan":"Tambang","kelurahan":"Tarai Bangun","kbsni":"   "},"pengembang":{"nama":"SUKA JAYA MANDIRI","asosiasi":"APPERNAS JAYA"}},{"idLokasi":"SNT0120212025T001","namaPerumahan":"PURI HALIM 4","jenisPerumahan":"Rumah Tapak","jumlahUnit":"200","jumlahUnitKomersil":"90","foto":["/public/upload/2025/07/02/file-lokasi-c0375371-59b8-42ae-9c24-afb8cc2f7f91.jpg"],"wilayah":{"kodeWilayah":"1505012021","namaWilayah":"Mendalo Indah","provinsi":"JAMBI","kabupaten":"KAB MUARO JAMBI","kecamatan":"Jambi Luar Kota","kelurahan":"Mendalo Indah","kbsni":"   "},"pengembang":{"nama":"HALIM FANONA","asosiasi":"APERSI"}},{"idLokasi":"MTP0520362025T003","namaPerumahan":"PERUMAHAN ZAHRAH 4","jenisPerumahan":"Rumah Tapak","jumlahUnit":"240","jumlahUnitKomersil":"115","foto":["/public/upload/2025/07/02/file-lokasi-025992e0-f61a-4ad8-ba89-0b903c82d4aa.jpg"],"wilayah":{"kodeWilayah":"6303052036","namaWilayah":"Tungkaran","provinsi":"KALIMANTAN SELATAN","kabupaten":"KAB BANJAR","kecamatan":"Martapura","kelurahan":"Tungkaran","kbsni":"   "},"pengembang":{"nama":"ZAHRAH SALIM BANUA","asosiasi":"REI"}},{"idLokasi":"MAM0110122025T003","namaPerumahan":"PADANG PANGA HILLS RESIDENCE","jenisPerumahan":"Rumah Tapak","jumlahUnit":"270","jumlahUnitKomersil":"125","foto":["/public/upload/2025/07/02/file-lokasi-f1bdc20f-26a5-4093-b153-63c629e30dbc.jpg"],"wilayah":{"kodeWilayah":"7602011012","namaWilayah":"Karema","provinsi":"SULAWESI BARAT","kabupaten":"KAB MAMUJU","kecamatan":"Mamuju","kelurahan":"Karema","kbsni":"   "},"pengembang":{"nama":"PUTRA INDO KONSTRUKSI","asosiasi":"REI"}},{"idLokasi":"PLP0510022025T003","namaPerumahan":"HARMONI HARTACO","jenisPerumahan":"Rumah Tapak","jumlahUnit":"220","jumlahUnitKomersil":"100","foto":["/public/upload/2025/07/02/file-lokasi-f510712d-34bf-4f1a-9445-634fe082250b.jpg"],"wilayah":{"kodeWilayah":"7373051002","namaWilayah":"Benteng","provinsi":"SULAWESI SELATAN","kabupaten":"KOTA PALOPO","kecamatan":"Wara Timur","kelurahan":"Benteng","kbsni":"   "},"pengembang":{"nama":"SOLUSI HIDUP MANDIRI","asosiasi":"REI"}},{"idLokasi":"KDI0710012025T002","namaPerumahan":"BARUGA HARMONI 5","jenisPerumahan":"Rumah Tapak","jumlahUnit":"290","jumlahUnitKomersil":"140","foto":["/public/upload/2025/07/02/file-lokasi-9d9849ac-39cd-4899-97d0-20d24085a33f.jpg"],"wilayah":{"kodeWilayah":"7471071001","namaWilayah":"Wua Wua","provinsi":"SULAWESI TENGGARA","kabupaten":"KOTA KENDARI","kecamatan":"Wua-Wua","kelurahan":"Wua Wua","kbsni":"   "},"pengembang":{"nama":"RASYA DWI MANDIRI","asosiasi":"APERSI"}},{"idLokasi":"PTI1420032025T001","namaPerumahan":"Perumahan Graha Rejo Asri","jenisPerumahan":"Rumah Tapak","jumlahUnit":"250","jumlahUnitKomersil":"120","foto":["/public/upload/2025/07/02/file-lokasi-aa3c4f34-6c1f-4cd1-966c-034c50c81cd3.jpg"],"wilayah":{"kodeWilayah":"3318142003","namaWilayah":"Tlogorejo","provinsi":"JAWA TENGAH","kabupaten":"KAB PATI","kecamatan":"Tlogowungu","kelurahan":"Tlogorejo","kbsni":"   "},"pengembang":{"nama":"HAYYU DYRA KUSUMA","asosiasi":"REI"}},{"idLokasi":"PAL0410012025T002","namaPerumahan":"SELEBES LAND MAMBORO","jenisPerumahan":"Rumah Tapak","jumlahUnit":"210","jumlahUnitKomersil":"95","foto":["/public/upload/2025/07/02/file-lokasi-51295c38-6e95-42dd-a982-57fd7f1f0dea.jpg"],"wilayah":{"kodeWilayah":"7271041001","namaWilayah":"Mamboro","provinsi":"SULAWESI TENGAH","kabupaten":"KOTA PALU","kecamatan":"Palu Utara","kelurahan":"Mamboro","kbsni":"   "},"pengembang":{"nama":"SELEBES MEMBANGUN PERSADA","asosiasi":"APERSI"}},{"idLokasi":"LMJ1020072025T001","namaPerumahan":"GRIYA CITRA LESTARI","jenisPerumahan":"Rumah Tapak","jumlahUnit":"230","jumlahUnitKomersil":"110","foto":["/public/upload/2025/07/02/file-97b0bd42-e348-4e8b-87a5-10a0d27c8a46.jpg"],"wilayah":{"kodeWilayah":"3508102007","namaWilayah":"Blukon","provinsi":"JAWA TIMUR","kabupaten":"KAB LUMAJANG","kecamatan":"Lumajang","kelurahan":"Blukon","kbsni":"   "},"pengembang":{"nama":"PODO LANCAR GROUP","asosiasi":"APERSI"}},{"idLokasi":"NGA0110062025T001","namaPerumahan":"Pesona BB Agung Residence","jenisPerumahan":"Rumah Tapak","jumlahUnit":"240","jumlahUnitKomersil":"115","foto":["/public/upload/2025/07/02/file-lokasi-fefc0812-6ecf-46d9-ab98-71517674ef45.jpg"],"wilayah":{"kodeWilayah":"5101011006","namaWilayah":"Baler Bale Agung","provinsi":"BALI","kabupaten":"KAB JEMBRANA","kecamatan":"Negara","kelurahan":"Baler Bale Agung","kbsni":"   "},"pengembang":{"nama":"MULYAJAYA PROPERTI","asosiasi":"HIMPERRA"}},{"idLokasi":"SGB1420092025T003","namaPerumahan":"Jinggaland Binangga","jenisPerumahan":"Rumah Tapak","jumlahUnit":"260","jumlahUnitKomersil":"125","foto":["/public/upload/2025/07/02/file-lokasi-d5b67df3-cc87-4c44-895e-257bb78d52fc.JPG"],"wilayah":{"kodeWilayah":"7210142009","namaWilayah":"Binangga","provinsi":"SULAWESI TENGAH","kabupaten":"KAB SIGI","kecamatan":"Marawola","kelurahan":"Binangga","kbsni":"   "},"pengembang":{"nama":"JINGGA PROPERTI INDONESIA","asosiasi":"REI"}},{"idLokasi":"SGL0420072025T001","namaPerumahan":"DELANO RESIDENCE 7","jenisPerumahan":"Rumah Tapak","jumlahUnit":"220","jumlahUnitKomersil":"100","foto":["/public/upload/2025/07/01/file-lokasi-379633c5-0371-483b-b033-585c000c0084.jpg"],"wilayah":{"kodeWilayah":"1901042007","namaWilayah":"Kace","provinsi":"KEPULAUAN BANGKA BELITUNG","kabupaten":"KAB BANGKA","kecamatan":"Mendo Barat","kelurahan":"Kace","kbsni":"   "},"pengembang":{"nama":"DELANO JAYA PROPERTI","asosiasi":"REI"}},{"idLokasi":"SNT0120222025T009","namaPerumahan":"Griya Azkayra","jenisPerumahan":"Rumah Tapak","jumlahUnit":"250","jumlahUnitKomersil":"120","foto":["/public/upload/2025/07/01/file-lokasi-e2df06f3-b09e-4850-8f03-b9bd20facd45.jpg"],"wilayah":{"kodeWilayah":"1505012022","namaWilayah":"Pematang Gajah","provinsi":"JAMBI","kabupaten":"KAB MUARO JAMBI","kecamatan":"Jambi Luar Kota","kelurahan":"Pematang Gajah","kbsni":"   "},"pengembang":{"nama":"PUTRA BULUH CAWANG","asosiasi":"APERSI"}},{"idLokasi":"PMN0110142025T001","namaPerumahan":"FLOVAN REGENCY","jenisPerumahan":"Rumah Tapak","jumlahUnit":"230","jumlahUnitKomersil":"110","foto":["/public/upload/2025/07/01/file-lokasi-a92e2926-22e0-4644-a706-9daa987ee484.jpg"],"wilayah":{"kodeWilayah":"1377011014","namaWilayah":"Jalan Kereta Api","provinsi":"SUMATERA BARAT","kabupaten":"KOTA PARIAMAN","kecamatan":"Pariaman Tengah","kelurahan":"Jalan Kereta Api","kbsni":"   "},"pengembang":{"nama":"DOKA BESTARINDO NUSANTARA","asosiasi":"APERSI"}},{"idLokasi":"MJN0110092025T002","namaPerumahan":"MALEWA CITRA RESIDENCE","jenisPerumahan":"Rumah Tapak","jumlahUnit":"240","jumlahUnitKomersil":"115","foto":["/public/upload/2025/07/01/file-lokasi-2e27676a-753a-4978-ae5f-fa927916169c.jpg"],"wilayah":{"kodeWilayah":"7605011009","namaWilayah":"Totoli","provinsi":"SULAWESI BARAT","kabupaten":"KAB MAJENE","kecamatan":"Banggae","kelurahan":"Totoli","kbsni":"   "},"pengembang":{"nama":"SAMALEWA CITRA PROPERTI","asosiasi":"REI"}},{"idLokasi":"SDA0820032025T002","namaPerumahan":"Mutiara City Cluster Modena","jenisPerumahan":"Rumah Tapak","jumlahUnit":"270","jumlahUnitKomersil":"130","foto":["/public/upload/2025/07/01/file-lokasi-a9623a8e-1b2c-45e6-9554-49ebbde296e0.jpg"],"wilayah":{"kodeWilayah":"3515082003","namaWilayah":"Banjarbendo","provinsi":"JAWA TIMUR","kabupaten":"KAB SIDOARJO","kecamatan":"Sidoarjo","kelurahan":"Banjarbendo","kbsni":"   "},"pengembang":{"nama":"PURNAMA INDO INVESTAMA","asosiasi":"REI"}},{"idLokasi":"SGI1620342025T001","namaPerumahan":"GRIYA MAKMUR GAJAH AYEE","jenisPerumahan":"Rumah Tapak","jumlahUnit":"250","jumlahUnitKomersil":"120","foto":["/public/upload/2025/07/01/file-lokasi-ebe3a895-1459-4361-b9c6-ec64b5d6fbd0.jpg"],"wilayah":{"kodeWilayah":"1107162034","namaWilayah":"Gajah Aye","provinsi":"ACEH","kabupaten":"KAB PIDIE","kecamatan":"Pidie","kelurahan":"Gajah Aye","kbsni":"   "},"pengembang":{"nama":"KUALA MAKMUR","asosiasi":"REI"}},{"idLokasi":"PBR1010032025T002","namaPerumahan":"GRIYA DARU DARU BLOK D","jenisPerumahan":"Rumah Tapak","jumlahUnit":"220","jumlahUnitKomersil":"100","foto":["/public/upload/2025/07/01/file-lokasi-438f6756-3eb4-4b45-a54c-c95737f4a84e.jpg"],"wilayah":{"kodeWilayah":"1471101003","namaWilayah":"Tangkerang Timur","provinsi":"RIAU","kabupaten":"KOTA PEKANBARU","kecamatan":"Tenayan Raya","kelurahan":"Tangkerang Timur","kbsni":"   "},"pengembang":{"nama":"TARUKO JAYA BERSAMA","asosiasi":"REI"}},{"idLokasi":"NPM0320042025T001","namaPerumahan":"NADINE RESIDENCE","jenisPerumahan":"Rumah Tapak","jumlahUnit":"230","jumlahUnitKomersil":"110","foto":["/public/upload/2025/07/01/file-lokasi-5ac0140c-e1d6-408f-b711-d4924edca281.jpg"],"wilayah":{"kodeWilayah":"1305032004","namaWilayah":"Kurai Taji","provinsi":"SUMATERA BARAT","kabupaten":"KAB PADANG PARIAMAN","kecamatan":"Nan Sabaris","kelurahan":"Kurai Taji","kbsni":"   "},"pengembang":{"nama":"DOKA BESTARINDO NUSANTARA","asosiasi":"APERSI"}},{"idLokasi":"SGM0720102025T001","namaPerumahan":"Jenetallasa Residence 2 Pengembangan","jenisPerumahan":"Rumah Tapak","jumlahUnit":"240","jumlahUnitKomersil":"115","foto":["/public/upload/2025/07/01/file-lokasi-7b193e0b-6bb4-434f-8924-aaebea50ef74.jpg"],"wilayah":{"kodeWilayah":"7306072010","namaWilayah":"Jenetallasa","provinsi":"SULAWESI SELATAN","kabupaten":"KAB GOWA","kecamatan":"Palangga","kelurahan":"Jenetallasa","kbsni":"   "},"pengembang":{"nama":"ANUGRAH PRATAMA GOWA","asosiasi":"REI"}},{"idLokasi":"NPH0920102025T001","namaPerumahan":"THE AWANI RESIDENCE 3 Tahap 2","jenisPerumahan":"Rumah Tapak","jumlahUnit":"260","jumlahUnitKomersil":"125","foto":["/public/upload/2025/06/30/file-lokasi-20f0dd8a-e07d-4287-83a3-19c248e454d7.jpg"],"wilayah":{"kodeWilayah":"3217092010","namaWilayah":"Giriasih","provinsi":"JAWA BARAT","kabupaten":"KAB BANDUNG BARAT","kecamatan":"Batujajar","kelurahan":"Giriasih","kbsni":"   "},"pengembang":{"nama":"AWANI BANDUNG REALTY","asosiasi":"ASPRUMNAS"}},{"idLokasi":"PLG1210012025T006","namaPerumahan":"ALAM HIJAU 4","jenisPerumahan":"Rumah Tapak","jumlahUnit":"250","jumlahUnitKomersil":"120","foto":["/public/upload/2025/06/30/file-lokasi-fbd8082f-103a-432e-a5f1-b49fdee7b5ae.JPG"],"wilayah":{"kodeWilayah":"1671121001","namaWilayah":"Gandus","provinsi":"SUMATERA SELATAN","kabupaten":"KOTA PALEMBANG","kecamatan":"Gandus","kelurahan":"Gandus","kbsni":"   "},"pengembang":{"nama":"SIBER DIGITAL SRIWIJAYA","asosiasi":"PI"}}]};</script>
+<script defer src="js/public-index-3.23.0.js"></script>
 </body>
+
 </html>
