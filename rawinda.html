@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komunitas Rawinda Pratama</title>
+    <style>
+        :root {
+            --primary: #2c5e1a;
+            --secondary: #4a8c2d;
+            --light: #f5f5f5;
+            --dark: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .logo img {
+            height: 60px;
+            margin-right: 15px;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background-color: white;
+            padding: 0.8rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav li {
+            margin: 0 1rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover, nav a.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://via.placeholder.com/1200x400');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .activity-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .activity-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .activity-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .activity-card:hover .activity-img img {
+            transform: scale(1.05);
+        }
+        
+        .activity-info {
+            padding: 1.2rem;
+        }
+        
+        .activity-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .activity-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .activity-info .date {
+            display: flex;
+            align-items: center;
+            color: #888;
+            font-size: 0.8rem;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .gallery-item {
+            height: 200px;
+            overflow: hidden;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 0.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
+        .management-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .management-card {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .management-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .management-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .position {
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .map-container {
+            height: 400px;
+            margin-top: 1.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #bbb;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .footer-section a {
+            display: block;
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+            font-size: 0.8rem;
+            color: #888;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav li {
+                margin: 0.3rem 0;
+            }
+            
+            .hero {
+                height: 200px;
+            }
+            
+            .hero-content h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://via.placeholder.com/60" alt="Logo Rawinda Pratama">
+            <div class="logo-text">
+                <h1>Rawinda Pratama</h1>
+                <p>Komunitas Warga Perumahan Rawinda Pratama</p>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#home" class="active">Beranda</a></li>
+            <li><a href="#activities">Kegiatan</a></li>
+            <li><a href="#gallery">Galeri</a></li>
+            <li><a href="#information">Informasi</a></li>
+            <li><a href="#management">Struktur</a></li>
+            <li><a href="#finance">Keuangan</a></li>
+            <li><a href="#location">Lokasi</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h2>Selamat Datang di Perumahan Rawinda Pratama</h2>
+                <p>Komunitas yang harmonis dan asri untuk keluarga Anda</p>
+            </div>
+        </section>
+        
+        <section id="activities" class="section">
+            <h2 class="section-title">Kegiatan Terkini</h2>
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <div class="activity-img">
+                        <img src="https://via.placeholder.com/400x300" alt="Kerja Bakti">
+                    </div>
+                    <div class="activity-info">
+                        <h3>Kerja Bakti Bulanan</h3>
+                        <p>Kegiatan kerja bakti bersama untuk menjaga kebersihan lingkungan perumahan.</p>
+                        <div class="date">📅 15 Juli 2023 | 🕘 07.00 WIB</div>
+                    </div>
+                </div>
+                
+                <div class="activity-card">
+                    <div class="activity-img">
+                        <img src="https://via.placeholder.com/400x300" alt="Lomba 17an">
+                    </div>
+                    <div class="activity-info">
+                        <h3>Perayaan HUT RI ke-78</h3>
+                        <p>Berbagai lomba seru untuk warga dan anak-anak dalam rangka HUT Kemerdekaan RI.</p>
+                        <div class="date">📅 17 Agustus 2023 | 🕘 08.00 WIB</div>
+                    </div>
+                </div>
+                
+                <div class="activity-card">
+                    <div class="activity-img">
+                        <img src="https://via.placeholder.com/400x300" alt="Posyandu">
+                    </div>
+                    <div class="activity-info">
+                        <h3>Posyandu Bulanan</h3>
+                        <p>Pemeriksaan kesehatan balita dan lansia oleh petugas puskesmas setempat.</p>
+                        <div class="date">📅 Setiap tanggal 10 | 🕘 09.00-12.00 WIB</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="gallery" class="section">
+            <h2 class="section-title">Galeri Foto</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/300x200" alt="Kegiatan Warga">
+                    <div class="gallery-caption">Kerja Bakti Bulanan</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/300x200" alt="Kegiatan Warga">
+                    <div class="gallery-caption">Lomba HUT RI</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/300x200" alt="Kegiatan Warga">
+                    <div class="gallery-caption">Posyandu</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/300x200" alt="Kegiatan Warga">
+                    <div class="gallery-caption">Rapat Warga</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/300x200" alt="Kegiatan Warga">
+                    <div class="gallery-caption">Taman Perumahan</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/300x200" alt="Kegiatan Warga">
+                    <div class="gallery-caption">Fasilitas Umum</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="information" class="section">
+            <h2 class="section-title">Informasi Perumahan</h2>
+            <div class="info-content">
+                <h3>Pengumuman Terkini</h3>
+                <ul style="margin: 1rem 0 1.5rem 2rem;">
+                    <li style="margin-bottom: 0.5rem;">Pembayaran iuran bulanan Juli 2023 sudah dapat dilakukan</li>
+                    <li style="margin-bottom: 0.5rem;">Akan ada pemadaman listrik bergilir pada tanggal 20 Juli 2023</li>
+                    <li style="margin-bottom: 0.5rem;">Pengecatan pagar perumahan akan dilaksanakan awal Agustus</li>
+                </ul>
+                
+                <h3>Aturan Perumahan</h3>
+                <ol style="margin: 1rem 0 1.5rem 2rem;">
+                    <li style="margin-bottom: 0.5rem;">Dilarang membuang sampah sembarangan</li>
+                    <li style="margin-bottom: 0.5rem;">Kecepatan maksimal kendaraan di area perumahan 20 km/jam</li>
+                    <li style="margin-bottom: 0.5rem;">Wajib menjaga kebersihan depan rumah masing-masing</li>
+                    <li style="margin-bottom: 0.5rem;">Iuran bulanan wajib dibayar paling lambat tanggal 10 setiap bulan</li>
+                </ol>
+                
+                <h3>Kontak Penting</h3>
+                <div style="margin: 1rem 0 1.5rem;">
+                    <p><strong>Ketua RW:</strong> Bapak Andi Wijaya - 0812-3456-7890</p>
+                    <p><strong>Sekretaris:</strong> Ibu Siti Rahayu - 0813-4567-8901</p>
+                    <p><strong>Bendahara:</strong> Bapak Budi Santoso - 0814-5678-9012</p>
+                    <p><strong>Keamanan:</strong> Pak RT/Satpam - 0815-6789-0123</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="management" class="section">
+            <h2 class="section-title">Struktur Kepengurusan</h2>
+            <div class="management-grid">
+                <div class="management-card">
+                    <div class="position">Ketua RW</div>
+                    <h3>Andi Wijaya</h3>
+                    <p>Masa jabatan: 2022-2025</p>
+                </div>
+                
+                <div class="management-card">
+                    <div class="position">Sekretaris</div>
+                    <h3>Siti Rahayu</h3>
+                    <p>Masa jabatan: 2022-2025</p>
+                </div>
+                
+                <div class="management-card">
+                    <div class="position">Bendahara</div>
+                    <h3>Budi Santoso</h3>
+                    <p>Masa jabatan: 2022-2025</p>
+                </div>
+                
+                <div class="management-card">
+                    <div class="position">Seksi Keamanan</div>
+                    <h3>Agus Supriyadi</h3>
+                    <p>Masa jabatan: 2022-2025</p>
+                </div>
+                
+                <div class="management-card">
+                    <div class="position">Seksi Kebersihan</div>
+                    <h3>Dewi Lestari</h3>
+                    <p>Masa jabatan: 2022-2025</p>
+                </div>
+                
+                <div class="management-card">
+                    <div class="position">Seksi Sosial</div>
+                    <h3>Rina Fitriani</h3>
+                    <p>Masa jabatan: 2022-2025</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="finance" class="section">
+            <h2 class="section-title">Laporan Keuangan (Kas)</h2>
+            <h3 style="margin-bottom: 1rem;">Pemasukan dan Pengeluaran Bulan Juni 2023</h3>
+            
+            <h4 style="margin: 1.5rem 0 1rem; color: var(--secondary);">Pemasukan</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Uraian</th>
+                        <th>Jumlah</th>
+                        <th>Tanggal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Iuran Warga Blok A</td>
+                        <td>Rp 3,250,000</td>
+                        <td>05/06/2023</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Iuran Warga Blok B</td>
+                        <td>Rp 2,980,000</td>
+                        <td>07/06/2023</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Iuran Warga Blok C</td>
+                        <td>Rp 3,120,000</td>
+                        <td>08/06/2023</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Sumbangan Acara</td>
+                        <td>Rp 1,500,000</td>
+                        <td>15/06/2023</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><strong>Total Pemasukan</strong></td>
+                        <td colspan="2"><strong>Rp 10,850,000</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h4 style="margin: 1.5rem 0 1rem; color: var(--secondary);">Pengeluaran</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Uraian</th>
+                        <th>Jumlah</th>
+                        <th>Tanggal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Pembersihan Saluran Air</td>
+                        <td>Rp 1,200,000</td>
+                        <td>10/06/2023</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Perbaikan Lampu Jalan</td>
+                        <td>Rp 850,000</td>
+                        <td>12/06/2023</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Konsumsi Rapat</td>
+                        <td>Rp 350,000</td>
+                        <td>15/06/2023</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>ATK Administrasi</td>
+                        <td>Rp 120,000</td>
+                        <td>18/06/2023</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><strong>Total Pengeluaran</strong></td>
+                        <td colspan="2"><strong>Rp 2,520,000</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div style="margin-top: 1.5rem; padding: 1rem; background-color: #f5f5f5; border-radius: 8px;">
+                <h4 style="color: var(--secondary); margin-bottom: 0.5rem;">Saldo Kas per 30 Juni 2023</h4>
+                <p><strong>Saldo Awal:</strong> Rp 5,430,000</p>
+                <p><strong>Total Pemasukan:</strong> Rp 10,850,000</p>
+                <p><strong>Total Pengeluaran:</strong> Rp 2,520,000</p>
+                <p><strong>Saldo Akhir:</strong> Rp 13,760,000</p>
+            </div>
+        </section>
+        
+        <section id="location" class="section">
+            <h2 class="section-title">Lokasi Perumahan</h2>
+            <p>Perumahan Rawinda Pratama terletak di Jl. Melati Raya No. 123, Kelurahan Suka Maju, Kecamatan Ciputat, Kota Tangerang Selatan, Banten.</p>
+            
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.81915635000001!3d-6.2009669999999945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTInMDMuNSJTIDEwNsKwNDknMDguOSJF!5e0!3m2!1sen!2sid!4v1620000000000!5m2!1sen!2sid" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            
+            <div style="margin-top: 1.5rem;">
+                <h3>Akses Transportasi</h3>
+                <ul style="margin: 1rem 0 1.5rem 2rem;">
+                    <li style="margin-bottom: 0.5rem;">Dari Tol Jakarta-Merak: Keluar di Exit Ciputat</li>
+                    <li style="margin-bottom: 0.5rem;">Angkutan Umum: Mikrolet D01, D05</li>
+                    <li style="margin-bottom: 0.5rem;">Stasiun Terdekat: Stasiun Serpong (10 km)</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Tentang Kami</h3>
+                <p>Komunitas Warga Perumahan Rawinda Pratama yang berkomitmen untuk menciptakan lingkungan yang harmonis, aman, dan nyaman bagi semua penghuni.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Kontak</h3>
+                <p>📧 rawindapratama@gmail.com</p>
+                <p>📞 021-12345678</p>
+                <p>📱 0812-3456-7890 (WA)</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Tautan Cepat</h3>
+                <a href="#home">Beranda</a>
+                <a href="#activities">Kegiatan</a>
+                <a href="#information">Informasi</a>
+                <a href="#finance">Laporan Keuangan</a>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Komunitas Rawinda Pratama. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+</body>
+</html>
