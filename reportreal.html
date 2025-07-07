@@ -1,157 +1,403 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard Segmentasi Profesi MBR</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Realisasi Segmentasi Profesi</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .summary-cards {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 30%;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .card .value {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .card-1 { border-top: 5px solid #3498db; }
+        .card-2 { border-top: 5px solid #2ecc71; }
+        .card-3 { border-top: 5px solid #e74c3c; }
+        .chart-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .chart-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .chart {
+            width: 48%;
+            min-width: 300px;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .progress-bar {
+            height: 20px;
+            background-color: #ecf0f1;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%;
+            background-color: #2ecc71;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .card, .chart {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans">
-
-  <!-- Header -->
-  <header class="bg-green-700 text-white p-6 text-center">
-    <h1 class="text-2xl font-bold">Dashboard Segmentasi Profesi MBR</h1>
-  </header>
-
-  <!-- Filter Umum (Optional) -->
-  <section class="bg-green-100 p-4 flex flex-wrap gap-4 justify-center">
-    <select class="p-2 rounded border w-40">
-      <option>Semua Profesi</option>
-      <option>Petani</option>
-      <option>Guru</option>
-    </select>
-    <select class="p-2 rounded border w-40">
-      <option>Semua Bank</option>
-      <option>Bank BTN</option>
-      <option>Bank BRI</option>
-    </select>
-    <select class="p-2 rounded border w-40">
-      <option>Semua Provinsi</option>
-      <option>Jawa Tengah</option>
-      <option>Jawa Barat</option>
-    </select>
-    <select class="p-2 rounded border w-40">
-      <option>Semua Kab/Kota</option>
-      <option>Klaten</option>
-      <option>Bandung</option>
-    </select>
-  </section>
-
-  <!-- Statistik Cards -->
-  <section class="flex flex-wrap justify-center gap-6 p-6">
-    <div class="bg-white shadow-md rounded-lg p-4 w-64 text-center">
-      <h2 class="text-green-700 text-2xl font-bold">12.345</h2>
-      <p class="text-gray-600">Total Unit</p>
+<body>
+    <div class="header">
+        <h1>Dashboard Realisasi Segmentasi Profesi</h1>
+        <p>Periode: Januari - Desember 2023</p>
     </div>
-    <div class="bg-white shadow-md rounded-lg p-4 w-64 text-center">
-      <h2 class="text-green-700 text-2xl font-bold">Rp 400 M</h2>
-      <p class="text-gray-600">Total FLPP</p>
-    </div>
-    <div class="bg-white shadow-md rounded-lg p-4 w-64 text-center">
-      <h2 class="text-green-700 text-2xl font-bold">15</h2>
-      <p class="text-gray-600">Jumlah Bank</p>
-    </div>
-    <div class="bg-white shadow-md rounded-lg p-4 w-64 text-center">
-      <h2 class="text-green-700 text-2xl font-bold">22</h2>
-      <p class="text-gray-600">Profesi Terdaftar</p>
-    </div>
-  </section>
 
-  <!-- Chart -->
-  <section class="px-6">
-    <div class="bg-white rounded shadow p-4">
-      <h2 class="text-lg font-semibold mb-4 text-gray-700">Distribusi Unit per Profesi</h2>
-      <canvas id="barChart" height="100"></canvas>
+    <div class="summary-cards">
+        <div class="card card-1">
+            <h3>Total Target</h3>
+            <div class="value">138,260</div>
+            <p>Jumlah target seluruh profesi</p>
+        </div>
+        <div class="card card-2">
+            <h3>Total Realisasi</h3>
+            <div class="value">32,555</div>
+            <p>Jumlah realisasi seluruh profesi</p>
+        </div>
+        <div class="card card-3">
+            <h3>Persentase Pencapaian</h3>
+            <div class="value">23.5%</div>
+            <div class="progress-bar">
+                <div class="progress" style="width: 23.5%"></div>
+            </div>
+            <p>Realisasi terhadap target</p>
+        </div>
     </div>
-  </section>
 
-  <!-- Tabel Data -->
-  <section class="p-6 overflow-x-auto">
-    <table id="dataTable" class="w-full bg-white rounded shadow-md text-sm">
-      <thead class="bg-green-200 text-gray-700">
-        <tr>
-          <th class="p-3">No</th>
-          <th class="p-3">
-            <select class="filter-column w-full" data-index="1">
-              <option value="">Profesi</option>
-              <option>Petani</option>
-              <option>Guru</option>
-              <option>Nelayan</option>
-              <option>Pedagang</option>
-              <option>Satpam</option>
-              <option>PNS</option>
-              <option>Buruh</option>
-              <option>Sopir</option>
-              <option>Penjahit</option>
-              <option>Kuli Bangunan</option>
-              <option>Peternak</option>
-              <option>Perawat</option>
-              <option>Montir</option>
-              <option>Wiraswasta</option>
-              <option>Office Boy</option>
-              <option>Security</option>
-              <option>Driver Online</option>
-              <option>Teknisi</option>
-              <option>Pedagang Kaki Lima</option>
-              <option>Karyawan Swasta</option>
-            </select>
-          </th>
-          <th class="p-3">
-            <select class="filter-column w-full" data-index="2">
-              <option value="">Bank</option>
-              <option>Bank BRI</option>
-              <option>Bank BTN</option>
-              <option>Bank Mandiri</option>
-              <option>Bank BCA</option>
-              <option>Bank BNI</option>
-            </select>
-          </th>
-          <th class="p-3">
-            <select class="filter-column w-full" data-index="3">
-              <option value="">Provinsi</option>
-              <option>Jawa Tengah</option>
-              <option>Jawa Barat</option>
-              <option>Jawa Timur</option>
-              <option>DI Yogyakarta</option>
-              <option>Banten</option>
-            </select>
-          </th>
-          <th class="p-3">
-            <select class="filter-column w-full" data-index="4">
-              <option value="">Kab/Kota</option>
-              <option>Klaten</option>
-              <option>Bandung</option>
-              <option>Tuban</option>
-              <option>Solo</option>
-              <option>Depok</option>
-              <option>Sleman</option>
-              <option>Serang</option>
-              <option>Semarang</option>
-              <option>Malang</option>
-              <option>Bekasi</option>
-              <option>Magelang</option>
-              <option>Kota Yogyakarta</option>
-              <option>Kediri</option>
-              <option>Pekalongan</option>
-              <option>Blitar</option>
-              <option>Purwokerto</option>
-              <option>Garut</option>
-              <option>Bantul</option>
-              <option>Surabaya</option>
-            </select>
-          </th>
-          <th class="p-3">Unit</th>
-          <th class="p-3">Nilai FLPP</th>
-        </tr>
-      </thead>
-      <tbody class="text-center">
-        <!-- isi dummy 20 profesi -->
-        <tr><td>1</td><td>Petani</td><td>Bank BRI</td><td>Jawa Tengah</td><td>Klaten</td><td>250</td><td>Rp 8.500.000.000</td></tr>
-        <tr><td>2</td><td>Guru</td><td>Bank BTN</td><td>Jawa Barat</td><td>Bandung</td><td>180</td><td>Rp 6.200.000.000</td></tr>
-        <tr><td>3</td><td>Nelayan</td><td>Bank Mandiri</td><td>Jawa Timur</td><td>Tuban</td><td>95</td><td>Rp 3.100.000.000</td></tr>
-        <tr><td>4</td><td>Pedagang</td><td>Bank BCA</td><td>Jawa Tengah</td><td>Solo</td><td>210</td><td>Rp 7.600.000.000</td></tr>
-        <tr><td>5</td><td>Satpam</td><td>Bank BTN</td><td>Jawa Barat</td><td>Depok</td><td>130</td><td>Rp 4.500.000.000</td></tr>
-        <tr><td>6</td><td>PNS</td><td>Bank BRI</td><td>DI Yogyakarta</td><td>Sleman</td><td>320</td><td>Rp 11.200.000.000</td></tr>
-        <tr><td>7</td><td>Buruh</td><td>Bank Mandiri</td><td>Banten</td><td>Serang</td><td>100</td><td>Rp 3.400.000.000</td></tr>
-        <tr><td>8</td><td>Sopir</td><td>Bank BCA</td><td>Jawa Tengah</td><td>Semarang</td><td>160</td><td>Rp 5.700.000.00
+    <div class="chart-container">
+        <h2>Perbandingan Target dan Realisasi per Profesi</h2>
+        <div class="chart-row">
+            <div class="chart">
+                <canvas id="barChart"></canvas>
+            </div>
+            <div class="chart">
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <h2>Top 5 Profesi dengan Realisasi Tertinggi</h2>
+        <div class="chart">
+            <canvas id="horizontalBarChart"></canvas>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <h2>Detail Realisasi per Profesi</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Segmentasi Profesi</th>
+                    <th>Bank</th>
+                    <th>Provinsi</th>
+                    <th>Kab/Kota</th>
+                    <th>Unit</th>
+                    <th>Nilai FLPP (Rp)</th>
+                    <th>% Realisasi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Guru</td>
+                    <td>BTN</td>
+                    <td>Jawa Barat</td>
+                    <td>Bandung</td>
+                    <td>8,500</td>
+                    <td>150,000,000,000</td>
+                    <td>42.5%</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Buruh</td>
+                    <td>BTN</td>
+                    <td>Jawa Barat</td>
+                    <td>Depok</td>
+                    <td>5,555</td>
+                    <td>100,000,000,000</td>
+                    <td>27.8%</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Pegawai POLRI</td>
+                    <td>BRI</td>
+                    <td>DKI Jakarta</td>
+                    <td>Jakarta Selatan</td>
+                    <td>4,200</td>
+                    <td>75,600,000,000</td>
+                    <td>29.0%</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Perawat</td>
+                    <td>Mandiri</td>
+                    <td>Jawa Timur</td>
+                    <td>Surabaya</td>
+                    <td>3,800</td>
+                    <td>68,400,000,000</td>
+                    <td>25.3%</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Petani</td>
+                    <td>BNI</td>
+                    <td>Jawa Tengah</td>
+                    <td>Semarang</td>
+                    <td>3,500</td>
+                    <td>63,000,000,000</td>
+                    <td>17.5%</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Pegawai Kemenkeu</td>
+                    <td>BTN</td>
+                    <td>DKI Jakarta</td>
+                    <td>Jakarta Pusat</td>
+                    <td>1,800</td>
+                    <td>32,400,000,000</td>
+                    <td>90.0%</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Nelayan</td>
+                    <td>BRI</td>
+                    <td>Jawa Timur</td>
+                    <td>Banyuwangi</td>
+                    <td>1,200</td>
+                    <td>21,600,000,000</td>
+                    <td>6.0%</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Pegawai TNI AD</td>
+                    <td>Mandiri</td>
+                    <td>Jawa Barat</td>
+                    <td>Bogor</td>
+                    <td>1,000</td>
+                    <td>18,000,000,000</td>
+                    <td>17.4%</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Bidan</td>
+                    <td>BNI</td>
+                    <td>Jawa Tengah</td>
+                    <td>Yogyakarta</td>
+                    <td>950</td>
+                    <td>17,100,000,000</td>
+                    <td>9.5%</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Pegawai Kemenkraft</td>
+                    <td>BTN</td>
+                    <td>DKI Jakarta</td>
+                    <td>Jakarta Selatan</td>
+                    <td>900</td>
+                    <td>16,200,000,000</td>
+                    <td>30.0%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        <p>© 2023 Dashboard Realisasi Segmentasi Profesi | Terakhir diperbarui: 15 Desember 2023</p>
+    </div>
+
+    <script>
+        // Data untuk chart
+        const professions = ['Guru', 'Pegawai Kemenkraft', 'Buruh', 'Pegawai POLRI', 'Pegawai TNI AD', 'Perawat', 'Bidan', 'Petani', 'Nelayan', 'Pegawai Kemenkeu'];
+        const targets = [20000, 3000, 20000, 14500, 5760, 15000, 10000, 20000, 20000, 2000];
+        const realizations = [8500, 900, 5555, 4200, 1000, 3800, 950, 3500, 1200, 1800];
+        const percentages = [42.5, 30.0, 27.8, 29.0, 17.4, 25.3, 9.5, 17.5, 6.0, 90.0];
+        
+        // Warna untuk chart
+        const backgroundColors = [
+            '#3498db', '#2ecc71', '#e74c3c', '#9b59b6', '#f1c40f',
+            '#1abc9c', '#d35400', '#34495e', '#7f8c8d', '#27ae60'
+        ];
+
+        // Bar Chart
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: professions,
+                datasets: [
+                    {
+                        label: 'Target',
+                        data: targets,
+                        backgroundColor: '#3498db',
+                        borderColor: '#2980b9',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Realisasi',
+                        data: realizations,
+                        backgroundColor: '#2ecc71',
+                        borderColor: '#27ae60',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Target vs Realisasi per Profesi'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Pie Chart
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: professions,
+                datasets: [{
+                    data: targets,
+                    backgroundColor: backgroundColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Distribusi Target per Profesi'
+                    }
+                }
+            }
+        });
+
+        // Horizontal Bar Chart (Top 5)
+        const top5Professions = professions.slice(0, 5);
+        const top5Percentages = percentages.slice(0, 5);
+        const top5Colors = backgroundColors.slice(0, 5);
+
+        const horizontalBarCtx = document.getElementById('horizontalBarChart').getContext('2d');
+        new Chart(horizontalBarCtx, {
+            type: 'bar',
+            data: {
+                labels: top5Professions,
+                datasets: [{
+                    label: 'Persentase Realisasi',
+                    data: top5Percentages,
+                    backgroundColor: top5Colors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Top 5 Profesi dengan Realisasi Tertinggi (%)'
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
