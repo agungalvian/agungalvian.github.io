@@ -4,154 +4,128 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard Segmentasi Profesi MBR</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f7f9;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #2f855a;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      background: #e2f0d9;
-      padding: 15px;
-      justify-content: center;
-    }
-    .filters select {
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      padding: 20px;
-      justify-content: center;
-    }
-    .card {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      padding: 20px;
-      flex: 1 1 200px;
-      max-width: 250px;
-      text-align: center;
-    }
-    .card h2 {
-      margin: 0;
-      color: #2f855a;
-    }
-    table {
-      width: 95%;
-      margin: 30px auto;
-      border-collapse: collapse;
-      background: white;
-    }
-    th, td {
-      padding: 12px 15px;
-      border: 1px solid #ddd;
-      text-align: center;
-    }
-    th {
-      background-color: #c6e0b4;
-    }
-    tr:nth-child(even) {
-      background-color: #f9f9f9;
-    }
-  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body class="bg-gray-100 font-sans">
 
-  <header>
-    <h1>Dashboard Segmentasi Profesi MBR</h1>
+  <!-- Header -->
+  <header class="bg-green-700 text-white p-6 text-center">
+    <h1 class="text-2xl font-bold">Dashboard Segmentasi Profesi MBR</h1>
   </header>
 
-  <section class="filters">
-    <select name="provinsi">
-      <option value="">Pilih Provinsi</option>
-      <option value="jawa-barat">Jawa Barat</option>
-      <option value="jawa-tengah">Jawa Tengah</option>
+  <!-- Filters -->
+  <section class="bg-green-100 p-4 flex flex-wrap gap-4 justify-center">
+    <select class="p-2 rounded border w-40" id="filterProfesi">
+      <option>Semua Profesi</option>
+      <option>Petani</option>
+      <option>Guru</option>
     </select>
-    <select name="kabkota">
-      <option value="">Pilih Kab/Kota</option>
-      <option value="bandung">Bandung</option>
-      <option value="solo">Solo</option>
+    <select class="p-2 rounded border w-40" id="filterBank">
+      <option>Semua Bank</option>
+      <option>Bank BTN</option>
+      <option>Bank BRI</option>
     </select>
-    <select name="bank">
-      <option value="">Pilih Bank</option>
-      <option value="btn">Bank BTN</option>
-      <option value="bri">Bank BRI</option>
+    <select class="p-2 rounded border w-40" id="filterProvinsi">
+      <option>Semua Provinsi</option>
+      <option>Jawa Tengah</option>
+      <option>Jawa Barat</option>
     </select>
-    <select name="profesi">
-      <option value="">Pilih Profesi MBR</option>
-      <option value="guru">Guru</option>
-      <option value="petani">Petani</option>
+    <select class="p-2 rounded border w-40" id="filterKab">
+      <option>Semua Kab/Kota</option>
+      <option>Klaten</option>
+      <option>Bandung</option>
     </select>
   </section>
 
-  <section class="stats">
-    <div class="card">
-      <h2>12.345</h2>
-      <p>Total Unit</p>
+  <!-- Stats Cards -->
+  <section class="flex flex-wrap justify-center gap-6 p-6">
+    <div class="bg-white shadow-md rounded-lg p-4 w-64 text-center">
+      <h2 class="text-green-700 text-2xl font-bold">12.345</h2>
+      <p class="text-gray-600">Total Unit</p>
     </div>
-    <div class="card">
-      <h2>Rp 400 M</h2>
-      <p>Total FLPP</p>
+    <div class="bg-white shadow-md rounded-lg p-4 w-64 text-center">
+      <h2 class="text-green-700 text-2xl font-bold">Rp 400 M</h2>
+      <p class="text-gray-600">Total FLPP</p>
     </div>
-    <div class="card">
-      <h2>15</h2>
-      <p>Jumlah Bank</p>
+    <div class="bg-white shadow-md rounded-lg p-4 w-64 text-center">
+      <h2 class="text-green-700 text-2xl font-bold">15</h2>
+      <p class="text-gray-600">Jumlah Bank</p>
     </div>
-    <div class="card">
-      <h2>22</h2>
-      <p>Profesi Terdaftar</p>
+    <div class="bg-white shadow-md rounded-lg p-4 w-64 text-center">
+      <h2 class="text-green-700 text-2xl font-bold">22</h2>
+      <p class="text-gray-600">Profesi Terdaftar</p>
     </div>
   </section>
 
-  <section>
-    <table>
-      <thead>
+  <!-- Chart -->
+  <section class="px-6">
+    <div class="bg-white rounded shadow p-4">
+      <h2 class="text-lg font-semibold mb-4 text-gray-700">Distribusi Unit per Profesi</h2>
+      <canvas id="barChart" height="100"></canvas>
+    </div>
+  </section>
+
+  <!-- Data Table -->
+  <section class="p-6 overflow-x-auto">
+    <table class="w-full bg-white rounded shadow-md">
+      <thead class="bg-green-200 text-gray-700">
         <tr>
-          <th>NO</th>
-          <th>SEGMENTASI PROFESI MBR</th>
-          <th>BANK</th>
-          <th>PROVINSI</th>
-          <th>KAB/KOTA</th>
-          <th>UNIT</th>
-          <th>NILAI FLPP</th>
+          <th class="p-3 text-sm">No</th>
+          <th class="p-3 text-sm">Profesi MBR</th>
+          <th class="p-3 text-sm">Bank</th>
+          <th class="p-3 text-sm">Provinsi</th>
+          <th class="p-3 text-sm">Kab/Kota</th>
+          <th class="p-3 text-sm">Unit</th>
+          <th class="p-3 text-sm">Nilai FLPP</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Petani</td>
-          <td>Bank BRI</td>
-          <td>Jawa Tengah</td>
-          <td>Klaten</td>
-          <td>250</td>
-          <td>Rp 8.500.000.000</td>
+        <tr class="text-center border-t">
+          <td class="p-3">1</td>
+          <td class="p-3">Petani</td>
+          <td class="p-3">Bank BRI</td>
+          <td class="p-3">Jawa Tengah</td>
+          <td class="p-3">Klaten</td>
+          <td class="p-3">250</td>
+          <td class="p-3">Rp 8.500.000.000</td>
         </tr>
-        <tr>
-          <td>2</td>
-          <td>Guru</td>
-          <td>Bank BTN</td>
-          <td>Jawa Barat</td>
-          <td>Bandung</td>
-          <td>180</td>
-          <td>Rp 6.200.000.000</td>
+        <tr class="text-center border-t">
+          <td class="p-3">2</td>
+          <td class="p-3">Guru</td>
+          <td class="p-3">Bank BTN</td>
+          <td class="p-3">Jawa Barat</td>
+          <td class="p-3">Bandung</td>
+          <td class="p-3">180</td>
+          <td class="p-3">Rp 6.200.000.000</td>
         </tr>
       </tbody>
     </table>
   </section>
+
+  <!-- Chart Script -->
+  <script>
+    const ctx = document.getElementById('barChart').getContext('2d');
+    const barChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Petani', 'Guru', 'Nelayan', 'Pedagang'],
+        datasets: [{
+          label: 'Jumlah Unit',
+          data: [250, 180, 90, 120],
+          backgroundColor: ['#68d391', '#48bb78', '#38a169', '#2f855a']
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
 
 </body>
 </html>
