@@ -21,6 +21,33 @@
             margin-bottom: 20px;
             text-align: center;
         }
+        .filters {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        .filter-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .filter-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
         .summary-cards {
             display: flex;
             justify-content: space-between;
@@ -103,6 +130,18 @@
             color: #7f8c8d;
             font-size: 14px;
         }
+        .reset-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .reset-btn:hover {
+            background-color: #c0392b;
+        }
         @media (max-width: 768px) {
             .card, .chart {
                 width: 100%;
@@ -116,22 +155,81 @@
         <p>Periode: Januari - Desember 2023</p>
     </div>
 
+    <div class="filters">
+        <div class="filter-group">
+            <label for="profesi-filter">Segmentasi Profesi</label>
+            <select id="profesi-filter">
+                <option value="all">Semua Profesi</option>
+                <option value="Guru">Guru</option>
+                <option value="Buruh">Buruh</option>
+                <option value="Pegawai POLRI">Pegawai POLRI</option>
+                <option value="Perawat">Perawat</option>
+                <option value="Petani">Petani</option>
+                <option value="Pegawai Kemenkeu">Pegawai Kemenkeu</option>
+                <option value="Nelayan">Nelayan</option>
+                <option value="Pegawai TNI AD">Pegawai TNI AD</option>
+                <option value="Bidan">Bidan</option>
+                <option value="Pegawai Kemenkraft">Pegawai Kemenkraft</option>
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label for="bank-filter">Bank</label>
+            <select id="bank-filter">
+                <option value="all">Semua Bank</option>
+                <option value="BTN">BTN</option>
+                <option value="BRI">BRI</option>
+                <option value="Mandiri">Mandiri</option>
+                <option value="BNI">BNI</option>
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label for="provinsi-filter">Provinsi</label>
+            <select id="provinsi-filter">
+                <option value="all">Semua Provinsi</option>
+                <option value="Jawa Barat">Jawa Barat</option>
+                <option value="DKI Jakarta">DKI Jakarta</option>
+                <option value="Jawa Timur">Jawa Timur</option>
+                <option value="Jawa Tengah">Jawa Tengah</option>
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label for="kabupaten-filter">Kabupaten/Kota</label>
+            <select id="kabupaten-filter">
+                <option value="all">Semua Kab/Kota</option>
+                <option value="Bandung">Bandung</option>
+                <option value="Depok">Depok</option>
+                <option value="Bogor">Bogor</option>
+                <option value="Jakarta Selatan">Jakarta Selatan</option>
+                <option value="Jakarta Pusat">Jakarta Pusat</option>
+                <option value="Surabaya">Surabaya</option>
+                <option value="Banyuwangi">Banyuwangi</option>
+                <option value="Semarang">Semarang</option>
+                <option value="Yogyakarta">Yogyakarta</option>
+            </select>
+        </div>
+        
+        <button class="reset-btn" id="reset-filters">Reset Filter</button>
+    </div>
+
     <div class="summary-cards">
         <div class="card card-1">
             <h3>Total Target</h3>
-            <div class="value">138,260</div>
+            <div class="value" id="total-target">138,260</div>
             <p>Jumlah target seluruh profesi</p>
         </div>
         <div class="card card-2">
             <h3>Total Realisasi</h3>
-            <div class="value">32,555</div>
+            <div class="value" id="total-realisasi">32,555</div>
             <p>Jumlah realisasi seluruh profesi</p>
         </div>
         <div class="card card-3">
             <h3>Persentase Pencapaian</h3>
-            <div class="value">23.5%</div>
+            <div class="value" id="persentase">23.5%</div>
             <div class="progress-bar">
-                <div class="progress" style="width: 23.5%"></div>
+                <div class="progress" id="progress-bar" style="width: 23.5%"></div>
             </div>
             <p>Realisasi terhadap target</p>
         </div>
@@ -158,7 +256,7 @@
 
     <div class="chart-container">
         <h2>Detail Realisasi per Profesi</h2>
-        <table>
+        <table id="data-table">
             <thead>
                 <tr>
                     <th>No</th>
@@ -171,107 +269,8 @@
                     <th>% Realisasi</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Guru</td>
-                    <td>BTN</td>
-                    <td>Jawa Barat</td>
-                    <td>Bandung</td>
-                    <td>8,500</td>
-                    <td>150,000,000,000</td>
-                    <td>42.5%</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Buruh</td>
-                    <td>BTN</td>
-                    <td>Jawa Barat</td>
-                    <td>Depok</td>
-                    <td>5,555</td>
-                    <td>100,000,000,000</td>
-                    <td>27.8%</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Pegawai POLRI</td>
-                    <td>BRI</td>
-                    <td>DKI Jakarta</td>
-                    <td>Jakarta Selatan</td>
-                    <td>4,200</td>
-                    <td>75,600,000,000</td>
-                    <td>29.0%</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Perawat</td>
-                    <td>Mandiri</td>
-                    <td>Jawa Timur</td>
-                    <td>Surabaya</td>
-                    <td>3,800</td>
-                    <td>68,400,000,000</td>
-                    <td>25.3%</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Petani</td>
-                    <td>BNI</td>
-                    <td>Jawa Tengah</td>
-                    <td>Semarang</td>
-                    <td>3,500</td>
-                    <td>63,000,000,000</td>
-                    <td>17.5%</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>Pegawai Kemenkeu</td>
-                    <td>BTN</td>
-                    <td>DKI Jakarta</td>
-                    <td>Jakarta Pusat</td>
-                    <td>1,800</td>
-                    <td>32,400,000,000</td>
-                    <td>90.0%</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>Nelayan</td>
-                    <td>BRI</td>
-                    <td>Jawa Timur</td>
-                    <td>Banyuwangi</td>
-                    <td>1,200</td>
-                    <td>21,600,000,000</td>
-                    <td>6.0%</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>Pegawai TNI AD</td>
-                    <td>Mandiri</td>
-                    <td>Jawa Barat</td>
-                    <td>Bogor</td>
-                    <td>1,000</td>
-                    <td>18,000,000,000</td>
-                    <td>17.4%</td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td>Bidan</td>
-                    <td>BNI</td>
-                    <td>Jawa Tengah</td>
-                    <td>Yogyakarta</td>
-                    <td>950</td>
-                    <td>17,100,000,000</td>
-                    <td>9.5%</td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td>Pegawai Kemenkraft</td>
-                    <td>BTN</td>
-                    <td>DKI Jakarta</td>
-                    <td>Jakarta Selatan</td>
-                    <td>900</td>
-                    <td>16,200,000,000</td>
-                    <td>30.0%</td>
-                </tr>
+            <tbody id="table-body">
+                <!-- Data akan diisi oleh JavaScript -->
             </tbody>
         </table>
     </div>
@@ -281,122 +280,295 @@
     </div>
 
     <script>
-        // Data untuk chart
-        const professions = ['Guru', 'Pegawai Kemenkraft', 'Buruh', 'Pegawai POLRI', 'Pegawai TNI AD', 'Perawat', 'Bidan', 'Petani', 'Nelayan', 'Pegawai Kemenkeu'];
-        const targets = [20000, 3000, 20000, 14500, 5760, 15000, 10000, 20000, 20000, 2000];
-        const realizations = [8500, 900, 5555, 4200, 1000, 3800, 950, 3500, 1200, 1800];
-        const percentages = [42.5, 30.0, 27.8, 29.0, 17.4, 25.3, 9.5, 17.5, 6.0, 90.0];
-        
-        // Warna untuk chart
-        const backgroundColors = [
-            '#3498db', '#2ecc71', '#e74c3c', '#9b59b6', '#f1c40f',
-            '#1abc9c', '#d35400', '#34495e', '#7f8c8d', '#27ae60'
+        // Data lengkap
+        const fullData = [
+            { no: 1, profesi: "Guru", bank: "BTN", provinsi: "Jawa Barat", kabupaten: "Bandung", unit: 8500, nilai: 150000000000, target: 20000 },
+            { no: 2, profesi: "Buruh", bank: "BTN", provinsi: "Jawa Barat", kabupaten: "Depok", unit: 5555, nilai: 100000000000, target: 20000 },
+            { no: 3, profesi: "Pegawai POLRI", bank: "BRI", provinsi: "DKI Jakarta", kabupaten: "Jakarta Selatan", unit: 4200, nilai: 75600000000, target: 14500 },
+            { no: 4, profisi: "Perawat", bank: "Mandiri", provinsi: "Jawa Timur", kabupaten: "Surabaya", unit: 3800, nilai: 68400000000, target: 15000 },
+            { no: 5, profesi: "Petani", bank: "BNI", provinsi: "Jawa Tengah", kabupaten: "Semarang", unit: 3500, nilai: 63000000000, target: 20000 },
+            { no: 6, profesi: "Pegawai Kemenkeu", bank: "BTN", provinsi: "DKI Jakarta", kabupaten: "Jakarta Pusat", unit: 1800, nilai: 32400000000, target: 2000 },
+            { no: 7, profesi: "Nelayan", bank: "BRI", provinsi: "Jawa Timur", kabupaten: "Banyuwangi", unit: 1200, nilai: 21600000000, target: 20000 },
+            { no: 8, profesi: "Pegawai TNI AD", bank: "Mandiri", provinsi: "Jawa Barat", kabupaten: "Bogor", unit: 1000, nilai: 18000000000, target: 5760 },
+            { no: 9, profesi: "Bidan", bank: "BNI", provinsi: "Jawa Tengah", kabupaten: "Yogyakarta", unit: 950, nilai: 17100000000, target: 10000 },
+            { no: 10, profesi: "Pegawai Kemenkraft", bank: "BTN", provinsi: "DKI Jakarta", kabupaten: "Jakarta Selatan", unit: 900, nilai: 16200000000, target: 3000 }
         ];
 
-        // Bar Chart
-        const barCtx = document.getElementById('barChart').getContext('2d');
-        new Chart(barCtx, {
-            type: 'bar',
-            data: {
-                labels: professions,
-                datasets: [
-                    {
-                        label: 'Target',
+        // Variabel chart
+        let barChart, pieChart, horizontalBarChart;
+        
+        // Fungsi untuk memformat angka
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        
+        // Fungsi untuk memformat mata uang
+        function formatCurrency(num) {
+            return 'Rp' + formatNumber(num);
+        }
+        
+        // Fungsi untuk menghitung persentase
+        function calculatePercentage(realisasi, target) {
+            return target > 0 ? Math.round((realisasi / target) * 100 * 10) / 10 : 0;
+        }
+        
+        // Fungsi untuk memfilter data
+        function filterData() {
+            const profesiFilter = document.getElementById('profesi-filter').value;
+            const bankFilter = document.getElementById('bank-filter').value;
+            const provinsiFilter = document.getElementById('provinsi-filter').value;
+            const kabupatenFilter = document.getElementById('kabupaten-filter').value;
+            
+            return fullData.filter(item => {
+                return (profesiFilter === 'all' || item.profesi === profesiFilter) &&
+                       (bankFilter === 'all' || item.bank === bankFilter) &&
+                       (provinsiFilter === 'all' || item.provinsi === provinsiFilter) &&
+                       (kabupatenFilter === 'all' || item.kabupaten === kabupatenFilter);
+            });
+        }
+        
+        // Fungsi untuk mengupdate tampilan
+        function updateDashboard() {
+            const filteredData = filterData();
+            
+            // Update summary cards
+            const totalTarget = filteredData.reduce((sum, item) => sum + item.target, 0);
+            const totalRealisasi = filteredData.reduce((sum, item) => sum + item.unit, 0);
+            const persentase = calculatePercentage(totalRealisasi, totalTarget);
+            
+            document.getElementById('total-target').textContent = formatNumber(totalTarget);
+            document.getElementById('total-realisasi').textContent = formatNumber(totalRealisasi);
+            document.getElementById('persentase').textContent = persentase + '%';
+            document.getElementById('progress-bar').style.width = persentase + '%';
+            
+            // Update table
+            const tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = '';
+            
+            filteredData.forEach(item => {
+                const row = document.createElement('tr');
+                const percentage = calculatePercentage(item.unit, item.target);
+                
+                row.innerHTML = `
+                    <td>${item.no}</td>
+                    <td>${item.profesi}</td>
+                    <td>${item.bank}</td>
+                    <td>${item.provinsi}</td>
+                    <td>${item.kabupaten}</td>
+                    <td>${formatNumber(item.unit)}</td>
+                    <td>${formatCurrency(item.nilai)}</td>
+                    <td>${percentage}%</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Update charts
+            updateCharts(filteredData);
+        }
+        
+        // Fungsi untuk mengupdate chart
+        function updateCharts(filteredData) {
+            // Group data by profession for charts
+            const professionMap = {};
+            filteredData.forEach(item => {
+                if (!professionMap[item.profesi]) {
+                    professionMap[item.profesi] = {
+                        target: item.target,
+                        realisasi: item.unit,
+                        percentage: calculatePercentage(item.unit, item.target)
+                    };
+                } else {
+                    professionMap[item.profesi].realisasi += item.unit;
+                    professionMap[item.profesi].percentage = calculatePercentage(
+                        professionMap[item.profesi].realisasi, 
+                        professionMap[item.profesi].target
+                    );
+                }
+            });
+            
+            const professions = Object.keys(professionMap);
+            const targets = professions.map(prof => professionMap[prof].target);
+            const realizations = professions.map(prof => professionMap[prof].realisasi);
+            const percentages = professions.map(prof => professionMap[prof].percentage);
+            
+            // Warna untuk chart
+            const backgroundColors = [
+                '#3498db', '#2ecc71', '#e74c3c', '#9b59b6', '#f1c40f',
+                '#1abc9c', '#d35400', '#34495e', '#7f8c8d', '#27ae60'
+            ].slice(0, professions.length);
+            
+            // Update Bar Chart
+            barChart.data.labels = professions;
+            barChart.data.datasets[0].data = targets;
+            barChart.data.datasets[1].data = realizations;
+            barChart.update();
+            
+            // Update Pie Chart
+            pieChart.data.labels = professions;
+            pieChart.data.datasets[0].data = targets;
+            pieChart.data.datasets[0].backgroundColor = backgroundColors;
+            pieChart.update();
+            
+            // Update Horizontal Bar Chart (Top 5)
+            // Sort by percentage and take top 5
+            const sortedProfessions = [...professions].sort((a, b) => professionMap[b].percentage - professionMap[a].percentage).slice(0, 5);
+            const top5Percentages = sortedProfessions.map(prof => professionMap[prof].percentage);
+            const top5Colors = backgroundColors.slice(0, 5);
+            
+            horizontalBarChart.data.labels = sortedProfessions;
+            horizontalBarChart.data.datasets[0].data = top5Percentages;
+            horizontalBarChart.data.datasets[0].backgroundColor = top5Colors;
+            horizontalBarChart.update();
+        }
+        
+        // Inisialisasi chart
+        function initCharts() {
+            // Data awal untuk chart
+            const professions = fullData.map(item => item.profesi);
+            const targets = fullData.map(item => item.target);
+            const realizations = fullData.map(item => item.unit);
+            const percentages = fullData.map(item => calculatePercentage(item.unit, item.target));
+            
+            // Warna untuk chart
+            const backgroundColors = [
+                '#3498db', '#2ecc71', '#e74c3c', '#9b59b6', '#f1c40f',
+                '#1abc9c', '#d35400', '#34495e', '#7f8c8d', '#27ae60'
+            ].slice(0, professions.length);
+            
+            // Bar Chart
+            const barCtx = document.getElementById('barChart').getContext('2d');
+            barChart = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: professions,
+                    datasets: [
+                        {
+                            label: 'Target',
+                            data: targets,
+                            backgroundColor: '#3498db',
+                            borderColor: '#2980b9',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Realisasi',
+                            data: realizations,
+                            backgroundColor: '#2ecc71',
+                            borderColor: '#27ae60',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Target vs Realisasi per Profesi'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            // Pie Chart
+            const pieCtx = document.getElementById('pieChart').getContext('2d');
+            pieChart = new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: professions,
+                    datasets: [{
                         data: targets,
-                        backgroundColor: '#3498db',
-                        borderColor: '#2980b9',
+                        backgroundColor: backgroundColors,
                         borderWidth: 1
-                    },
-                    {
-                        label: 'Realisasi',
-                        data: realizations,
-                        backgroundColor: '#2ecc71',
-                        borderColor: '#27ae60',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Distribusi Target per Profesi'
+                        }
+                    }
+                }
+            });
+            
+            // Horizontal Bar Chart (Top 5)
+            // Sort by percentage and take top 5
+            const professionMap = {};
+            fullData.forEach(item => {
+                if (!professionMap[item.profesi]) {
+                    professionMap[item.profesi] = {
+                        percentage: calculatePercentage(item.unit, item.target)
+                    };
+                }
+            });
+            
+            const sortedProfessions = Object.keys(professionMap).sort((a, b) => professionMap[b].percentage - professionMap[a].percentage).slice(0, 5);
+            const top5Percentages = sortedProfessions.map(prof => professionMap[prof].percentage);
+            const top5Colors = backgroundColors.slice(0, 5);
+            
+            const horizontalBarCtx = document.getElementById('horizontalBarChart').getContext('2d');
+            horizontalBarChart = new Chart(horizontalBarCtx, {
+                type: 'bar',
+                data: {
+                    labels: sortedProfessions,
+                    datasets: [{
+                        label: 'Persentase Realisasi',
+                        data: top5Percentages,
+                        backgroundColor: top5Colors,
                         borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Target vs Realisasi per Profesi'
-                    }
+                    }]
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-        // Pie Chart
-        const pieCtx = document.getElementById('pieChart').getContext('2d');
-        new Chart(pieCtx, {
-            type: 'pie',
-            data: {
-                labels: professions,
-                datasets: [{
-                    data: targets,
-                    backgroundColor: backgroundColors,
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'right',
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Top 5 Profesi dengan Realisasi Tertinggi (%)'
+                        }
                     },
-                    title: {
-                        display: true,
-                        text: 'Distribusi Target per Profesi'
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100
+                        }
                     }
                 }
-            }
+            });
+        }
+        
+        // Event listeners
+        document.getElementById('profesi-filter').addEventListener('change', updateDashboard);
+        document.getElementById('bank-filter').addEventListener('change', updateDashboard);
+        document.getElementById('provinsi-filter').addEventListener('change', updateDashboard);
+        document.getElementById('kabupaten-filter').addEventListener('change', updateDashboard);
+        document.getElementById('reset-filters').addEventListener('click', function() {
+            document.getElementById('profesi-filter').value = 'all';
+            document.getElementById('bank-filter').value = 'all';
+            document.getElementById('provinsi-filter').value = 'all';
+            document.getElementById('kabupaten-filter').value = 'all';
+            updateDashboard();
         });
-
-        // Horizontal Bar Chart (Top 5)
-        const top5Professions = professions.slice(0, 5);
-        const top5Percentages = percentages.slice(0, 5);
-        const top5Colors = backgroundColors.slice(0, 5);
-
-        const horizontalBarCtx = document.getElementById('horizontalBarChart').getContext('2d');
-        new Chart(horizontalBarCtx, {
-            type: 'bar',
-            data: {
-                labels: top5Professions,
-                datasets: [{
-                    label: 'Persentase Realisasi',
-                    data: top5Percentages,
-                    backgroundColor: top5Colors,
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    title: {
-                        display: true,
-                        text: 'Top 5 Profesi dengan Realisasi Tertinggi (%)'
-                    }
-                },
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        max: 100
-                    }
-                }
-            }
+        
+        // Inisialisasi
+        document.addEventListener('DOMContentLoaded', function() {
+            initCharts();
+            updateDashboard();
         });
     </script>
 </body>
