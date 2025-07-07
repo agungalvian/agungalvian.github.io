@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Segmentasi Profesi MBR</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7f9;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #2f855a;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      background: #e2f0d9;
+      padding: 15px;
+      justify-content: center;
+    }
+    .filters select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+      justify-content: center;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 20px;
+      flex: 1 1 200px;
+      max-width: 250px;
+      text-align: center;
+    }
+    .card h2 {
+      margin: 0;
+      color: #2f855a;
+    }
+    table {
+      width: 95%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      background: white;
+    }
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    th {
+      background-color: #c6e0b4;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Dashboard Segmentasi Profesi MBR</h1>
+  </header>
+
+  <section class="filters">
+    <select name="provinsi">
+      <option value="">Pilih Provinsi</option>
+      <option value="jawa-barat">Jawa Barat</option>
+      <option value="jawa-tengah">Jawa Tengah</option>
+    </select>
+    <select name="kabkota">
+      <option value="">Pilih Kab/Kota</option>
+      <option value="bandung">Bandung</option>
+      <option value="solo">Solo</option>
+    </select>
+    <select name="bank">
+      <option value="">Pilih Bank</option>
+      <option value="btn">Bank BTN</option>
+      <option value="bri">Bank BRI</option>
+    </select>
+    <select name="profesi">
+      <option value="">Pilih Profesi MBR</option>
+      <option value="guru">Guru</option>
+      <option value="petani">Petani</option>
+    </select>
+  </section>
+
+  <section class="stats">
+    <div class="card">
+      <h2>12.345</h2>
+      <p>Total Unit</p>
+    </div>
+    <div class="card">
+      <h2>Rp 400 M</h2>
+      <p>Total FLPP</p>
+    </div>
+    <div class="card">
+      <h2>15</h2>
+      <p>Jumlah Bank</p>
+    </div>
+    <div class="card">
+      <h2>22</h2>
+      <p>Profesi Terdaftar</p>
+    </div>
+  </section>
+
+  <section>
+    <table>
+      <thead>
+        <tr>
+          <th>NO</th>
+          <th>SEGMENTASI PROFESI MBR</th>
+          <th>BANK</th>
+          <th>PROVINSI</th>
+          <th>KAB/KOTA</th>
+          <th>UNIT</th>
+          <th>NILAI FLPP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Petani</td>
+          <td>Bank BRI</td>
+          <td>Jawa Tengah</td>
+          <td>Klaten</td>
+          <td>250</td>
+          <td>Rp 8.500.000.000</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Guru</td>
+          <td>Bank BTN</td>
+          <td>Jawa Barat</td>
+          <td>Bandung</td>
+          <td>180</td>
+          <td>Rp 6.200.000.000</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</body>
+</html>
