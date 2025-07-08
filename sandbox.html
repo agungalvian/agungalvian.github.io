@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dasbor Strategis: Implementasi Sandbox API BP TAPERA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony (Grays, Slates, Muted Blue/Teal) -->
+    <!-- Application Structure Plan: The SPA uses a thematic, dashboard-like structure to make the report's strategic content digestible for decision-makers. It avoids a linear chapter-by-chapter format. The flow guides the user from the "Why" (benefits), to the "How" (architecture/security), to the "What" (service-specific applications), and finally the "When/Who" (roadmap/challenges). This structure is chosen to answer key business questions logically, using interactive cards, tabs, and accordions for progressive disclosure of information, enhancing usability and comprehension. -->
+    <!-- Visualization & Content Choices: Benefits section uses a conceptual bar chart (Chart.js) to compare 'before' and 'after' states, making the value proposition immediately clear. The core architecture is an interactive HTML/CSS diagram, which is more engaging than static text. Service benefits are in a tabbed view to organize information cleanly. The implementation plan is a visual roadmap using a grid layout and a supporting capabilities chart (Chart.js) to show growth over time. Challenges are in an accordion to save space and reduce cognitive load. This approach turns dense text into interactive, easily scannable components. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .chart-container { position: relative; width: 100%; max-width: 700px; margin-left: auto; margin-right: auto; height: 350px; max-height: 40vh; }
+        .tab-button.active { border-color: #2563eb; color: #2563eb; background-color: #eff6ff; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .architecture-popover {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 10px;
+            background-color: #1f2937;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            width: 250px;
+            font-size: 0.875rem;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .architecture-item:hover .architecture-popover { display: block; }
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-blue-600">BP TAPERA | Strategi Sandbox API</h1>
+            <div class="hidden md:flex space-x-6">
+                <a href="#mengapa" class="text-slate-600 hover:text-blue-600 transition">Mengapa Sandbox</a>
+                <a href="#arsitektur" class="text-slate-600 hover:text-blue-600 transition">Arsitektur</a>
+                <a href="#manfaat" class="text-slate-600 hover:text-blue-600 transition">Manfaat Layanan</a>
+                <a href="#peta-jalan" class="text-slate-600 hover:text-blue-600 transition">Peta Jalan</a>
+                <a href="#tantangan" class="text-slate-600 hover:text-blue-600 transition">Tantangan</a>
+            </div>
+             <button id="mobile-menu-button" class="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <span class="text-2xl">☰</span>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#mengapa" class="block py-2 text-slate-600 hover:text-blue-600">Mengapa Sandbox</a>
+            <a href="#arsitektur" class="block py-2 text-slate-600 hover:text-blue-600">Arsitektur</a>
+            <a href="#manfaat" class="block py-2 text-slate-600 hover:text-blue-600">Manfaat Layanan</a>
+            <a href="#peta-jalan" class="block py-2 text-slate-600 hover:text-blue-600">Peta Jalan</a>
+            <a href="#tantangan" class="block py-2 text-slate-600 hover:text-blue-600">Tantangan</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8 md:py-16">
+
+        <section class="text-center mb-16 md:mb-24">
+            <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Mendorong Transformasi Digital BP TAPERA</h2>
+            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">
+                Melalui implementasi Sandbox API, kami membuka jalan bagi inovasi, meningkatkan keamanan, dan mengakselerasi kolaborasi untuk memberikan layanan publik yang unggul.
+            </p>
+        </section>
+
+        <section id="mengapa" class="mb-16 md:mb-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-slate-900 mb-2">Mengapa Sandbox API Menjadi Imperatif Strategis?</h3>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">Sandbox API bukan sekadar alat teknis, melainkan pendorong fundamental untuk mencapai tujuan strategis BP TAPERA di era digital.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow text-center">
+                    <div class="section-icon mx-auto bg-blue-100 text-blue-600">🚀</div>
+                    <h4 class="text-xl font-semibold mb-2">Akselerasi Inovasi</h4>
+                    <p class="text-slate-600">Menyediakan lingkungan aman bagi mitra internal dan eksternal untuk bereksperimen, menciptakan solusi baru, dan mempercepat waktu pemasaran.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow text-center">
+                    <div class="section-icon mx-auto bg-green-100 text-green-600">🛡️</div>
+                    <h4 class="text-xl font-semibold mb-2">Peningkatan Keamanan</h4>
+                    <p class="text-slate-600">Menguji kerentanan dan kepatuhan regulasi secara ketat tanpa mengekspos data produksi, menerapkan prinsip "Privacy by Design".</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow text-center">
+                     <div class="section-icon mx-auto bg-amber-100 text-amber-600">💸</div>
+                    <h4 class="text-xl font-semibold mb-2">Efisiensi Operasional</h4>
+                    <p class="text-slate-600">Mengurangi biaya infrastruktur, meminimalkan panggilan API produksi saat pengujian, dan mendeteksi bug lebih awal untuk menekan biaya perbaikan.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow text-center">
+                    <div class="section-icon mx-auto bg-purple-100 text-purple-600">🤝</div>
+                    <h4 class="text-xl font-semibold mb-2">Kolaborasi Ekosistem</h4>
+                    <p class="text-slate-600">Memberdayakan pengembang pihak ketiga (Fintech, Bank, Pengembang) untuk berintegrasi secara mandiri dan memperluas jangkauan layanan.</p>
+                </div>
+            </div>
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg">
+                <h4 class="text-2xl font-bold text-center mb-6">Proyeksi Dampak Implementasi</h4>
+                <div class="chart-container">
+                    <canvas id="impactChart"></canvas>
+                </div>
+                 <p class="text-center text-sm text-slate-500 mt-4">Grafik ini mengilustrasikan dampak positif yang diharapkan dari implementasi Sandbox API terhadap metrik kunci operasional dan pengembangan.</p>
+            </div>
+        </section>
+        
+        <hr class="my-16 md:my-24 border-slate-200">
+
+        <section id="arsitektur" class="mb-16 md:mb-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-slate-900 mb-2">Bagaimana Cara Kerjanya? Arsitektur & Keamanan</h3>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">Arsitektur sandbox dirancang untuk mereplikasi lingkungan produksi secara akurat, dengan lapisan keamanan data yang kuat sebagai fondasinya.</p>
+            </div>
+            
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg">
+                <h4 class="text-2xl font-bold text-center mb-8">Diagram Alur Kerja Sandbox API</h4>
+                 <div class="w-full overflow-x-auto p-4">
+                    <div class="flex items-center justify-center space-x-4 md:space-x-8 min-w-max">
+                        <div class="architecture-item relative flex flex-col items-center text-center">
+                             <div class="w-24 h-24 bg-purple-100 rounded-lg flex items-center justify-center text-3xl">💻</div>
+                             <p class="font-semibold mt-2">Pengembang</p>
+                             <p class="text-xs text-slate-500">(Internal/Eksternal)</p>
+                             <div class="architecture-popover">Pengembang (Tim IT BP TAPERA, Bank, Fintech) berinteraksi dengan sandbox menggunakan kredensial yang aman.</div>
+                        </div>
+
+                        <div class="text-3xl font-light text-slate-400">→</div>
+
+                        <div class="architecture-item relative flex flex-col items-center text-center">
+                            <div class="w-24 h-24 bg-blue-100 rounded-lg flex items-center justify-center text-3xl">🚪</div>
+                            <p class="font-semibold mt-2">API Gateway</p>
+                            <p class="text-xs text-slate-500">(Kontrol Terpusat)</p>
+                            <div class="architecture-popover">Bertindak sebagai pintu gerbang yang mengatur otentikasi, otorisasi, rate limiting, dan perutean ke layanan yang sesuai.</div>
+                        </div>
+
+                        <div class="text-3xl font-light text-slate-400">→</div>
+
+                        <div class="architecture-item relative flex flex-col items-center text-center">
+                            <div class="w-24 h-24 bg-green-100 rounded-lg flex items-center justify-center text-3xl">🔬</div>
+                            <p class="font-semibold mt-2">Sandbox Dinamis</p>
+                            <p class="text-xs text-slate-500">(Lingkungan Terisolasi)</p>
+                            <div class="architecture-popover">Mensimulasikan logika bisnis dan alur kerja stateful dari sistem produksi untuk pengujian yang realistis.</div>
+                        </div>
+
+                        <div class="text-3xl font-light text-slate-400">→</div>
+
+                        <div class="architecture-item relative flex flex-col items-center text-center">
+                             <div class="w-24 h-24 bg-amber-100 rounded-lg flex items-center justify-center text-3xl">📦</div>
+                            <p class="font-semibold mt-2">Data Sintetis</p>
+                            <p class="text-xs text-slate-500">(Aman & Realistis)</p>
+                            <div class="architecture-popover">Menggunakan data buatan yang meniru properti statistik data asli, tanpa memuat Informasi Identitas Pribadi (PII).</div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center text-sm text-slate-500 mt-6">Arahkan kursor ke setiap komponen untuk melihat detail. Arsitektur ini memastikan pengujian yang aman dan efektif.</p>
+            </div>
+        </section>
+
+        <hr class="my-16 md:my-24 border-slate-200">
+
+        <section id="manfaat" class="mb-16 md:mb-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-slate-900 mb-2">Manfaat untuk Setiap Lini Layanan</h3>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">Sandbox API memberikan keunggulan spesifik yang disesuaikan untuk menyederhanakan dan mengamankan setiap layanan inti BP TAPERA.</p>
+            </div>
+            
+            <div class="w-full max-w-4xl mx-auto">
+                <div class="mb-6 flex flex-wrap justify-center border-b border-slate-200">
+                    <button class="tab-button py-3 px-6 text-lg font-medium text-slate-600 border-b-2 border-transparent transition active" data-tab="perumahan">Pembiayaan Perumahan</button>
+                    <button class="tab-button py-3 px-6 text-lg font-medium text-slate-600 border-b-2 border-transparent transition" data-tab="kepesertaan">Kepesertaan</button>
+                    <button class="tab-button py-3 px-6 text-lg font-medium text-slate-600 border-b-2 border-transparent transition" data-tab="penagihan">Penagihan</button>
+                </div>
+                
+                <div id="tab-perumahan" class="tab-content active bg-white p-6 md:p-8 rounded-lg shadow-md">
+                    <h4 class="text-2xl font-bold mb-4">Menyederhanakan Alur Kerja Pinjaman</h4>
+                    <p class="mb-6 text-slate-600">Memungkinkan mitra (bank, pengembang) menguji integrasi untuk proses pengajuan, verifikasi kelayakan, dan pemantauan status pinjaman secara efisien dan aman.</p>
+                    <ul class="space-y-3 list-inside list-disc text-slate-700">
+                        <li><b>Pemrosesan Lebih Cepat:</b> Menguji otomatisasi validasi data dan dokumen untuk mempersingkat waktu persetujuan.</li>
+                        <li><b>Inovasi Fintech:</b> Memfasilitasi pengembangan solusi baru seperti penasihat pinjaman berbasis AI.</li>
+                        <li><b>Kualitas Data Terjamin:</b> Memastikan pertukaran data yang akurat antara sistem BP TAPERA dan mitra.</li>
+                        <li><b>Simulasi End-to-End:</b> Menguji seluruh siklus hidup pinjaman, dari aplikasi hingga pelunasan, dalam lingkungan terkontrol.</li>
+                    </ul>
+                </div>
+
+                <div id="tab-kepesertaan" class="tab-content bg-white p-6 md:p-8 rounded-lg shadow-md">
+                    <h4 class="text-2xl font-bold mb-4">Meningkatkan Manajemen Data Anggota</h4>
+                    <p class="mb-6 text-slate-600">Memberikan lingkungan untuk menguji fitur baru portal anggota, integrasi dengan sistem pemberi kerja, dan memastikan konsistensi data kepesertaan.</p>
+                    <ul class="space-y-3 list-inside list-disc text-slate-700">
+                        <li><b>Data Terpadu:</b> Menguji API untuk menciptakan "tampilan 360 derajat" data anggota di berbagai platform.</li>
+                        <li><b>Keamanan Data Sensitif:</b> Memvalidasi protokol keamanan untuk melindungi informasi pribadi dan riwayat kontribusi.</li>
+                        <li><b>Simulasi Perjalanan Anggota:</b> Menguji alur kerja kompleks seperti pendaftaran, klaim manfaat, dan pembaruan data.</li>
+                        <li><b>Pengembangan Cepat:</b> Memungkinkan tim internal dan eksternal membangun aplikasi layanan anggota secara paralel.</li>
+                    </ul>
+                </div>
+
+                <div id="tab-penagihan" class="tab-content bg-white p-6 md:p-8 rounded-lg shadow-md">
+                    <h4 class="text-2xl font-bold mb-4">Mengoptimalkan Pembayaran & Langganan</h4>
+                    <p class="mb-6 text-slate-600">Menyediakan platform untuk menguji integrasi dengan berbagai gateway pembayaran, mengelola penagihan berulang, dan memperkuat keamanan transaksi.</p>
+                    <ul class="space-y-3 list-inside list-disc text-slate-700">
+                        <li><b>Jaminan Pendapatan:</b> Mengurangi transaksi gagal dengan menguji keandalan API pembayaran secara menyeluruh.</li>
+                        <li><b>Keamanan Transaksi:</b> Menguji mekanisme enkripsi, tokenisasi, dan deteksi penipuan menggunakan data sintetis.</li>
+                        <li><b>Fleksibilitas Pembayaran:</b> Memfasilitasi integrasi dengan metode pembayaran baru (misalnya, dompet digital).</li>
+                        <li><b>Pengujian Stateful:</b> Mensimulasikan siklus hidup langganan dan pembayaran berulang secara akurat.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-16 md:my-24 border-slate-200">
+
+        <section id="peta-jalan" class="mb-16 md:mb-24 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-slate-900 mb-2">Peta Jalan Implementasi Bertahap</h3>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">Kami mengusulkan pendekatan tiga fase untuk memastikan implementasi yang terkelola, memungkinkan pembelajaran, dan memberikan nilai secara inkremental.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 text-center mb-12">
+                <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-500">
+                    <h4 class="text-2xl font-bold mb-2">Fase 1</h4>
+                    <p class="font-semibold text-blue-600 mb-4">Fondasi & Fokus Internal</p>
+                    <ul class="text-left space-y-2 text-slate-600">
+                        <li>✓ Sandbox Statis</li>
+                        <li>✓ Otentikasi Inti (OAuth 2.0)</li>
+                        <li>✓ Anonimisasi & Data Sintetis Awal</li>
+                        <li>✓ Pelatihan Tim Internal</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-amber-500">
+                    <h4 class="text-2xl font-bold mb-2">Fase 2</h4>
+                    <p class="font-semibold text-amber-600 mb-4">Realisme & Mitra Pilot</p>
+                    <ul class="text-left space-y-2 text-slate-600">
+                        <li>✓ Transisi ke Sandbox Dinamis</li>
+                        <li>✓ Portal Pengembang & SDK</li>
+                        <li>✓ Uji Coba dengan Mitra Terpilih</li>
+                        <li>✓ Keamanan Lanjutan</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
+                    <h4 class="text-2xl font-bold mb-2">Fase 3</h4>
+                    <p class="font-semibold text-green-600 mb-4">Ekosistem & Inovasi Publik</p>
+                     <ul class="text-left space-y-2 text-slate-600">
+                        <li>✓ Skalabilitas Infrastruktur</li>
+                        <li>✓ Peluncuran Publik</li>
+                        <li>✓ Keterlibatan Komunitas (Hackathon)</li>
+                        <li>✓ *Chaos Mocking*</li>
+                    </ul>
+                </div>
+            </div>
+             <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg">
+                <h4 class="text-2xl font-bold text-center mb-6">Pertumbuhan Kemampuan per Fase</h4>
+                <div class="chart-container">
+                    <canvas id="roadmapChart"></canvas>
+                </div>
+                <p class="text-center text-sm text-slate-500 mt-4">Grafik ini memvisualisasikan peningkatan kapabilitas sandbox, seperti realisme data dan dukungan mitra, di setiap fase implementasi.</p>
+            </div>
+        </section>
+
+        <hr class="my-16 md:my-24 border-slate-200">
+        
+        <section id="tantangan" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-slate-900 mb-2">Mengantisipasi dan Mengatasi Tantangan</h3>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">Dengan strategi mitigasi yang proaktif, kami siap menghadapi tantangan implementasi untuk memastikan kesuksesan proyek.</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="accordion-item bg-white rounded-lg shadow-md">
+                    <button class="accordion-header w-full text-left p-5 font-semibold text-lg flex justify-between items-center hover:bg-slate-50 transition">
+                        <span>Kompleksitas Integrasi & Konsistensi Data</span>
+                        <span class="accordion-icon text-2xl font-light">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-5 pt-0 text-slate-600">
+                            <b>Strategi Mitigasi:</b> Mengadopsi protokol API standar (REST), menggunakan kerangka pengujian otomatis, mendefinisikan skema data yang jelas, dan mempertimbangkan lapisan API terpadu (iPaaS) untuk menyederhanakan interaksi dengan sistem lama.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item bg-white rounded-lg shadow-md">
+                    <button class="accordion-header w-full text-left p-5 font-semibold text-lg flex justify-between items-center hover:bg-slate-50 transition">
+                        <span>Manajemen Versi API & Kompatibilitas</span>
+                         <span class="accordion-icon text-2xl font-light">+</span>
+                    </button>
+                     <div class="accordion-content">
+                        <div class="p-5 pt-0 text-slate-600">
+                             <b>Strategi Mitigasi:</b> Menerapkan strategi pembuatan versi yang jelas (misalnya, di URL), memelihara pengujian regresi otomatis di sandbox, dan menyediakan dokumentasi komprehensif (Swagger/OpenAPI) untuk semua versi API demi menjaga kepercayaan pengembang.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item bg-white rounded-lg shadow-md">
+                    <button class="accordion-header w-full text-left p-5 font-semibold text-lg flex justify-between items-center hover:bg-slate-50 transition">
+                        <span>Kesenjangan Sumber Daya & Keahlian</span>
+                         <span class="accordion-icon text-2xl font-light">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-5 pt-0 text-slate-600">
+                             <b>Strategi Mitigasi:</b> Membentuk Pusat Keunggulan API (CoE) lintas fungsi, berinvestasi dalam pelatihan internal, dan menjalin kemitraan strategis dengan vendor spesialis untuk komponen seperti generasi data sintetis atau keamanan.
+                        </div>
+                    </div>
+                </div>
+                 <div class="accordion-item bg-white rounded-lg shadow-md">
+                    <button class="accordion-header w-full text-left p-5 font-semibold text-lg flex justify-between items-center hover:bg-slate-50 transition">
+                        <span>Peniruan Perilaku Produksi yang Akurat</span>
+                         <span class="accordion-icon text-2xl font-light">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-5 pt-0 text-slate-600">
+                            <b>Strategi Mitigasi:</b> Memastikan sandbox mereplikasi semua fitur produksi, secara aktif mensimulasikan berbagai skenario kesalahan (timeout, akses ditolak), menyediakan pesan kesalahan yang jelas, dan secara rutin memantau log penggunaan untuk perbaikan berkelanjutan.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-white mt-16 md:mt-24">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <h4 class="text-2xl font-bold mb-2">BP TAPERA</h4>
+            <p class="text-slate-300">Berkomitmen pada inovasi digital untuk layanan perumahan rakyat yang lebih baik.</p>
+            <p class="text-sm text-slate-400 mt-6">&copy; 2025 Badan Pengelola Tabungan Perumahan Rakyat. Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenuButton.querySelector('span').textContent = mobileMenu.classList.contains('hidden') ? '☰' : '✕';
+            });
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.querySelector('span').textContent = '☰';
+                });
+            });
+
+            const wrapText = (text, maxLen) => {
+                if (!Array.isArray(text)) text = [text];
+                const result = [];
+                text.forEach(line => {
+                    let currentLine = '';
+                    const words = line.split(' ');
+                    for (let i = 0; i < words.length; i++) {
+                        if (currentLine.length + words[i].length > maxLen) {
+                            result.push(currentLine.trim());
+                            currentLine = '';
+                        }
+                        currentLine += words[i] + ' ';
+                    }
+                    result.push(currentLine.trim());
+                });
+                return result;
+            }
+
+            const impactChartCtx = document.getElementById('impactChart').getContext('2d');
+            const impactChart = new Chart(impactChartCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Waktu ke Pasar', 'Biaya Pengembangan', 'Risiko Keamanan', 'Keterlibatan Mitra'],
+                    datasets: [{
+                        label: 'Sebelum Sandbox',
+                        data: [100, 100, 100, 30],
+                        backgroundColor: 'rgba(203, 213, 225, 0.6)',
+                        borderColor: 'rgba(100, 116, 139, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Setelah Sandbox',
+                        data: [60, 75, 25, 90],
+                        backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                        borderColor: 'rgba(37, 99, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%'
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Indeks Relatif'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const roadmapChartCtx = document.getElementById('roadmapChart').getContext('2d');
+            const roadmapChart = new Chart(roadmapChartCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Fase 1: Fondasi', 'Fase 2: Realisme', 'Fase 3: Ekosistem'],
+                    datasets: [
+                        { label: 'Keamanan & Kepatuhan', data: [60, 85, 100], backgroundColor: '#3b82f6' },
+                        { label: 'Realisme Data & Skenario', data: [40, 75, 100], backgroundColor: '#10b981' },
+                        { label: 'Dukungan & Keterlibatan Mitra', data: [20, 60, 100], backgroundColor: '#f59e0b' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { callback: value => value + '%' },
+                            title: { display: true, text: 'Tingkat Kapabilitas (%)' }
+                        },
+                        x: {
+                            ticks: {
+                                callback: function(value) {
+                                    return wrapText(this.getLabelForValue(value), 10);
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: { callbacks: { label: context => `${context.dataset.label}: ${context.raw}%` } }
+                    }
+                }
+            });
+
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.dataset.tab;
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `tab-${tabId}`) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                const icon = item.querySelector('.accordion-icon');
+                header.addEventListener('click', () => {
+                    const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+                    
+                    document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = '0px');
+                    document.querySelectorAll('.accordion-icon').forEach(i => i.textContent = '+');
+                    
+                    if (!isOpen) {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.textContent = '-';
+                    }
+                });
+            });
+
+        });
+    </script>
+
+</body>
+</html>
