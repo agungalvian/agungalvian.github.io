@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dasbor Analisis SEO & ASO - BP Tapera</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 
+    Chosen Palette: Neutral Professional
+    Application Structure Plan: Aplikasi ini dirancang sebagai dasbor interaktif, bukan presentasi laporan linier. Struktur ini menggunakan navigasi terpusat dan beberapa bagian tematik (Dasbor, Audit Situs Web, Audit Aplikasi, Analisis Strategis, Rekomendasi). Pendekatan ini memungkinkan pengguna untuk dengan cepat memahami gambaran besar melalui ringkasan visual di dasbor, kemudian menyelami area tertentu yang menarik (misalnya, hanya fokus pada masalah aplikasi seluler). Tata letak berbasis kartu, tab, dan akordeon memecah informasi yang kompleks menjadi potongan-potongan yang mudah dicerna, memprioritaskan eksplorasi pengguna dan pemahaman cepat daripada mengikuti urutan laporan asli. Ini adalah arsitektur yang berpusat pada tugas, dirancang untuk bagaimana seorang pemangku kepentingan akan mengonsumsi dan bertindak berdasarkan data.
+    Visualization & Content Choices: 
+    - Status Aset Digital (Bagan Batang Horisontal): Dipilih untuk memberikan perbandingan visual yang jelas dan langsung mengenai status setiap aset digital. Ini lebih berdampak daripada daftar teks sederhana. (Chart.js)
+    - Sentimen Pengguna Aplikasi (Bagan Donat): Ideal untuk menunjukkan proporsi (positif vs. negatif). Interaktif saat di-hover, memberikan persentase yang tepat, yang lebih menarik daripada statistik datar. (Chart.js)
+    - Isu Penemuan Aplikasi iOS (HTML/CSS Mock-up): Untuk secara visual mendramatisasi masalah penemuan tanpa menggunakan gambar atau SVG, mock-up hasil pencarian palsu yang dibuat dengan HTML/CSS adalah yang paling efektif.
+    - Analisis SWOT (Tata Letak Grid Interaktif): Tata letak 4-kuadran secara visual mewakili kerangka kerja SWOT. Membuat setiap kuadran dapat diklik untuk menampilkan detail menjaga antarmuka tetap bersih dan mendorong interaksi pengguna.
+    - Rekomendasi (Akordeon): Mengatur daftar rekomendasi yang panjang ke dalam kategori yang dapat diperluas (akordeon) mengurangi kekacauan kognitif, memungkinkan pengguna untuk fokus pada satu set tindakan pada satu waktu.
+    - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            max-height: 40vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-link {
+            transition: color 0.2s, border-bottom-color 0.2s;
+        }
+        .nav-link.active {
+            color: #0f172a; /* slate-900 */
+            border-bottom-color: #0f172a;
+        }
+        .tab-button.active {
+            background-color: #1e293b; /* slate-800 */
+            color: #ffffff;
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .status-ok { background-color: #dcfce7; color: #166534; }
+        .status-issue { background-color: #fef9c3; color: #854d0e; }
+        .status-critical { background-color: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+<body class="text-slate-700 smooth-scroll">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-slate-800">Analisis SEO BP Tapera</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#dashboard" class="nav-link px-3 py-2 text-sm font-medium text-slate-500 hover:text-slate-900 border-b-2 border-transparent">Dasbor</a>
+                        <a href="#seo-audit" class="nav-link px-3 py-2 text-sm font-medium text-slate-500 hover:text-slate-900 border-b-2 border-transparent">Audit Situs Web</a>
+                        <a href="#aso-audit" class="nav-link px-3 py-2 text-sm font-medium text-slate-500 hover:text-slate-900 border-b-2 border-transparent">Audit Aplikasi</a>
+                        <a href="#swot" class="nav-link px-3 py-2 text-sm font-medium text-slate-500 hover:text-slate-900 border-b-2 border-transparent">Analisis Strategis</a>
+                        <a href="#recommendations" class="nav-link px-3 py-2 text-sm font-medium text-slate-500 hover:text-slate-900 border-b-2 border-transparent">Rekomendasi</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <select id="mobile-nav" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        <option value="#dashboard">Dasbor</option>
+                        <option value="#seo-audit">Audit Situs Web</option>
+                        <option value="#aso-audit">Audit Aplikasi</option>
+                        <option value="#swot">Analisis Strategis</option>
+                        <option value="#recommendations">Rekomendasi</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <!-- Section 1: Dashboard -->
+        <section id="dashboard" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-slate-800 mb-2">Dasbor Ringkasan Eksekutif</h2>
+            <p class="text-lg text-slate-600 mb-8">Tinjauan tingkat tinggi terhadap kesehatan ekosistem digital BP Tapera, menyoroti masalah paling kritis yang memengaruhi visibilitas dan pengalaman pengguna.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-red-500">
+                    <h3 class="text-lg font-semibold text-slate-800">Aksesibilitas Situs Web</h3>
+                    <p class="text-3xl font-bold text-red-600 mt-2">2 Kritis</p>
+                    <p class="text-slate-500 mt-1">Subdomain layanan inti tidak dapat diakses, menghalangi pengguna.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-amber-500">
+                    <h3 class="text-lg font-semibold text-slate-800">Penemuan Aplikasi (iOS)</h3>
+                    <p class="text-3xl font-bold text-amber-600">Rendah</p>
+                    <p class="text-slate-500 mt-1">Aplikasi resmi sulit ditemukan di App Store, kalah dari pesaing.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-blue-500">
+                    <h3 class="text-lg font-semibold text-slate-800">Peluang Konten</h3>
+                    <p class="text-3xl font-bold text-blue-600">Tinggi</p>
+                    <p class="text-slate-500 mt-1">Minat publik yang tinggi memberikan audiens untuk komunikasi proaktif.</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <h3 class="text-xl font-semibold text-slate-800 mb-4">Status Kesehatan Aset Digital</h3>
+                <p class="text-slate-600 mb-6">Bagan ini memvisualisasikan status aksesibilitas dan masalah teknis yang teridentifikasi di seluruh properti web dan seluler BP Tapera. "Kritis" menunjukkan aset tidak dapat diakses, sementara "Masalah" menandakan masalah teknis SEO seperti file `robots.txt` atau `sitemap.xml` yang hilang.</p>
+                <div class="chart-container">
+                    <canvas id="assetStatusChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-16 border-slate-200">
+
+        <!-- Section 2: SEO Audit -->
+        <section id="seo-audit" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-slate-800 mb-2">Audit Kinerja Situs Web (SEO)</h2>
+            <p class="text-lg text-slate-600 mb-8">Analisis mendalam tentang setiap properti web, mengevaluasi aksesibilitas teknis, potensi kinerja, dan tujuan strategisnya.</p>
+            
+            <div class="flex justify-center mb-8">
+                <div id="seo-tabs" class="flex space-x-1 bg-slate-200 p-1 rounded-full">
+                    <button data-target="tapera" class="tab-button active px-4 py-2 text-sm font-semibold rounded-full transition">tapera.go.id</button>
+                    <button data-target="tds" class="tab-button px-4 py-2 text-sm font-semibold rounded-full transition">tds.tapera.go.id</button>
+                    <button data-target="stokrumah" class="tab-button px-4 py-2 text-sm font-semibold rounded-full transition">stokrumah.tapera.go.id</button>
+                    <button data-target="sikumbang" class="tab-button px-4 py-2 text-sm font-semibold rounded-full transition">sikumbang.tapera.go.id</button>
+                </div>
+            </div>
+
+            <div id="seo-content" class="bg-white p-6 md:p-8 rounded-xl shadow-md">
+                <!-- Content for each tab will be injected here by JS -->
+            </div>
+        </section>
+        
+        <hr class="my-16 border-slate-200">
+
+        <!-- Section 3: ASO Audit -->
+        <section id="aso-audit" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-slate-800 mb-2">Audit Kinerja Aplikasi Seluler (ASO)</h2>
+            <p class="text-lg text-slate-600 mb-8">Evaluasi visibilitas, konversi, dan sentimen pengguna aplikasi Tapera Mobile di Google Play Store dan Apple App Store.</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Google Play Store Card -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-xl font-semibold text-slate-800 mb-4">Google Play Store</h3>
+                    <ul class="space-y-3 text-slate-600">
+                        <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">✔</span><span>Judul aplikasi jelas namun bisa dioptimalkan dengan kata kunci (misal: "KPR").</span></li>
+                        <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">✔</span><span>Deskripsi kaya kata kunci relevan dan pengembang aktif menanggapi ulasan.</span></li>
+                        <li class="flex items-start"><span class="text-red-500 mr-3 mt-1">❌</span><span class="font-semibold text-red-700">Anomali Terjemahan:</span><span> Istilah "fertilizer values" muncul, merusak kredibilitas. Ini harus segera diperbaiki.</span></li>
+                    </ul>
+                </div>
+
+                <!-- Apple App Store Card -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-xl font-semibold text-slate-800 mb-4">Apple App Store</h3>
+                     <ul class="space-y-3 text-slate-600">
+                        <li class="flex items-start"><span class="text-red-500 mr-3 mt-1">❌</span><span class="font-semibold text-red-700">Masalah Penemuan Kritis:</span><span> Aplikasi resmi sulit ditemukan, kalah oleh aplikasi dengan nama serupa.</span></li>
+                        <li class="flex items-start"><span class="text-amber-500 mr-3 mt-1">⚠️</span><span>Ulasan pengguna beragam, menyoroti adanya bug (error verifikasi) dan kebutuhan perbaikan UI/UX.</span></li>
+                        <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">✔</span><span>Pengembang aktif menanggapi umpan balik, yang merupakan sinyal positif.</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+                 <!-- App Discoverability Mockup -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-xl font-semibold text-slate-800 mb-4">Visualisasi Masalah Penemuan iOS</h3>
+                    <p class="text-slate-600 mb-4">Saat mencari "Tapera Mobile" di App Store, pengguna mungkin melihat hasil seperti ini, yang membuat aplikasi resmi sulit ditemukan.</p>
+                    <div class="bg-slate-100 p-4 rounded-lg border border-slate-200">
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3 opacity-50">
+                                <div class="w-12 h-12 bg-blue-300 rounded-lg"></div>
+                                <div><p class="font-semibold">TapeReal: Community</p><p class="text-sm text-slate-500">Social Networking</p></div>
+                            </div>
+                            <div class="flex items-center space-x-3 opacity-50">
+                                <div class="w-12 h-12 bg-green-300 rounded-lg"></div>
+                                <div><p class="font-semibold">TP-Link Tapo</p><p class="text-sm text-slate-500">Smart Home</p></div>
+                            </div>
+                            <div class="flex items-center space-x-3 border-2 border-blue-500 p-2 rounded-lg">
+                                <div class="w-12 h-12 bg-sky-400 rounded-lg"></div>
+                                <div><p class="font-semibold">Tapera Mobile</p><p class="text-sm text-slate-500">BP Tapera - Finance</p></div>
+                            </div>
+                             <div class="flex items-center space-x-3 opacity-50">
+                                <div class="w-12 h-12 bg-pink-300 rounded-lg"></div>
+                                <div><p class="font-semibold">Papara</p><p class="text-sm text-slate-500">Finance</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Sentiment Chart -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-xl font-semibold text-slate-800 mb-4">Agregat Sentimen Pengguna Aplikasi</h3>
+                    <p class="text-slate-600 mb-6">Analisis gabungan ulasan dari kedua toko aplikasi menunjukkan area yang perlu perbaikan untuk meningkatkan kepuasan dan peringkat.</p>
+                     <div class="chart-container" style="height:280px; max-height:35vh;">
+                        <canvas id="userSentimentChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-16 border-slate-200">
+
+        <!-- Section 4: SWOT Analysis -->
+        <section id="swot" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-slate-800 mb-2">Analisis Strategis (SWOT)</h2>
+            <p class="text-lg text-slate-600 mb-8">Ringkasan kekuatan, kelemahan, peluang, dan ancaman yang dihadapi ekosistem digital BP Tapera. Klik setiap kuadran untuk melihat detail.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Strengths -->
+                <div class="s-card bg-green-50 border-green-200" data-content="s-content">
+                    <h3 class="text-green-800">Kekuatan (Strengths)</h3>
+                </div>
+                <div id="s-content" class="swot-content hidden p-6 bg-green-50 rounded-xl md:col-span-2">
+                    <ul class="list-disc list-inside space-y-2 text-green-900">
+                        <li>Identitas merek yang jelas ("Tapera") dan penawaran program yang spesifik.</li>
+                        <li>Respons pengembang yang aktif terhadap ulasan aplikasi, menunjukkan komitmen.</li>
+                        <li>Integrasi data perumahan dengan platform SiKasep.</li>
+                    </ul>
+                </div>
+                <!-- Weaknesses -->
+                <div class="w-card bg-red-50 border-red-200" data-content="w-content">
+                    <h3 class="text-red-800">Kelemahan (Weaknesses)</h3>
+                </div>
+                <div id="w-content" class="swot-content hidden p-6 bg-red-50 rounded-xl md:col-span-2">
+                     <ul class="list-disc list-inside space-y-2 text-red-900">
+                        <li>Ketidakaksesan situs web yang meluas, terutama untuk subdomain layanan.</li>
+                        <li>Penamaan subdomain `tds` yang tidak jelas dan tidak relevan.</li>
+                        <li>Penemuan aplikasi yang sangat buruk di iOS.</li>
+                        <li>Masalah kinerja dan UI/UX yang dilaporkan di aplikasi seluler.</li>
+                        <li>Anomali terjemahan yang merusak citra profesional.</li>
+                    </ul>
+                </div>
+                <!-- Opportunities -->
+                <div class="o-card bg-blue-50 border-blue-200" data-content="o-content">
+                    <h3 class="text-blue-800">Peluang (Opportunities)</h3>
+                </div>
+                 <div id="o-content" class="swot-content hidden p-6 bg-blue-50 rounded-xl md:col-span-2">
+                     <ul class="list-disc list-inside space-y-2 text-blue-900">
+                        <li>Minat publik yang tinggi menyediakan audiens yang besar untuk konten edukatif dan informatif.</li>
+                        <li>Memanfaatkan umpan balik pengguna untuk peningkatan aplikasi yang terarah.</li>
+                        <li>Mengembangkan strategi konten komprehensif untuk mengatasi FAQ dan kekhawatiran publik.</li>
+                        <li>Promosi silang antara aset web dan aplikasi untuk meningkatkan adopsi.</li>
+                    </ul>
+                </div>
+                <!-- Threats -->
+                <div class="t-card bg-amber-50 border-amber-200" data-content="t-content">
+                     <h3 class="text-amber-800">Ancaman (Threats)</h3>
+                </div>
+                <div id="t-content" class="swot-content hidden p-6 bg-amber-50 rounded-xl md:col-span-2">
+                     <ul class="list-disc list-inside space-y-2 text-amber-900">
+                        <li>Sentimen negatif publik dan tantangan hukum dapat merusak kepercayaan dan adopsi program.</li>
+                        <li>Persaingan dari opsi pembiayaan perumahan komersial lainnya.</li>
+                        <li>Ketidakaksesan yang berkelanjutan dapat menyebabkan hilangnya kepercayaan publik dan peningkatan beban operasional pada call center.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-16 border-slate-200">
+
+        <!-- Section 5: Recommendations -->
+        <section id="recommendations" class="scroll-mt-24">
+            <h2 class="text-3xl font-bold text-slate-800 mb-2">Rekomendasi yang Dapat Ditindaklanjuti</h2>
+            <p class="text-lg text-slate-600 mb-8">Langkah-langkah strategis yang diprioritaskan untuk mengatasi masalah yang teridentifikasi dan meningkatkan kinerja digital secara keseluruhan.</p>
+            
+            <div id="accordion-container" class="space-y-4">
+                <!-- Accordion items will be injected here by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-white mt-16">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <p>&copy; 2025 Analisis Kinerja Digital BP Tapera. Dibuat untuk tujuan demonstrasi.</p>
+        </div>
+    </footer>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // --- DATA ---
+    const seoData = {
+        'tapera': {
+            title: 'Situs Web Utama (tapera.go.id)',
+            status: 'Dapat Diakses',
+            statusClass: 'status-ok',
+            robots: 'Tidak Diketahui',
+            sitemap: 'Tidak Dapat Diakses',
+            purpose: 'Portal informasi utama BP Tapera, berita, pengumuman, dan layanan umum. Berfungsi sebagai pusat informasi resmi.',
+            analysis: 'Meskipun dapat diakses, situs ini memerlukan audit kinerja Core Web Vitals (CWV) untuk memastikan pengalaman pengguna yang optimal. Sebagai wajah utama program, kecepatan dan stabilitas visual sangat penting untuk membangun kepercayaan, terutama di tengah sentimen publik yang negatif. Kehilangan file sitemap.xml menghambat kemampuan Google untuk menemukan semua konten secara efisien.'
+        },
+        'tds': {
+            title: 'Layanan TDS Tapera (tds.tapera.go.id)',
+            status: 'Tidak Dapat Diakses',
+            statusClass: 'status-critical',
+            robots: 'Tidak Dapat Diakses',
+            sitemap: 'Tidak Tersedia',
+            purpose: 'Tujuan tidak jelas karena situs tidak dapat diakses. Nama "TDS" sendiri tidak relevan dengan perumahan dan berisiko menarik lalu lintas yang salah.',
+            analysis: 'Ini adalah masalah kritis. Ketidakaksesan total membuat subdomain ini tidak berguna dan merusak citra. Nama subdomain yang membingungkan menunjukkan kurangnya strategi penamaan aset digital yang terpadu. Perlu segera dipulihkan atau dinonaktifkan.'
+        },
+        'stokrumah': {
+            title: 'Stok Rumah Tapera (stokrumah.tapera.go.id)',
+            status: 'Tidak Dapat Diakses',
+            statusClass: 'status-critical',
+            robots: 'Tidak Dapat Diakses',
+            sitemap: 'Tidak Dapat Diakses',
+            purpose: 'Menyediakan informasi penting mengenai ketersediaan stok rumah, khususnya perumahan bersubsidi untuk Masyarakat Berpenghasilan Rendah (MBR).',
+            analysis: 'Kegagalan subdomain ini secara langsung menghambat misi inti Tapera. Calon peserta tidak dapat mengakses informasi ketersediaan rumah, menciptakan hambatan besar dalam perjalanan pengguna dan merusak kepercayaan pada program. Ini adalah prioritas utama untuk diperbaiki.'
+        },
+        'sikumbang': {
+            title: 'Sikumbang (sikumbang.tapera.go.id)',
+            status: 'Dapat Diakses',
+            statusClass: 'status-issue',
+            robots: 'Tidak Dapat Diakses',
+            sitemap: 'Tidak Dapat Diakses',
+            purpose: 'Platform pencarian data lokasi perumahan (komersial & subsidi) dan portal untuk pengembang properti.',
+            analysis: 'Situs ini kaya akan data berharga, tetapi hilangnya file `robots.txt` dan `sitemap.xml` merupakan masalah SEO teknis yang signifikan. Mesin pencari mungkin tidak dapat mengindeks semua daftar perumahan secara efisien, yang membatasi visibilitas inventaris rumah yang tersedia bagi publik.'
+        }
+    };
+
+    const recommendationsData = [
+        {
+            priority: 'Mendesak',
+            priorityClass: 'bg-red-100 text-red-800',
+            title: 'Prioritas Mendesak: Pulihkan Aset Kritis',
+            items: [
+                '**Pulihkan Aksesibilitas Situs Web:** Segera selesaikan masalah server/DNS yang menyebabkan `tds.tapera.go.id` dan `stokrumah.tapera.go.id` tidak dapat diakses.',
+                '**Perbaiki Penemuan Aplikasi iOS:** Optimalkan judul, subtitle, dan kata kunci di Apple App Store untuk memastikan aplikasi Tapera Mobile muncul di hasil teratas untuk pencarian mereknya sendiri.',
+                '**Perbaiki File Teknis:** Pastikan file `robots.txt` dan `sitemap.xml` ada, dapat diakses, dan dikonfigurasi dengan benar untuk semua domain, terutama `sikumbang.tapera.go.id`.'
+            ]
+        },
+        {
+            priority: 'Tinggi',
+            priorityClass: 'bg-amber-100 text-amber-800',
+            title: 'Prioritas Tinggi: Optimalkan Pengalaman & Konten',
+            items: [
+                '**Lakukan Audit Kinerja:** Lakukan audit Google PageSpeed Insights untuk semua situs yang dapat diakses dan terapkan rekomendasi untuk meningkatkan Core Web Vitals.',
+                '**Atasi Umpan Balik Aplikasi:** Prioritaskan perbaikan bug yang dilaporkan pengguna (misalnya, "Verifikasi error"), tingkatkan UI/UX, dan pertimbangkan untuk menambahkan otentikasi biometrik.',
+                '**Koreksi Konten:** Segera perbaiki kesalahan terjemahan "fertilizer values" di semua daftar toko aplikasi untuk menjaga profesionalisme dan kredibilitas.'
+            ]
+        },
+        {
+            priority: 'Strategis',
+            priorityClass: 'bg-blue-100 text-blue-800',
+            title: 'Rekomendasi SEO Strategis',
+            items: [
+                '**Riset Kata Kunci:** Lakukan riset kata kunci komprehensif untuk memahami bagaimana pengguna mencari informasi terkait Tapera.',
+                '**Kembangkan Konten FAQ:** Buat halaman FAQ yang kuat yang secara proaktif menjawab pertanyaan dan kekhawatiran umum publik untuk membangun kepercayaan.',
+                '**Tinjau Ulang Nama Subdomain:** Ganti nama subdomain `tds` menjadi sesuatu yang deskriptif dan relevan dengan layanannya. Jika tidak ada layanan, nonaktifkan.'
+            ]
+        },
+        {
+            priority: 'Strategis',
+            priorityClass: 'bg-blue-100 text-blue-800',
+            title: 'Rekomendasi ASO Strategis',
+            items: [
+                '**Optimalkan Judul & Deskripsi:** Masukkan kata kunci sekunder (misalnya, "KPR", "Subsidi", "Saldo") ke dalam judul dan deskripsi aplikasi di kedua toko.',
+                '**Tingkatkan Aset Visual:** Perbarui tangkapan layar dan pertimbangkan untuk membuat video pratinjau singkat untuk menampilkan fitur-fitur terbaik aplikasi.',
+                '**Dorong Ulasan Positif:** Terapkan prompt dalam aplikasi untuk mendorong pengguna yang puas agar memberikan peringkat dan ulasan.'
+            ]
+        }
+    ];
+
+    // --- CHART.JS SETUP ---
+
+    const wrapText = (ctx, text, x, y, maxWidth, lineHeight) => {
+        const words = text.split(' ');
+        let line = '';
+        for(let n = 0; n < words.length; n++) {
+            const testLine = line + words[n] + ' ';
+            const metrics = ctx.measureText(testLine);
+            const testWidth = metrics.width;
+            if (testWidth > maxWidth && n > 0) {
+                ctx.fillText(line, x, y);
+                line = words[n] + ' ';
+                y += lineHeight;
+            } else {
+                line = testLine;
+            }
+        }
+        ctx.fillText(line, x, y);
+    };
+
+    // Asset Status Chart
+    const assetStatusCtx = document.getElementById('assetStatusChart').getContext('2d');
+    const assetStatusData = {
+        labels: ['tapera.go.id', 'sikumbang.go.id', 'tds.tapera.go.id', 'stokrumah.tapera.go.id', 'Aplikasi Mobile'],
+        datasets: [{
+            label: 'Status',
+            data: [2, 2, 3, 3, 1],
+            backgroundColor: [
+                'rgba(251, 191, 36, 0.6)', // amber-400
+                'rgba(251, 191, 36, 0.6)', // amber-400
+                'rgba(239, 68, 68, 0.6)', // red-500
+                'rgba(239, 68, 68, 0.6)', // red-500
+                'rgba(59, 130, 246, 0.6)' // blue-500
+            ],
+            borderColor: [
+                'rgba(251, 191, 36, 1)',
+                'rgba(251, 191, 36, 1)',
+                'rgba(239, 68, 68, 1)',
+                'rgba(239, 68, 68, 1)',
+                'rgba(59, 130, 246, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
+    new Chart(assetStatusCtx, {
+        type: 'bar',
+        data: assetStatusData,
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            const value = context.raw;
+                            let statusText = '';
+                            if (value === 1) statusText = 'Baik dengan Peluang';
+                            if (value === 2) statusText = 'Ada Masalah Teknis';
+                            if (value === 3) statusText = 'Kritis / Tidak Dapat Diakses';
+                            return `${label}: ${statusText}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                           if (value === 1) return 'Baik';
+                           if (value === 2) return 'Masalah';
+                           if (value === 3) return 'Kritis';
+                           return '';
+                        },
+                         font: { size: 12 }
+                    }
+                },
+                y: {
+                    ticks: { font: { size: 12 } }
+                }
+            }
+        }
+    });
+
+    // User Sentiment Chart
+    const userSentimentCtx = document.getElementById('userSentimentChart').getContext('2d');
+    new Chart(userSentimentCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Positif', 'Negatif (Bug/UX)', 'Potensi'],
+            datasets: [{
+                data: [45, 35, 20],
+                backgroundColor: ['#22c55e', '#ef4444', '#3b82f6'],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (context) => `${context.label}: ${context.raw}%`
+                    }
+                }
+            }
+        }
+    });
+
+    // --- DYNAMIC CONTENT RENDERING ---
+    
+    // SEO Section
+    const seoTabsContainer = document.getElementById('seo-tabs');
+    const seoContentContainer = document.getElementById('seo-content');
+
+    const renderSeoContent = (siteKey) => {
+        const data = seoData[siteKey];
+        seoContentContainer.innerHTML = `
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="md:col-span-1 space-y-4">
+                    <h3 class="text-xl font-bold text-slate-900">${data.title}</h3>
+                    <div>
+                        <span class="font-semibold">Status:</span>
+                        <span class="status-badge ${data.statusClass}">${data.status}</span>
+                    </div>
+                    <div><span class="font-semibold">robots.txt:</span> ${data.robots}</div>
+                    <div><span class="font-semibold">sitemap.xml:</span> ${data.sitemap}</div>
+                </div>
+                <div class="md:col-span-2">
+                     <p class="text-base mb-2"><span class="font-semibold text-slate-800">Tujuan Utama:</span> ${data.purpose}</p>
+                     <p class="text-base bg-slate-50 p-4 rounded-lg border-l-4 border-slate-300"><span class="font-semibold text-slate-800">Analisis:</span> ${data.analysis}</p>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-slate-200">
+                <h4 class="text-lg font-semibold text-slate-800 mb-4">Kinerja (Core Web Vitals)</h4>
+                <div class="text-center p-4 bg-slate-100 rounded-lg">
+                    <p class="text-slate-600">Data Kinerja Lengkap Memerlukan Audit Teknis</p>
+                    <p class="text-sm text-slate-500">(Placeholder)</p>
+                </div>
+            </div>
+        `;
+    };
+
+    seoTabsContainer.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            seoTabsContainer.querySelector('.active').classList.remove('active');
+            e.target.classList.add('active');
+            const targetSite = e.target.dataset.target;
+            renderSeoContent(targetSite);
+        }
+    });
+    
+    // Initial render for SEO
+    renderSeoContent('tapera');
+    
+    // SWOT Section
+    const swotCards = document.querySelectorAll('[data-content]');
+    swotCards.forEach(card => {
+        card.style.cursor = 'pointer';
+        card.style.transition = 'transform 0.2s';
+        card.classList.add('p-6', 'rounded-xl', 'border-2', 'font-bold', 'text-xl');
+        
+        card.addEventListener('mouseenter', () => card.style.transform = 'scale(1.03)');
+        card.addEventListener('mouseleave', () => card.style.transform = 'scale(1)');
+
+        card.addEventListener('click', () => {
+            const contentId = card.dataset.content;
+            const contentEl = document.getElementById(contentId);
+            const isVisible = !contentEl.classList.contains('hidden');
+
+            // Hide all contents
+            document.querySelectorAll('.swot-content').forEach(el => el.classList.add('hidden'));
+
+            // Show target content if it was hidden
+            if (!isVisible) {
+                contentEl.classList.remove('hidden');
+            }
+        });
+    });
+
+    // Recommendations Accordion
+    const accordionContainer = document.getElementById('accordion-container');
+    recommendationsData.forEach((rec, index) => {
+        const itemHtml = `
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                <button class="accordion-header w-full flex justify-between items-center text-left p-4 md:p-5">
+                    <div class="flex items-center">
+                        <span class="text-xs font-bold uppercase tracking-wider px-2 py-1 rounded-full mr-4 ${rec.priorityClass}">${rec.priority}</span>
+                        <h3 class="font-semibold text-slate-800">${rec.title}</h3>
+                    </div>
+                    <span class="accordion-icon text-slate-500 transform transition-transform">▼</span>
+                </button>
+                <div class="accordion-content hidden">
+                    <div class="p-5 pt-0">
+                        <ul class="list-disc list-inside space-y-3 text-slate-600">
+                            ${rec.items.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        `;
+        accordionContainer.innerHTML += itemHtml;
+    });
+
+    accordionContainer.addEventListener('click', (e) => {
+        const header = e.target.closest('.accordion-header');
+        if (header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.accordion-icon');
+            const isOpen = !content.classList.contains('hidden');
+
+            // Close all others
+            // document.querySelectorAll('.accordion-content').forEach(c => c.classList.add('hidden'));
+            // document.querySelectorAll('.accordion-icon').forEach(i => i.classList.remove('rotate-180'));
+            
+            if (isOpen) {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            } else {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            }
+        }
+    });
+
+    // --- NAVIGATION ---
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('main section');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                });
+            }
+        });
+    }, { rootMargin: '-20% 0px -80% 0px' });
+
+    sections.forEach(section => observer.observe(section));
+
+    document.getElementById('mobile-nav').addEventListener('change', function(e) {
+        window.location.hash = e.target.value;
+    });
+
+});
+</script>
+</body>
+</html>
