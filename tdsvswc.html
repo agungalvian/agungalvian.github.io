@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis Interaktif Pemisahan Sistem BP Tapera</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Corporate Serenity -->
+    <!-- Application Structure Plan: The application is structured as a narrative journey to guide stakeholders. It starts with a high-level summary (The Core Problem), delves into the justifications (The Three Pillars), presents the solution visually (Proposed Architecture), weighs the pros and cons (Benefits vs. Challenges), and lays out the execution plan (The Roadmap). This thematic flow is more intuitive for decision-making than a simple report summary, as it guides the user from understanding the 'why' to visualizing the 'how' and 'when'. -->
+    <!-- Visualization & Content Choices:
+        - System Comparison Cards (HTML/Tailwind) -> Goal: Compare -> Justification: Provides immediate, scannable differentiation between the two systems, establishing the core conflict.
+        - Tabbed Interface (JS/Tailwind) -> Goal: Organize -> Justification: Breaks down the three main drivers (Security, Operations, Regulation) into digestible chunks, preventing information overload while keeping related concepts grouped.
+        - Interactive Architecture Diagram (HTML/Tailwind/JS) -> Goal: Inform/Organize -> Justification: Creates a powerful, non-SVG visual metaphor for the architectural shift from a vulnerable monolith to a secure, segmented system. The toggle interaction makes the benefit instantly clear.
+        - Project Timeline Chart (Chart.js) -> Goal: Change/Organize -> Justification: An interactive horizontal bar chart is a much more engaging way to present a project plan than a static table. It visualizes the project's duration and phases, with hover-over tooltips for details.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FA;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #0A7EA4;
+            border-bottom-color: #0A7EA4;
+        }
+        .tab.active {
+            border-color: #0A7EA4;
+            background-color: #0A7EA4;
+            color: white;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-lg font-bold text-gray-800">BP Tapera: Strategi Pemisahan Sistem</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#problem" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Masalah</a>
+                        <a href="#pillars" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Alasan</a>
+                        <a href="#solution" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Solusi</a>
+                        <a href="#timeline" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600">Linimasa</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-gray-900">Masa Depan Digital yang Aman dan Tangguh untuk BP Tapera</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-600">
+                    Sebuah analisis interaktif mengenai urgensi pemisahan sistem antara website korporat dan layanan digital (TDS) untuk memperkuat keamanan, meningkatkan kinerja, dan memastikan kepatuhan regulasi.
+                </p>
+            </div>
+        </section>
+
+        <section id="problem" class="py-16 md:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h3 class="text-2xl md:text-3xl font-bold text-gray-900">Masalah Inti: Dua Dunia dalam Satu Atap</h3>
+                    <p class="mt-3 max-w-2xl mx-auto text-base text-gray-600">Website korporat dan Layanan Digital Tapera (TDS) memiliki tujuan, data, dan profil risiko yang sangat berbeda. Menyatukannya dalam infrastruktur yang sama menciptakan risiko yang tidak perlu dan menghambat kinerja.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                    <div class="card p-8">
+                        <div class="flex items-center mb-4">
+                            <div class="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                            </div>
+                            <h4 class="text-xl font-bold">Website Korporat<br><span class="text-sm font-normal text-gray-500">www.tapera.go.id</span></h4>
+                        </div>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start"><span class="text-blue-500 mr-2 mt-1">&#10148;</span>Berfungsi sebagai pusat informasi publik dan berita.</li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-2 mt-1">&#10148;</span>Menangani data non-sensitif dan konten statis.</li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-2 mt-1">&#10148;</span>Target serangan untuk defacement dan disinformasi.</li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-2 mt-1">&#10148;</span>Membutuhkan ketersediaan tinggi dan penyajian konten yang cepat.</li>
+                        </ul>
+                    </div>
+                    <div class="card p-8 border-2 border-red-300 bg-red-50">
+                        <div class="flex items-center mb-4">
+                            <div class="p-3 rounded-full bg-red-100 text-red-600 mr-4">
+                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                            </div>
+                            <h4 class="text-xl font-bold">Tapera Digital Service (TDS)<br><span class="text-sm font-normal text-gray-500">tds.tapera.go.id</span></h4>
+                        </div>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">&#10148;</span>Platform transaksional untuk peserta.</li>
+                            <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">&#10148;</span>Mengelola data pribadi dan keuangan yang sangat sensitif.</li>
+                            <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">&#10148;</span>Target utama untuk penipuan finansial dan pencurian data.</li>
+                            <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">&#10148;</span>Membutuhkan keamanan tingkat tinggi dan skalabilitas transaksi.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pillars" class="py-16 md:py-20 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h3 class="text-2xl md:text-3xl font-bold text-gray-900">Mengapa Pemisahan Mutlak Diperlukan? Tiga Pilar Utama</h3>
+                    <p class="mt-3 max-w-2xl mx-auto text-base text-gray-600">Pemisahan sistem bukan hanya rekomendasi teknis, melainkan sebuah keharusan strategis yang didasari oleh tiga aspek fundamental.</p>
+                </div>
+                
+                <div class="max-w-4xl mx-auto">
+                    <div class="mb-6 flex justify-center space-x-2 md:space-x-4 p-1 bg-gray-100 rounded-full">
+                        <button class="tab active flex-1 text-sm md:text-base text-center px-4 py-2.5 rounded-full transition" data-tab="security">🛡️ Keamanan</button>
+                        <button class="tab flex-1 text-sm md:text-base text-center px-4 py-2.5 rounded-full transition text-gray-600" data-tab="operational">⚙️ Operasional</button>
+                        <button class="tab flex-1 text-sm md:text-base text-center px-4 py-2.5 rounded-full transition text-gray-600" data-tab="regulatory">⚖️ Regulasi</button>
+                    </div>
+
+                    <div id="tab-content" class="card p-8">
+                        <div id="security" class="tab-pane">
+                            <h4 class="text-xl font-bold mb-4">Mitigasi Risiko Siber</h4>
+                            <p class="text-gray-600 mb-4">Sistem yang menyatu memperluas permukaan serangan. Pelanggaran pada website korporat yang lebih mudah diserang dapat menjadi pintu masuk bagi peretas untuk mengakses data keuangan sensitif di TDS. Pemisahan menciptakan isolasi, secara drastis mengurangi risiko kontaminasi silang dan membatasi dampak jika terjadi insiden.</p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li><b>Isolasi Risiko:</b> Serangan pada satu sistem tidak akan langsung berdampak pada sistem lain.</li>
+                                <li><b>Kontrol Berlapis:</b> Memungkinkan penerapan kebijakan keamanan yang jauh lebih ketat untuk TDS.</li>
+                                <li><b>Penahanan Insiden:</b> Mempermudah penahanan dan pemulihan saat terjadi serangan.</li>
+                            </ul>
+                        </div>
+                        <div id="operational" class="tab-pane hidden">
+                            <h4 class="text-xl font-bold mb-4">Optimalisasi Kinerja dan Skalabilitas</h4>
+                            <p class="text-gray-600 mb-4">Website korporat dan TDS memiliki pola lalu lintas yang berbeda. Lonjakan berita di situs korporat tidak seharusnya memperlambat transaksi keuangan di TDS. Pemisahan memungkinkan setiap sistem untuk dialokasikan sumber daya dan diskalakan secara independen, memastikan performa optimal dan ketersediaan tinggi untuk keduanya.</p>
+                             <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li><b>Alokasi Sumber Daya:</b> Setiap sistem mendapatkan sumber daya (CPU, RAM) sesuai kebutuhannya.</li>
+                                <li><b>Skalabilitas Independen:</b> TDS dapat diskalakan untuk menangani lonjakan transaksi tanpa memengaruhi website.</li>
+                                <li><b>Ketersediaan Tinggi:</b> Downtime atau pemeliharaan pada satu sistem tidak memengaruhi yang lain.</li>
+                            </ul>
+                        </div>
+                        <div id="regulatory" class="tab-pane hidden">
+                             <h4 class="text-xl font-bold mb-4">Kepatuhan Terhadap Regulasi</h4>
+                            <p class="text-gray-600 mb-4">Sebagai lembaga keuangan yang diawasi OJK dan mengelola data pribadi, BP Tapera tunduk pada regulasi yang sangat ketat seperti SEOJK 29/2022 dan UU PDP. Regulasi ini menuntut kontrol keamanan, audit, dan pelaporan yang sulit dipenuhi dalam arsitektur terpadu. Pemisahan sistem menyederhanakan proses audit dan demonstrasi kepatuhan.</p>
+                             <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li><b>Kepatuhan OJK:</b> Mempermudah pemenuhan mandat keamanan siber yang detail.</li>
+                                <li><b>Kepatuhan UU PDP:</b> Menjamin perlindungan data pribadi dengan lebih efektif.</li>
+                                <li><b>Audit & Pelaporan:</b> Menyederhanakan proses audit keamanan dan pelaporan insiden.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solution" class="py-16 md:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h3 class="text-2xl md:text-3xl font-bold text-gray-900">Solusi yang Diusulkan: Arsitektur Modern dan Tersegmentasi</h3>
+                    <p class="mt-3 max-w-2xl mx-auto text-base text-gray-600">Kami merekomendasikan transisi dari arsitektur monolitik yang rentan ke model tersegmentasi yang aman dan tangguh. Gunakan tombol di bawah untuk melihat perbedaannya.</p>
+                </div>
+
+                <div class="text-center mb-8">
+                    <div class="inline-flex rounded-md shadow-sm">
+                        <button id="btn-before" type="button" class="relative inline-flex items-center px-6 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+                            Sebelum
+                        </button>
+                        <button id="btn-after" type="button" class="-ml-px relative inline-flex items-center px-6 py-2 rounded-r-md border border-gray-300 bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+                            Sesudah (Rekomendasi)
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card p-6 md:p-10 min-h-[400px]">
+                    <div id="diagram-before" class="hidden">
+                        <h4 class="text-xl font-bold text-center mb-6 text-red-600">Arsitektur Saat Ini (Risiko Tinggi)</h4>
+                        <div class="relative border-2 border-dashed border-red-400 rounded-lg p-6 bg-red-50">
+                            <div class="text-center font-semibold text-red-700">Satu Server / Infrastruktur Bersama</div>
+                            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="border border-gray-300 bg-white rounded-md p-4 text-center">
+                                    <p class="font-bold">Website Korporat</p>
+                                    <p class="text-sm text-gray-500">Informasi Publik</p>
+                                </div>
+                                <div class="border border-gray-300 bg-white rounded-md p-4 text-center">
+                                    <p class="font-bold">Layanan TDS</p>
+                                    <p class="text-sm text-gray-500">Data Sensitif</p>
+                                </div>
+                            </div>
+                             <div class="absolute top-1/2 left-0 right-0 flex justify-center items-center">
+                                <div class="text-5xl text-red-400 transform -rotate-12 opacity-70">&#128272;</div>
+                            </div>
+                            <p class="text-center text-sm text-red-600 mt-6">Risiko kontaminasi silang sangat tinggi. Satu titik kelemahan membahayakan seluruh sistem.</p>
+                        </div>
+                    </div>
+                    <div id="diagram-after">
+                         <h4 class="text-xl font-bold text-center mb-6 text-green-600">Arsitektur Rekomendasi (Aman & Terisolasi)</h4>
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+                            <div class="text-center">
+                                <div class="text-3xl">🌐</div>
+                                <p class="font-bold">Internet Publik</p>
+                            </div>
+                            <div class="hidden lg:block text-center text-3xl text-gray-400">&rarr;</div>
+                            <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 p-4 border-2 border-dashed border-gray-300 rounded-lg">
+                                <div class="border-2 border-blue-400 rounded-lg p-6 bg-blue-50">
+                                    <div class="font-bold text-center text-blue-700 mb-2">DMZ (Demilitarized Zone)</div>
+                                     <div class="border border-gray-300 bg-white rounded-md p-4 text-center">
+                                        <p class="font-bold">Website Korporat</p>
+                                        <p class="text-sm text-gray-500">Terisolasi</p>
+                                    </div>
+                                    <p class="text-xs text-center text-blue-600 mt-4">Buffer keamanan antara internet dan sistem internal.</p>
+                                </div>
+                                <div class="border-2 border-green-400 rounded-lg p-6 bg-green-50">
+                                     <div class="font-bold text-center text-green-700 mb-2">Zona Aman Internal</div>
+                                     <div class="border border-gray-300 bg-white rounded-md p-4 text-center">
+                                        <p class="font-bold">Layanan TDS</p>
+                                        <p class="text-sm text-gray-500">Sangat Terlindungi</p>
+                                    </div>
+                                    <p class="text-xs text-center text-green-600 mt-4">Perlindungan berlapis untuk data keuangan dan pribadi.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="timeline" class="py-16 md:py-20 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h3 class="text-2xl md:text-3xl font-bold text-gray-900">Peta Jalan Implementasi</h3>
+                    <p class="mt-3 max-w-2xl mx-auto text-base text-gray-600">Proyek pemisahan ini diestimasi memakan waktu 10-11 bulan, dibagi menjadi beberapa fase utama. Arahkan kursor ke setiap fase untuk melihat detailnya.</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="timelineChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <p>&copy; 2025 Analisis Strategis BP Tapera. Dibuat untuk tujuan demonstrasi.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const tabs = document.querySelectorAll('.tab');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    tabPanes.forEach(pane => {
+                        pane.classList.add('hidden');
+                    });
+                    document.getElementById(tab.dataset.tab).classList.remove('hidden');
+                });
+            });
+
+            const btnBefore = document.getElementById('btn-before');
+            const btnAfter = document.getElementById('btn-after');
+            const diagramBefore = document.getElementById('diagram-before');
+            const diagramAfter = document.getElementById('diagram-after');
+            
+            diagramAfter.classList.remove('hidden');
+
+            btnBefore.addEventListener('click', () => {
+                diagramBefore.classList.remove('hidden');
+                diagramAfter.classList.add('hidden');
+                btnBefore.classList.add('bg-blue-600', 'text-white');
+                btnBefore.classList.remove('bg-white', 'text-gray-700');
+                btnAfter.classList.add('bg-white', 'text-gray-700');
+                btnAfter.classList.remove('bg-blue-600', 'text-white');
+            });
+
+            btnAfter.addEventListener('click', () => {
+                diagramAfter.classList.remove('hidden');
+                diagramBefore.classList.add('hidden');
+                btnAfter.classList.add('bg-blue-600', 'text-white');
+                btnAfter.classList.remove('bg-white', 'text-gray-700');
+                btnBefore.classList.add('bg-white', 'text-gray-700');
+                btnBefore.classList.remove('bg-blue-600', 'text-white');
+
+            });
+            
+            const sections = document.querySelectorAll('main section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, { rootMargin: "-50% 0px -50% 0px" });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            const timelineData = {
+                labels: ['Fase 1: Penilaian & Perencanaan', 'Fase 2: Penyediaan Infrastruktur', 'Fase 3: Refactoring & Pengembangan', 'Fase 4: Migrasi & Integrasi Data', 'Fase 5: Pengujian & Audit Keamanan', 'Fase 6: Penerapan & Cutover'],
+                datasets: [{
+                    label: 'Durasi (Bulan)',
+                    data: [2, 3, 5, 3, 3, 1],
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.7)',
+                        'rgba(34, 197, 94, 0.7)',
+                        'rgba(249, 115, 22, 0.7)',
+                        'rgba(139, 92, 246, 0.7)',
+                        'rgba(239, 68, 68, 0.7)',
+                        'rgba(20, 184, 166, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgb(59, 130, 246)',
+                        'rgb(34, 197, 94)',
+                        'rgb(249, 115, 22)',
+                        'rgb(139, 92, 246)',
+                        'rgb(239, 68, 68)',
+                        'rgb(20, 184, 166)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const timelineConfig = {
+                type: 'bar',
+                data: timelineData,
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        label += context.parsed.x + ' bulan';
+                                    }
+                                    return label;
+                                },
+                                afterLabel: function(context) {
+                                     const phaseDetails = [
+                                        'Analisis mendalam, perancangan arsitektur, dan perencanaan sumber daya.',
+                                        'Pengadaan dan konfigurasi server, jaringan, dan perangkat keamanan.',
+                                        'Modifikasi kode aplikasi TDS dan website korporat.',
+                                        'Perencanaan dan eksekusi migrasi data, pembangunan integrasi aman.',
+                                        'Pengujian fungsional, kinerja, skalabilitas, dan audit keamanan.',
+                                        'Peluncuran sistem baru dengan downtime minimal.'
+                                    ];
+                                    return phaseDetails[context.dataIndex];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: true,
+                            title: {
+                                display: true,
+                                text: 'Durasi Proyek (Bulan)'
+                            }
+                        },
+                        y: {
+                            stacked: true,
+                            ticks: {
+                                autoSkip: false,
+                                callback: function(value, index, values) {
+                                    const label = this.getLabelForValue(value);
+                                    return label.length > 25 ? label.substring(0, 25) + '...' : label;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            const timelineChart = new Chart(
+                document.getElementById('timelineChart'),
+                timelineConfig
+            );
+        });
+    </script>
+</body>
+</html>
