@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Calm Harmony (Grays, Slates, Muted Blue/Teal) -->
     <!-- Application Structure Plan: The SPA uses a thematic, dashboard-like structure to make the report's strategic content digestible for decision-makers. It avoids a linear chapter-by-chapter format. The flow guides the user from the "Why" (benefits), to the "How" (architecture/security), to the "What" (service-specific applications), and finally the "When/Who" (roadmap/challenges). This structure is chosen to answer key business questions logically, using interactive cards, tabs, and accordions for progressive disclosure of information, enhancing usability and comprehension. -->
-    <!-- Visualization & Content Choices: Benefits section uses a conceptual bar chart (Chart.js) to compare 'before' and 'after' states, making the value proposition immediately clear. The core architecture is an interactive HTML/CSS diagram, which is more engaging than static text. Service benefits are in a tabbed view to organize information cleanly. The implementation plan is a visual roadmap using a grid layout and a supporting capabilities chart (Chart.js) to show growth over time. Challenges are in an accordion to save space and reduce cognitive load. This approach turns dense text into interactive, easily scannable components. -->
+    <!-- Visualization & Content Choices: Benefits section uses a conceptual bar chart (Chart.js) to compare 'before' and 'after' states, making the value proposition immediately clear. The core architecture is an an interactive HTML/CSS diagram, which is more engaging than static text. Service benefits are in a tabbed view to organize information cleanly. The implementation plan is a visual roadmap using a grid layout and a supporting capabilities chart (Chart.js) to show growth over time. Challenges are in an accordion to save space and reduce cognitive load. This approach turns dense text into interactive, easily scannable components. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -60,6 +60,7 @@
                 <a href="#manfaat" class="text-slate-600 hover:text-blue-600 transition">Manfaat Layanan</a>
                 <a href="#peta-jalan" class="text-slate-600 hover:text-blue-600 transition">Peta Jalan</a>
                 <a href="#tantangan" class="text-slate-600 hover:text-blue-600 transition">Tantangan</a>
+                <a href="#rekomendasi-tools" class="text-slate-600 hover:text-blue-600 transition">Rekomendasi Tools</a>
             </div>
              <button id="mobile-menu-button" class="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <span class="text-2xl">☰</span>
@@ -71,6 +72,7 @@
             <a href="#manfaat" class="block py-2 text-slate-600 hover:text-blue-600">Manfaat Layanan</a>
             <a href="#peta-jalan" class="block py-2 text-slate-600 hover:text-blue-600">Peta Jalan</a>
             <a href="#tantangan" class="block py-2 text-slate-600 hover:text-blue-600">Tantangan</a>
+            <a href="#rekomendasi-tools" class="block py-2 text-slate-600 hover:text-blue-600">Rekomendasi Tools</a>
         </div>
     </header>
 
@@ -127,7 +129,7 @@
                 <p class="text-lg text-slate-600 max-w-3xl mx-auto">Arsitektur sandbox dirancang untuk mereplikasi lingkungan produksi secara akurat, dengan lapisan keamanan data yang kuat sebagai fondasinya.</p>
             </div>
             
-            <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg">
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg mb-12">
                 <h4 class="text-2xl font-bold text-center mb-8">Diagram Alur Kerja Sandbox API</h4>
                  <div class="w-full overflow-x-auto p-4">
                     <div class="flex items-center justify-center space-x-4 md:space-x-8 min-w-max">
@@ -322,6 +324,65 @@
                         <div class="p-5 pt-0 text-slate-600">
                             <b>Strategi Mitigasi:</b> Memastikan sandbox mereplikasi semua fitur produksi, secara aktif mensimulasikan berbagai skenario kesalahan (timeout, akses ditolak), menyediakan pesan kesalahan yang jelas, dan secara rutin memantau log penggunaan untuk perbaikan berkelanjutan.
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-16 md:my-24 border-slate-200">
+
+        <section id="rekomendasi-tools" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-slate-900 mb-2">Rekomendasi Tools untuk Membangun Sandbox API</h3>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">Pemilihan *tools* yang tepat sangat penting untuk membangun *sandbox API* yang efisien, aman, dan skalabel. Berikut adalah rekomendasi *tools* berdasarkan kategori fungsionalitas:</p>
+            </div>
+            
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h5 class="text-xl font-semibold text-slate-800 mb-3">API Gateway & Manajemen</h5>
+                        <ul class="list-disc list-inside space-y-2 text-slate-700">
+                            <li>**Kong:** API Gateway *open-source* yang ringan, fleksibel, dan skalabel untuk mengelola, mengamankan, dan memperluas API.</li>
+                            <li>**Apigee (Google Cloud):** Platform manajemen API komprehensif untuk mendesain, mengamankan, menganalisis, dan menskalakan API.</li>
+                            <li>**AWS API Gateway:** Layanan terkelola penuh yang memungkinkan pengembang membuat, mempublikasikan, memelihara, memantau, dan mengamankan API dalam skala apa pun.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="text-xl font-semibold text-slate-800 mb-3">Containerization & Orkestrasi</h5>
+                        <ul class="list-disc list-inside space-y-2 text-slate-700">
+                            <li>**Docker:** Memungkinkan pengembang untuk mengemas aplikasi dan dependensinya ke dalam kontainer yang terisolasi.</li>
+                            <li>**Kubernetes:** Sistem orkestrasi kontainer *open-source* untuk mengotomatiskan penyebaran, penskalaan, dan manajemen aplikasi terkontainerisasi.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="text-xl font-semibold text-slate-800 mb-3">API Frameworks (Backend Sandbox)</h5>
+                        <ul class="list-disc list-inside space-y-2 text-slate-700">
+                            <li>**Spring Boot (Java):** Framework yang kuat untuk membangun aplikasi berbasis Java, ideal untuk layanan mikro yang mendukung *backend sandbox*.</li>
+                            <li>**Node.js (Express):** Lingkungan *runtime* JavaScript yang memungkinkan pengembangan *backend* yang cepat dan efisien.</li>
+                            <li>**Python (Django/Flask):** Framework Python yang serbaguna untuk membangun API dan aplikasi web.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="text-xl font-semibold text-slate-800 mb-3">Anonimisasi Data & Generasi Data Sintetis</h5>
+                        <ul class="list-disc list-inside space-y-2 text-slate-700">
+                            <li>**Open-source libraries (e.g., Faker, Synthetic Data Vault):** Untuk menghasilkan data *dummy* dan sintetis yang realistis.</li>
+                            <li>**Solusi Komersial/AI-powered tools:** Untuk anonimisasi data otomatis dan generasi data sintetis yang lebih canggih, terutama untuk data sensitif.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="text-xl font-semibold text-slate-800 mb-3">Pengujian API & Dokumentasi</h5>
+                        <ul class="list-disc list-inside space-y-2 text-slate-700">
+                            <li>**Postman:** Alat kolaborasi API untuk membangun, menguji, dan mendokumentasikan API.</li>
+                            <li>**Swagger UI / OpenAPI Generator:** Untuk menghasilkan dokumentasi API interaktif dari spesifikasi OpenAPI.</li>
+                            <li>**SoapUI:** Alat pengujian API *open-source* untuk SOAP dan REST.</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h5 class="text-xl font-semibold text-slate-800 mb-3">Monitoring & Logging</h5>
+                        <ul class="list-disc list-inside space-y-2 text-slate-700">
+                            <li>**Prometheus & Grafana:** Kombinasi *open-source* untuk pemantauan dan visualisasi metrik.</li>
+                            <li>**ELK Stack (Elasticsearch, Logstash, Kibana):** Untuk agregasi, pemrosnitoran, dan analisis log.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
