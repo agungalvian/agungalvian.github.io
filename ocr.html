@@ -1,3 +1,8 @@
+Got it. Saya akan memperbarui simulasi anggaran biaya dengan referensi harga OTP dari GoSMSGateway dan harga OCR dari Verihubs yang telah Anda lampirkan.
+
+Berikut adalah kajian HTML yang diperbarui:
+
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -46,6 +51,13 @@
             border-top: 1px solid #eee;
             margin-top: 30px;
             padding-top: 20px;
+        }
+        .price-table {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .price-table th, .price-table td {
+            text-align: center;
         }
     </style>
 </head>
@@ -112,7 +124,7 @@
                         <td colspan="3"><strong>Rata-rata Rasio (Pengguna / Realisasi)</strong></td>
                         <td><strong>1.3256</strong></td>
                     </tr>
-                </tfoot>
+</tfoot>
             </table>
             <p>Rasio rata-rata 1.3256 menunjukkan bahwa setiap 1 unit realisasi pembiayaan perumahan melibatkan sekitar 1.3256 pengguna.</p>
 
@@ -251,61 +263,62 @@
 
         <section class="section-break">
             <h2>4. Simulasi Anggaran Biaya (Estimasi Kasar)</h2>
-            <p>Simulasi anggaran biaya ini bersifat indikatif dan sangat tergantung pada penawaran dari penyedia layanan. Harga per "hit" OTP atau OCR bervariasi berdasarkan volume, fitur tambahan, dan tingkat layanan. Angka ini hanya sebagai gambaran awal.</p>
+            <p>Simulasi anggaran biaya ini bersifat indikatif berdasarkan referensi harga yang diberikan dan sangat tergantung pada penawaran final dari penyedia layanan.</p>
 
-            <h3>4.1. Asumsi Harga Per Unit (Indikatif)</h3>
+            <h3>4.1. Referensi Harga Per Unit</h3>
             <ul>
-                <li>Harga per OTP: Rp 100 - Rp 250 (tergantung volume dan fitur)</li>
-                <li>Harga per OCR: Rp 150 - Rp 400 (tergantung volume, akurasi, dan jenis dokumen)</li>
+                <li><strong>Harga per OTP: IDR 630/hit</strong> (Referensi: GoSMSGateway, <a href="https://gosmsgateway.com/pricing.php" target="_blank">https://gosmsgateway.com/pricing.php</a>)</li>
+                <li><strong>Harga per OCR KTP (API): IDR 300/hit</strong> (Referensi: Verihubs, dari gambar yang dilampirkan)</li>
+                <li>Untuk simulasi ini, kita akan mengasumsikan kebutuhan utama OCR adalah OCR KTP (API) karena kemungkinan besar digunakan untuk proses verifikasi identitas di kedua sistem. Jika ada kebutuhan untuk jenis OCR lain (SIM, NPWP, Quality Check), biaya akan bertambah.</li>
             </ul>
 
-            <h3>4.2. Simulasi Anggaran OTP (Perkiraan Minimum)</h3>
+            <h3>4.2. Simulasi Anggaran OTP (Berdasarkan Kebutuhan Minimum)</h3>
             <ul>
                 <li>Kebutuhan OTP Minimum = 587.248 hit</li>
-                <li>Jika harga per OTP = Rp 100: 587.248 x Rp 100 = Rp 58.724.800</li>
-                <li>Jika harga per OTP = Rp 250: 587.248 x Rp 250 = Rp 146.812.000</li>
-                <li><strong>Estimasi Anggaran OTP Tahunan: Rp 58.000.000 - Rp 147.000.000</strong></li>
+                <li>Harga per OTP = IDR 630</li>
+                <li><strong>Estimasi Anggaran OTP Tahunan = 587.248 x IDR 630 = IDR 370.060.240</strong></li>
             </ul>
 
-            <h3>4.3. Simulasi Anggaran OCR (Perkiraan Minimum)</h3>
+            <h3>4.3. Simulasi Anggaran OCR (Berdasarkan Kebutuhan Minimum)</h3>
             <ul>
                 <li>Kebutuhan OCR Minimum = 473.992 hit</li>
-                <li>Jika harga per OCR = Rp 150: 473.992 x Rp 150 = Rp 71.098.800</li>
-                <li>Jika harga per OCR = Rp 400: 473.992 x Rp 400 = Rp 189.596.800</li>
-                <li><strong>Estimasi Anggaran OCR Tahunan: Rp 71.000.000 - Rp 190.000.000</strong></li>
+                <li>Harga per OCR KTP (API) = IDR 300</li>
+                <li><strong>Estimasi Anggaran OCR Tahunan = 473.992 x IDR 300 = IDR 142.197.600</strong></li>
             </ul>
 
             <h3>4.4. Total Simulasi Anggaran Biaya Tahunan (Minimum)</h3>
             <ul>
-                <li>Total Anggaran Minimum = (Estimasi Anggaran OTP Minimum) + (Estimasi Anggaran OCR Minimum)</li>
-                <li><strong>Rp (58.000.000 + 71.000.000) hingga Rp (147.000.000 + 190.000.000)</strong></li>
-                <li><strong>Total Estimasi Anggaran Biaya Tahunan: Rp 129.000.000 - Rp 337.000.000</strong></li>
+                <li>Total Anggaran Minimum = Estimasi Anggaran OTP + Estimasi Anggaran OCR</li>
+                <li>Total Anggaran Minimum = IDR 370.060.240 + IDR 142.197.600</li>
+                <li><strong>Total Estimasi Anggaran Biaya Tahunan = IDR 512.257.840</strong></li>
             </ul>
             <div class="note">
-                <p><strong>Penting:</strong> Angka-angka ini adalah estimasi awal. Harga riil akan sangat bergantung pada negosiasi dengan penyedia, struktur paket (misalnya ada biaya bulanan tetap ditambah biaya per hit, atau diskon volume), dan fitur tambahan yang diminta. BPTAPERA harus meminta penawaran harga yang jelas dalam RFI berdasarkan volume yang dibutuhkan.</p>
+                <p><strong>Penting:</strong> Angka ini adalah estimasi awal berdasarkan harga referensi. Harga riil dapat berbeda tergantung pada negosiasi, volume diskon yang ditawarkan penyedia untuk kontrak besar, serta struktur paket layanan (misalnya, jika ada biaya bulanan tetap atau biaya aktivasi).</p>
                 <p>Juga perlu diperhatikan bahwa BPTAPERA memiliki sisa kontrak OTP sebesar 27.589 Hit dan OCR sebesar 285.773 Hit per Mei 2025. Sisa kontrak ini akan sedikit mengurangi kebutuhan pembelian baru di awal periode, namun tidak signifikan terhadap total kebutuhan tahunan.</p>
             </div>
         </section>
 
         <section class="section-break">
             <h2>5. Kesimpulan dan Rekomendasi</h2>
-            <p>Berdasarkan kajian dengan perhitungan kebutuhan minimum, BPTAPERA diperkirakan membutuhkan:</p>
+            <p>Berdasarkan kajian dengan perhitungan kebutuhan minimum dan referensi harga yang diberikan, BPTAPERA diperkirakan membutuhkan:</p>
             <ul>
                 <li><strong>Sekitar 600.000 OTP per tahun.</strong></li>
-                <li><strong>Sekitar 500.000 OCR per tahun.</strong></li>
+                <li><strong>Sekitar 500.000 OCR per tahun (khususnya untuk OCR KTP).</strong></li>
             </ul>
-            <p>Estimasi anggaran biaya awal untuk kebutuhan ini berkisar antara <strong>Rp 129.000.000 hingga Rp 337.000.000 per tahun</strong>, tergantung pada harga per unit dari penyedia layanan.</p>
+            <p>Estimasi total anggaran biaya awal untuk kebutuhan ini adalah sekitar <strong>IDR 512.257.840 per tahun</strong>, dengan asumsi harga OTP IDR 630/hit dan OCR KTP (API) IDR 300/hit.</p>
             <p>Untuk RFI, BPTAPERA disarankan untuk:</p>
             <ol>
-                <li>Menyampaikan secara eksplisit volume kebutuhan OTP dan OCR (sekitar 600.000 OTP dan 500.000 OCR).</li>
-                <li>Meminta model harga yang transparan, termasuk harga per hit, diskon volume, dan potensi biaya tambahan.</li>
-                <li>Menanyakan SLA (Service Level Agreement) terkait ketersediaan layanan, waktu respon, dan akurasi (terutama untuk OCR).</li>
+                <li>Menyampaikan secara eksplisit volume kebutuhan OTP dan OCR (sekitar 600.000 OTP dan 500.000 OCR) sebagai volume dasar permintaan penawaran.</li>
+                <li>Meminta model harga yang transparan, termasuk harga per hit berdasarkan volume tier, diskon volume, dan potensi biaya tambahan untuk fitur atau layanan lain (misalnya OCR SIM, NPWP, Quality Check jika dibutuhkan di masa depan).</li>
+                <li>Menanyakan SLA (Service Level Agreement) terkait ketersediaan layanan, waktu respon, dan akurasi (terutama untuk OCR, yang kritis untuk verifikasi dokumen).</li>
                 <li>Mempertimbangkan skalabilitas solusi penyedia untuk mengantisipasi lonjakan penggunaan atau pertumbuhan di masa depan, meskipun estimasi ini adalah minimum.</li>
-                <li>Meminta informasi mengenai standar keamanan data dan kepatuhan regulasi.</li>
+                <li>Meminta informasi mengenai standar keamanan data dan kepatuhan regulasi, mengingat data yang sensitif.</li>
                 <li>Menjelaskan bahwa layanan akan digunakan untuk dua sistem utama: Pembiayaan Perumahan dan Kepesertaan.</li>
+                <li>Mempertimbangkan negosiasi harga lebih lanjut, terutama untuk volume besar, karena harga referensi mungkin merupakan harga publik tanpa diskon volume.</li>
             </ol>
             <p>Kajian ini diharapkan dapat menjadi dasar yang kuat bagi BPTAPERA dalam menyusun RFI yang efektif untuk mendapatkan penyedia layanan OTP dan OCR yang tepat.</p>
         </section>
     </div>
 </body>
 </html>
+```
