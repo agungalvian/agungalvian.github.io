@@ -166,7 +166,7 @@
                         </div>
                         <div id="regulatory" class="tab-pane hidden">
                              <h4 class="text-xl font-bold mb-4">Kepatuhan Terhadap Regulasi</h4>
-                            <p class="text-gray-600 mb-4">Sebagai lembaga keuangan yang diawasi OJK dan mengelola data pribadi, BP Tapera tunduk pada regulasi yang sangat ketat seperti SEOJK 29/2022 dan UU PDP. Regulasi ini menuntut kontrol keamanan, audit, dan pelaporan yang sulit dipenuhi dalam arsitektur terpadu. Pemisahan sistem menyederhanakan proses audit dan demonstrasi kepatuhan.</p>
+                            <p class="text-gray-600 mb-4">Sebagai lembaga keuangan yang diawasi OJK dan mengelola data pribadi, BP Tapera tunduk pada regulasi yang sangat ketat seperti SEOJK 29/20aled dan UU PDP. Regulasi ini menuntut kontrol keamanan, audit, dan pelaporan yang sulit dipenuhi dalam arsitektur terpadu. Pemisahan sistem menyederhanakan proses audit dan demonstrasi kepatuhan.</p>
                              <ul class="list-disc list-inside space-y-2 text-gray-700">
                                 <li><b>Kepatuhan OJK:</b> Mempermudah pemenuhan mandat keamanan siber yang detail.</li>
                                 <li><b>Kepatuhan UU PDP:</b> Menjamin perlindungan data pribadi dengan lebih efektif.</li>
@@ -219,28 +219,59 @@
                     </div>
                     <div id="diagram-after">
                          <h4 class="text-xl font-bold text-center mb-6 text-green-600">Arsitektur Rekomendasi (Aman & Terisolasi)</h4>
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
-                            <div class="text-center">
-                                <div class="text-3xl">🌐</div>
-                                <p class="font-bold">Internet Publik</p>
+                        <div class="flex flex-col items-center justify-center gap-4 py-4">
+                            <!-- Internet Publik (Common Origin) -->
+                            <div class="flex flex-col items-center p-4 rounded-lg bg-gray-100 shadow-md w-48 flex-shrink-0 mb-4">
+                                <div class="text-4xl mb-2">🌐</div>
+                                <p class="font-bold text-sm lg:text-base text-gray-700">Internet Publik</p>
                             </div>
-                            <div class="hidden lg:block text-center text-3xl text-gray-400">&rarr;</div>
-                            <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 p-4 border-2 border-dashed border-gray-300 rounded-lg">
-                                <div class="border-2 border-blue-400 rounded-lg p-6 bg-blue-50">
-                                    <div class="font-bold text-center text-blue-700 mb-2">DMZ (Demilitarized Zone)</div>
-                                     <div class="border border-gray-300 bg-white rounded-md p-4 text-center">
-                                        <p class="font-bold">Website Korporat</p>
-                                        <p class="text-sm text-gray-500">Terisolasi</p>
+
+                            <!-- Separator Line -->
+                            <div class="w-full h-px bg-gray-300 my-4"></div>
+
+                            <div class="flex flex-col lg:flex-row lg:justify-center lg:items-start gap-8 w-full">
+                                <!-- Jalur Website Korporat -->
+                                <div class="flex flex-col items-center flex-1">
+                                    <div class="text-3xl text-gray-400">⬇️</div>
+                                    <div class="text-xl text-gray-600">🔥</div>
+                                    <p class="text-xs text-gray-500 text-center">Firewall Eksternal</p>
+                                    <p class="text-sm text-blue-600 font-semibold mt-1">Jalur Website Korporat</p>
+                                    <div class="text-3xl text-gray-400">⬇️</div>
+                                    <div class="flex flex-col items-center p-6 border-2 border-blue-400 rounded-lg bg-blue-50 shadow-lg w-72 flex-shrink-0">
+                                        <div class="font-bold text-lg text-blue-700 mb-3">Hosting Eksternal / Public Cloud</div>
+                                        <div class="border border-gray-300 bg-white rounded-md p-3 text-center w-full">
+                                            <p class="font-bold text-sm">Website Korporat</p>
+                                            <p class="text-xs text-gray-500">Informasi Publik</p>
+                                        </div>
+                                        <p class="text-xs text-center text-blue-600 mt-4">Dioptimalkan untuk jangkauan dan ketersediaan publik.</p>
                                     </div>
-                                    <p class="text-xs text-center text-blue-600 mt-4">Buffer keamanan antara internet dan sistem internal.</p>
                                 </div>
-                                <div class="border-2 border-green-400 rounded-lg p-6 bg-green-50">
-                                     <div class="font-bold text-center text-green-700 mb-2">Zona Aman Internal</div>
-                                     <div class="border border-gray-300 bg-white rounded-md p-4 text-center">
-                                        <p class="font-bold">Layanan TDS</p>
-                                        <p class="text-sm text-gray-500">Sangat Terlindungi</p>
+
+                                <!-- Pemisah Visual Vertikal (hanya untuk desktop) -->
+                                <div class="hidden lg:block w-px bg-gray-300 self-stretch my-4"></div>
+                                <!-- Pemisah Visual Horizontal (hanya untuk mobile) -->
+                                <div class="lg:hidden w-full h-px bg-gray-300 my-8"></div>
+
+                                <!-- Jalur Layanan TDS -->
+                                <div class="flex flex-col items-center flex-1">
+                                    <div class="text-3xl text-gray-400">⬇️</div>
+                                    <div class="flex items-center gap-2">
+                                        <div class="text-xl text-gray-600">🛡️</div>
+                                        <p class="text-xs text-gray-500 text-center">WAF</p>
                                     </div>
-                                    <p class="text-xs text-center text-green-600 mt-4">Perlindungan berlapis untuk data keuangan dan pribadi.</p>
+                                    <div class="text-3xl text-gray-400">⬇️</div>
+                                    <div class="text-xl text-gray-600">🔒</div>
+                                    <p class="text-xs text-gray-500 text-center">Firewall Internal / VPN</p>
+                                    <p class="text-sm text-green-600 font-semibold mt-1">Jalur Layanan TDS</p>
+                                    <div class="text-3xl text-gray-400">⬇️</div>
+                                    <div class="flex flex-col items-center p-6 border-2 border-green-400 rounded-lg bg-green-50 shadow-lg w-72 flex-shrink-0">
+                                        <div class="font-bold text-lg text-green-700 mb-3">Hosting Internal / Private Cloud</div>
+                                        <div class="border border-gray-300 bg-white rounded-md p-3 text-center w-full">
+                                            <p class="font-bold text-sm">Layanan TDS</p>
+                                            <p class="text-xs text-gray-500">Data Sensitif & Transaksi</p>
+                                        </div>
+                                        <p class="text-xs text-center text-green-600 mt-4">Lingkungan yang sangat aman dan terisolasi untuk data kritis.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -253,7 +284,7 @@
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
                     <h3 class="text-2xl md:text-3xl font-bold text-gray-900">Peta Jalan Implementasi</h3>
-                    <p class="mt-3 max-w-2xl mx-auto text-base text-gray-600">Proyek pemisahan ini diestimasi memakan waktu 10-11 bulan, dibagi menjadi beberapa fase utama. Arahkan kursor ke setiap fase untuk melihat detailnya.</p>
+                    <p class="mt-3 max-w-2xl mx-auto text-base text-gray-600">Proyek pemisahan ini diestimasi memakan waktu 3 Bulan, dibagi menjadi beberapa fase utama. Arahkan kursor ke setiap fase untuk melihat detailnya.</p>
                 </div>
                 <div class="chart-container">
                     <canvas id="timelineChart"></canvas>
@@ -331,10 +362,10 @@
             });
             
             const timelineData = {
-                labels: ['Fase 1: Penilaian & Perencanaan', 'Fase 2: Penyediaan Infrastruktur', 'Fase 3: Refactoring & Pengembangan', 'Fase 4: Migrasi & Integrasi Data', 'Fase 5: Pengujian & Audit Keamanan', 'Fase 6: Penerapan & Cutover'],
+                labels: ['Fase 1: Perencanaan', 'Fase 2: Penyediaan Infrastruktur', 'Fase 3: Refactoring & Pengembangan', 'Fase 4: Pengujian', 'Fase 5: Pre Prod & Launching', 'Fase 6: Post Implementation Review'],
                 datasets: [{
                     label: 'Durasi (Bulan)',
-                    data: [2, 3, 5, 3, 3, 1],
+                    data: [0.25, 1, 1, 0.25, 0.25, 0.25], /* 1 minggu = 0.25 bulan */
                     backgroundColor: [
                         'rgba(59, 130, 246, 0.7)',
                         'rgba(34, 197, 94, 0.7)',
@@ -380,12 +411,12 @@
                                 },
                                 afterLabel: function(context) {
                                      const phaseDetails = [
-                                        'Analisis mendalam, perancangan arsitektur, dan perencanaan sumber daya.',
-                                        'Pengadaan dan konfigurasi server, jaringan, dan perangkat keamanan.',
-                                        'Modifikasi kode aplikasi TDS dan website korporat.',
-                                        'Perencanaan dan eksekusi migrasi data, pembangunan integrasi aman.',
-                                        'Pengujian fungsional, kinerja, skalabilitas, dan audit keamanan.',
-                                        'Peluncuran sistem baru dengan downtime minimal.'
+                                        'Analisis kebutuhan, desain arsitektur, dan perencanaan proyek.',
+                                        'Pengadaan, setup server, jaringan, dan perangkat keamanan.',
+                                        'Modifikasi aplikasi dan pengembangan fitur baru.',
+                                        'Pengujian fungsional, kinerja, dan keamanan menyeluruh.',
+                                        'Persiapan peluncuran dan transisi ke lingkungan produksi.',
+                                        'Evaluasi pasca-implementasi dan optimasi awal.'
                                     ];
                                     return phaseDetails[context.dataIndex];
                                 }
