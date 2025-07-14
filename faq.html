@@ -6,22 +6,33 @@
     <title>Yuk, Pahami BP Tapera! - FAQ Lengkap</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Modern Color Palette */
+        :root {
+            --primary-blue: #007bff; /* A brighter, more vibrant blue */
+            --light-blue: #e7f5ff;   /* Very light blue for backgrounds */
+            --dark-text: #343a40;    /* Darker grey for main text */
+            --light-grey: #f8f9fa;   /* Off-white for body background */
+            --border-grey: #dee2e6;  /* Light grey for borders */
+            --highlight-text: #0056b3; /* Slightly darker blue for emphasis */
+            --shadow-color: rgba(0, 123, 255, 0.15); /* Shadow with primary blue tint */
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f0f2f5;
-            color: #333;
+            background-color: var(--light-grey);
+            color: var(--dark-text);
         }
         .header {
-            background-color: #0056b3;
+            background-color: var(--primary-blue);
             color: #fff;
             padding: 40px 20px;
             text-align: center;
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px var(--shadow-color);
         }
         .header h1 {
             margin: 0;
@@ -30,7 +41,7 @@
         }
         .header p {
             font-size: 1.1em;
-            opacity: 0.9;
+            opacity: 0.95;
             margin-top: 10px;
         }
         .container {
@@ -39,14 +50,14 @@
             background: #fff;
             padding: 35px 40px;
             border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
         h2 {
-            color: #0056b3;
+            color: var(--primary-blue);
             font-size: 1.8em;
             margin-top: 30px;
             margin-bottom: 20px;
-            border-bottom: 2px solid #e0e0e0;
+            border-bottom: 2px solid var(--border-grey);
             padding-bottom: 10px;
             font-weight: 600;
         }
@@ -54,20 +65,21 @@
             margin-bottom: 30px;
         }
         .faq-item {
-            background: #e9f5ff; /* Light blue background for items */
-            border-left: 6px solid #0056b3; /* Stronger blue border */
+            background: var(--light-blue);
+            border-left: 6px solid var(--primary-blue);
             margin-bottom: 20px;
             padding: 20px;
             border-radius: 8px;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
         .faq-item:hover {
-            box-shadow: 0 4px 15px rgba(0, 86, 179, 0.2);
-            transform: translateY(-3px);
+            box-shadow: 0 6px 20px var(--shadow-color);
+            transform: translateY(-5px);
         }
         .faq-question {
             font-weight: 700;
-            color: #0056b3;
+            color: var(--highlight-text); /* Use a slightly darker blue for contrast */
             font-size: 1.25em;
             margin-bottom: 10px;
             cursor: pointer;
@@ -78,6 +90,7 @@
         .faq-question .arrow {
             font-size: 1.5em;
             transition: transform 0.3s ease;
+            color: var(--primary-blue); /* Arrow in primary blue */
         }
         .faq-question[aria-expanded="true"] .arrow {
             transform: rotate(90deg);
@@ -87,7 +100,7 @@
             overflow: hidden;
             transition: max-height 0.4s ease-out;
             padding-left: 10px;
-            color: #555;
+            color: var(--dark-text);
             font-size: 1.05em;
         }
         .faq-answer.show {
@@ -104,10 +117,10 @@
             padding-left: 5px;
         }
         .faq-answer li strong {
-            color: #0056b3;
+            color: var(--highlight-text);
         }
         strong {
-            color: #0056b3; /* Highlight important terms */
+            color: var(--highlight-text); /* Highlight important terms */
         }
     </style>
 </head>
@@ -131,8 +144,8 @@
                     <br><br>
                     Ada dua jenis peserta utama:
                     <ul>
-                        <li><strong style="color: #0056b3;">Pekerja Penerima Upah:</strong> Ini termasuk ASN, pegawai BUMN/BUMD/BUMDes, TNI, Polri, dan pekerja swasta.</li>
-                        <li><strong style="color: #0056b3;">Pekerja Mandiri:</strong> Kalau kamu pengusaha, pedagang, seniman, atau profesi bebas, kamu masuk kategori ini.</li>
+                        <li><strong>Pekerja Penerima Upah:</strong> Ini termasuk ASN, pegawai BUMN/BUMD/BUMDes, TNI, Polri, dan pekerja swasta.</li>
+                        <li><strong>Pekerja Mandiri:</strong> Kalau kamu pengusaha, pedagang, seniman, atau profesi bebas, kamu masuk kategori ini.</li>
                     </ul>
                 </div>
             </div>
@@ -146,9 +159,9 @@
                     <br><br>
                     Prosesnya begini:
                     <ol>
-                        <li>**Pemberi Kerja Mendaftar:** Kantor kamu akan mendaftar dulu ke Portal Pemberi Kerja di website BP Tapera.</li>
-                        <li>**Pekerja Didaftarkan:** Setelah itu, Pemberi Kerja akan daftarin kamu dengan mengisi data-datamu seperti NIK, nama lengkap, tanggal lahir, dan informasi penghasilan.</li>
-                        <li>**Iuran Otomatis:** Nanti, iuranmu (3% dari upah, 2.5% dari gajimu dan 0.5% dari kantor) akan dipotong otomatis dari gajimu dan disetor oleh Pemberi Kerja paling lambat tanggal 10 setiap bulan. Kamu enggak perlu repot!</li>
+                        <li><strong>Pemberi Kerja Mendaftar:</strong> Kantor kamu akan mendaftar dulu ke Portal Pemberi Kerja di website BP Tapera.</li>
+                        <li><strong>Pekerja Didaftarkan:</strong> Setelah itu, Pemberi Kerja akan daftarin kamu dengan mengisi data-datamu seperti NIK, nama lengkap, tanggal lahir, dan informasi penghasilan.</li>
+                        <li><strong>Iuran Otomatis:</strong> Nanti, iuranmu (3% dari upah, 2.5% dari gajimu dan 0.5% dari kantor) akan dipotong otomatis dari gajimu dan disetor oleh Pemberi Kerja paling lambat tanggal 10 setiap bulan. Kamu enggak perlu repot!</li>
                     </ol>
                 </div>
             </div>
@@ -162,9 +175,9 @@
                     <br><br>
                     Siapkan dokumen-dokumen ini ya:
                     <ul>
-                        <li><strong style="color: #0056b3;">Kartu Tanda Penduduk (KTP)</strong></li>
-                        <li><strong style="color: #0056b3;">Nomor Pokok Wajib Pajak (NPWP)</strong></li>
-                        <li><strong style="color: #0056b3;">Bukti Penghasilan:</strong> Bisa berupa surat keterangan usaha dari kelurahan, catatan keuangan, atau rekening koran.</li>
+                        <li><strong>Kartu Tanda Penduduk (KTP)</strong></li>
+                        <li><strong>Nomor Pokok Wajib Pajak (NPWP)</strong></li>
+                        <li><strong>Bukti Penghasilan:</strong> Bisa berupa surat keterangan usaha dari kelurahan, catatan keuangan, atau rekening koran.</li>
                     </ul>
                     Iuranmu juga 3% dari penghasilan, dan ini sepenuhnya kamu tanggung sendiri.
                 </div>
@@ -177,7 +190,7 @@
                 <div class="faq-answer">
                     Pemberi Kerja punya beberapa tanggung jawab penting, antara lain:
                     <ul>
-                        <li>Mendaftarkan semua pekerjanya yang memenuhi syarat sebagai peserta Tapera.</li>
+                        <li>Mendaftarkan seluruh pekerjanya yang memenuhi syarat sebagai peserta Tapera.</li>
                         <li>Memotong dan menyetorkan iuran Tapera ke rekening BP Tapera secara teratur setiap bulan.</li>
                         <li>Memberikan data dan informasi peserta secara akurat dan tepat waktu kepada BP Tapera.</li>
                         <li>Melakukan pembaruan data jika ada perubahan status pekerja (misalnya, mutasi atau pensiun).</li>
@@ -196,10 +209,10 @@
                 <div class="faq-answer">
                     Keduanya sama-sama program pembiayaan rumah subsidi, tapi ada beberapa hal yang membedakannya:
                     <ul>
-                        <li><strong style="color: #0056b3;">Sumber Dana:</strong> **KPR Tapera** dananya dari iuran peserta yang dikelola. Sementara **KPR FLPP (Fasilitas Likuiditas Pembiayaan Perumahan)** dananya dari APBN (Anggaran Pemerintah).</li>
-                        <li><strong style="color: #0056b3;">Syarat Peserta:</strong> Untuk KPR Tapera, kamu harus jadi peserta aktif minimal **12 bulan**. KPR FLPP nggak ada syarat masa kepesertaan Tapera, tapi memang fokusnya untuk Masyarakat Berpenghasilan Rendah (MBR).</li>
-                        <li><strong style="color: #0056b3;">Jenis Bantuan:</strong> BP Tapera kasih tiga pilihan: **KPR (beli rumah jadi)**, **KBR (bangun rumah)**, dan **KRR (renovasi rumah)**. Kalau FLPP cuma buat beli rumah jadi.</li>
-                        <li><strong style="color: #0056b3;">Jangka Waktu Cicilan:</strong> KPR Tapera bisa lebih panjang, sampai **30 tahun** untuk rumah tapak atau **35 tahun** untuk apartemen. KPR FLPP biasanya maksimal 20 tahun.</li>
+                        <li><strong>Sumber Dana:</strong> **KPR Tapera** dananya dari iuran peserta yang dikelola. Sementara **KPR FLPP (Fasilitas Likuiditas Pembiayaan Perumahan)** dananya dari APBN (Anggaran Pemerintah).</li>
+                        <li><strong>Syarat Peserta:</strong> Untuk KPR Tapera, kamu harus jadi peserta aktif minimal **12 bulan**. KPR FLPP nggak ada syarat masa kepesertaan Tapera, tapi memang fokusnya untuk Masyarakat Berpenghasilan Rendah (MBR).</li>
+                        <li><strong>Jenis Bantuan:</strong> BP Tapera kasih tiga pilihan: **KPR (beli rumah jadi)**, **KBR (bangun rumah)**, dan **KRR (renovasi rumah)**. Kalau FLPP cuma buat beli rumah jadi.</li>
+                        <li><strong>Jangka Waktu Cicilan:</strong> KPR Tapera bisa lebih panjang, sampai **30 tahun** untuk rumah tapak atau **35 tahun** untuk apartemen. KPR FLPP umumnya memiliki tenor maksimal 20 tahun.</li>
                     </ul>
                 </div>
             </div>
@@ -250,6 +263,11 @@
                     answer.classList.remove('show');
                     item.setAttribute('aria-expanded', 'false');
                 } else {
+                    // Close all other open answers
+                    document.querySelectorAll('.faq-answer.show').forEach(openAnswer => {
+                        openAnswer.classList.remove('show');
+                        openAnswer.previousElementSibling.setAttribute('aria-expanded', 'false');
+                    });
                     answer.classList.add('show');
                     item.setAttribute('aria-expanded', 'true');
                 }
