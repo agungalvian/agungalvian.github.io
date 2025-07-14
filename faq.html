@@ -3,167 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ BP Tapera</title>
+    <title>Yuk, Pahami BP Tapera! - FAQ Lengkap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
+            padding: 0;
+            background-color: #f0f2f5;
             color: #333;
+        }
+        .header {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            font-weight: 700;
+        }
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-top: 10px;
         }
         .container {
             max-width: 900px;
-            margin: auto;
+            margin: 30px auto;
             background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 35px 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
         }
-        h1, h2 {
+        h2 {
             color: #0056b3;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            font-weight: 600;
         }
         .faq-section {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         .faq-item {
-            background: #e9f5ff;
-            border-left: 5px solid #0056b3;
-            margin-bottom: 15px;
-            padding: 15px;
-            border-radius: 4px;
+            background: #e9f5ff; /* Light blue background for items */
+            border-left: 6px solid #0056b3; /* Stronger blue border */
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .faq-item:hover {
+            box-shadow: 0 4px 15px rgba(0, 86, 179, 0.2);
+            transform: translateY(-3px);
         }
         .faq-question {
-            font-weight: bold;
+            font-weight: 700;
             color: #0056b3;
-            margin-bottom: 5px;
+            font-size: 1.25em;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-question .arrow {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+        .faq-question[aria-expanded="true"] .arrow {
+            transform: rotate(90deg);
         }
         .faq-answer {
-            margin-top: 5px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            padding-left: 10px;
+            color: #555;
+            font-size: 1.05em;
+        }
+        .faq-answer.show {
+            max-height: 500px; /* Adjust as needed for content length */
+            padding-top: 10px;
         }
         .faq-answer ul, .faq-answer ol {
-            margin-left: 20px;
+            margin-left: 25px;
             padding: 0;
+            list-style-position: outside;
         }
         .faq-answer li {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            padding-left: 5px;
+        }
+        .faq-answer li strong {
+            color: #0056b3;
+        }
+        strong {
+            color: #0056b3; /* Highlight important terms */
         }
     </style>
 </head>
 <body>
+    <div class="header">
+        <h1>Yuk, Pahami BP Tapera!</h1>
+        <p>Semua yang perlu kamu tahu tentang kepesertaan dan pembiayaan rumah impianmu ada di sini!</p>
+    </div>
+
     <div class="container">
-        <h1>Pertanyaan Umum (FAQ) BP Tapera</h1>
-        <p>Halaman ini menyediakan informasi detail seputar kepesertaan dan pembiayaan perumahan dari Badan Pengelola Tabungan Perumahan Rakyat (BP Tapera).</p>
+
+        <h2>🏡 Seputar Kepesertaan Tapera</h2>
 
         <div class="faq-section">
-            <h2>A. Kepesertaan</h2>
-
             <div class="faq-item">
-                <div class="faq-question">1. Siapa saja yang wajib menjadi peserta Tapera?</div>
+                <div class="faq-question" role="button" aria-expanded="false" tabindex="0">
+                    1. Siapa saja sih yang wajib jadi peserta Tapera? <span class="arrow">></span>
+                </div>
                 <div class="faq-answer">
-                    Berdasarkan peraturan yang berlaku, peserta wajib Tapera adalah setiap warga negara Indonesia (WNI) dan warga negara asing (WNA) pemegang izin tinggal tetap yang berusia minimal 20 tahun atau sudah menikah, serta memiliki penghasilan paling sedikit sebesar upah minimum. Peserta terbagi menjadi dua kategori utama:
+                    Kamu wajib jadi peserta Tapera kalau kamu seorang **Warga Negara Indonesia (WNI)** atau **Warga Negara Asing (WNA)** pemegang izin tinggal tetap, usia minimal **20 tahun** (atau sudah menikah), dan punya penghasilan minimal setara **Upah Minimum (UM)**.
+                    <br><br>
+                    Ada dua jenis peserta utama:
                     <ul>
-                        <li><b>Pekerja Penerima Upah:</b> Meliputi Pegawai ASN, pegawai BUMN, BUMD, BUMDes, pekerja swasta, TNI, dan Polri.</li>
-                        <li><b>Pekerja Mandiri:</b> Meliputi pekerja di sektor informal seperti pengusaha, pedagang, seniman, dan profesi bebas lainnya.</li>
+                        <li><strong style="color: #0056b3;">Pekerja Penerima Upah:</strong> Ini termasuk ASN, pegawai BUMN/BUMD/BUMDes, TNI, Polri, dan pekerja swasta.</li>
+                        <li><strong style="color: #0056b3;">Pekerja Mandiri:</strong> Kalau kamu pengusaha, pedagang, seniman, atau profesi bebas, kamu masuk kategori ini.</li>
                     </ul>
                 </div>
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">2. Bagaimana proses pendaftaran peserta bagi Pekerja Penerima Upah?</div>
+                <div class="faq-question" role="button" aria-expanded="false" tabindex="0">
+                    2. Gimana cara daftarnya kalau aku Pekerja Penerima Upah? <span class="arrow">></span>
+                </div>
                 <div class="faq-answer">
-                    Pendaftaran peserta untuk pekerja penerima upah sepenuhnya menjadi tanggung jawab Pemberi Kerja (perusahaan atau instansi).
+                    Gampang! Untuk kamu yang bekerja di perusahaan atau instansi, pendaftaranmu jadi tanggung jawab **Pemberi Kerja** (kantor atau instansimu).
                     <br><br>
-                    Prosesnya sebagai berikut:
+                    Prosesnya begini:
                     <ol>
-                        <li><b>Pendaftaran Pemberi Kerja:</b> Perusahaan mendaftar melalui Portal Pemberi Kerja di website resmi BP Tapera.</li>
-                        <li><b>Pendaftaran Pekerja:</b> Setelah terdaftar, Pemberi Kerja wajib mendaftarkan pekerjanya dengan mengunggah data seperti NIK, nama lengkap, tanggal lahir, dan data penghasilan.</li>
-                        <li><b>Kewajiban Iuran:</b> Pemberi Kerja melakukan pemungutan iuran sebesar 3% dari upah, dengan rincian 2,5% ditanggung pekerja dan 0,5% ditanggung oleh Pemberi Kerja. Iuran ini wajib disetorkan paling lambat tanggal 10 setiap bulan.</li>
+                        <li>**Pemberi Kerja Mendaftar:** Kantor kamu akan mendaftar dulu ke Portal Pemberi Kerja di website BP Tapera.</li>
+                        <li>**Pekerja Didaftarkan:** Setelah itu, Pemberi Kerja akan daftarin kamu dengan mengisi data-datamu seperti NIK, nama lengkap, tanggal lahir, dan informasi penghasilan.</li>
+                        <li>**Iuran Otomatis:** Nanti, iuranmu (3% dari upah, 2.5% dari gajimu dan 0.5% dari kantor) akan dipotong otomatis dari gajimu dan disetor oleh Pemberi Kerja paling lambat tanggal 10 setiap bulan. Kamu enggak perlu repot!</li>
                     </ol>
                 </div>
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">3. Bagaimana cara pendaftaran peserta bagi Pekerja Mandiri?</div>
+                <div class="faq-question" role="button" aria-expanded="false" tabindex="0">
+                    3. Aku Pekerja Mandiri, gimana cara daftarnya? <span class="arrow">></span>
+                </div>
                 <div class="faq-answer">
-                    Pekerja Mandiri wajib mendaftarkan dirinya sendiri secara individu. Pendaftaran dapat dilakukan secara daring melalui website resmi BP Tapera dengan mengikuti langkah-langkah yang tersedia.
+                    Buat kamu Pekerja Mandiri, kamu bisa daftar sendiri secara online. Tinggal kunjungi website resmi BP Tapera dan ikuti panduan pendaftarannya.
                     <br><br>
-                    Dokumen yang umumnya dibutuhkan antara lain:
+                    Siapkan dokumen-dokumen ini ya:
                     <ul>
-                        <li>Kartu Tanda Penduduk (KTP)</li>
-                        <li>Nomor Pokok Wajib Pajak (NPWP)</li>
-                        <li>Bukti penghasilan (misalnya, surat keterangan usaha dari kelurahan, catatan keuangan, atau rekening koran).</li>
+                        <li><strong style="color: #0056b3;">Kartu Tanda Penduduk (KTP)</strong></li>
+                        <li><strong style="color: #0056b3;">Nomor Pokok Wajib Pajak (NPWP)</strong></li>
+                        <li><strong style="color: #0056b3;">Bukti Penghasilan:</strong> Bisa berupa surat keterangan usaha dari kelurahan, catatan keuangan, atau rekening koran.</li>
                     </ul>
-                    Besaran iuran untuk Pekerja Mandiri adalah 3% dari penghasilan yang ditanggung sepenuhnya oleh peserta.
+                    Iuranmu juga 3% dari penghasilan, dan ini sepenuhnya kamu tanggung sendiri.
                 </div>
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">4. Apa saja kewajiban utama yang harus dipenuhi oleh Pemberi Kerja?</div>
+                <div class="faq-question" role="button" aria-expanded="false" tabindex="0">
+                    4. Apa aja sih kewajiban Pemberi Kerja terkait Tapera? <span class="arrow">></span>
+                </div>
                 <div class="faq-answer">
-                    Kewajiban Pemberi Kerja mencakup:
+                    Pemberi Kerja punya beberapa tanggung jawab penting, antara lain:
                     <ul>
-                        <li>Mendaftarkan seluruh pekerjanya yang memenuhi syarat sebagai peserta Tapera.</li>
-                        <li>Melakukan pemungutan dan penyetoran iuran Tapera ke rekening BP Tapera secara rutin setiap bulan.</li>
-                        <li>Menyampaikan data dan informasi terkait kepesertaan pekerjanya secara akurat dan tepat waktu.</li>
-                        <li>Melakukan pembaruan data jika terjadi perubahan status pada pekerja (misalnya, mutasi atau pensiun).</li>
+                        <li>Mendaftarkan semua pekerjanya yang memenuhi syarat sebagai peserta Tapera.</li>
+                        <li>Memotong dan menyetorkan iuran Tapera ke rekening BP Tapera secara teratur setiap bulan.</li>
+                        <li>Memberikan data dan informasi peserta secara akurat dan tepat waktu kepada BP Tapera.</li>
+                        <li>Melakukan pembaruan data jika ada perubahan status pekerja (misalnya, mutasi atau pensiun).</li>
                     </ul>
                 </div>
             </div>
         </div>
+
+        <h2>💰 Bantuan Pembiayaan Rumah dari Tapera</h2>
 
         <div class="faq-section">
-            <h2>B. Pembiayaan</h2>
-
             <div class="faq-item">
-                <div class="faq-question">1. Apa itu Pembiayaan KPR Tapera dan apa bedanya dengan KPR FLPP?</div>
+                <div class="faq-question" role="button" aria-expanded="false" tabindex="0">
+                    1. Apa itu KPR Tapera? Bedanya apa sih sama KPR FLPP? <span class="arrow">></span>
+                </div>
                 <div class="faq-answer">
-                    Keduanya adalah program pembiayaan rumah bersubsidi, namun memiliki perbedaan mendasar:
+                    Keduanya sama-sama program pembiayaan rumah subsidi, tapi ada beberapa hal yang membedakannya:
                     <ul>
-                        <li><b>Sumber Dana:</b> KPR Tapera bersumber dari pengelolaan dana simpanan peserta yang terkumpul, sedangkan KPR FLPP (Fasilitas Likuiditas Pembiayaan Perumahan) bersumber dari APBN (Anggaran Pendapatan dan Belanja Negara).</li>
-                        <li><b>Syarat Kepesertaan:</b> Untuk mengajukan KPR Tapera, peserta harus memiliki masa kepesertaan aktif minimal 12 bulan. KPR FLPP tidak memiliki syarat masa kepesertaan Tapera, tetapi ditujukan khusus untuk Masyarakat Berpenghasilan Rendah (MBR).</li>
-                        <li><b>Jenis Pemanfaatan:</b> KPR Tapera memiliki tiga skema pembiayaan (KPR, KBR, dan KRR), sementara KPR FLPP hanya menyediakan skema untuk pembelian rumah jadi.</li>
-                        <li><b>Tenor Pinjaman:</b> KPR Tapera menawarkan tenor lebih panjang, hingga 30 tahun (rumah tapak) dan 35 tahun (sarusun/apartemen). KPR FLPP umumnya memiliki tenor maksimal 20 tahun.</li>
+                        <li><strong style="color: #0056b3;">Sumber Dana:</strong> **KPR Tapera** dananya dari iuran peserta yang dikelola. Sementara **KPR FLPP (Fasilitas Likuiditas Pembiayaan Perumahan)** dananya dari APBN (Anggaran Pemerintah).</li>
+                        <li><strong style="color: #0056b3;">Syarat Peserta:</strong> Untuk KPR Tapera, kamu harus jadi peserta aktif minimal **12 bulan**. KPR FLPP nggak ada syarat masa kepesertaan Tapera, tapi memang fokusnya untuk Masyarakat Berpenghasilan Rendah (MBR).</li>
+                        <li><strong style="color: #0056b3;">Jenis Bantuan:</strong> BP Tapera kasih tiga pilihan: **KPR (beli rumah jadi)**, **KBR (bangun rumah)**, dan **KRR (renovasi rumah)**. Kalau FLPP cuma buat beli rumah jadi.</li>
+                        <li><strong style="color: #0056b3;">Jangka Waktu Cicilan:</strong> KPR Tapera bisa lebih panjang, sampai **30 tahun** untuk rumah tapak atau **35 tahun** untuk apartemen. KPR FLPP biasanya maksimal 20 tahun.</li>
                     </ul>
                 </div>
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">2. Apa itu Pembiayaan KRR (Kredit Renovasi Rumah) Tapera?</div>
+                <div class="faq-question" role="button" aria-expanded="false" tabindex="0">
+                    2. Apa itu Pembiayaan KRR (Kredit Renovasi Rumah) Tapera? <span class="arrow">></span>
+                </div>
                 <div class="faq-answer">
-                    **Kredit Renovasi Rumah (KRR) Tapera** adalah fasilitas pembiayaan yang diberikan kepada peserta untuk merenovasi atau memperbaiki rumah pertamanya agar menjadi lebih layak huni.
+                    **Kredit Renovasi Rumah (KRR) Tapera** itu bantuan pinjaman buat kamu yang mau merenovasi atau memperbaiki rumah pertamamu biar makin nyaman dan layak huni.
                     <br><br>
-                    Syarat utama untuk mengajukan KRR:
+                    Untuk bisa mengajukan KRR, kamu harus:
                     <ul>
-                        <li>Merupakan peserta Tapera dengan masa kepesertaan minimal 12 bulan.</li>
-                        <li>Sudah memiliki rumah pertama atas nama sendiri atau pasangan.</li>
-                        <li>Termasuk dalam kategori Masyarakat Berpenghasilan Rendah (MBR).</li>
+                        <li>Jadi peserta Tapera aktif minimal **12 bulan**.</li>
+                        <li>Sudah punya rumah pertama atas nama kamu atau pasangan.</li>
+                        <li>Masuk kategori Masyarakat Berpenghasilan Rendah (MBR).</li>
                     </ul>
-                    Dokumen yang dibutuhkan meliputi bukti kepemilikan rumah (sertifikat tanah/IMB) dan Rencana Anggaran Biaya (RAB) renovasi. Plafon kredit dan tenornya ditentukan berdasarkan aturan dan kelayakan yang berlaku.
+                    Siapkan juga **bukti kepemilikan rumah** (sertifikat atau IMB) dan **Rencana Anggaran Biaya (RAB)** renovasinya ya. Plafon kredit dan jangka waktu cicilan akan disesuaikan dengan aturan yang berlaku.
                 </div>
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">3. Apa itu Pembiayaan KBR (Kredit Bangun Rumah) Tapera?</div>
+                <div class="faq-question" role="button" aria-expanded="false" tabindex="0">
+                    3. Apa itu Pembiayaan KBR (Kredit Bangun Rumah) Tapera? <span class="arrow">></span>
+                </div>
                 <div class="faq-answer">
-                    **Kredit Bangun Rumah (KBR) Tapera** adalah fasilitas pembiayaan untuk membantu peserta membangun rumah pertama di atas tanah milik sendiri atau pasangan.
+                    **Kredit Bangun Rumah (KBR) Tapera** adalah fasilitas pinjaman buat kamu yang sudah punya lahan dan pengen membangun rumah pertamamu sendiri di atas lahan tersebut.
                     <br><br>
-                    Syarat utama pengajuan KBR:
+                    Syaratnya mirip dengan KRR:
                     <ul>
-                        <li>Merupakan peserta Tapera dengan masa kepesertaan minimal 12 bulan.</li>
-                        <li>Belum memiliki rumah, tetapi sudah memiliki tanah yang sah secara hukum.</li>
-                        <li>Termasuk dalam kategori Masyarakat Berpenghasilan Rendah (MBR).</li>
+                        <li>Jadi peserta Tapera aktif minimal **12 bulan**.</li>
+                        <li>Belum punya rumah, tapi sudah punya tanah atas nama kamu atau pasangan yang legal.</li>
+                        <li>Masuk kategori Masyarakat Berpenghasilan Rendah (MBR).</li>
                     </ul>
-                    Dokumen yang dibutuhkan meliputi bukti kepemilikan tanah, Izin Mendirikan Bangunan (IMB), dan Rencana Anggaran Biaya (RAB) pembangunan rumah. Plafon kredit dan tenornya ditetapkan berdasarkan kelayakan dan ketentuan yang berlaku.
+                    Dokumen penting yang perlu kamu siapkan antara lain **bukti kepemilikan tanah**, **Izin Mendirikan Bangunan (IMB)**, dan **Rencana Anggaran Biaya (RAB)** pembangunan rumahmu. Plafon kredit dan tenornya juga akan disesuaikan dengan kelayakan dan ketentuan dari BP Tapera.
                 </div>
             </div>
-
         </div>
     </div>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', event => {
+                const answer = item.nextElementSibling;
+                const isExpanded = item.getAttribute('aria-expanded') === 'true';
+
+                if (isExpanded) {
+                    answer.classList.remove('show');
+                    item.setAttribute('aria-expanded', 'false');
+                } else {
+                    answer.classList.add('show');
+                    item.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
