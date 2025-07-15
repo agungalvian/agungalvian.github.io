@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kajian Migrasi Platform BPTAPERA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: Aplikasi ini dirancang sebagai dasbor interaktif satu halaman dengan navigasi berbasis tab untuk memisahkan dua keputusan utama: 'Kajian Database' dan 'Kajian Infrastruktur'. Struktur ini dipilih untuk menyederhanakan laporan yang padat dan memungkinkan pengguna fokus pada satu area perbandingan pada satu waktu. Setiap tab menyajikan perbandingan berdampingan yang dapat difilter berdasarkan kriteria (Biaya, Operasional, Kinerja, Risiko). Interaksi ini (memfilter dan menyorot data) beserta visualisasi ringkasan (grafik radar) bertujuan untuk memfasilitasi pemahaman dan sintesis yang cepat, yang lebih efektif daripada menelusuri dokumen teks linier. Alur pengguna dirancang untuk eksplorasi: pilih topik -> filter berdasarkan kriteria -> lihat detail yang disorot dan ringkasan visual -> baca rekomendasi. -->
+    <!-- Visualization & Content Choices: 
+        - [Struktur Sistem Saat Ini & Opsi]: (Goal: Inform) -> [Diagram Teks HTML/CSS Sederhana]: (Interaction: Static) -> Menyajikan arsitektur dengan cepat tanpa gambar.
+        - [Perbandingan Database/Infrastruktur]: (Goal: Compare) -> [Tabel Perbandingan Kolom & Grafik Radar (Chart.js)]: (Interaction: Filter & Highlight) -> Memungkinkan perbandingan multi-variabel yang mendalam. Pengguna mengklik tombol kriteria (misalnya, 'Biaya') untuk memfilter tabel dan memperbarui teks ringkasan, memberikan analisis yang terfokus. Grafik radar secara visual merangkum kekuatan dan kelemahan relatif di semua kriteria, menawarkan wawasan sekilas.
+        - [Rekomendasi]: (Goal: Inform/Conclude) -> [Callout Box (HTML/CSS)]: (Interaction: Static) -> Secara jelas menyajikan kesimpulan dari analisis untuk pengambilan keputusan.
+        - [Library/Method]: TailwindCSS untuk tata letak & gaya. Chart.js untuk visualisasi data (Canvas). Vanilla JS untuk semua logika interaktif (navigasi tab, pemfilteran, pembaruan konten dinamis).
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .chart-container { position: relative; width: 100%; max-width: 500px; margin-left: auto; margin-right: auto; height: 320px; max-height: 40vh; }
+        .tab-active { background-color: #1e3a8a; color: white; }
+        .tab-inactive { background-color: #e5e7eb; color: #374151; }
+        .filter-btn-active { background-color: #dbeafe; color: #1e3a8a; border-color: #1e3a8a; }
+        .filter-btn-inactive { background-color: #f3f4f6; color: #4b5563; border-color: #d1d5db; }
+        .highlight-row { background-color: #eff6ff; border-left: 4px solid #3b82f6; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Dasbor Interaktif Kajian Migrasi Platform</h1>
+            <p class="mt-2 text-lg text-gray-600">Analisis Komparatif untuk Modernisasi Sistem `sitaracore` BPTAPERA</p>
+        </header>
+
+        <main>
+            <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-800">Konteks Sistem Saat Ini</h2>
+                <p class="text-gray-600 mb-6">Aplikasi `sitaracore` adalah sistem inti BPTAPERA dengan arsitektur modern. Namun, ada wacana untuk mengganti komponen kunci pada lapisan database dan infrastruktur guna meningkatkan efisiensi dan skalabilitas jangka panjang. Analisis ini mengevaluasi opsi migrasi berdasarkan beban kerja saat ini yaitu **40 QPS (Query Per Second)** yang didominasi oleh **pemrosesan batch**.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg mb-2">Tumpukan Aplikasi</h3>
+                        <div class="text-sm space-y-1 text-gray-700">
+                            <p><span class="font-medium">Frontend:</span> React JS</p>
+                            <p><span class="font-medium">Backend:</span> Golang</p>
+                            <p><span class="font-medium">Mobile:</span> Flutter</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg mb-2">Platform Saat Ini</h3>
+                         <div class="text-sm space-y-1 text-gray-700">
+                            <p><span class="font-medium">Database:</span> CockroachDB (Community)</p>
+                            <p><span class="font-medium">Orkestrasi:</span> Kubernetes Rancher</p>
+                            <p><span class="font-medium">Virtualisasi:</span> VMware</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg">
+                <nav class="flex border-b border-gray-200">
+                    <button id="db-tab-btn" class="flex-1 p-4 font-semibold text-lg transition-colors duration-300 tab-active" onclick="switchTab('db')">
+                        Kajian Database
+                    </button>
+                    <button id="infra-tab-btn" class="flex-1 p-4 font-semibold text-lg transition-colors duration-300 tab-inactive" onclick="switchTab('infra')">
+                        Kajian Infrastruktur
+                    </button>
+                </nav>
+
+                <div id="db-content" class="p-6 md:p-8">
+                    <div class="text-center mb-8">
+                         <h2 class="text-2xl font-bold text-gray-900">Perbandingan Database</h2>
+                         <p class="mt-2 text-gray-600 max-w-2xl mx-auto">Memilih database yang tepat sangat krusial. Perbandingan ini berfokus pada tiga opsi: solusi saat ini (CockroachDB) dan dua alternatif populer (PostgreSQL & Oracle), dievaluasi berdasarkan kriteria kunci.</p>
+                    </div>
+                   
+                    <div class="flex justify-center flex-wrap gap-2 mb-8">
+                        <button class="filter-btn text-sm font-medium py-2 px-4 rounded-full border-2 transition-all duration-300 filter-btn-active" data-tech="db" data-filter="all" onclick="filterContent('db', 'all', this)">Tampilkan Semua</button>
+                        <button class="filter-btn text-sm font-medium py-2 px-4 rounded-full border-2 transition-all duration-300 filter-btn-inactive" data-tech="db" data-filter="cost" onclick="filterContent('db', 'cost', this)">Biaya (TCO)</button>
+                        <button class="filter-btn text-sm font-medium py-2 px-4 rounded-full border-2 transition-all duration-300 filter-btn-inactive" data-tech="db" data-filter="ops" onclick="filterContent('db', 'ops', this)">Operasional</button>
+                        <button class="filter-btn text-sm font-medium py-2 px-4 rounded-full border-2 transition-all duration-300 filter-btn-inactive" data-tech="db" data-filter="perf" onclick="filterContent('db', 'perf', this)">Kinerja</button>
+                        <button class="filter-btn text-sm font-medium py-2 px-4 rounded-full border-2 transition-all duration-300 filter-btn-inactive" data-tech="db" data-filter="risk" onclick="filterContent('db', 'risk', this)">Risiko</button>
+                    </div>
+
+                    <div id="db-summary-panel" class="mb-8 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg fade-in">
+                        <h4 class="font-bold text-blue-800">Ringkasan Analisis</h4>
+                        <p id="db-summary-text" class="text-sm text-blue-700 mt-1">Pilih kriteria di atas untuk melihat ringkasan analisis dan menyorot data yang relevan dalam tabel perbandingan.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="border p-4 rounded-lg bg-gray-50">
+                            <h3 class="font-bold text-xl mb-2 text-center">CockroachDB</h3>
+                            <div class="space-y-4 text-sm comparison-table" data-tech="db">
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="cost"><strong class="block text-gray-700">Biaya:</strong> Gratis (Community), namun ada potensi biaya untuk fitur enterprise dan *over-provisioning* infrastruktur untuk beban kerja 40 QPS.</div>
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="ops"><strong class="block text-gray-700">Operasional:</strong> HA/DR bawaan yang kuat dan otomatis, namun kompleksitas sistem terdistribusi tetap ada.</div>
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="perf"><strong class="block text-gray-700">Kinerja:</strong> Skalabilitas horizontal sangat tinggi, namun *overkill* untuk 40 QPS. Kurang ideal untuk analitik berat.</div>
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="risk"><strong class="block text-gray-700">Risiko:</strong> Lock-in rendah-sedang. Tantangan migrasi data keluar bisa jadi kompleks karena sifat terdistribusinya.</div>
+                            </div>
+                        </div>
+                        <div class="border p-4 rounded-lg bg-gray-50">
+                            <h3 class="font-bold text-xl mb-2 text-center">PostgreSQL</h3>
+                            <div class="space-y-4 text-sm comparison-table" data-tech="db">
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="cost"><strong class="block text-gray-700">Biaya:</strong> TCO terendah. Lisensi gratis, namun ada biaya untuk dukungan komersial dan *tooling* HA/DR pihak ketiga jika diperlukan.</div>
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="ops"><strong class="block text-gray-700">Operasional:</strong> Membutuhkan keahlian DBA dan setup manual/pihak ketiga untuk HA/DR tingkat enterprise. Ekosistem *tooling open-source* yang luas.</div>
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="perf"><strong class="block text-gray-700">Kinerja:</strong> Sangat mumpuni untuk OLTP dan beban kerja 40 QPS. Memerlukan *tuning* untuk pemrosesan batch yang intensif.</div>
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="risk"><strong class="block text-gray-700">Risiko:</strong> Vendor lock-in hampir tidak ada. Portabilitas sangat tinggi.</div>
+                            </div>
+                        </div>
+                        <div class="border p-4 rounded-lg bg-gray-50">
+                            <h3 class="font-bold text-xl mb-2 text-center">Oracle DB</h3>
+                            <div class="space-y-4 text-sm comparison-table" data-tech="db">
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="cost"><strong class="block text-gray-700">Biaya:</strong> TCO tertinggi. Biaya lisensi dan dukungan tahunan yang sangat mahal dan terus meningkat.</div>
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="ops"><strong class="block text-gray-700">Operasional:</strong> Fitur HA/DR (RAC) sangat kuat namun kompleks. Manajemen disederhanakan dengan *tool* *proprietary*.</div>
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="perf"><strong class="block text-gray-700">Kinerja:</strong> Performa luar biasa untuk beban kerja campuran (OLTP, batch, analitik), terutama dengan fitur In-Memory.</div>
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="risk"><strong class="block text-gray-700">Risiko:</strong> Vendor lock-in sangat tinggi. Migrasi keluar sangat sulit dan mahal.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="chart-container">
+                            <canvas id="dbChart"></canvas>
+                        </div>
+                        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-green-800">⭐ Rekomendasi Database</h3>
+                            <p class="mt-2 text-green-700">Berdasarkan analisis, **PostgreSQL** adalah pilihan yang paling direkomendasikan.</p>
+                            <ul class="mt-3 list-disc list-inside text-sm text-green-600 space-y-1">
+                                <li>**Efisiensi Biaya:** Menawarkan TCO terendah tanpa mengorbankan fungsionalitas inti.</li>
+                                <li>**Kesesuaian Beban Kerja:** Sangat mampu menangani 40 QPS dan dapat dioptimalkan untuk pemrosesan batch.</li>
+                                <li>**Fleksibilitas:** Menghilangkan risiko vendor lock-in dan memberikan kebebasan dalam memilih *tooling* dan dukungan.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="infra-content" class="hidden p-6 md:p-8">
+                    <div class="text-center mb-8">
+                         <h2 class="text-2xl font-bold text-gray-900">Perbandingan Infrastruktur</h2>
+                         <p class="mt-2 text-gray-600 max-w-2xl mx-auto">Evaluasi platform infrastruktur antara solusi saat ini (Rancher + VMware) dengan platform terintegrasi (OpenShift) untuk menjalankan beban kerja kontainer dan VM.</p>
+                    </div>
+
+                    <div class="flex justify-center flex-wrap gap-2 mb-8">
+                        <button class="filter-btn text-sm font-medium py-2 px-4 rounded-full border-2 transition-all duration-300 filter-btn-active" data-tech="infra" data-filter="all" onclick="filterContent('infra', 'all', this)">Tampilkan Semua</button>
+                        <button class="filter-btn text-sm font-medium py-2 px-4 rounded-full border-2 transition-all duration-300 filter-btn-inactive" data-tech="infra" data-filter="cost" onclick="filterContent('infra', 'cost', this)">Biaya (TCO)</button>
+                        <button class="filter-btn text-sm font-medium py-2 px-4 rounded-full border-2 transition-all duration-300 filter-btn-inactive" data-tech="infra" data-filter="ops" onclick="filterContent('infra', 'ops', this)">Operasional</button>
+                        <button class="filter-btn text-sm font-medium py-2 px-4 rounded-full border-2 transition-all duration-300 filter-btn-inactive" data-tech="infra" data-filter="perf" onclick="filterContent('infra', 'perf', this)">Kinerja</button>
+                        <button class="filter-btn text-sm font-medium py-2 px-4 rounded-full border-2 transition-all duration-300 filter-btn-inactive" data-tech="infra" data-filter="risk" onclick="filterContent('infra', 'risk', this)">Risiko</button>
+                    </div>
+
+                    <div id="infra-summary-panel" class="mb-8 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg fade-in">
+                        <h4 class="font-bold text-blue-800">Ringkasan Analisis</h4>
+                        <p id="infra-summary-text" class="text-sm text-blue-700 mt-1">Pilih kriteria di atas untuk melihat ringkasan analisis dan menyorot data yang relevan dalam tabel perbandingan.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="border p-4 rounded-lg bg-gray-50">
+                            <h3 class="font-bold text-xl mb-2 text-center">Rancher + VMware</h3>
+                            <div class="space-y-4 text-sm comparison-table" data-tech="infra">
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="cost"><strong class="block text-gray-700">Biaya:</strong> Rancher gratis, namun biaya lisensi VMware signifikan dan berisiko naik.</div>
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="ops"><strong class="block text-gray-700">Operasional:</strong> Mengelola dua platform terpisah. Fleksibel, namun CI/CD dan keamanan perlu integrasi eksternal.</div>
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="perf"><strong class="block text-gray-700">Kinerja:</strong> Kinerja solid, namun ada lapisan abstraksi tambahan (VM) yang dapat menambah latensi.</div>
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="risk"><strong class="block text-gray-700">Risiko:</strong> Vendor lock-in tinggi pada lapisan virtualisasi VMware.</div>
+                            </div>
+                        </div>
+                        <div class="border p-4 rounded-lg bg-gray-50">
+                            <h3 class="font-bold text-xl mb-2 text-center">OpenShift Platform</h3>
+                            <div class="space-y-4 text-sm comparison-table" data-tech="infra">
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="cost"><strong class="block text-gray-700">Biaya:</strong> Berbasis langganan berbayar, namun berpotensi mengurangi biaya *tooling* pihak ketiga.</div>
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="ops"><strong class="block text-gray-700">Operasional:</strong> Platform terintegrasi untuk VM & kontainer. CI/CD dan keamanan bawaan. Kurva belajar yang curam.</div>
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="perf"><strong class="block text-gray-700">Kinerja:</strong> Efisiensi sumber daya tinggi karena VM & kontainer berbagi infrastruktur.</div>
+                                <div class="transition-all duration-300 p-2 rounded-md" data-filter="risk"><strong class="block text-gray-700">Risiko:</strong> Vendor lock-in pada ekosistem Red Hat. Migrasi memerlukan perencanaan komprehensif.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                         <div class="chart-container">
+                            <canvas id="infraChart"></canvas>
+                        </div>
+                        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-bold text-green-800">⭐ Rekomendasi Infrastruktur</h3>
+                            <p class="mt-2 text-green-700">Untuk infrastruktur, **OpenShift Container Platform + Virtualization** adalah langkah strategis ke depan.</p>
+                            <ul class="mt-3 list-disc list-inside text-sm text-green-600 space-y-1">
+                                <li>**Platform Terpadu:** Mengkonsolidasikan manajemen kontainer dan VM, mengurangi silo operasional.</li>
+                                <li>**Modernisasi Bertahap:** Memungkinkan aplikasi VM lawas berjalan di samping aplikasi *cloud-native* baru.</li>
+                                <li>**Ekosistem Enterprise:** Menyediakan CI/CD, keamanan, dan pemantauan bawaan yang mempercepat pengembangan.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="mt-8 bg-white p-6 rounded-xl shadow-lg text-center">
+                 <h2 class="text-2xl font-semibold mb-4 text-gray-800">Kesimpulan & Sinergi</h2>
+                 <p class="max-w-3xl mx-auto text-gray-600">Dengan menggabungkan kedua rekomendasi, BPTAPERA dapat membangun platform masa depan yang sangat efisien. Menjalankan **PostgreSQL di atas OpenShift** akan menciptakan tumpukan teknologi yang hemat biaya, fleksibel, dan kuat. Pendekatan ini memanfaatkan kekuatan *open-source* untuk database, sambil mendapatkan dukungan dan fitur enterprise dari platform *cloud-native* terintegrasi untuk infrastruktur, memposisikan BPTAPERA untuk inovasi dan pertumbuhan jangka panjang.</p>
+            </footer>
+
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const chartConfig = {
+        type: 'radar',
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: { color: '#d1d5db' },
+                    grid: { color: '#e5e7eb' },
+                    pointLabels: {
+                        font: { size: 12, weight: '500' },
+                        color: '#374151'
+                    },
+                    ticks: {
+                        backdropColor: 'transparent',
+                        color: '#6b7280',
+                        stepSize: 1,
+                        display: false
+                    },
+                    min: 0,
+                    max: 5
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: { color: '#1f2937' }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.dataset.label || '';
+                            const value = context.raw;
+                            const interpretations = ['Sangat Buruk', 'Buruk', 'Cukup', 'Baik', 'Sangat Baik', 'Luar Biasa'];
+                            return `${label}: ${interpretations[value]}`;
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    const dbData = {
+        labels: ['Biaya', 'Kinerja', 'Operasional', 'Fleksibilitas', 'Risiko Rendah'],
+        datasets: [{
+            label: 'CockroachDB',
+            data: [3, 4, 4, 3, 3],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgb(54, 162, 235)',
+            pointBackgroundColor: 'rgb(54, 162, 235)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(54, 162, 235)'
+        }, {
+            label: 'PostgreSQL',
+            data: [5, 3, 3, 5, 5],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgb(75, 192, 192)',
+            pointBackgroundColor: 'rgb(75, 192, 192)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(75, 192, 192)'
+        }, {
+            label: 'Oracle DB',
+            data: [1, 5, 4, 2, 1],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgb(255, 99, 132)',
+            pointBackgroundColor: 'rgb(255, 99, 132)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(255, 99, 132)'
+        }]
+    };
+
+    const infraData = {
+        labels: ['Biaya', 'Kinerja', 'Operasional', 'Fitur Bawaan', 'Risiko Rendah'],
+        datasets: [{
+            label: 'Rancher + VMware',
+            data: [3, 4, 3, 2, 2],
+            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+            borderColor: 'rgb(255, 159, 64)',
+            pointBackgroundColor: 'rgb(255, 159, 64)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(255, 159, 64)'
+        }, {
+            label: 'OpenShift Platform',
+            data: [3, 4, 4, 5, 3],
+            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            borderColor: 'rgb(153, 102, 255)',
+            pointBackgroundColor: 'rgb(153, 102, 255)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(153, 102, 255)'
+        }]
+    };
+    
+    new Chart(document.getElementById('dbChart'), { ...chartConfig, data: dbData });
+    new Chart(document.getElementById('infraChart'), { ...chartConfig, data: infraData });
+    
+    filterContent('db', 'all', document.querySelector('[data-tech="db"][data-filter="all"]'));
+    filterContent('infra', 'all', document.querySelector('[data-tech="infra"][data-filter="all"]'));
+});
+
+const summaryTexts = {
+    db: {
+        all: "Pilih kriteria di atas untuk melihat ringkasan analisis dan menyorot data yang relevan dalam tabel perbandingan.",
+        cost: "PostgreSQL menawarkan TCO terendah karena lisensi open-source, sementara Oracle memiliki biaya lisensi dan dukungan yang sangat tinggi. CockroachDB gratis pada level komunitas tetapi bisa menjadi mahal jika butuh fitur enterprise.",
+        ops: "CockroachDB dan Oracle unggul dalam fitur HA/DR bawaan. PostgreSQL memerlukan setup manual atau tooling pihak ketiga untuk mencapai level yang sama, membutuhkan keahlian DBA yang lebih mendalam.",
+        perf: "Oracle sangat unggul untuk beban kerja campuran. CockroachDB memiliki skalabilitas masif yang over-provisioned untuk kebutuhan saat ini. PostgreSQL sangat mumpuni dan dapat di-tuning untuk performa optimal.",
+        risk: "PostgreSQL memiliki risiko vendor lock-in terendah. Oracle memiliki risiko tertinggi karena sifat proprietary-nya. CockroachDB memiliki risiko sedang karena fitur-fitur spesifiknya."
+    },
+    infra: {
+        all: "Pilih kriteria di atas untuk melihat ringkasan analisis dan menyorot data yang relevan dalam tabel perbandingan.",
+        cost: "Rancher bersifat open-source, namun TCO dipengaruhi oleh biaya lisensi VMware yang signifikan. OpenShift adalah model langganan berbayar, namun dapat mengurangi biaya dari tooling eksternal.",
+        ops: "OpenShift menawarkan platform terintegrasi untuk VM dan kontainer dengan CI/CD bawaan, menyederhanakan operasional jangka panjang meskipun kurva belajarnya curam. Rancher+VMware memerlukan pengelolaan dua sistem terpisah.",
+        perf: "OpenShift menawarkan efisiensi sumber daya yang lebih tinggi dengan mengelola VM dan kontainer pada platform yang sama. Rancher+VMware memiliki kinerja solid namun dengan lapisan virtualisasi tambahan.",
+        risk: "Rancher+VMware memiliki risiko lock-in tinggi pada lapisan VMware. OpenShift memiliki risiko lock-in pada ekosistem Red Hat, namun standar open-source mendasarinya memberikan portabilitas."
+    }
+};
+
+function switchTab(tab) {
+    const dbContent = document.getElementById('db-content');
+    const infraContent = document.getElementById('infra-content');
+    const dbBtn = document.getElementById('db-tab-btn');
+    const infraBtn = document.getElementById('infra-tab-btn');
+
+    if (tab === 'db') {
+        dbContent.style.display = 'block';
+        infraContent.style.display = 'none';
+        dbBtn.classList.replace('tab-inactive', 'tab-active');
+        infraBtn.classList.replace('tab-active', 'tab-inactive');
+    } else {
+        dbContent.style.display = 'none';
+        infraContent.style.display = 'block';
+        dbBtn.classList.replace('tab-active', 'tab-inactive');
+        infraBtn.classList.replace('tab-inactive', 'tab-active');
+    }
+}
+
+function filterContent(tech, filter, clickedBtn) {
+    const filterButtons = document.querySelectorAll(`.filter-btn[data-tech="${tech}"]`);
+    filterButtons.forEach(btn => {
+        btn.classList.replace('filter-btn-active', 'filter-btn-inactive');
+    });
+    clickedBtn.classList.replace('filter-btn-inactive', 'filter-btn-active');
+
+    const summaryPanel = document.getElementById(`${tech}-summary-panel`);
+    const summaryText = document.getElementById(`${tech}-summary-text`);
+    summaryText.textContent = summaryTexts[tech][filter];
+    summaryPanel.classList.remove('fade-in');
+    void summaryPanel.offsetWidth;
+    summaryPanel.classList.add('fade-in');
+
+    const comparisonRows = document.querySelectorAll(`.comparison-table[data-tech="${tech}"] div`);
+    comparisonRows.forEach(row => {
+        row.classList.remove('highlight-row');
+        if (filter === 'all' || row.dataset.filter === filter) {
+            row.style.opacity = '1';
+            if (filter !== 'all') {
+                row.classList.add('highlight-row');
+            }
+        } else {
+            row.style.opacity = '0.5';
+        }
+    });
+}
+
+</script>
+</body>
+</html>
