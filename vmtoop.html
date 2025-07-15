@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografis Kajian Migrasi Platform BPTAPERA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Vibrant & Professional -->
+    <!-- Application Structure Plan: Infografis ini disusun sebagai narasi visual satu halaman yang memandu pengguna melalui keputusan strategis BPTAPERA. Dimulai dengan hook (tantangan inti), kemudian membedah dua area keputusan utama (Database & Infrastruktur) dalam bagian terpisah, dan diakhiri dengan sinergi rekomendasi. Struktur ini dipilih untuk memecah informasi teknis yang kompleks menjadi segmen yang dapat dicerna, menggunakan visualisasi data untuk perbandingan cepat dan teks ringkas untuk konteks. Alur naratif dari 'masalah' ke 'analisis' hingga 'solusi' membuat konten lebih menarik dan mudah diikuti daripada laporan teknis biasa. -->
+    <!-- Visualization & Content Choices: 
+        - [Current State KPI]: (Goal: Inform) -> [Single Big Number]: Menyoroti '40 QPS' sebagai titik jangkar utama analisis. (Method: HTML/CSS).
+        - [Database TCO]: (Goal: Compare) -> [Horizontal Bar Chart (Chart.js)]: Cara paling jelas untuk membandingkan satu metrik (biaya) di antara tiga opsi. (Library: Chart.js).
+        - [Database Multi-Criteria]: (Goal: Compare/Relationships) -> [Radar Chart (Chart.js)]: Sempurna untuk menunjukkan kekuatan dan kelemahan multi-dimensi secara visual, dengan jelas menyoroti 'keseimbangan' yang ditawarkan PostgreSQL. (Library: Chart.js).
+        - [Infrastructure Operational Model]: (Goal: Organize/Compare) -> [HTML/CSS Diagram]: Menggunakan kotak dan label untuk secara visual membedakan model operasional 'silo' vs 'terintegrasi'. Efektif tanpa memerlukan grafis kompleks. (Method: HTML/CSS).
+        - [Infrastructure Feature Comparison]: (Goal: Compare) -> [Grouped Bar Chart (Chart.js)]: Ideal untuk perbandingan fitur head-to-head antara dua tumpukan infrastruktur. (Library: Chart.js).
+        - [Final Recommended Architecture]: (Goal: Inform) -> [HTML/CSS Diagram]: Visualisasi akhir yang bersih dan berdampak untuk mengkomunikasikan arsitektur masa depan yang direkomendasikan. (Method: HTML/CSS).
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F8F9FA; color: #212529; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+        .kpi-card { background: linear-gradient(135deg, #0077B6, #00B4D8); }
+        .recommendation-card { border-left: 5px solid #0077B6; }
+        .section-title { border-bottom: 3px solid #48CAE4; padding-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <nav class="container mx-auto px-6 py-3">
+            <ul class="flex justify-center space-x-4 md:space-x-8 text-sm md:text-base font-semibold">
+                <li><a href="#hero" class="text-gray-700 hover:text-[#0077B6] transition-colors">Pengantar</a></li>
+                <li><a href="#database" class="text-gray-700 hover:text-[#0077B6] transition-colors">Analisis Database</a></li>
+                <li><a href="#infra" class="text-gray-700 hover:text-[#0077B6] transition-colors">Analisis Infrastruktur</a></li>
+                <li><a href="#future" class="text-gray-700 hover:text-[#0077B6] transition-colors">Rekomendasi</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="hero" class="text-center py-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#003f5c]">Modernisasi Platform BPTAPERA</h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Sebuah kajian strategis untuk memigrasikan teknologi inti demi efisiensi, skalabilitas, dan inovasi di masa depan.</p>
+            <div class="mt-12 flex justify-center">
+                <div class="kpi-card text-white p-8 rounded-xl shadow-2xl transform hover:scale-105 transition-transform">
+                    <p class="text-2xl font-semibold">Beban Kerja Saat Ini</p>
+                    <p class="text-6xl font-bold my-2">40 QPS</p>
+                    <p class="text-xl">(Queries Per Second)</p>
+                    <p class="mt-4 text-sm bg-black bg-opacity-20 px-3 py-1 rounded-full">Didominasi Pemrosesan Batch</p>
+                </div>
+            </div>
+            <p class="mt-8 text-gray-500 max-w-2xl mx-auto">Angka ini adalah kunci. Ini menunjukkan bahwa platform saat ini kemungkinan *over-provisioned*, membuka peluang besar untuk optimalisasi biaya dan kinerja.</p>
+        </section>
+
+        <section id="database" class="py-16">
+            <h2 class="text-3xl font-bold text-center mb-2 section-title inline-block">Dilema Database: Memilih yang Tepat</h2>
+            <p class="text-center text-gray-600 mt-4 mb-12 max-w-3xl mx-auto">Dengan beban kerja 40 QPS, pemilihan database menjadi krusial. Analisis ini membandingkan solusi saat ini (CockroachDB) dengan dua alternatif populer (PostgreSQL & Oracle) untuk menemukan keseimbangan terbaik antara biaya, kinerja, dan risiko.</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-center mb-4">Perbandingan Total Cost of Ownership (TCO)</h3>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Biaya bukan hanya soal lisensi awal. Oracle memiliki TCO tertinggi karena dukungan tahunan yang mahal, sementara PostgreSQL menawarkan model paling hemat biaya.</p>
+                    <div class="chart-container" style="height: 250px;">
+                        <canvas id="tcoChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-center mb-4">Analisis Multi-Kriteria</h3>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Grafik ini menunjukkan keseimbangan. PostgreSQL unggul dalam biaya dan fleksibilitas (tanpa *vendor lock-in*), menjadikannya pilihan paling seimbang untuk kebutuhan BPTAPERA saat ini.</p>
+                    <div class="chart-container">
+                        <canvas id="dbRadarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="infra" class="py-16">
+            <h2 class="text-3xl font-bold text-center mb-2 section-title inline-block">Evolusi Infrastruktur: Menuju Integrasi</h2>
+            <p class="text-center text-gray-600 mt-4 mb-12 max-w-3xl mx-auto">Pergeseran dari platform terpisah (Rancher + VMware) ke platform terpadu (OpenShift) adalah langkah strategis untuk menyederhanakan operasional dan mempercepat inovasi.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-white rounded-lg shadow-lg p-8 mb-12">
+                <div>
+                    <h3 class="text-xl font-bold text-[#0077B6]">Model Saat Ini: Operasional Silo</h3>
+                    <p class="text-sm text-gray-600 mt-2 mb-4">Tim mengelola dua platform berbeda, menciptakan potensi kompleksitas dalam CI/CD, keamanan, dan pemantauan.</p>
+                    <div class="flex flex-col space-y-2">
+                        <div class="bg-gray-200 p-3 rounded-md text-center font-medium">Manajemen Kontainer (Rancher)</div>
+                        <div class="bg-gray-200 p-3 rounded-md text-center font-medium">Manajemen Virtualisasi (VMware)</div>
+                    </div>
+                </div>
+                <div class="text-4xl text-center font-bold text-[#0077B6]">→</div>
+                <div>
+                    <h3 class="text-xl font-bold text-[#0077B6]">Model Masa Depan: Platform Terpadu</h3>
+                    <p class="text-sm text-gray-600 mt-2 mb-4">OpenShift mengelola kontainer dan VM dari satu antarmuka, menyederhanakan operasional dan menyatukan tooling.</p>
+                    <div class="bg-[#CAF0F8] p-3 rounded-md text-center font-medium border border-[#48CAE4]">Manajemen Terpadu (OpenShift)</div>
+                </div>
+            </div>
+
+             <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-semibold text-center mb-4">Perbandingan Fitur Platform</h3>
+                <p class="text-sm text-gray-600 mb-4 text-center">OpenShift menawarkan keunggulan signifikan dalam fitur bawaan seperti CI/CD dan keamanan terintegrasi, yang mengurangi kebutuhan akan *tool* pihak ketiga dan menyederhanakan pengalaman pengembang.</p>
+                <div class="chart-container">
+                    <canvas id="infraBarChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="future" class="py-16 text-center">
+            <h2 class="text-4xl font-extrabold text-[#003f5c] mb-6">Sinergi Masa Depan: Arsitektur yang Direkomendasikan</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-10">Menggabungkan kedua rekomendasi menciptakan platform yang kuat, hemat biaya, dan siap untuk masa depan. Kombinasi PostgreSQL di atas OpenShift adalah langkah strategis yang paling logis.</p>
+            
+            <div class="bg-white rounded-xl shadow-2xl p-8 max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                    <div class="text-center">
+                        <p class="text-6xl">🐘</p>
+                        <h4 class="text-2xl font-bold mt-2 text-[#0077B6]">PostgreSQL</h4>
+                        <p class="text-gray-600">Database Open-Source Hemat Biaya & Fleksibel</p>
+                    </div>
+                    <div class="text-4xl font-bold text-gray-400">+</div>
+                     <div class="text-center">
+                        <p class="text-6xl">⚙️</p>
+                        <h4 class="text-2xl font-bold mt-2 text-[#0096C7]">OpenShift</h4>
+                        <p class="text-gray-600">Platform Cloud-Native Terintegrasi</p>
+                    </div>
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <h4 class="text-2xl font-bold text-[#003f5c]">Hasil: Platform Modern yang Optimal</h4>
+                    <div class="mt-4 flex flex-wrap justify-center gap-4 text-sm">
+                        <span class="bg-green-100 text-green-800 font-medium px-4 py-2 rounded-full">Biaya Teroptimasi</span>
+                        <span class="bg-blue-100 text-blue-800 font-medium px-4 py-2 rounded-full">Operasional Efisien</span>
+                        <span class="bg-indigo-100 text-indigo-800 font-medium px-4 py-2 rounded-full">Skalabilitas Tinggi</span>
+                        <span class="bg-purple-100 text-purple-800 font-medium px-4 py-2 rounded-full">Inovasi Cepat</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-6 bg-gray-800 text-white">
+        <p>&copy; 2024 Kajian Strategis BPTAPERA. Infografis ini dibuat untuk tujuan analisis.</p>
+    </footer>
+
+<script>
+const wrapLabel = (label) => {
+    if (typeof label !== 'string' || label.length <= 16) {
+        return label;
+    }
+    const words = label.split(' ');
+    const lines = [];
+    let currentLine = '';
+    for (const word of words) {
+        if ((currentLine + word).length > 16 && currentLine.length > 0) {
+            lines.push(currentLine);
+            currentLine = word;
+        } else {
+            currentLine += (currentLine ? ' ' : '') + word;
+        }
+    }
+    if (currentLine) {
+        lines.push(currentLine);
+    }
+    return lines;
+};
+
+const tooltipTitleCallback = (tooltipItems) => {
+    const item = tooltipItems[0];
+    let label = item.chart.data.labels[item.dataIndex];
+    if (Array.isArray(label)) {
+      return label.join(' ');
+    }
+    return label;
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    
+    const tcoChartCtx = document.getElementById('tcoChart').getContext('2d');
+    new Chart(tcoChartCtx, {
+        type: 'bar',
+        data: {
+            labels: ['PostgreSQL', 'CockroachDB', 'Oracle DB'],
+            datasets: [{
+                label: 'Tingkat TCO Relatif',
+                data: [2, 5, 10],
+                backgroundColor: ['#48CAE4', '#00B4D8', '#0077B6'],
+                borderColor: '#ffffff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: { display: false },
+                    grid: { display: false },
+                },
+                y: { grid: { display: false } }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            }
+        }
+    });
+
+    const dbRadarChartCtx = document.getElementById('dbRadarChart').getContext('2d');
+    new Chart(dbRadarChartCtx, {
+        type: 'radar',
+        data: {
+            labels: ['Biaya Rendah', 'Kinerja', 'HA/DR Bawaan', ['Fleksibilitas', '(No Lock-in)'], ['Efisiensi', 'utk 40 QPS']],
+            datasets: [{
+                label: 'PostgreSQL',
+                data: [5, 3, 3, 5, 4],
+                backgroundColor: 'rgba(72, 202, 228, 0.2)',
+                borderColor: '#48CAE4',
+                pointBackgroundColor: '#48CAE4'
+            }, {
+                label: 'CockroachDB',
+                data: [3, 4, 5, 3, 2],
+                backgroundColor: 'rgba(0, 180, 216, 0.2)',
+                borderColor: '#00B4D8',
+                pointBackgroundColor: '#00B4D8'
+            }, {
+                label: 'Oracle DB',
+                data: [1, 5, 4, 1, 3],
+                backgroundColor: 'rgba(0, 119, 182, 0.2)',
+                borderColor: '#0077B6',
+                pointBackgroundColor: '#0077B6'
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: { color: '#e9ecef' },
+                    grid: { color: '#dee2e6' },
+                    pointLabels: { font: { size: 11 } },
+                    ticks: { display: false, stepSize: 1 },
+                    min: 0,
+                    max: 5
+                }
+            },
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            }
+        }
+    });
+
+    const infraBarChartCtx = document.getElementById('infraBarChart').getContext('2d');
+    const infraLabels = ['Manajemen Terpadu', 'CI/CD Bawaan', 'Keamanan Terintegrasi', 'Fleksibilitas Tooling'];
+    new Chart(infraBarChartCtx, {
+        type: 'bar',
+        data: {
+            labels: infraLabels.map(wrapLabel),
+            datasets: [
+                {
+                    label: 'Rancher + VMware',
+                    data: [2, 1, 2, 5],
+                    backgroundColor: '#00B4D8',
+                },
+                {
+                    label: 'OpenShift Platform',
+                    data: [5, 5, 5, 3],
+                    backgroundColor: '#0077B6',
+                }
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 5,
+                    ticks: {
+                        callback: function(value) {
+                            const labels = ['', 'Rendah', '', 'Sedang', '', 'Tinggi'];
+                            return labels[value];
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            }
+        }
+    });
+
+});
+</script>
+
+</body>
+</html>
