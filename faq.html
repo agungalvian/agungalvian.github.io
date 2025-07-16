@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>FAQ Layanan BPTAPERA</title>
 <style>
-  /* Palet warna kekinian: biru tua, hijau mint, abu-abu terang, putih */
   :root {
-    --primary-color: #004a99;      /* biru tua */
-    --secondary-color: #4caf50;    /* hijau segar */
-    --background-color: #f7f9fc;   /* abu-abu sangat terang */
-    --text-color: #1a1a1a;
-    --accent-color: #81c784;       /* hijau mint */
-    --border-color: #d4d9df;
+    --primary-color: #007f4e;      /* hijau corporate BPTAPERA */
+    --secondary-color: #00b573;    /* hijau segar */
+    --background-color: #f0f7f4;   /* hijau sangat terang */
+    --text-color: #1a3d2f;
+    --accent-color: #a7d9b6;       /* hijau muda */
+    --border-color: #c7e4d9;
+    --shadow-color: rgba(0, 127, 78, 0.25);
   }
 
   body {
@@ -20,80 +20,124 @@
     background: var(--background-color);
     color: var(--text-color);
     margin: 0;
-    padding: 0 1rem;
+    padding: 1rem 1.5rem;
+    line-height: 1.5;
   }
 
   header {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 1.5rem 1rem;
     text-align: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    padding: 2rem 1rem 1rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 0 0 25px 25px;
+    box-shadow: 0 4px 15px var(--shadow-color);
   }
 
   header h1 {
     margin: 0;
     font-weight: 700;
-    font-size: 1.8rem;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+  }
+
+  header p {
+    font-size: 1.1rem;
+    margin-top: 0.3rem;
+    font-weight: 500;
   }
 
   main {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 2rem auto 3rem;
-    padding: 1rem;
     background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border-radius: 15px;
+    box-shadow: 0 6px 25px var(--shadow-color);
+    padding: 2rem 2.5rem;
   }
 
   h2 {
     color: var(--primary-color);
-    border-bottom: 3px solid var(--secondary-color);
-    padding-bottom: 0.3rem;
+    border-left: 6px solid var(--secondary-color);
+    padding-left: 0.75rem;
     margin-bottom: 1rem;
+    font-size: 1.8rem;
   }
 
   section {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
   }
 
   details {
-    background: #e7f3ff;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    padding: 0.8rem 1rem;
-    margin-bottom: 1rem;
-    box-shadow: 1px 1px 4px rgba(100, 150, 200, 0.2);
+    background: var(--accent-color);
+    border: 1.5px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 3px 10px var(--shadow-color);
+    transition: background-color 0.3s ease;
   }
+  details[open] {
+    background: #d0efd9;
+  }
+
   details summary {
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    outline: none;
     font-size: 1.1rem;
+    list-style: none;
+    position: relative;
+    padding-right: 25px;
+    user-select: none;
     color: var(--primary-color);
   }
 
-  details[open] {
-    background: #d0e7ff;
-    box-shadow: 1px 1px 8px rgba(50, 120, 200, 0.3);
+  /* Remove default arrow */
+  details summary::-webkit-details-marker {
+    display: none;
   }
 
-  p {
-    margin: 0.6rem 0 0 1rem;
+  /* Custom arrow */
+  details summary::after {
+    content: '▼';
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+    color: var(--secondary-color);
+  }
+
+  details[open] summary::after {
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  details p {
+    margin: 0.7rem 0 0 0;
+    padding-left: 10px;
+    font-size: 1rem;
     line-height: 1.4;
+    color: #145c33;
   }
 
   footer {
     text-align: center;
-    padding: 1rem;
     font-size: 0.9rem;
-    color: #777;
+    color: var(--primary-color);
+    padding: 1.5rem 0;
+    font-weight: 600;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
+    body {
+      padding: 0.7rem 1rem;
+    }
     main {
-      margin: 1rem;
-      padding: 1rem 0.6rem;
+      padding: 1.5rem 1.5rem;
+      margin: 1.5rem auto 2rem;
+    }
+    h2 {
+      font-size: 1.5rem;
     }
   }
 </style>
@@ -102,27 +146,40 @@
 
 <header>
   <h1>FAQ Layanan BPTAPERA</h1>
-  <p>Informasi lengkap tentang produk dan layanan Tabungan Perumahan Rakyat</p>
+  <p>Menjawab pertanyaan penting seputar tabungan dan pembiayaan perumahan rakyat</p>
 </header>
 
 <main>
+
+  <section>
+    <h2>FAQ Umum Tentang BPTAPERA</h2>
+    <details>
+      <summary>Apa itu BPTAPERA?</summary>
+      <p>BPTAPERA (Badan Pengelola Tabungan Perumahan Rakyat) adalah lembaga yang mengelola program tabungan perumahan nasional untuk membantu masyarakat memiliki rumah melalui pembiayaan dan tabungan.</p>
+    </details>
+    <details>
+      <summary>Bagaimana BPTAPERA mengelola dana peserta?</summary>
+      <p>BPTAPERA mengelola simpanan peserta menggunakan prinsip kehati-hatian dengan investasi profesional untuk memaksimalkan imbal hasil aman dan berkelanjutan selama masa kepesertaan.</p>
+    </details>
+    <details>
+      <summary>Produk pembiayaan apa saja yang disediakan BPTAPERA?</summary>
+      <p>Produk pembiayaan meliputi KPR TAPERA, KBR TAPERA, KRR TAPERA, FLPP, serta layanan pengembalian tabungan bagi peserta yang pensiun atau mengakhiri kepesertaan.</p>
+    </details>
+    <details>
+      <summary>Siapa yang dapat menjadi peserta program Tapera?</summary>
+      <p>Peserta adalah ASN, Pekerja BUMN/BUMD, pekerja swasta, termasuk pekerja mandiri yang memenuhi persyaratan untuk ikut program Tapera.</p>
+    </details>
+  </section>
+
   <section>
     <h2>1. KPR TAPERA</h2>
     <details>
       <summary>Apa itu KPR TAPERA?</summary>
-      <p>KPR TAPERA adalah produk pembiayaan yang diberikan kepada peserta yang ingin membeli hunian yang sudah jadi (rumah siap huni).</p>
-    </details>
-    <details>
-      <summary>Siapa yang dapat mengakses KPR TAPERA?</summary>
-      <p>Peserta program Tapera yang memenuhi syarat dan membutuhkan pembiayaan untuk membeli rumah pertama mereka.</p>
-    </details>
-    <details>
-      <summary>Apa manfaat utama dari KPR TAPERA?</summary>
-      <p>Pembiayaan dengan bunga kompetitif dan tenor yang sesuai kemampuan peserta, serta kemudahan akses melalui BPTAPERA.</p>
+      <p>KPR TAPERA adalah produk pembiayaan untuk peserta yang ingin membeli rumah jadi dengan suku bunga kompetitif dan tenor fleksibel sesuai kemampuan.</p>
     </details>
     <details>
       <summary>Bagaimana cara mengajukan KPR TAPERA?</summary>
-      <p>Peserta dapat mengajukan melalui kantor BPTAPERA atau mitra perbankan yang bekerja sama dengan BPTAPERA dengan memenuhi persyaratan kelengkapan dokumen.</p>
+      <p>Peserta dapat mengajukan di kantor BPTAPERA atau mitra perbankan resmi dengan melengkapi dokumen persyaratan yang dibutuhkan.</p>
     </details>
   </section>
 
@@ -130,19 +187,11 @@
     <h2>2. KBR TAPERA</h2>
     <details>
       <summary>Apa itu KBR TAPERA?</summary>
-      <p>KBR TAPERA adalah produk pembiayaan untuk peserta yang ingin membangun rumah di atas tanah pribadi miliknya sendiri.</p>
+      <p>KBR TAPERA adalah pembiayaan bagi peserta yang memiliki tanah sendiri dan ingin membangun rumah di atas tanah tersebut.</p>
     </details>
     <details>
-      <summary>Siapa yang berhak mendapatkan KBR TAPERA?</summary>
-      <p>Peserta Tapera yang sudah memiliki tanah sendiri dan ingin membiayai pembangunan rumahnya.</p>
-    </details>
-    <details>
-      <summary>Apa saja persyaratan umum pembiayaan KBR TAPERA?</summary>
-      <p>Bukti kepemilikan tanah, dokumen rencana pembangunan, dan memenuhi kriteria administratif serta kelayakan yang ditentukan BPTAPERA.</p>
-    </details>
-    <details>
-      <summary>Apa keunggulan KBR TAPERA?</summary>
-      <p>Mendukung peserta memiliki rumah baru yang dibangun sesuai dengan keinginan dan kebutuhan di tanah pribadi.</p>
+      <summary>Persyaratan utama untuk KBR TAPERA?</summary>
+      <p>Bukti kepemilikan tanah, dokumen rencana bangun rumah, dan sesuai kriteria administratif dari BPTAPERA.</p>
     </details>
   </section>
 
@@ -150,81 +199,46 @@
     <h2>3. KRR TAPERA</h2>
     <details>
       <summary>Apa itu KRR TAPERA?</summary>
-      <p>KRR TAPERA adalah produk pembiayaan yang diberikan kepada peserta yang ingin membeli hunian yang sudah jadi, mirip dengan KPR tapi mungkin dengan ketentuan berbeda sesuai program.</p>
-    </details>
-    <details>
-      <summary>Apa perbedaan KRR dengan KPR TAPERA?</summary>
-      <p>Detail perbedaan biasanya terdapat pada jenis hunian yang dibiayai atau struktur pembiayaannya sesuai kebijakan BPTAPERA.</p>
-    </details>
-    <details>
-      <summary>Bagaimana cara mengakses KRR TAPERA?</summary>
-      <p>Melalui pendaftaran dan proses pembiayaan resmi sesuai prosedur yang ditetapkan oleh BPTAPERA.</p>
+      <p>Produk kredit yang mirip KPR untuk pembelian rumah jadi dengan ketentuan khusus sesuai program BPTAPERA.</p>
     </details>
   </section>
 
   <section>
-    <h2>4. FLPP (Fasilitas Likuiditas Pembiayaan Perumahan)</h2>
+    <h2>4. FLPP</h2>
     <details>
       <summary>Apa itu FLPP?</summary>
-      <p>FLPP adalah produk pembiayaan yang diberikan kepada masyarakat non-ASN yang ingin membeli rumah pertama mereka dengan bantuan subsidi pemerintah.</p>
-    </details>
-    <details>
-      <summary>Siapa yang bisa mengikuti FLPP?</summary>
-      <p>Masyarakat umum selain ASN yang memenuhi syarat sebagai calon pembeli rumah pertama.</p>
-    </details>
-    <details>
-      <summary>Apa keuntungan FLPP?</summary>
-      <p>Suku bunga rendah karena disubsidi pemerintah, tenor dan cicilan terjangkau untuk masyarakat berpenghasilan rendah hingga menengah.</p>
+      <p>Fasilitas Likuiditas Pembiayaan Perumahan untuk masyarakat non-ASN dengan subsidi pemerintah agar dapat memiliki rumah pertama dengan suku bunga rendah.</p>
     </details>
     <details>
       <summary>Bagaimana cara mendaftar FLPP?</summary>
-      <p>Melalui pengembang atau perbankan yang bekerjasama dengan pemerintah dan BPTAPERA, dengan melengkapi dokumen yang disyaratkan.</p>
+      <p>Melalui pengembang atau bank yang bekerja sama dengan pemerintah dan BPTAPERA dengan dokumen lengkap.</p>
     </details>
   </section>
 
   <section>
     <h2>5. Pengembalian Tabungan</h2>
     <details>
-      <summary>Apa itu produk Pengembalian Tabungan?</summary>
-      <p>Produk pengembalian simpanan dan hasil pemupukan simpanan untuk peserta yang sudah pensiun atau mengakhiri kepesertaan program Tapera.</p>
-    </details>
-    <details>
-      <summary>Kapan peserta bisa melakukan pengembalian tabungan?</summary>
-      <p>Saat peserta pensiun, berhenti bekerja, pindah ke luar negeri, atau memenuhi syarat lain sesuai regulasi.</p>
+      <summary>Apa itu Pengembalian Tabungan?</summary>
+      <p>Layanan pengembalian simpanan dan hasil investasi bagi peserta yang sudah pensiun atau mengakhiri kepesertaan Tapera.</p>
     </details>
     <details>
       <summary>Bagaimana proses pengembalian tabungan?</summary>
-      <p>Peserta harus mengajukan permohonan dengan melampirkan dokumen pendukung, lalu diproses verifikasi dan pencairan oleh BPTAPERA.</p>
-    </details>
-    <details>
-      <summary>Apa yang menjadi dasar jumlah pengembalian?</summary>
-      <p>Simpanan pokok peserta ditambah hasil investasi selama periode kepesertaan.</p>
+      <p>Pengajuan dilakukan dengan dokumen lengkap dan proses verifikasi dari BPTAPERA sebelum dana dicairkan.</p>
     </details>
   </section>
 
   <section>
     <h2>6. Pendaftaran Peserta Pekerja Mandiri</h2>
     <details>
-      <summary>Apa itu layanan pendaftaran peserta pekerja mandiri?</summary>
-      <p>Proses pendaftaran kepesertaan program Tapera khusus untuk pekerja mandiri yang tidak termasuk ASN atau pekerja perusahaan formal.</p>
-    </details>
-    <details>
-      <summary>Siapa yang termasuk kategori pekerja mandiri?</summary>
-      <p>Pelaku usaha mikro, pedagang kaki lima, freelancer, dan profesi lainnya yang bekerja mandiri tanpa ikatan kerja formal.</p>
-    </details>
-    <details>
-      <summary>Bagaimana cara mendaftar sebagai peserta Tapera untuk pekerja mandiri?</summary>
-      <p>Daftar melalui kantor BPTAPERA atau platform digital resmi dengan melengkapi dokumen seperti identitas dan bukti penghasilan.</p>
-    </details>
-    <details>
-      <summary>Apa manfaat menjadi peserta Tapera bagi pekerja mandiri?</summary>
-      <p>Akses kepemilikan rumah melalui produk pembiayaan Tapera dan manfaat tabungan perumahan yang dikelola BPTAPERA.</p>
+      <summary>Bagaimana cara pekerja mandiri menjadi peserta Tapera?</summary>
+      <p>Pekerja mandiri dapat mendaftar sebagai peserta dengan memenuhi persyaratan administratif dan mengikuti prosedur pendaftaran resmi di BPTAPERA.</p>
     </details>
   </section>
+
 </main>
 
 <footer>
-  <p>Informasi resmi dan terbaru kunjungi <a href="https://tapera.go.id" target="_blank" rel="noopener" style="color: var(--secondary-color); text-decoration: none;">BP TAPERA - Linktree</a></p>
+  &copy; 2025 BPTAPERA - Semua Hak Dilindungi
 </footer>
 
 </body>
