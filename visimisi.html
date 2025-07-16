@@ -4,148 +4,212 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Visi Misi Divisi Layanan Digital BPTAPERA</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400;700&display=swap');
 
-    /* Reset & base */
+    /* Reset */
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
     }
+
     body {
-      font-family: 'Nunito', sans-serif;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: #f0f4f8;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #020c1b, #0d1b2a);
+      color: #a0e9fd;
       min-height: 100vh;
+      padding: 2rem;
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding: 2rem;
-    }
-    .container {
-      max-width: 900px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
-      padding: 2rem 3rem;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
     }
 
-    h1, h2, h3 {
-      margin-bottom: 1rem;
-      font-weight: 700;
-      color: #ffe066;
-      text-shadow: 0 2px 6px rgba(255, 224, 102, 0.8);
+    .container {
+      max-width: 950px;
+      background: rgba(8, 24, 48, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 0 25px #00e5ff;
+      padding: 3rem 4rem;
+      position: relative;
+      overflow: hidden;
     }
+
     h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 500;
       font-size: 2.8rem;
       text-align: center;
+      color: #00e5ff;
       margin-bottom: 2rem;
-      letter-spacing: 2px;
+      text-shadow:
+        0 0 8px #00e5ff,
+        0 0 20px #00e5ff;
     }
-    p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-      color: #dbeafe;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-    }
-    .highlight {
-      color: #ffd166;
+
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      color: #00bcd4;
       font-weight: 700;
+      letter-spacing: 1.5px;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 6px #00bcd4;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    h3 {
+      color: #29b6f6;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 4px #29b6f6;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+    }
+
+    p {
+      line-height: 1.7;
+      color: #b2ebf2;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 2px rgba(0, 229, 255, 0.7);
     }
 
     ul {
-      margin-left: 1.25rem;
+      list-style: none;
       margin-bottom: 2rem;
     }
     ul li {
-      margin-bottom: 0.75rem;
-      line-height: 1.5;
-      color: #ffe7a3;
+      margin-bottom: 0.9rem;
+      padding-left: 2.2rem;
+      position: relative;
+      font-weight: 500;
+      color: #81d4fa;
+    }
+    ul li::before {
+      content: '\f0a9'; /* chevron-right icon code from FontAwesome */
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #00e5ff;
+      text-shadow: 0 0 5px #00e5ff;
     }
 
-    /* Misi implementations style */
+    /* Misi implementation box */
     .misi-section {
-      background: rgba(255, 255, 255, 0.15);
+      background: #011627;
+      border-left: 5px solid #00e5ff;
+      padding: 1.2rem 1.5rem;
       border-radius: 10px;
-      padding: 1rem 1.5rem;
-      margin-bottom: 1.75rem;
-      box-shadow: inset 0 0 10px #ffc107aa;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 12px #00bcd4;
+      transition: transform 0.3s ease;
     }
-    .misi-section h3 {
-      color: #ffb703;
-      margin-bottom: 0.75rem;
+    .misi-section:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 25px #00e5ff;
     }
-    .misi-section p {
-      color: #fff3b0;
-      font-style: italic;
+
+    /* Icon styles */
+    .icon-neon {
+      color: #00e5ff;
+      text-shadow:
+        0 0 5px #00e5ff,
+        0 0 10px #00e5ff,
+        0 0 15px #00e5ff;
+      font-size: 1.3rem;
+      min-width: 24px;
+      text-align: center;
+    }
+
+    /* Futuristic SVG decoration */
+    .decor-svg {
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 200px;
+      opacity: 0.12;
+      filter: drop-shadow(0 0 10px #00e5ff);
+      user-select: none;
+      pointer-events: none;
     }
 
     /* Responsive */
-    @media (max-width: 600px) {
-      body {
-        padding: 1rem;
-      }
+    @media (max-width: 700px) {
       .container {
-        padding: 1.5rem 1.5rem;
+        padding: 2rem 2rem;
       }
       h1 {
         font-size: 2rem;
+      }
+      h2 {
+        font-size: 1.25rem;
+      }
+      p, ul li {
+        font-size: 0.95rem;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Visi & Misi Divisi Layanan Digital BPTAPERA</h1>
+    <!-- Decorative SVG futuristic shape -->
+    <svg class="decor-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="48" stroke="#00e5ff" stroke-width="2" />
+      <path d="M20 50h60M50 20v60M30 30l40 40M30 70l40-40" stroke="#00e5ff" stroke-width="1.5" />
+    </svg>
+
+    <h1><i class="fas fa-robot icon-neon"></i> Visi & Misi Divisi Layanan Digital BPTAPERA</h1>
 
     <section>
-      <h2>Visi</h2>
-      <p><span class="highlight">Menjadi pusat layanan digital yang inovatif dan terpercaya</span> dalam mendukung transformasi digital BPTAPERA untuk memberikan kemudahan, kecepatan, dan kualitas layanan kepada masyarakat dan stakeholders.</p>
+      <h2><i class="fas fa-eye icon-neon"></i> Visi</h2>
+      <p><strong>Menjadi pusat layanan digital yang inovatif dan terpercaya</strong> dalam mendukung transformasi digital BPTAPERA untuk memberikan kemudahan, kecepatan, dan kualitas layanan kepada masyarakat dan stakeholders.</p>
     </section>
 
     <section>
-      <h2>Misi</h2>
+      <h2><i class="fas fa-bullseye icon-neon"></i> Misi</h2>
       <ul>
-        <li><span class="highlight">Mengembangkan dan mengelola platform digital yang handal, aman, dan user-friendly</span> untuk mendukung operasional dan pelayanan BPTAPERA.</li>
-        <li><span class="highlight">Meningkatkan kapabilitas teknologi informasi secara berkelanjutan</span> sesuai dengan perkembangan teknologi terkini.</li>
-        <li><span class="highlight">Memberikan pelayanan digital yang cepat, responsif, dan efektif</span> untuk meningkatkan kepuasan pengguna.</li>
-        <li><span class="highlight">Mendorong inovasi dan kolaborasi digital internal dan eksternal</span> demi tercapainya efisiensi dan efektivitas kerja.</li>
-        <li><span class="highlight">Menjamin keamanan data dan privasi pengguna sesuai dengan regulasi yang berlaku.</span></li>
+        <li><strong>Mengembangkan dan mengelola platform digital yang handal, aman, dan user-friendly</strong> untuk mendukung operasional dan pelayanan BPTAPERA.</li>
+        <li><strong>Meningkatkan kapabilitas teknologi informasi secara berkelanjutan</strong> sesuai dengan perkembangan teknologi terkini.</li>
+        <li><strong>Memberikan pelayanan digital yang cepat, responsif, dan efektif</strong> untuk meningkatkan kepuasan pengguna.</li>
+        <li><strong>Mendorong inovasi dan kolaborasi digital internal dan eksternal</strong> demi tercapainya efisiensi dan efektivitas kerja.</li>
+        <li><strong>Menjamin keamanan data dan privasi pengguna sesuai dengan regulasi yang berlaku.</strong></li>
       </ul>
     </section>
 
     <section>
-      <h2>Contoh Implementasi Misi</h2>
+      <h2><i class="fas fa-cogs icon-neon"></i> Contoh Implementasi Misi</h2>
 
       <div class="misi-section">
-        <h3>Misi 1</h3>
+        <h3><i class="fas fa-mobile-alt icon-neon"></i> Misi 1</h3>
         <p>Membangun dan merilis aplikasi mobile dan web yang terintegrasi untuk layanan administrasi dan pengaduan masyarakat.</p>
         <p>Melakukan pengujian dan pemeliharaan sistem secara berkala agar platform selalu optimal dan minim gangguan.</p>
       </div>
 
       <div class="misi-section">
-        <h3>Misi 2</h3>
+        <h3><i class="fas fa-chalkboard-teacher icon-neon"></i> Misi 2</h3>
         <p>Mengadakan pelatihan teknologi terbaru untuk tim IT setiap semester.</p>
         <p>Mengadopsi teknologi cloud dan AI untuk mendukung efisiensi layanan.</p>
       </div>
 
       <div class="misi-section">
-        <h3>Misi 3</h3>
+        <h3><i class="fas fa-comments icon-neon"></i> Misi 3</h3>
         <p>Menyediakan fitur live chat dan chatbot untuk layanan bantuan real-time.</p>
         <p>Menerapkan sistem tiket pengaduan online dengan waktu penyelesaian terukur.</p>
       </div>
 
       <div class="misi-section">
-        <h3>Misi 4</h3>
+        <h3><i class="fas fa-lightbulb icon-neon"></i> Misi 4</h3>
         <p>Menggalakkan hackathon internal dan kerja sama dengan startup teknologi untuk solusi layanan digital.</p>
         <p>Membangun portal kolaborasi antarunit kerja dan dengan mitra eksternal.</p>
       </div>
 
       <div class="misi-section">
-        <h3>Misi 5</h3>
+        <h3><i class="fas fa-shield-alt icon-neon"></i> Misi 5</h3>
         <p>Melakukan audit keamanan sistem secara rutin dan sertifikasi keamanan data.</p>
         <p>Membuat kebijakan dan pelatihan terkait perlindungan data pribadi bagi seluruh staf.</p>
       </div>
