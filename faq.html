@@ -1,276 +1,559 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yuk, Pahami BP Tapera! - FAQ Lengkap</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Pendaftaran Peserta Pekerja Mandiri Tapera</title>
     <style>
-        /* Modern Color Palette */
         :root {
-            --primary-blue: #007bff; /* A brighter, more vibrant blue */
-            --light-blue: #e7f5ff;   /* Very light blue for backgrounds */
-            --dark-text: #343a40;    /* Darker grey for main text */
-            --light-grey: #f8f9fa;   /* Off-white for body background */
-            --border-grey: #dee2e6;  /* Light grey for borders */
-            --highlight-text: #0056b3; /* Slightly darker blue for emphasis */
-            --shadow-color: rgba(0, 123, 255, 0.15); /* Shadow with primary blue tint */
+            --primary: #6C9BCF;
+            --secondary: #A5DD9B;
+            --accent: #FFD966;
+            --light: #F5F5F5;
+            --dark: #333333;
+            --text: #444444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--text);
             line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: var(--light-grey);
-            color: var(--dark-text);
         }
-        .header {
-            background-color: var(--primary-blue);
-            color: #fff;
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-            box-shadow: 0 4px 10px var(--shadow-color);
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 2.8em;
-            font-weight: 700;
-        }
-        .header p {
-            font-size: 1.1em;
-            opacity: 0.95;
-            margin-top: 10px;
-        }
+
         .container {
-            max-width: 900px;
-            margin: 30px auto;
-            background: #fff;
-            padding: 35px 40px;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-        h2 {
-            color: var(--primary-blue);
-            font-size: 1.8em;
-            margin-top: 30px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--border-grey);
-            padding-bottom: 10px;
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        nav li {
+            margin: 0 1rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
             font-weight: 600;
-        }
-        .faq-section {
-            margin-bottom: 30px;
-        }
-        .faq-item {
-            background: var(--light-blue);
-            border-left: 6px solid var(--primary-blue);
-            margin-bottom: 20px;
-            padding: 20px;
-            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
-        .faq-item:hover {
-            box-shadow: 0 6px 20px var(--shadow-color);
-            transform: translateY(-5px);
+
+        nav a:hover {
+            background-color: var(--primary);
+            color: white;
         }
+
+        section {
+            padding: 3rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
         .faq-question {
-            font-weight: 700;
-            color: var(--highlight-text); /* Use a slightly darker blue for contrast */
-            font-size: 1.25em;
-            margin-bottom: 10px;
+            background-color: var(--light);
+            padding: 1rem;
             cursor: pointer;
+            font-weight: 600;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .faq-question .arrow {
-            font-size: 1.5em;
-            transition: transform 0.3s ease;
-            color: var(--primary-blue); /* Arrow in primary blue */
+
+        .faq-question:hover {
+            background-color: #e9e9e9;
         }
-        .faq-question[aria-expanded="true"] .arrow {
-            transform: rotate(90deg);
-        }
+
         .faq-answer {
+            padding: 0 1rem;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease-out;
-            padding-left: 10px;
-            color: var(--dark-text);
-            font-size: 1.05em;
+            transition: max-height 0.3s ease;
         }
-        .faq-answer.show {
-            max-height: 500px; /* Adjust as needed for content length */
-            padding-top: 10px;
+
+        .faq-answer.active {
+            padding: 1rem;
+            max-height: 500px;
         }
-        .faq-answer ul, .faq-answer ol {
-            margin-left: 25px;
-            padding: 0;
-            list-style-position: outside;
+
+        .step {
+            display: flex;
+            margin-bottom: 1.5rem;
         }
-        .faq-answer li {
-            margin-bottom: 8px;
-            padding-left: 5px;
+
+        .step-number {
+            background-color: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
         }
-        .faq-answer li strong {
-            color: var(--highlight-text);
+
+        .step-content {
+            flex-grow: 1;
         }
-        strong {
-            color: var(--highlight-text); /* Highlight important terms */
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #5a8bc7;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #94d48a;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav li {
+                margin: 0.5rem 0;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Yuk, Pahami BP Tapera!</h1>
-        <p>Semua yang perlu kamu tahu tentang kepesertaan dan pembiayaan rumah impianmu ada di sini!</p>
-    </div>
-
-    <div class="container">
-
-        <h2>🏡 Seputar Kepesertaan Tapera</h2>
-
-        <div class="faq-section">
-            <div class="faq-item">
-                <div class="faq-question" role="button" aria-expanded="false" tabindex="0">
-                    1. Siapa saja sih yang wajib jadi peserta Tapera? <span class="arrow">></span>
-                </div>
-                <div class="faq-answer">
-                    Kamu wajib jadi peserta Tapera kalau kamu seorang **Warga Negara Indonesia (WNI)** atau **Warga Negara Asing (WNA)** pemegang izin tinggal tetap, usia minimal **20 tahun** (atau sudah menikah), dan punya penghasilan minimal setara **Upah Minimum (UM)**.
-                    <br><br>
-                    Ada dua jenis peserta utama:
-                    <ul>
-                        <li><strong>Pekerja Penerima Upah:</strong> Ini termasuk ASN, pegawai BUMN/BUMD/BUMDes, TNI, Polri, dan pekerja swasta.</li>
-                        <li><strong>Pekerja Mandiri:</strong> Kalau kamu pengusaha, pedagang, seniman, atau profesi bebas, kamu masuk kategori ini.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" role="button" aria-expanded="false" tabindex="0">
-                    2. Gimana cara daftarnya kalau aku Pekerja Penerima Upah? <span class="arrow">></span>
-                </div>
-                <div class="faq-answer">
-                    Gampang! Untuk kamu yang bekerja di perusahaan atau instansi, pendaftaranmu jadi tanggung jawab **Pemberi Kerja** (kantor atau instansimu).
-                    <br><br>
-                    Prosesnya begini:
-                    <ol>
-                        <li><strong>Pemberi Kerja Mendaftar:</strong> Kantor kamu akan mendaftar dulu ke Portal Pemberi Kerja di website BP Tapera.</li>
-                        <li><strong>Pekerja Didaftarkan:</strong> Setelah itu, Pemberi Kerja akan daftarin kamu dengan mengisi data-datamu seperti NIK, nama lengkap, tanggal lahir, dan informasi penghasilan.</li>
-                        <li><strong>Iuran Otomatis:</strong> Nanti, iuranmu (3% dari upah, 2.5% dari gajimu dan 0.5% dari kantor) akan dipotong otomatis dari gajimu dan disetor oleh Pemberi Kerja paling lambat tanggal 10 setiap bulan. Kamu enggak perlu repot!</li>
-                    </ol>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" role="button" aria-expanded="false" tabindex="0">
-                    3. Aku Pekerja Mandiri, gimana cara daftarnya? <span class="arrow">></span>
-                </div>
-                <div class="faq-answer">
-                    Buat kamu Pekerja Mandiri, kamu bisa daftar sendiri secara online. Tinggal kunjungi website resmi BP Tapera dan ikuti panduan pendaftarannya.
-                    <br><br>
-                    Siapkan dokumen-dokumen ini ya:
-                    <ul>
-                        <li><strong>Kartu Tanda Penduduk (KTP)</strong></li>
-                        <li><strong>Nomor Pokok Wajib Pajak (NPWP)</strong></li>
-                        <li><strong>Bukti Penghasilan:</strong> Bisa berupa surat keterangan usaha dari kelurahan, catatan keuangan, atau rekening koran.</li>
-                    </ul>
-                    Iuranmu juga 3% dari penghasilan, dan ini sepenuhnya kamu tanggung sendiri.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" role="button" aria-expanded="false" tabindex="0">
-                    4. Apa aja sih kewajiban Pemberi Kerja terkait Tapera? <span class="arrow">></span>
-                </div>
-                <div class="faq-answer">
-                    Pemberi Kerja punya beberapa tanggung jawab penting, antara lain:
-                    <ul>
-                        <li>Mendaftarkan seluruh pekerjanya yang memenuhi syarat sebagai peserta Tapera.</li>
-                        <li>Memotong dan menyetorkan iuran Tapera ke rekening BP Tapera secara teratur setiap bulan.</li>
-                        <li>Memberikan data dan informasi peserta secara akurat dan tepat waktu kepada BP Tapera.</li>
-                        <li>Melakukan pembaruan data jika ada perubahan status pekerja (misalnya, mutasi atau pensiun).</li>
-                    </ul>
-                </div>
-            </div>
+    <header>
+        <div class="container">
+            <h1>Pendaftaran Peserta Pekerja Mandiri Tapera</h1>
+            <p>Informasi lengkap tentang pendaftaran, FAQ, dan panduan pengunduran diri untuk peserta pekerja mandiri program Tabungan Perumahan Rakyat (Tapera)</p>
         </div>
+    </header>
 
-        <h2>💰 Bantuan Pembiayaan Rumah dari Tapera</h2>
-
-        <div class="faq-section">
-            <div class="faq-item">
-                <div class="faq-question" role="button" aria-expanded="false" tabindex="0">
-                    1. Apa itu KPR Tapera? Bedanya apa sih sama KPR FLPP? <span class="arrow">></span>
-                </div>
-                <div class="faq-answer">
-                    Keduanya sama-sama program pembiayaan rumah subsidi, tapi ada beberapa hal yang membedakannya:
-                    <ul>
-                        <li><strong>Sumber Dana:</strong> **KPR Tapera** dananya dari iuran peserta yang dikelola. Sementara **KPR FLPP (Fasilitas Likuiditas Pembiayaan Perumahan)** dananya dari APBN (Anggaran Pemerintah).</li>
-                        <li><strong>Syarat Peserta:</strong> Untuk KPR Tapera, kamu harus jadi peserta aktif minimal **12 bulan**. KPR FLPP nggak ada syarat masa kepesertaan Tapera, tapi memang fokusnya untuk Masyarakat Berpenghasilan Rendah (MBR).</li>
-                        <li><strong>Jenis Bantuan:</strong> BP Tapera kasih tiga pilihan: **KPR (beli rumah jadi)**, **KBR (bangun rumah)**, dan **KRR (renovasi rumah)**. Kalau FLPP cuma buat beli rumah jadi.</li>
-                        <li><strong>Jangka Waktu Cicilan:</strong> KPR Tapera bisa lebih panjang, sampai **30 tahun** untuk rumah tapak atau **35 tahun** untuk apartemen. KPR FLPP umumnya memiliki tenor maksimal 20 tahun.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" role="button" aria-expanded="false" tabindex="0">
-                    2. Apa itu Pembiayaan KRR (Kredit Renovasi Rumah) Tapera? <span class="arrow">></span>
-                </div>
-                <div class="faq-answer">
-                    **Kredit Renovasi Rumah (KRR) Tapera** itu bantuan pinjaman buat kamu yang mau merenovasi atau memperbaiki rumah pertamamu biar makin nyaman dan layak huni.
-                    <br><br>
-                    Untuk bisa mengajukan KRR, kamu harus:
-                    <ul>
-                        <li>Jadi peserta Tapera aktif minimal **12 bulan**.</li>
-                        <li>Sudah punya rumah pertama atas nama kamu atau pasangan.</li>
-                        <li>Masuk kategori Masyarakat Berpenghasilan Rendah (MBR).</li>
-                    </ul>
-                    Siapkan juga **bukti kepemilikan rumah** (sertifikat atau IMB) dan **Rencana Anggaran Biaya (RAB)** renovasinya ya. Plafon kredit dan jangka waktu cicilan akan disesuaikan dengan aturan yang berlaku.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" role="button" aria-expanded="false" tabindex="0">
-                    3. Apa itu Pembiayaan KBR (Kredit Bangun Rumah) Tapera? <span class="arrow">></span>
-                </div>
-                <div class="faq-answer">
-                    **Kredit Bangun Rumah (KBR) Tapera** adalah fasilitas pinjaman buat kamu yang sudah punya lahan dan pengen membangun rumah pertamamu sendiri di atas lahan tersebut.
-                    <br><br>
-                    Syaratnya mirip dengan KRR:
-                    <ul>
-                        <li>Jadi peserta Tapera aktif minimal **12 bulan**.</li>
-                        <li>Belum punya rumah, tapi sudah punya tanah atas nama kamu atau pasangan yang legal.</li>
-                        <li>Masuk kategori Masyarakat Berpenghasilan Rendah (MBR).</li>
-                    </ul>
-                    Dokumen penting yang perlu kamu siapkan antara lain **bukti kepemilikan tanah**, **Izin Mendirikan Bangunan (IMB)**, dan **Rencana Anggaran Biaya (RAB)** pembangunan rumahmu. Plafon kredit dan tenornya juga akan disesuaikan dengan kelayakan dan ketentuan dari BP Tapera.
-                </div>
-            </div>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#pendaftaran">Panduan Pendaftaran</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#pengunduran-diri">Pengunduran Diri</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
         </div>
-    </div>
+    </nav>
+
+    <main class="container">
+        <section id="pendaftaran">
+            <h2>Panduan Pendaftaran Peserta Pekerja Mandiri</h2>
+
+            <div class="card">
+                <h3>Siapa yang bisa mendaftar?</h3>
+                <p>Warga negara Indonesia berusia minimal 20 tahun atau sudah menikah, dengan penghasilan minimal setara upah minimum, dan menjalankan usaha atau pekerjaan mandiri.</p>
+
+                <h3>Dokumen yang dibutuhkan:</h3>
+                <ul>
+                    <li>KTP elektronik</li>
+                    <li>Bukti pendapatan atau surat keterangan usaha sebagai pekerja mandiri</li>
+                </ul>
+
+                <h3>Cara Mendaftar:</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        Akses portal pendaftaran melalui:
+                        <ul>
+                            <li>Aplikasi Tapera Mobile (unduh di Google Play Store atau Apple App Store)</li>
+                            <li>Website resmi: <a href="https://tds.tapera.go.id/kepesertaan" target="_blank">https://tds.tapera.go.id/kepesertaan</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        Isi formulir pendaftaran dengan data yang lengkap dan benar:
+                        <ul>
+                            <li>Data pribadi</li>
+                            <li>Data pekerjaan</li>
+                            <li>Data finansial</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        Unggah dokumen pendukung yang diperlukan (KTP dan bukti pendapatan/usaha)
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        Submit formulir dan tunggu verifikasi dari BP Tapera
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        Setelah disetujui, Anda akan mendapatkan akun peserta dan dapat mulai membayar iuran
+                    </div>
+                </div>
+
+                <h3>Besaran Iuran:</h3>
+                <p>Peserta mandiri wajib membayar iuran sebesar 3% dari penghasilan yang diterima setiap bulan.</p>
+
+                <a href="https://tds.tapera.go.id/kepesertaan" class="btn" target="_blank">Daftar Sekarang</a>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>FAQ (Pertanyaan yang Sering Diajukan)</h2>
+
+            <div class="card">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(1)">
+                        <span>Apa itu peserta pekerja mandiri Tapera?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer" id="faq-answer-1">
+                        Peserta pekerja mandiri adalah individu yang berprofesi sebagai freelancer, wirausaha, pedagang, atau sejenisnya yang tidak berstatus sebagai karyawan tetap dan memiliki penghasilan minimal setara upah minimum regional untuk ikut dalam program Tabungan Perumahan Rakyat (Tapera).
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(2)">
+                        <span>Siapa saja yang bisa mendaftar sebagai peserta pekerja mandiri Tapera?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer" id="faq-answer-2">
+                        Warga negara Indonesia berusia minimal 20 tahun atau sudah menikah, dengan penghasilan minimal setara upah minimum, dan menjalankan usaha atau pekerjaan mandiri.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(3)">
+                        <span>Dokumen apa saja yang dibutuhkan untuk pendaftaran?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer" id="faq-answer-3">
+                        Dokumen utama yang diperlukan adalah KTP elektronik dan bukti pendapatan atau surat keterangan usaha sebagai pekerja mandiri.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(4)">
+                        <span>Berapa besar iuran yang harus dibayarkan peserta pekerja mandiri Tapera?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer" id="faq-answer-4">
+                        Peserta mandiri wajib membayar iuran sebesar 3% dari penghasilan yang diterima setiap bulan.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(5)">
+                        <span>Apakah iuran peserta mandiri bisa ditanggung oleh pemberi kerja?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer" id="faq-answer-5">
+                        Tidak, iuran peserta mandiri harus ditanggung sendiri oleh peserta.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(6)">
+                        <span>Bagaimana cara membayar iuran Tapera?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer" id="faq-answer-6">
+                        Pembayaran dapat dilakukan melalui metode yang disediakan di portal resmi BP Tapera setelah proses pendaftaran selesai dan kepesertaan disetujui.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(7)">
+                        <span>Bagaimana saya bisa mengecek status pendaftaran dan iuran saya?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer" id="faq-answer-7">
+                        Peserta dapat memantau status pendaftaran dan histori pembayaran iuran dengan login ke akun masing-masing di portal BP Tapera.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(8)">
+                        <span>Apa manfaat menjadi peserta Tapera?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer" id="faq-answer-8">
+                        Tapera membantu peserta menabung untuk kepemilikan rumah dengan bunga ringan dan memberikan kemudahan akses pembiayaan perumahan.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(9)">
+                        <span>Jika saya mengalami masalah saat pendaftaran, ke mana saya bisa menghubungi?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer" id="faq-answer-9">
+                        Anda dapat menghubungi layanan pelanggan BP Tapera melalui nomor telepon resmi atau email yang tercantum di situs resmi https://www.tapera.go.id.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(10)">
+                        <span>Apakah bisa pekerja mandiri mengundurkan diri sebagai peserta Tapera?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer" id="faq-answer-10">
+                        Ya, peserta pekerja mandiri dapat mengundurkan diri dari program Tapera. Prosedur pengunduran diri biasanya dilakukan dengan mengajukan permohonan resmi kepada BP Tapera melalui portal peserta atau layanan pelanggan. Namun, pengunduran diri akan mengikuti ketentuan dan proses yang berlaku terkait saldo simpanan dan hak kepesertaan.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(11)">
+                        <span>Kapan iuran peserta pekerja mandiri mulai diberlakukan?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer" id="faq-answer-11">
+                        Iuran peserta pekerja mandiri mulai diberlakukan segera setelah proses pendaftaran peserta disetujui dan status kepesertaan aktif. Peserta wajib mulai membayar iuran bulanan sebesar 3% dari penghasilan sesuai mekanisme pembayaran yang tersedia di portal resmi BP Tapera.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(12)">
+                        <span>Apa syarat pengunduran diri peserta?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer" id="faq-answer-12">
+                        Peserta harus menyampaikan permohonan pengunduran diri secara tertulis, memastikan status kepesertaan aktif dan tidak memiliki tunggakan iuran, serta melengkapi dokumen identitas diri (KTP) sebagai verifikasi. Seluruh hak dan kewajiban sebagai peserta (termasuk saldo simpanan) akan diselesaikan sesuai aturan yang berlaku.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pengunduran-diri">
+            <h2>Panduan Pengunduran Diri Peserta</h2>
+
+            <div class="card">
+                <h3>Ketentuan Dasar</h3>
+                <ul>
+                    <li>Pengunduran diri sebagai peserta Tapera merupakan hak peserta, namun harus mengikuti prosedur resmi yang ditetapkan BP Tapera.</li>
+                    <li>Pengunduran diri harus diajukan secara resmi, baik melalui portal peserta Tapera atau melalui layanan pelanggan BP Tapera.</li>
+                </ul>
+
+                <h3>Syarat Pengunduran Diri</h3>
+                <ul>
+                    <li>Peserta harus menyampaikan permohonan pengunduran diri secara tertulis.</li>
+                    <li>Pastikan status kepesertaan Anda sudah aktif dan sedang tidak memiliki tunggakan iuran.</li>
+                    <li>Peserta harus melengkapi dokumen identitas diri (KTP) sebagai verifikasi.</li>
+                    <li>Seluruh hak dan kewajiban sebagai peserta (termasuk saldo simpanan) akan diselesaikan sesuai aturan yang berlaku.</li>
+                </ul>
+
+                <h3>Proses Pengajuan Pengunduran Diri</h3>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        Login ke portal resmi BP Tapera di https://peserta.tapera.go.id
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        Pilih menu pengunduran diri atau ajukan permohonan lewat fitur layanan pelanggan
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        Isi formulir pengunduran diri dengan data yang lengkap
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        Unggah dokumen pendukung jika diminta (misalnya KTP)
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        Kirimkan permohonan dan tunggu proses verifikasi dari BP Tapera
+                    </div>
+                </div>
+
+                <h3>Penyelesaian Administrasi</h3>
+                <ul>
+                    <li>BP Tapera akan melakukan verifikasi dan penghitungan saldo simpanan yang sudah terkumpul.</li>
+                    <li>Peserta akan mendapatkan informasi terkait mekanisme pengembalian saldo (jika ada) atau ketentuan lain sesuai regulasi.</li>
+                    <li>Pastikan Anda mengikuti semua instruksi yang diberikan oleh BP Tapera agar proses pengunduran diri berjalan lancar.</li>
+                </ul>
+
+                <h3>Efek Pengunduran Diri</h3>
+                <ul>
+                    <li>Setelah pengunduran diri efektif, peserta tidak lagi berkewajiban membayar iuran.</li>
+                    <li>Hak kepesertaan, termasuk akses ke program pembiayaan rumah dengan Tapera, akan berhenti.</li>
+                </ul>
+
+                <a href="https://peserta.tapera.go.id" class="btn btn-secondary" target="_blank">Portal Peserta Tapera</a>
+            </div>
+        </section>
+
+        <section id="kontak">
+            <h2>Kontak dan Informasi Lebih Lanjut</h2>
+
+            <div class="card">
+                <p>Untuk informasi lebih lanjut tentang program Tapera, silakan hubungi:</p>
+
+                <h3>BP Tapera</h3>
+                <ul>
+                    <li>Website: <a href="https://www.tapera.go.id" target="_blank">https://www.tapera.go.id</a></li>
+                    <li>Portal Peserta: <a href="https://peserta.tapera.go.id" target="_blank">https://peserta.tapera.go.id</a></li>
+                    <li>Portal Pendaftaran: <a href="https://tds.tapera.go.id/kepesertaan" target="_blank">https://tds.tapera.go.id/kepesertaan</a></li>
+                    <li>Nomor Telepon: (021) 12345678</li>
+                    <li>Email: info@tapera.go.id</li>
+                </ul>
+
+                <h3>Dokumen Resmi</h3>
+                <p>Untuk mempelajari lebih lanjut mengenai aturan lengkap program Tapera termasuk ketentuan pengunduran diri, Anda dapat melihat dokumen resmi PP No. 21 Tahun 2024 yang diterbitkan pemerintah:</p>
+                <p><a href="https://pembiayaan.pu.go.id/datamining/ckfinder/userfiles/files/TAPERA.pdf" target="_blank">PP No. 21 Tahun 2024 tentang Tapera</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Informasi Pendaftaran Peserta Pekerja Mandiri Tapera</p>
+            <p>Halaman ini dibuat untuk tujuan informasi saja. Untuk informasi resmi, silakan kunjungi situs BP Tapera.</p>
+        </div>
+    </footer>
 
     <script>
-        document.querySelectorAll('.faq-question').forEach(item => {
-            item.addEventListener('click', event => {
-                const answer = item.nextElementSibling;
-                const isExpanded = item.getAttribute('aria-expanded') === 'true';
+        function toggleFAQ(id) {
+            const answer = document.getElementById(`faq-answer-${id}`);
+            const icon = answer.previousElementSibling.querySelector('.toggle-icon');
 
-                if (isExpanded) {
-                    answer.classList.remove('show');
-                    item.setAttribute('aria-expanded', 'false');
-                } else {
-                    // Close all other open answers
-                    document.querySelectorAll('.faq-answer.show').forEach(openAnswer => {
-                        openAnswer.classList.remove('show');
-                        openAnswer.previousElementSibling.setAttribute('aria-expanded', 'false');
-                    });
-                    answer.classList.add('show');
-                    item.setAttribute('aria-expanded', 'true');
-                }
+            answer.classList.toggle('active');
+
+            if (answer.classList.contains('active')) {
+                icon.textContent = '-';
+            } else {
+                icon.textContent = '+';
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
         });
     </script>
