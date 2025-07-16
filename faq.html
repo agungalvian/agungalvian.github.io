@@ -120,6 +120,22 @@
     color: #145c33;
   }
 
+  /* Search box style */
+  #searchBox {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    border: 2px solid var(--primary-color);
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  #searchBox:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 8px var(--secondary-color);
+  }
+
   footer {
     text-align: center;
     font-size: 0.9rem;
@@ -150,6 +166,8 @@
 </header>
 
 <main>
+
+  <input type="text" id="searchBox" placeholder="Cari FAQ... ketik kata kunci seperti 'KPR', 'pengembalian', atau 'peserta'..." aria-label="Cari FAQ">
 
   <section>
     <h2>FAQ Umum Tentang BPTAPERA</h2>
@@ -240,6 +258,24 @@
 <footer>
   &copy; 2025 BPTAPERA - Semua Hak Dilindungi
 </footer>
+
+<script>
+  const searchBox = document.getElementById('searchBox');
+  searchBox.addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    const detailsList = document.querySelectorAll('main section details');
+    
+    detailsList.forEach(detail => {
+      const summaryText = detail.querySelector('summary').textContent.toLowerCase();
+      const paraText = detail.querySelector('p').textContent.toLowerCase();
+      if (summaryText.includes(query) || paraText.includes(query)) {
+        detail.style.display = 'block';
+      } else {
+        detail.style.display = 'none';
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
