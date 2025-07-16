@@ -6,276 +6,322 @@
 <title>FAQ Layanan BPTAPERA</title>
 <style>
   :root {
-    --primary-color: #007f4e;      /* hijau corporate BPTAPERA */
-    --secondary-color: #00b573;    /* hijau segar */
-    --background-color: #f0f7f4;   /* hijau sangat terang */
-    --text-color: #1a3d2f;
-    --accent-color: #a7d9b6;       /* hijau muda */
-    --border-color: #c7e4d9;
-    --shadow-color: rgba(0, 127, 78, 0.25);
+    --green-primary: #007a3d;
+    --green-light: #88c057;
+    --green-dark: #005a29;
+    --background: #f5fdfa;
+    --text-color: #034d25;
+    --accent-color: #00b74a;
   }
-
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: var(--background-color);
+    background-color: var(--background);
     color: var(--text-color);
     margin: 0;
-    padding: 1rem 1.5rem;
-    line-height: 1.5;
+    padding: 20px;
   }
-
-  header {
+  h1, h2, h3 {
+    color: var(--green-dark);
+  }
+  h1 {
     text-align: center;
-    padding: 2rem 1rem 1rem;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    border-radius: 0 0 25px 25px;
-    box-shadow: 0 4px 15px var(--shadow-color);
+    margin-bottom: 0.5em;
   }
-
-  header h1 {
-    margin: 0;
-    font-weight: 700;
-    font-size: 2.2rem;
-    letter-spacing: 1px;
-  }
-
-  header p {
-    font-size: 1.1rem;
-    margin-top: 0.3rem;
-    font-weight: 500;
-  }
-
-  main {
-    max-width: 1000px;
-    margin: 2rem auto 3rem;
+  .faq-container {
+    max-width: 900px;
+    margin: auto;
     background: white;
-    border-radius: 15px;
-    box-shadow: 0 6px 25px var(--shadow-color);
-    padding: 2rem 2.5rem;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,122,61,0.3);
   }
-
-  h2 {
-    color: var(--primary-color);
-    border-left: 6px solid var(--secondary-color);
-    padding-left: 0.75rem;
-    margin-bottom: 1rem;
-    font-size: 1.8rem;
-  }
-
-  section {
-    margin-bottom: 2.5rem;
-  }
-
-  details {
-    background: var(--accent-color);
-    border: 1.5px solid var(--border-color);
-    border-radius: 12px;
-    padding: 1rem 1.25rem;
-    margin-bottom: 1.2rem;
-    box-shadow: 0 3px 10px var(--shadow-color);
-    transition: background-color 0.3s ease;
-  }
-  details[open] {
-    background: #d0efd9;
-  }
-
-  details summary {
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 1.1rem;
-    list-style: none;
-    position: relative;
-    padding-right: 25px;
-    user-select: none;
-    color: var(--primary-color);
-  }
-
-  /* Remove default arrow */
-  details summary::-webkit-details-marker {
-    display: none;
-  }
-
-  /* Custom arrow */
-  details summary::after {
-    content: '▼';
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.9rem;
-    transition: transform 0.3s ease;
-    color: var(--secondary-color);
-  }
-
-  details[open] summary::after {
-    transform: translateY(-50%) rotate(180deg);
-  }
-
-  details p {
-    margin: 0.7rem 0 0 0;
-    padding-left: 10px;
-    font-size: 1rem;
-    line-height: 1.4;
-    color: #145c33;
-  }
-
-  /* Search box style */
-  #searchBox {
+  .search-box {
     width: 100%;
-    padding: 0.75rem 1rem;
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-    border-radius: 12px;
-    border: 2px solid var(--primary-color);
-    outline: none;
-    transition: border-color 0.3s ease;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 2px solid var(--green-primary);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    outline-offset: 2px;
   }
-  #searchBox:focus {
-    border-color: var(--secondary-color);
-    box-shadow: 0 0 8px var(--secondary-color);
+  .faq-section {
+    margin-bottom: 30px;
   }
-
+  .faq-section > h2 {
+    border-bottom: 3px solid var(--green-primary);
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+  }
+  .faq-item {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #d1e7d2;
+    padding-bottom: 10px;
+  }
+  .faq-question {
+    cursor: pointer;
+    position: relative;
+    padding-right: 30px;
+    font-weight: 600;
+    color: var(--green-primary);
+    transition: color 0.3s ease;
+  }
+  .faq-question:hover {
+    color: var(--accent-color);
+  }
+  .faq-question::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+  .faq-question.active::after {
+    content: '-';
+    transform: rotate(180deg);
+  }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    padding-left: 10px;
+    color: #2d5235;
+  }
+  .faq-answer.show {
+    max-height: 1000px; /* enough height */
+    margin-top: 8px;
+  }
   footer {
     text-align: center;
-    font-size: 0.9rem;
-    color: var(--primary-color);
-    padding: 1.5rem 0;
-    font-weight: 600;
+    margin: 40px 0 20px 0;
+    color: var(--green-dark);
   }
-
-  @media (max-width: 768px) {
-    body {
-      padding: 0.7rem 1rem;
-    }
-    main {
-      padding: 1.5rem 1.5rem;
-      margin: 1.5rem auto 2rem;
-    }
-    h2 {
-      font-size: 1.5rem;
-    }
+  a {
+    color: var(--green-primary);
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
   }
 </style>
 </head>
 <body>
 
-<header>
+<div class="faq-container">
   <h1>FAQ Layanan BPTAPERA</h1>
-  <p>Menjawab pertanyaan penting seputar tabungan dan pembiayaan perumahan rakyat</p>
-</header>
 
-<main>
+  <input type="search" id="searchBox" class="search-box" placeholder="Cari pertanyaan atau layanan..." />
 
-  <input type="text" id="searchBox" placeholder="Cari FAQ... ketik kata kunci seperti 'KPR', 'pengembalian', atau 'peserta'..." aria-label="Cari FAQ">
-
-  <section>
-    <h2>FAQ Umum Tentang BPTAPERA</h2>
-    <details>
-      <summary>Apa itu BPTAPERA?</summary>
-      <p>BPTAPERA (Badan Pengelola Tabungan Perumahan Rakyat) adalah lembaga yang mengelola program tabungan perumahan nasional untuk membantu masyarakat memiliki rumah melalui pembiayaan dan tabungan.</p>
-    </details>
-    <details>
-      <summary>Bagaimana BPTAPERA mengelola dana peserta?</summary>
-      <p>BPTAPERA mengelola simpanan peserta menggunakan prinsip kehati-hatian dengan investasi profesional untuk memaksimalkan imbal hasil aman dan berkelanjutan selama masa kepesertaan.</p>
-    </details>
-    <details>
-      <summary>Produk pembiayaan apa saja yang disediakan BPTAPERA?</summary>
-      <p>Produk pembiayaan meliputi KPR TAPERA, KBR TAPERA, KRR TAPERA, FLPP, serta layanan pengembalian tabungan bagi peserta yang pensiun atau mengakhiri kepesertaan.</p>
-    </details>
-    <details>
-      <summary>Siapa yang dapat menjadi peserta program Tapera?</summary>
-      <p>Peserta adalah ASN, Pekerja BUMN/BUMD, pekerja swasta, termasuk pekerja mandiri yang memenuhi persyaratan untuk ikut program Tapera.</p>
-    </details>
+  <!-- FAQ Umum -->
+  <section class="faq-section" data-section="Umum">
+    <h2>FAQ Umum BPTAPERA</h2>
+    <div class="faq-item">
+      <div class="faq-question">Apa itu BPTAPERA?</div>
+      <div class="faq-answer">BPTAPERA adalah Badan Pengelola Tabungan Perumahan Rakyat, yang mengelola program tabungan perumahan bagi pekerja ASN dan pekerja mandiri untuk membantu kepemilikan rumah.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Bagaimana mekanisme pengelolaan dana di BPTAPERA?</div>
+      <div class="faq-answer">Dana peserta dikelola secara profesional dan diinvestasikan untuk meningkatkan nilai simpanan, dengan hasil yang akan dikembalikan saat peserta pensiun atau mengakhiri kepesertaan.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Apa saja tujuan pembiayaan perumahan BPTAPERA?</div>
+      <div class="faq-answer">Pembiayaan perumahan ditujukan untuk membantu peserta membeli, membangun, atau merenovasi rumah agar dapat memiliki hunian layak dengan cicilan terjangkau.</div>
+    </div>
   </section>
 
-  <section>
+  <!-- KPR TAPERA -->
+  <section class="faq-section" data-section="KPR TAPERA">
     <h2>1. KPR TAPERA</h2>
-    <details>
-      <summary>Apa itu KPR TAPERA?</summary>
-      <p>KPR TAPERA adalah produk pembiayaan untuk peserta yang ingin membeli rumah jadi dengan suku bunga kompetitif dan tenor fleksibel sesuai kemampuan.</p>
-    </details>
-    <details>
-      <summary>Bagaimana cara mengajukan KPR TAPERA?</summary>
-      <p>Peserta dapat mengajukan di kantor BPTAPERA atau mitra perbankan resmi dengan melengkapi dokumen persyaratan yang dibutuhkan.</p>
-    </details>
+    <div class="faq-item">
+      <div class="faq-question">Apa itu KPR TAPERA?</div>
+      <div class="faq-answer">KPR TAPERA adalah produk pembiayaan perumahan untuk peserta yang ingin membeli rumah yang sudah jadi.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Apa keunggulan KPR TAPERA dibandingkan KPR bank biasa?</div>
+      <div class="faq-answer">KPR TAPERA menawarkan bunga kompetitif, tenor panjang sesuai kemampuan, serta kemudahan proses bagi peserta Tapera.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Berapa besar maksimal pembiayaan yang bisa diajukan?</div>
+      <div class="faq-answer">Maksimal pembiayaan ditentukan berdasarkan kebijakan BPTAPERA dan kemampuan peserta, biasanya disesuaikan dengan nilai rumah dan kapasitas bayar.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Apakah KPR TAPERA bisa digunakan untuk rumah di seluruh wilayah Indonesia?</div>
+      <div class="faq-answer">Ya, asalkan rumah tersebut memenuhi kriteria dan persyaratan dari BPTAPERA.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Bagaimana proses pencairan dana KPR TAPERA?</div>
+      <div class="faq-answer">Setelah pengajuan disetujui, dana pencairan akan dilakukan bertahap sesuai progress pembelian atau berdasarkan perjanjian.</div>
+    </div>
   </section>
 
-  <section>
+  <!-- KBR TAPERA -->
+  <section class="faq-section" data-section="KBR TAPERA">
     <h2>2. KBR TAPERA</h2>
-    <details>
-      <summary>Apa itu KBR TAPERA?</summary>
-      <p>KBR TAPERA adalah pembiayaan bagi peserta yang memiliki tanah sendiri dan ingin membangun rumah di atas tanah tersebut.</p>
-    </details>
-    <details>
-      <summary>Persyaratan utama untuk KBR TAPERA?</summary>
-      <p>Bukti kepemilikan tanah, dokumen rencana bangun rumah, dan sesuai kriteria administratif dari BPTAPERA.</p>
-    </details>
+    <div class="faq-item">
+      <div class="faq-question">Apa itu KBR TAPERA?</div>
+      <div class="faq-answer">KBR TAPERA adalah produk pembiayaan bagi peserta yang ingin membangun rumah di atas tanah pribadi milik sendiri.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Apakah tanah yang digunakan harus sudah bersertifikat?</div>
+      <div class="faq-answer">Iya, tanah harus sudah bersertifikat sebagai bukti kepemilikan legal untuk pengajuan KBR TAPERA.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Berapa maksimal waktu pembangunan rumah menggunakan KBR TAPERA?</div>
+      <div class="faq-answer">Durasi maksimal pembangunan biasanya diatur oleh perjanjian pembiayaan, umumnya sekitar 12-24 bulan.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Apakah dana KBR TAPERA bisa dipakai untuk perbaikan rumah?</div>
+      <div class="faq-answer">KBR TAPERA fokus untuk pembangunan rumah baru, sedangkan untuk perbaikan biasanya ada produk lain yang dapat diakses.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Bagaimana jika terjadi keterlambatan pembangunan?</div>
+      <div class="faq-answer">Peserta harus melaporkan kepada BPTAPERA dan dapat melakukan perpanjangan waktu sesuai ketentuan yang berlaku.</div>
+    </div>
   </section>
 
-  <section>
+  <!-- KRR TAPERA -->
+  <section class="faq-section" data-section="KRR TAPERA">
     <h2>3. KRR TAPERA</h2>
-    <details>
-      <summary>Apa itu KRR TAPERA?</summary>
-      <p>Produk kredit yang mirip KPR untuk pembelian rumah jadi dengan ketentuan khusus sesuai program BPTAPERA.</p>
-    </details>
+    <div class="faq-item">
+      <div class="faq-question">Apa itu KRR TAPERA?</div>
+      <div class="faq-answer">KRR TAPERA adalah produk pembiayaan yang membantu peserta membeli rumah yang sudah jadi dengan ketentuan dan metode pembiayaan tertentu.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Apa persyaratan khusus untuk mendapatkan KRR TAPERA?</div>
+      <div class="faq-answer">Persyaratan meliputi kepesertaan aktif, kelengkapan dokumen identitas, serta evaluasi kemampuan pembayaran.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Apakah KRR TAPERA bisa digunakan untuk membeli rumah bekas (second)?</div>
+      <div class="faq-answer">Ya, KRR TAPERA dapat digunakan untuk membeli rumah bekas yang memenuhi standar kelayakan dari BPTAPERA.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Bagaimana sistem cicilan di KRR TAPERA?</div>
+      <div class="faq-answer">Cicilan disesuaikan dengan tenor dan kemampuan peserta berdasarkan evaluasi BPTAPERA.</div>
+    </div>
   </section>
 
-  <section>
-    <h2>4. FLPP</h2>
-    <details>
-      <summary>Apa itu FLPP?</summary>
-      <p>Fasilitas Likuiditas Pembiayaan Perumahan untuk masyarakat non-ASN dengan subsidi pemerintah agar dapat memiliki rumah pertama dengan suku bunga rendah.</p>
-    </details>
-    <details>
-      <summary>Bagaimana cara mendaftar FLPP?</summary>
-      <p>Melalui pengembang atau bank yang bekerja sama dengan pemerintah dan BPTAPERA dengan dokumen lengkap.</p>
-    </details>
+  <!-- FLPP -->
+  <section class="faq-section" data-section="FLPP">
+    <h2>4. FLPP (Fasilitas Likuiditas Pembiayaan Perumahan)</h2>
+    <div class="faq-item">
+      <div class="faq-question">Apa itu FLPP?</div>
+      <div class="faq-answer">FLPP adalah pembiayaan perumahan subsidi pemerintah untuk masyarakat non-ASN yang ingin membeli rumah pertama.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Apakah FLPP hanya untuk warga yang belum pernah memiliki rumah?</div>
+      <div class="faq-answer">Ya, FLPP ditujukan bagi masyarakat yang belum memiliki rumah untuk mendorong kepemilikan pertama.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Bagaimana cara mendapatkan subsidi bunga FLPP?</div>
+      <div class="faq-answer">Subsidi bunga diberikan oleh pemerintah, dan peserta harus memenuhi syarat administrasi serta melalui pengembang/perbankan mitra pemerintah.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Apakah FLPP tersedia di seluruh Indonesia?</div>
+      <div class="faq-answer">Ya, FLPP tersedia di seluruh wilayah Indonesia melalui jaringan perbankan dan pengembang mitra.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Berapa lama proses persetujuan FLPP?</div>
+      <div class="faq-answer">Proses biasanya memakan waktu beberapa minggu tergantung kelengkapan dokumen dan evaluasi perbankan.</div>
+    </div>
   </section>
 
-  <section>
+  <!-- Pengembalian Tabungan -->
+  <section class="faq-section" data-section="Pengembalian Tabungan">
     <h2>5. Pengembalian Tabungan</h2>
-    <details>
-      <summary>Apa itu Pengembalian Tabungan?</summary>
-      <p>Layanan pengembalian simpanan dan hasil investasi bagi peserta yang sudah pensiun atau mengakhiri kepesertaan Tapera.</p>
-    </details>
-    <details>
-      <summary>Bagaimana proses pengembalian tabungan?</summary>
-      <p>Pengajuan dilakukan dengan dokumen lengkap dan proses verifikasi dari BPTAPERA sebelum dana dicairkan.</p>
-    </details>
+    <div class="faq-item">
+      <div class="faq-question">Apa itu produk Pengembalian Tabungan?</div>
+      <div class="faq-answer">Produk ini mengatur pengembalian simpanan pokok dan hasil investasi kepada peserta yang sudah pensiun atau mengakhiri kepesertaan.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Kapan peserta berhak mengajukan pengembalian tabungan?</div>
+      <div class="faq-answer">Saat pensiun, berhenti bekerja, pindah ke luar negeri, atau sesuai ketentuan di peraturan BPTAPERA.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Apa saja dokumen yang harus disiapkan untuk pengembalian tabungan?</div>
+      <div class="faq-answer">Dokumen identitas, bukti kepesertaan, surat berhenti kerja atau pensiun, dan dokumen lain yang diminta BPTAPERA.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Berapa lama proses pengembalian tabungan biasanya?</div>
+      <div class="faq-answer">Proses bisa memakan waktu beberapa minggu setelah dokumen lengkap diterima dan diverifikasi.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Apakah ada potongan biaya administrasi saat pengembalian?</div>
+      <div class="faq-answer">Biasanya tidak ada potongan, namun peserta wajib konfirmasi ketentuan terbaru ke BPTAPERA.</div>
+    </div>
   </section>
 
-  <section>
+  <!-- Pendaftaran Peserta Pekerja Mandiri -->
+  <section class="faq-section" data-section="Pendaftaran Peserta Pekerja Mandiri">
     <h2>6. Pendaftaran Peserta Pekerja Mandiri</h2>
-    <details>
-      <summary>Bagaimana cara pekerja mandiri menjadi peserta Tapera?</summary>
-      <p>Pekerja mandiri dapat mendaftar sebagai peserta dengan memenuhi persyaratan administratif dan mengikuti prosedur pendaftaran resmi di BPTAPERA.</p>
-    </details>
+    <div class="faq-item">
+      <div class="faq-question">Apa itu layanan pendaftaran peserta pekerja mandiri?</div>
+      <div class="faq-answer">Layanan ini memfasilitasi pendaftaran pekerja mandiri, seperti pelaku usaha mikro dan freelancer, sebagai peserta Tapera.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Apa kriteria agar pekerja mandiri bisa menjadi peserta?</div>
+      <div class="faq-answer">Peserta harus dapat membuktikan identitas dan aktivitas pekerjaan mandiri yang sah sesuai ketentuan BPTAPERA.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Bagaimana cara melakukan pendaftaran online untuk pekerja mandiri?</div>
+      <div class="faq-answer">Pendaftaran bisa dilakukan melalui platform digital resmi BPTAPERA dengan mengunggah dokumen pendukung.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Apakah pekerja mandiri juga berhak mendapatkan pembiayaan KPR TAPERA?</div>
+      <div class="faq-answer">Ya, pekerja mandiri yang telah menjadi peserta dapat mengajukan berbagai produk pembiayaan sesuai dengan ketentuan BPTAPERA.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Bagaimana mekanisme pembayaran iuran peserta pekerja mandiri?</div>
+      <div class="faq-answer">Pembayaran iuran peserta dilakukan secara mandiri secara berkala dengan metode dan jadwal yang ditentukan BPTAPERA.</div>
+    </div>
   </section>
 
-</main>
-
-<footer>
-  &copy; 2025 BPTAPERA - Semua Hak Dilindungi
-</footer>
+</div>
 
 <script>
-  const searchBox = document.getElementById('searchBox');
-  searchBox.addEventListener('input', function() {
-    const query = this.value.toLowerCase();
-    const detailsList = document.querySelectorAll('main section details');
-    
-    detailsList.forEach(detail => {
-      const summaryText = detail.querySelector('summary').textContent.toLowerCase();
-      const paraText = detail.querySelector('p').textContent.toLowerCase();
-      if (summaryText.includes(query) || paraText.includes(query)) {
-        detail.style.display = 'block';
-      } else {
-        detail.style.display = 'none';
+  // Toggle FAQ answer show/hide
+  document.querySelectorAll('.faq-question').forEach((question) => {
+    question.addEventListener('click', () => {
+      const isActive = question.classList.contains('active');
+      // Close all active questions
+      document.querySelectorAll('.faq-question.active').forEach(q => {
+        q.classList.remove('active');
+        q.nextElementSibling.classList.remove('show');
+      });
+      if (!isActive) {
+        question.classList.add('active');
+        question.nextElementSibling.classList.add('show');
       }
     });
   });
+
+  // Search and filter FAQs
+  document.getElementById('searchBox').addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const questionText = item.querySelector('.faq-question').textContent.toLowerCase();
+      const answerText = item.querySelector('.faq-answer').textContent.toLowerCase();
+      if (questionText.includes(query) || answerText.includes(query)) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    // Hide section title if no visible items inside
+    document.querySelectorAll('.faq-section').forEach(section => {
+      const visibleItems = Array.from(section.querySelectorAll('.faq-item')).filter(i => i.style.display === 'block');
+      section.style.display = visibleItems.length > 0 ? 'block' : 'none';
+    });
+  });
 </script>
+
+<footer>
+  &copy; 2025 BPTAPERA - Informasi FAQ Layanan Resmi<br/>
+  <a href="https://tapera.go.id" target="_blank" rel="noopener">Kunjungi Kanal Resmi BPTAPERA</a>
+</footer>
 
 </body>
 </html>
