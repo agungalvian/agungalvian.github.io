@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformasi Digital Tapera: Infografis</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom CSS untuk palet warna dan font */
+        :root {
+            --primary-green: #1A4D2E; /* Hijau Tua Utama */
+            --secondary-green: #4F805B; /* Hijau Agak Terang */
+            --accent-color: #F7DC6F; /* Kuning Muted untuk aksen */
+            --text-light: #F0F0F0; /* Putih keabu-abuan untuk teks di latar gelap */
+            --text-dark: #333333; /* Untuk teks di latar terang */
+            --bg-light: #F9FAFB; /* Latar belakang terang */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Styling untuk header */
+        .header-bg {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #2E6B3C 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efek gelombang/pola abstrak di header */
+        .header-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="%231A4D2E" d="M0 0 L100 0 L100 100 L0 100 Z" opacity="0.1"></path><path fill="%234F805B" d="M0 0 C25 50 75 50 100 0 L100 100 L0 100 Z" opacity="0.1"></path></svg>') repeat;
+            background-size: 100px;
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        /* Styling untuk kartu */
+        .card-base {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 0.75rem; /* rounded-xl */
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-base:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-number {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 3rem;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.1);
+            z-index: 0;
+        }
+
+        .innovation-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-green);
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        /* Konten tersembunyi */
+        .hidden-content {
+            max-height: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+        }
+
+        .card-base.active .hidden-content {
+            max-height: 200px; /* Adjust as needed */
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .innovation-item.active .hidden-content {
+            max-height: 150px; /* Adjust as needed */
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="font-inter">
+
+    <header class="header-bg text-text-light py-20 text-center relative">
+        <div class="container mx-auto px-4 relative z-10">
+            <h1 class="text-5xl font-bold mb-4 rounded-lg bg-opacity-10 bg-white p-4 inline-block shadow-lg">Transformasi Digital Tapera</h1>
+            <p class="text-xl max-w-3xl mx-auto">Infografis ini menguraikan usulan perubahan dan ide-ide inovatif untuk mengubah layanan digital Tapera, menjadikannya berorientasi pada pelanggan, aman, dan sangat efisien.</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+
+        <!-- Bagian 1: Usulan Perubahan UU Tapera untuk Layanan Digital -->
+        <section class="bg-white p-8 rounded-xl shadow-lg mb-12">
+            <h2 class="text-4xl font-semibold text-primary-green text-center mb-10">Usulan Perubahan UU Tapera untuk Layanan Digital</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Kartu untuk setiap "Pengaturan" -->
+                <div class="change-card card-base bg-primary-green text-text-light p-6">
+                    <span class="card-number" data-no="1">1</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Akses Layanan Peserta</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Masukan Perubahan:</strong> Tapera wajib memiliki portal & aplikasi digital yang memungkinkan akses penuh peserta: status iuran, manfaat, simulasi.</p>
+                        <p><strong>Analisis/Brief Policy:</strong> Menjadikan peserta sebagai pusat layanan (participant-centered), mempercepat keputusan, mirip mobile banking.</p>
+                    </div>
+                </div>
+                <div class="change-card card-base bg-primary-green text-text-light p-6">
+                    <span class="card-number" data-no="2">2</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Transparansi dan Informasi</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Masukan Perubahan:</strong> Kewajiban penyajian informasi personal dan agregat peserta secara berkala dalam akun digital yang aman.</p>
+                        <p><strong>Analisis/Brief Policy:</strong> Meningkatkan akuntabilitas dan kontrol peserta terhadap hak dan dana mereka sendiri.</p>
+                    </div>
+                </div>
+                <div class="change-card card-base bg-primary-green text-text-light p-6">
+                    <span class="card-number" data-no="3">3</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Perlindungan Data Pribadi (UU PDP)</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Masukan Perubahan:</strong> Tambahkan klausul eksplisit bahwa Tapera tunduk dan mematuhi UU PDP: pengumpulan, penyimpanan, pemrosesan data harus dengan persetujuan dan keamanan tinggi.</p>
+                        <p><strong>Analisis/Brief Policy:</strong> Menjamin kerahasiaan & keamanan data peserta, mencegah penyalahgunaan atau kebocoran, memperkuat kepercayaan publik.</p>
+                    </div>
+                </div>
+                <div class="change-card card-base bg-primary-green text-text-light p-6">
+                    <span class="card-number" data-no="4">4</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Layanan Pengaduan Digital</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Masukan Perubahan:</strong> Tapera wajib menyediakan kanal pengaduan digital (chatbot, livechat, e-mail) dengan SLA dan tracking ticket.</p>
+                        <p><strong>Analisis/Brief Policy:</strong> Layanan responsif, efisien, dan terdokumentasi; peserta merasa didengar dan dilayani.</p>
+                    </div>
+                </div>
+                <div class="change-card card-base bg-primary-green text-text-light p-6">
+                    <span class="card-number" data-no="5">5</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Proses Pengajuan Manfaat</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Masukan Perubahan:</strong> Semua pengajuan manfaat harus bisa dilakukan secara full digital end-to-end.</p>
+                        <p><strong>Analisis/Brief Policy:</strong> Efisiensi dan akses meningkat, terutama untuk peserta di wilayah 3T.</p>
+                    </div>
+                </div>
+                <div class="change-card card-base bg-primary-green text-text-light p-6">
+                    <span class="card-number" data-no="6">6</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Integrasi Ekosistem Digital</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Masukan Perubahan:</strong> UU mengatur interoperabilitas Tapera dengan Dukcapil, BPJS Ketenagakerjaan, BPN, Bank Penyalur.</p>
+                        <p><strong>Analisis/Brief Policy:</strong> Single sign-on & data sinkron, mempermudah proses dan mengurangi beban administrasi peserta.</p>
+                    </div>
+                </div>
+                <div class="change-card card-base bg-primary-green text-text-light p-6">
+                    <span class="card-number" data-no="7">7</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">UI/UX & Aksesibilitas</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Masukan Perubahan:</strong> Mandat agar sistem digital Tapera ramah pengguna, mobile-first, inklusif (akses difabel, usia lanjut, dll).</p>
+                        <p><strong>Analisis/Brief Policy:</strong> Menjamin inklusi layanan digital untuk seluruh demografi peserta.</p>
+                    </div>
+                </div>
+                <div class="change-card card-base bg-primary-green text-text-light p-6">
+                    <span class="card-number" data-no="8">8</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Audit Keamanan Digital & Data</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Masukan Perubahan:</strong> UU mewajibkan audit keamanan sistem informasi secara berkala oleh lembaga independen & hasil terbuka.</p>
+                        <p><strong>Analisis/Brief Policy:</strong> Meningkatkan jaminan keamanan data & kepercayaan peserta.</p>
+                    </div>
+                </div>
+                <div class="change-card card-base bg-primary-green text-text-light p-6">
+                    <span class="card-number" data-no="9">9</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Feedback & Evaluasi Peserta</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Masukan Perubahan:</strong> Tapera wajib membangun kanal umpan balik peserta berbasis digital dan menindaklanjuti setiap kuartal.</p>
+                        <p><strong>Analisis/Brief Policy:</strong> Layanan digital terus berkembang berdasarkan pengalaman nyata pengguna.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian 2: Ide-Inovasi Baru Layanan Digital BP Tapera -->
+        <section class="bg-white p-8 rounded-xl shadow-lg mb-12">
+            <h2 class="text-4xl font-semibold text-primary-green text-center mb-10">Ide-Inovasi Baru Layanan Digital BP Tapera</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Kartu untuk setiap "Ide Layanan Digital" -->
+                <div class="innovation-item card-base bg-secondary-green text-text-light p-6">
+                    <span class="innovation-icon">📱</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Tapera Mobile SuperApp</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Penjelasan:</strong> Satu aplikasi untuk semua layanan: simpanan, simulasi, pengajuan, pelacakan rumah, edukasi.</p>
+                        <p><strong>Manfaat:</strong> One-stop solution, efisiensi dan engagement meningkat.</p>
+                    </div>
+                </div>
+                <div class="innovation-item card-base bg-secondary-green text-text-light p-6">
+                    <span class="innovation-icon">🤖</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Tapera Virtual Assistant (AI Chatbot)</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Penjelasan:</strong> Layanan 24/7 untuk pertanyaan, simulasi, status pengajuan.</p>
+                        <p><strong>Manfaat:</strong> Layanan cepat, responsif, hemat SDM.</p>
+                    </div>
+                </div>
+                <div class="innovation-item card-base bg-secondary-green text-text-light p-6">
+                    <span class="innovation-icon">🔔</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Notifikasi Real-Time & Personalisasi</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Penjelasan:</strong> Info status, peluang manfaat, program baru berbasis profil peserta.</p>
+                        <p><strong>Manfaat:</strong> Meningkatkan awareness & partisipasi.</p>
+                    </div>
+                </div>
+                <div class="innovation-item card-base bg-secondary-green text-text-light p-6">
+                    <span class="innovation-icon">📊</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Tapera360 - Dashboard Interaktif</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Penjelasan:</strong> Visualisasi kontribusi, proyeksi manfaat, status pengajuan.</p>
+                        <p><strong>Manfaat:</strong> Transparansi dan kontrol peserta meningkat.</p>
+                    </div>
+                </div>
+                <div class="innovation-item card-base bg-secondary-green text-text-light p-6">
+                    <span class="innovation-icon">🎮</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Edukasi Interaktif & Gamifikasi</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Penjelasan:</strong> Video, quiz keuangan, mini games soal Tapera & rumah.</p>
+                        <p><strong>Manfaat:</strong> Meningkatkan literasi dan keterlibatan peserta.</p>
+                    </div>
+                </div>
+                <div class="innovation-item card-base bg-secondary-green text-text-light p-6">
+                    <span class="innovation-icon">✍️</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">eKYC & Tandatangan Digital</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Penjelasan:</strong> Pendaftaran dan legalisasi pembiayaan via daring.</p>
+                        <p><strong>Manfaat:</strong> Proses cepat, aman, sesuai standar digital public services.</p>
+                    </div>
+                </div>
+                <div class="innovation-item card-base bg-secondary-green text-text-light p-6">
+                    <span class="innovation-icon">✔️</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Simulasi Eligibility Otomatis</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Penjelasan:</strong> Cek otomatis kelayakan berdasarkan data peserta.</p>
+                        <p><strong>Manfaat:</strong> Mempermudah proses awal pengajuan.</p>
+                    </div>
+                </div>
+                <div class="innovation-item card-base bg-secondary-green text-text-light p-6">
+                    <span class="innovation-icon">🌍</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Layanan Tapera untuk Diaspora</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Penjelasan:</strong> Kanal digital khusus bagi WNI luar negeri.</p>
+                        <p><strong>Manfaat:</strong> Inklusi peserta luar negeri, perluasan jangkauan.</p>
+                    </div>
+                </div>
+                <div class="innovation-item card-base bg-secondary-green text-text-light p-6">
+                    <span class="innovation-icon">💰</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Integrasi dengan Dompet Digital</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Penjelasan:</strong> Pembayaran iuran via QRIS/OVO/Gopay.</p>
+                        <p><strong>Manfaat:</strong> Memudahkan peserta informal & generasi muda.</p>
+                    </div>
+                </div>
+                <div class="innovation-item card-base bg-secondary-green text-text-light p-6">
+                    <span class="innovation-icon">🔌</span>
+                    <h3 class="text-2xl font-semibold text-accent-color mb-3 relative z-10">Open API Tapera</h3>
+                    <div class="hidden-content relative z-10">
+                        <p class="mb-2"><strong>Penjelasan:</strong> API terbuka untuk pihak ketiga (bank, startup properti).</p>
+                        <p><strong>Manfaat:</strong> Mendorong kolaborasi dan ekosistem digital Tapera.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian Penutup -->
+        <section class="conclusion bg-primary-green text-text-light p-10 rounded-xl shadow-lg text-center">
+            <p class="text-2xl max-w-4xl mx-auto">Layanan Tapera harus modern, aman, transparan, dan mudah. Reformasi layanan digital adalah kunci peningkatan kepercayaan dan manfaat nyata. Hal ini membutuhkan dukungan regulasi yang memungkinkan Tapera menjadi layanan publik digital sekelas *fintech* dengan perlindungan setara institusi keuangan.</p>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 text-secondary-green text-sm">
+        <p>&copy; 2025 Transformasi Digital Tapera. Semua Hak Dilindungi.</p>
+    </footer>
+
+    <script>
+        // JavaScript untuk Interaktivitas (Expand/Collapse Cards)
+
+        // Fungsi untuk toggle kelas 'active' pada kartu
+        function toggleCard(cardElement) {
+            cardElement.classList.toggle('active');
+        }
+
+        // Bagian 1: Usulan Perubahan UU Tapera
+        document.querySelectorAll('.change-card').forEach(card => {
+            card.addEventListener('click', () => toggleCard(card));
+        });
+
+        // Bagian 2: Ide Inovasi Baru Layanan Digital BP Tapera
+        document.querySelectorAll('.innovation-item').forEach(item => {
+            item.addEventListener('click', () => toggleCard(item));
+        });
+    </script>
+</body>
+</html>
