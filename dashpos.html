@@ -38,19 +38,19 @@
             Selamat datang di dashboard pendaftaran peserta melalui kantor pos. Anda dapat memantau data pendaftaran dan melihat statistik top kantor pos.
         </p>
 
-        <!-- Bagian Filter -->
-        <div class="filter-section bg-green-50 p-4 rounded-lg mb-8 flex flex-col sm:flex-row items-center justify-center gap-4 shadow-sm">
-            <label for="kodeKantorFilter" class="font-semibold text-green-700 text-lg">Filter Kode/Nama Kantor Pos:</label>
-            <input type="text" id="kodeKantorFilter" placeholder="Contoh: 10001 atau Jakarta"
-                   class="p-3 border border-green-300 rounded-md w-full sm:w-auto flex-grow focus:ring-2 focus:ring-green-400 focus:border-transparent transition duration-200 ease-in-out">
-        </div>
-
-        <!-- Bagian Chart -->
-        <div class="chart-section mt-6 mb-12 bg-green-50 p-6 rounded-lg shadow-md">
+        <!-- Bagian Chart (Dipindahkan ke atas) -->
+        <div class="chart-section mt-6 mb-8 bg-green-50 p-6 rounded-lg shadow-md">
             <h2 class="text-2xl sm:text-3xl font-bold text-green-700 mb-6 text-center">
                 Top 5 Kantor Pos dengan Peserta Terbanyak 📈
             </h2>
             <canvas id="topKantorChart" class="bg-white p-4 rounded-lg shadow-inner"></canvas>
+        </div>
+
+        <!-- Bagian Filter (Dipindahkan ke bawah chart) -->
+        <div class="filter-section bg-green-50 p-4 rounded-lg mb-8 flex flex-col sm:flex-row items-center justify-center gap-4 shadow-sm">
+            <label for="kodeKantorFilter" class="font-semibold text-green-700 text-lg">Filter Kode/Nama Kantor Pos:</label>
+            <input type="text" id="kodeKantorFilter" placeholder="Contoh: 10001 atau Jakarta"
+                   class="p-3 border border-green-300 rounded-md w-full sm:w-auto flex-grow focus:ring-2 focus:ring-green-400 focus:border-transparent transition duration-200 ease-in-out">
         </div>
 
         <!-- Bagian Tabel Data -->
