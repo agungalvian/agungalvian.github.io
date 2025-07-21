@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Pendaftaran Peserta via PT POS</title>
+    <!-- Memuat Chart.js untuk grafik -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Memuat Tailwind CSS untuk styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom CSS untuk font dan sedikit penyesuaian yang tidak ada di Tailwind */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e6f7e6; /* Warna latar belakang hijau sangat muda */
+        }
+        /* Mengatur agar canvas responsif */
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body class="bg-green-50 p-4 sm:p-6 md:p-8">
+    <div class="container mx-auto bg-white rounded-xl shadow-lg p-6 sm:p-8 md:p-10 relative">
+        <!-- Logo BPTAPERA (Kiri Atas) -->
+        <!-- Menggunakan placeholder image. Ganti dengan URL logo asli Anda. -->
+        <img src="https://placehold.co/120x60/166534/ffffff?text=BPTAPERA+Logo" alt="Logo BPTAPERA" class="absolute top-4 left-4 h-12 w-auto rounded-md shadow-sm">
+
+        <!-- Logo PT Pos (Kanan Atas) -->
+        <!-- Menggunakan placeholder image. Ganti dengan URL logo asli Anda. -->
+        <img src="https://placehold.co/120x60/166534/ffffff?text=PT+Pos+Logo" alt="Logo PT Pos" class="absolute top-4 right-4 h-12 w-auto rounded-md shadow-sm">
+
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-green-800 mb-6 text-center mt-16">
+            Dashboard Pendaftaran Peserta via PT POS 📮
+        </h1>
+        <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+            Selamat datang di dashboard pendaftaran peserta melalui kantor pos. Anda dapat memantau data pendaftaran dan melihat statistik top kantor pos.
+        </p>
+
+        <!-- Bagian Filter -->
+        <div class="filter-section bg-green-50 p-4 rounded-lg mb-8 flex flex-col sm:flex-row items-center justify-center gap-4 shadow-sm">
+            <label for="kodeKantorFilter" class="font-semibold text-green-700 text-lg">Filter Kode/Nama Kantor Pos:</label>
+            <input type="text" id="kodeKantorFilter" placeholder="Contoh: 10001 atau Jakarta"
+                   class="p-3 border border-green-300 rounded-md w-full sm:w-auto flex-grow focus:ring-2 focus:ring-green-400 focus:border-transparent transition duration-200 ease-in-out">
+        </div>
+
+        <!-- Bagian Chart -->
+        <div class="chart-section mt-6 mb-12 bg-green-50 p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl sm:text-3xl font-bold text-green-700 mb-6 text-center">
+                Top 5 Kantor Pos dengan Peserta Terbanyak 📈
+            </h2>
+            <canvas id="topKantorChart" class="bg-white p-4 rounded-lg shadow-inner"></canvas>
+        </div>
+
+        <!-- Bagian Tabel Data -->
+        <h2 class="text-2xl sm:text-3xl font-bold text-green-700 mb-5 text-center">
+            Tabel Data Pendaftaran Peserta
+        </h2>
+        <div class="overflow-x-auto rounded-lg shadow-md">
+            <table id="dataPesertaTable" class="min-w-full bg-white">
+                <thead class="bg-green-700 text-white">
+                    <tr>
+                        <th class="py-3 px-4 text-left text-sm font-medium uppercase tracking-wider rounded-tl-lg">Kode Kantor Pos</th>
+                        <th class="py-3 px-4 text-left text-sm font-medium uppercase tracking-wider">Nama Kantor Pos</th>
+                        <th class="py-3 px-4 text-left text-sm font-medium uppercase tracking-wider rounded-tr-lg">Jumlah Peserta</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <!-- Data akan dimuat di sini oleh JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Data Contoh (akan diganti dengan data dari server/API di aplikasi nyata)
+        let allData = [
+            { kode: '10001', nama: 'Kantor Pos Jakarta Pusat', jumlah: 150 },
+            { kode: '10002', nama: 'Kantor Pos Surabaya', jumlah: 220 },
+            { kode: '10003', nama: 'Kantor Pos Bandung', jumlah: 180 },
+            { kode: '10004', nama: 'Kantor Pos Medan', jumlah: 90 },
+            { kode: '10005', nama: 'Kantor Pos Makassar', jumlah: 110 },
+            { kode: '10006', nama: 'Kantor Pos Semarang', jumlah: 70 },
+            { kode: '10007', nama: 'Kantor Pos Yogyakarta', jumlah: 130 },
+            { kode: '10008', nama: 'Kantor Pos Denpasar', jumlah: 250 },
+            { kode: '10009', nama: 'Kantor Pos Palembang', jumlah: 60 },
+            { kode: '10010', nama: 'Kantor Pos Balikpapan', jumlah: 190 },
+            { kode: '10011', nama: 'Kantor Pos Malang', jumlah: 165 },
+            { kode: '10012', nama: 'Kantor Pos Solo', jumlah: 85 },
+            { kode: '10013', nama: 'Kantor Pos Padang', jumlah: 100 },
+            { kode: '10014', nama: 'Kantor Pos Pontianak', jumlah: 140 },
+            { kode: '10015', nama: 'Kantor Pos Samarinda', jumlah: 75 }
+        ];
+
+        let chartInstance; // Variabel untuk menyimpan instance chart agar bisa dihancurkan/diperbarui
+
+        /**
+         * Merender data ke dalam tabel HTML.
+         * @param {Array<Object>} dataToDisplay - Array objek data yang akan ditampilkan.
+         */
+        function renderTable(dataToDisplay) {
+            const tableBody = document.querySelector('#dataPesertaTable tbody');
+            tableBody.innerHTML = ''; // Mengosongkan tabel sebelum mengisi ulang
+
+            if (dataToDisplay.length === 0) {
+                // Tampilkan pesan jika tidak ada data
+                const row = tableBody.insertRow();
+                const cell = row.insertCell();
+                cell.colSpan = 3; // Gabungkan 3 kolom
+                cell.textContent = 'Tidak ada data yang ditemukan.';
+                cell.className = 'text-center py-4 text-gray-500';
+                return;
+            }
+
+            dataToDisplay.forEach(item => {
+                const row = tableBody.insertRow();
+                row.className = 'hover:bg-green-50 transition duration-150 ease-in-out'; // Efek hover
+                row.insertCell().textContent = item.kode;
+                row.insertCell().textContent = item.nama;
+                row.insertCell().textContent = item.jumlah;
+                // Menambahkan kelas Tailwind ke sel
+                Array.from(row.cells).forEach(cell => {
+                    cell.className = 'py-3 px-4 text-sm text-gray-700 whitespace-nowrap';
+                });
+            });
+        }
+
+        /**
+         * Memperbarui atau membuat grafik top 5 kantor pos.
+         * @param {Array<Object>} data - Array objek data lengkap untuk dianalisis.
+         */
+        function updateChart(data) {
+            // Urutkan data berdasarkan jumlah peserta secara menurun
+            const sortedData = [...data].sort((a, b) => b.jumlah - a.jumlah);
+            // Ambil top 5 kantor pos
+            const top5 = sortedData.slice(0, 5);
+
+            const labels = top5.map(item => item.nama);
+            const dataValues = top5.map(item => item.jumlah);
+
+            const ctx = document.getElementById('topKantorChart').getContext('2d');
+
+            // Hancurkan instance chart sebelumnya jika ada untuk menghindari duplikasi
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar', // Tipe grafik batang
+                data: {
+                    labels: labels, // Label untuk sumbu X (nama kantor pos)
+                    datasets: [{
+                        label: 'Jumlah Peserta',
+                        data: dataValues, // Data untuk sumbu Y (jumlah peserta)
+                        backgroundColor: [
+                            'rgba(22, 101, 52, 0.8)',  // green-800
+                            'rgba(34, 197, 94, 0.8)',  // green-500
+                            'rgba(134, 239, 172, 0.8)',// green-300
+                            'rgba(5, 150, 105, 0.8)',  // emerald-600
+                            'rgba(6, 182, 212, 0.8)'   // cyan-500 (sedikit berbeda untuk variasi)
+                        ],
+                        borderColor: [
+                            'rgba(22, 101, 52, 1)',
+                            'rgba(34, 197, 94, 1)',
+                            'rgba(134, 239, 172, 1)',
+                            'rgba(5, 150, 105, 1)',
+                            'rgba(6, 182, 212, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true, // Mempertahankan rasio aspek canvas
+                    plugins: {
+                        legend: {
+                            display: false // Sembunyikan legenda karena hanya ada satu dataset
+                        },
+                        title: {
+                            display: true,
+                            text: 'Top 5 Kantor Pos Pendaftar Terbanyak',
+                            font: {
+                                size: 18,
+                                weight: 'bold'
+                            },
+                            color: '#166534' // green-800
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y + ' peserta';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Jumlah Peserta',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                },
+                                color: '#4b5563' // Tailwind gray-700
+                            },
+                            ticks: {
+                                precision: 0 // Pastikan tick y-axis adalah bilangan bulat
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Nama Kantor Pos',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                },
+                                color: '#4b5563' // Tailwind gray-700
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Event listener untuk input filter
+        document.getElementById('kodeKantorFilter').addEventListener('keyup', function() {
+            const filterValue = this.value.toLowerCase(); // Ambil nilai input dan ubah ke huruf kecil
+            // Saring data berdasarkan kode atau nama kantor pos
+            const filteredData = allData.filter(item =>
+                item.kode.toLowerCase().includes(filterValue) ||
+                item.nama.toLowerCase().includes(filterValue)
+            );
+            renderTable(filteredData); // Perbarui tabel dengan data yang difilter
+            // Catatan: Chart selalu menampilkan top 5 dari SEMUA data (allData),
+            // tidak terpengaruh oleh filter tabel. Jika ingin chart juga terfilter,
+            // panggil updateChart(filteredData) di sini.
+        });
+
+        // Inisialisasi dashboard saat seluruh konten DOM telah dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTable(allData); // Tampilkan semua data di tabel saat pertama kali dimuat
+            updateChart(allData); // Tampilkan grafik top 5 dari semua data
+        });
+    </script>
+</body>
+</html>
