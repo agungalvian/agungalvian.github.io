@@ -51,6 +51,12 @@
             <label for="kodeKantorFilter" class="font-semibold text-green-700 text-lg">Filter Kode/Nama Kantor Pos:</label>
             <input type="text" id="kodeKantorFilter" placeholder="Contoh: 10001 atau Jakarta"
                    class="p-3 border border-green-300 rounded-md w-full sm:w-auto flex-grow focus:ring-2 focus:ring-green-400 focus:border-transparent transition duration-200 ease-in-out">
+
+            <label for="monthFilter" class="font-semibold text-green-700 text-lg sm:ml-4">Filter Bulan:</label>
+            <select id="monthFilter" class="p-3 border border-green-300 rounded-md w-full sm:w-auto focus:ring-2 focus:ring-green-400 focus:border-transparent transition duration-200 ease-in-out">
+                <option value="all">Semua Bulan</option>
+                <!-- Opsi bulan akan dimuat oleh JavaScript -->
+            </select>
         </div>
 
         <!-- Bagian Tabel Data -->
@@ -63,7 +69,7 @@
                     <tr>
                         <th class="py-3 px-4 text-left text-sm font-medium uppercase tracking-wider rounded-tl-lg">Kode Kantor Pos</th>
                         <th class="py-3 px-4 text-left text-sm font-medium uppercase tracking-wider">Nama Kantor Pos</th>
-                        <th class="py-3 px-4 text-left text-sm font-medium uppercase tracking-wider rounded-tr-lg">Jumlah Peserta</th>
+                        <th class="py-3 px-4 text-left text-sm font-medium uppercase tracking-wider rounded-tr-lg" id="jumlahPesertaHeader">Jumlah Peserta Total</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
@@ -75,32 +81,236 @@
 
     <script>
         // Data Contoh (akan diganti dengan data dari server/API di aplikasi nyata)
+        // Setiap kantor pos sekarang memiliki array 'monthly_data'
         let allData = [
-            { kode: '10001', nama: 'Kantor Pos Jakarta Pusat', jumlah: 150 },
-            { kode: '10002', nama: 'Kantor Pos Surabaya', jumlah: 220 },
-            { kode: '10003', nama: 'Kantor Pos Bandung', jumlah: 180 },
-            { kode: '10004', nama: 'Kantor Pos Medan', jumlah: 90 },
-            { kode: '10005', nama: 'Kantor Pos Makassar', jumlah: 110 },
-            { kode: '10006', nama: 'Kantor Pos Semarang', jumlah: 70 },
-            { kode: '10007', nama: 'Kantor Pos Yogyakarta', jumlah: 130 },
-            { kode: '10008', nama: 'Kantor Pos Denpasar', jumlah: 250 },
-            { kode: '10009', nama: 'Kantor Pos Palembang', jumlah: 60 },
-            { kode: '10010', nama: 'Kantor Pos Balikpapan', jumlah: 190 },
-            { kode: '10011', nama: 'Kantor Pos Malang', jumlah: 165 },
-            { kode: '10012', nama: 'Kantor Pos Solo', jumlah: 85 },
-            { kode: '10013', nama: 'Kantor Pos Padang', jumlah: 100 },
-            { kode: '10014', nama: 'Kantor Pos Pontianak', jumlah: 140 },
-            { kode: '10015', nama: 'Kantor Pos Samarinda', jumlah: 75 }
+            {
+                kode: '10001',
+                nama: 'Kantor Pos Jakarta Pusat',
+                monthly_data: [
+                    { month: 'Januari', jumlah: 50 },
+                    { month: 'Februari', jumlah: 40 },
+                    { month: 'Maret', jumlah: 60 },
+                    { month: 'April', jumlah: 55 },
+                    { month: 'Mei', jumlah: 70 }
+                ]
+            },
+            {
+                kode: '10002',
+                nama: 'Kantor Pos Surabaya',
+                monthly_data: [
+                    { month: 'Januari', jumlah: 80 },
+                    { month: 'Februari', jumlah: 70 },
+                    { month: 'Maret', jumlah: 70 },
+                    { month: 'April', jumlah: 85 },
+                    { month: 'Mei', jumlah: 90 }
+                ]
+            },
+            {
+                kode: '10003',
+                nama: 'Kantor Pos Bandung',
+                monthly_data: [
+                    { month: 'Januari', jumlah: 60 },
+                    { month: 'Februari', jumlah: 50 },
+                    { month: 'Maret', jumlah: 70 },
+                    { month: 'April', jumlah: 65 },
+                    { month: 'Mei', jumlah: 80 }
+                ]
+            },
+            {
+                kode: '10004',
+                nama: 'Kantor Pos Medan',
+                monthly_data: [
+                    { month: 'Januari', jumlah: 30 },
+                    { month: 'Februari', jumlah: 25 },
+                    { month: 'Maret', jumlah: 35 },
+                    { month: 'April', jumlah: 40 },
+                    { month: 'Mei', jumlah: 45 }
+                ]
+            },
+            {
+                kode: '10005',
+                nama: 'Kantor Pos Makassar',
+                monthly_data: [
+                    { month: 'Januari', jumlah: 40 },
+                    { month: 'Februari', jumlah: 35 },
+                    { month: 'Maret', jumlah: 45 },
+                    { month: 'April', jumlah: 50 },
+                    { month: 'Mei', jumlah: 55 }
+                ]
+            },
+            {
+                kode: '10006',
+                nama: 'Kantor Pos Semarang',
+                monthly_data: [
+                    { month: 'Januari', jumlah: 25 },
+                    { month: 'Februari', jumlah: 20 },
+                    { month: 'Maret', jumlah: 30 },
+                    { month: 'April', jumlah: 28 },
+                    { month: 'Mei', jumlah: 32 }
+                ]
+            },
+            {
+                kode: '10007',
+                nama: 'Kantor Pos Yogyakarta',
+                monthly_data: [
+                    { month: 'Januari', jumlah: 45 },
+                    { month: 'Februari', jumlah: 40 },
+                    { month: 'Maret', jumlah: 50 },
+                    { month: 'April', jumlah: 48 },
+                    { month: 'Mei', jumlah: 52 }
+                ]
+            },
+            {
+                kode: '10008',
+                nama: 'Kantor Pos Denpasar',
+                monthly_data: [
+                    { month: 'Januari', jumlah: 90 },
+                    { month: 'Februari', jumlah: 85 },
+                    { month: 'Maret', jumlah: 75 },
+                    { month: 'April', jumlah: 95 },
+                    { month: 'Mei', jumlah: 100 }
+                ]
+            },
+            {
+                kode: '10009',
+                nama: 'Kantor Pos Palembang',
+                monthly_data: [
+                    { month: 'Januari', jumlah: 20 },
+                    { month: 'Februari', jumlah: 15 },
+                    { month: 'Maret', jumlah: 25 },
+                    { month: 'April', jumlah: 22 },
+                    { month: 'Mei', jumlah: 28 }
+                ]
+            },
+            {
+                kode: '10010',
+                nama: 'Kantor Pos Balikpapan',
+                monthly_data: [
+                    { month: 'Januari', jumlah: 70 },
+                    { month: 'Februari', jumlah: 60 },
+                    { month: 'Maret', jumlah: 60 },
+                    { month: 'April', jumlah: 75 },
+                    { month: 'Mei', jumlah: 80 }
+                ]
+            },
+            {
+                kode: '10011',
+                nama: 'Kantor Pos Malang',
+                monthly_data: [
+                    { month: 'Januari', jumlah: 55 },
+                    { month: 'Februari', jumlah: 50 },
+                    { month: 'Maret', jumlah: 60 },
+                    { month: 'April', jumlah: 58 },
+                    { month: 'Mei', jumlah: 62 }
+                ]
+            },
+            {
+                kode: '10012',
+                nama: 'Kantor Pos Solo',
+                monthly_data: [
+                    { month: 'Januari', jumlah: 30 },
+                    { month: 'Februari', jumlah: 28 },
+                    { month: 'Maret', jumlah: 27 },
+                    { month: 'April', jumlah: 35 },
+                    { month: 'Mei', jumlah: 38 }
+                ]
+            },
+            {
+                kode: '10013',
+                nama: 'Kantor Pos Padang',
+                monthly_data: [
+                    { month: 'Januari', jumlah: 35 },
+                    { month: 'Februari', jumlah: 30 },
+                    { month: 'Maret', jumlah: 35 },
+                    { month: 'April', jumlah: 40 },
+                    { month: 'Mei', jumlah: 42 }
+                ]
+            },
+            {
+                kode: '10014',
+                nama: 'Kantor Pos Pontianak',
+                monthly_data: [
+                    { month: 'Januari', jumlah: 50 },
+                    { month: 'Februari', jumlah: 45 },
+                    { month: 'Maret', jumlah: 45 },
+                    { month: 'April', jumlah: 50 },
+                    { month: 'Mei', jumlah: 55 }
+                ]
+            },
+            {
+                kode: '10015',
+                nama: 'Kantor Pos Samarinda',
+                monthly_data: [
+                    { month: 'Januari', jumlah: 25 },
+                    { month: 'Februari', jumlah: 22 },
+                    { month: 'Maret', jumlah: 28 },
+                    { month: 'April', jumlah: 30 },
+                    { month: 'Mei', jumlah: 33 }
+                ]
+            }
         ];
 
         let chartInstance; // Variabel untuk menyimpan instance chart agar bisa dihancurkan/diperbarui
 
         /**
+         * Menghitung total jumlah peserta dari data bulanan.
+         * @param {Array<Object>} monthlyData - Array objek data bulanan ({ month: string, jumlah: number }).
+         * @returns {number} Total jumlah peserta.
+         */
+        function calculateTotalParticipants(monthlyData) {
+            return monthlyData.reduce((sum, m) => sum + m.jumlah, 0);
+        }
+
+        /**
+         * Mengambil jumlah peserta untuk bulan tertentu.
+         * @param {Array<Object>} monthlyData - Array objek data bulanan.
+         * @param {string} month - Nama bulan yang dicari.
+         * @returns {number} Jumlah peserta untuk bulan tersebut, atau 0 jika tidak ditemukan.
+         */
+        function getMonthlyParticipants(monthlyData, month) {
+            const data = monthlyData.find(m => m.month === month);
+            return data ? data.jumlah : 0;
+        }
+
+        /**
+         * Mempersiapkan data untuk tabel dan chart berdasarkan filter.
+         * @param {string} kodeNamaFilter - Nilai filter kode/nama kantor pos.
+         * @param {string} selectedMonth - Bulan yang dipilih ('all' atau nama bulan).
+         * @returns {Array<Object>} Data yang sudah difilter dan dihitung.
+         */
+        function getFilteredAndCalculatedData(kodeNamaFilter, selectedMonth) {
+            const filteredByKodeNama = allData.filter(item =>
+                item.kode.toLowerCase().includes(kodeNamaFilter.toLowerCase()) ||
+                item.nama.toLowerCase().includes(kodeNamaFilter.toLowerCase())
+            );
+
+            return filteredByKodeNama.map(item => {
+                let jumlahPeserta;
+                if (selectedMonth === 'all') {
+                    jumlahPeserta = calculateTotalParticipants(item.monthly_data);
+                } else {
+                    jumlahPeserta = getMonthlyParticipants(item.monthly_data, selectedMonth);
+                }
+                return {
+                    kode: item.kode,
+                    nama: item.nama,
+                    jumlah: jumlahPeserta // Ini akan menjadi total atau bulanan
+                };
+            });
+        }
+
+        /**
          * Merender data ke dalam tabel HTML.
          * @param {Array<Object>} dataToDisplay - Array objek data yang akan ditampilkan.
+         * @param {string} selectedMonth - Bulan yang dipilih untuk header tabel.
          */
-        function renderTable(dataToDisplay) {
+        function renderTable(dataToDisplay, selectedMonth) {
             const tableBody = document.querySelector('#dataPesertaTable tbody');
+            const jumlahPesertaHeader = document.getElementById('jumlahPesertaHeader');
+
+            // Perbarui header kolom jumlah peserta
+            jumlahPesertaHeader.textContent = selectedMonth === 'all' ? 'Jumlah Peserta Total' : `Jumlah Peserta (${selectedMonth})`;
+
             tableBody.innerHTML = ''; // Mengosongkan tabel sebelum mengisi ulang
 
             if (dataToDisplay.length === 0) {
@@ -118,7 +328,7 @@
                 row.className = 'hover:bg-green-50 transition duration-150 ease-in-out'; // Efek hover
                 row.insertCell().textContent = item.kode;
                 row.insertCell().textContent = item.nama;
-                row.insertCell().textContent = item.jumlah;
+                row.insertCell().textContent = item.jumlah; // Tampilkan jumlah yang sudah dihitung (total/bulanan)
                 // Menambahkan kelas Tailwind ke sel
                 Array.from(row.cells).forEach(cell => {
                     cell.className = 'py-3 px-4 text-sm text-gray-700 whitespace-nowrap';
@@ -128,9 +338,10 @@
 
         /**
          * Memperbarui atau membuat grafik top 5 kantor pos.
-         * @param {Array<Object>} data - Array objek data lengkap untuk dianalisis.
+         * @param {Array<Object>} data - Array objek data yang sudah difilter dan dihitung.
+         * @param {string} selectedMonth - Bulan yang dipilih untuk judul chart.
          */
-        function updateChart(data) {
+        function updateChart(data, selectedMonth) {
             // Urutkan data berdasarkan jumlah peserta secara menurun
             const sortedData = [...data].sort((a, b) => b.jumlah - a.jumlah);
             // Ambil top 5 kantor pos
@@ -146,6 +357,8 @@
                 chartInstance.destroy();
             }
 
+            const chartTitle = selectedMonth === 'all' ? 'Top 5 Kantor Pos Pendaftar Terbanyak (Total)' : `Top 5 Kantor Pos Pendaftar Terbanyak (${selectedMonth})`;
+
             chartInstance = new Chart(ctx, {
                 type: 'bar', // Tipe grafik batang
                 data: {
@@ -154,18 +367,18 @@
                         label: 'Jumlah Peserta',
                         data: dataValues, // Data untuk sumbu Y (jumlah peserta)
                         backgroundColor: [
-                            'rgba(22, 101, 52, 0.8)',  // green-800
-                            'rgba(34, 197, 94, 0.8)',  // green-500
-                            'rgba(134, 239, 172, 0.8)',// green-300
-                            'rgba(5, 150, 105, 0.8)',  // emerald-600
-                            'rgba(6, 182, 212, 0.8)'   // cyan-500 (sedikit berbeda untuk variasi)
+                            'rgba(190, 242, 100, 0.8)', // Hijau muda (lime-300)
+                            'rgba(147, 197, 253, 0.8)', // Biru muda (blue-300)
+                            'rgba(251, 146, 60, 0.8)',  // Orange (orange-500)
+                            'rgba(253, 224, 71, 0.8)',  // Kuning (yellow-300)
+                            'rgba(244, 114, 182, 0.8)'  // Pink (pink-400)
                         ],
                         borderColor: [
-                            'rgba(22, 101, 52, 1)',
-                            'rgba(34, 197, 94, 1)',
-                            'rgba(134, 239, 172, 1)',
-                            'rgba(5, 150, 105, 1)',
-                            'rgba(6, 182, 212, 1)'
+                            'rgba(190, 242, 100, 1)',
+                            'rgba(147, 197, 253, 1)',
+                            'rgba(251, 146, 60, 1)',
+                            'rgba(253, 224, 71, 1)',
+                            'rgba(244, 114, 182, 1)'
                         ],
                         borderWidth: 1
                     }]
@@ -179,7 +392,7 @@
                         },
                         title: {
                             display: true,
-                            text: 'Top 5 Kantor Pos Pendaftar Terbanyak',
+                            text: chartTitle, // Judul chart dinamis
                             font: {
                                 size: 18,
                                 weight: 'bold'
@@ -226,24 +439,54 @@
             });
         }
 
-        // Event listener untuk input filter
-        document.getElementById('kodeKantorFilter').addEventListener('keyup', function() {
-            const filterValue = this.value.toLowerCase(); // Ambil nilai input dan ubah ke huruf kecil
-            // Saring data berdasarkan kode atau nama kantor pos
-            const filteredData = allData.filter(item =>
-                item.kode.toLowerCase().includes(filterValue) ||
-                item.nama.toLowerCase().includes(filterValue)
-            );
-            renderTable(filteredData); // Perbarui tabel dengan data yang difilter
-            // Catatan: Chart selalu menampilkan top 5 dari SEMUA data (allData),
-            // tidak terpengaruh oleh filter tabel. Jika ingin chart juga terfilter,
-            // panggil updateChart(filteredData) di sini.
-        });
+        /**
+         * Memperbarui tampilan dashboard (tabel dan chart) berdasarkan filter.
+         */
+        function updateDashboard() {
+            const kodeNamaFilter = document.getElementById('kodeKantorFilter').value;
+            const selectedMonth = document.getElementById('monthFilter').value;
+
+            const processedData = getFilteredAndCalculatedData(kodeNamaFilter, selectedMonth);
+            renderTable(processedData, selectedMonth);
+            updateChart(processedData, selectedMonth);
+        }
+
+        /**
+         * Mengisi dropdown filter bulan secara dinamis.
+         */
+        function populateMonthFilter() {
+            const monthFilter = document.getElementById('monthFilter');
+            const uniqueMonths = new Set();
+            allData.forEach(item => {
+                item.monthly_data.forEach(monthData => {
+                    uniqueMonths.add(monthData.month);
+                });
+            });
+
+            // Urutkan bulan jika perlu (misal: Januari, Februari, Maret)
+            const sortedMonths = Array.from(uniqueMonths).sort((a, b) => {
+                const monthOrder = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                return monthOrder.indexOf(a) - monthOrder.indexOf(b);
+            });
+
+            sortedMonths.forEach(month => {
+                const option = document.createElement('option');
+                option.value = month;
+                option.textContent = month;
+                monthFilter.appendChild(option);
+            });
+        }
+
+        // Event listener untuk input filter kode/nama kantor pos
+        document.getElementById('kodeKantorFilter').addEventListener('keyup', updateDashboard);
+
+        // Event listener untuk dropdown filter bulan
+        document.getElementById('monthFilter').addEventListener('change', updateDashboard);
 
         // Inisialisasi dashboard saat seluruh konten DOM telah dimuat
         document.addEventListener('DOMContentLoaded', () => {
-            renderTable(allData); // Tampilkan semua data di tabel saat pertama kali dimuat
-            updateChart(allData); // Tampilkan grafik top 5 dari semua data
+            populateMonthFilter(); // Isi dropdown bulan
+            updateDashboard(); // Perbarui dashboard dengan filter awal
         });
     </script>
 </body>
