@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Pendaftaran Peserta Pekerja Mandiri via PT POS</title>
+    <title>Dashboard Pendaftaran Peserta via PT POS</title>
     <!-- Memuat Chart.js untuk grafik -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Memuat Tailwind CSS untuk styling -->
@@ -38,7 +38,7 @@
             Selamat datang di dashboard pendaftaran peserta melalui kantor pos. Anda dapat memantau data pendaftaran dan melihat statistik top kantor pos.
         </p>
 
-        <!-- Bagian Chart (Dipindahkan ke atas) -->
+        <!-- Bagian Chart Top 5 -->
         <div class="chart-section mt-6 mb-8 bg-green-50 p-6 rounded-lg shadow-md">
             <h2 class="text-2xl sm:text-3xl font-bold text-green-700 mb-6 text-center">
                 Top 5 Kantor Pos dengan Peserta Terbanyak 📈
@@ -46,7 +46,7 @@
             <canvas id="topKantorChart" class="bg-white p-4 rounded-lg shadow-inner"></canvas>
         </div>
 
-        <!-- Bagian Filter (Dipindahkan ke bawah chart) -->
+        <!-- Bagian Filter -->
         <div class="filter-section bg-green-50 p-4 rounded-lg mb-8 flex flex-col sm:flex-row items-center justify-center gap-4 shadow-sm">
             <label for="kodeKantorFilter" class="font-semibold text-green-700 text-lg">Filter Kode/Nama Kantor Pos:</label>
             <input type="text" id="kodeKantorFilter" placeholder="Contoh: 10001 atau Jakarta"
@@ -77,6 +77,14 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Bagian Chart Pertumbuhan Peserta Tiap Bulan (Baru) -->
+        <div class="chart-section mt-12 bg-green-50 p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl sm:text-3xl font-bold text-green-700 mb-6 text-center">
+                Grafik Pertumbuhan Peserta Keseluruhan Tiap Bulan 📈
+            </h2>
+            <canvas id="monthlyGrowthChart" class="bg-white p-4 rounded-lg shadow-inner"></canvas>
+        </div>
     </div>
 
     <script>
@@ -91,7 +99,9 @@
                     { month: 'Februari', jumlah: 40 },
                     { month: 'Maret', jumlah: 60 },
                     { month: 'April', jumlah: 55 },
-                    { month: 'Mei', jumlah: 70 }
+                    { month: 'Mei', jumlah: 70 },
+                    { month: 'Juni', jumlah: 75 },
+                    { month: 'Juli', jumlah: 80 }
                 ]
             },
             {
@@ -102,7 +112,9 @@
                     { month: 'Februari', jumlah: 70 },
                     { month: 'Maret', jumlah: 70 },
                     { month: 'April', jumlah: 85 },
-                    { month: 'Mei', jumlah: 90 }
+                    { month: 'Mei', jumlah: 90 },
+                    { month: 'Juni', jumlah: 95 },
+                    { month: 'Juli', jumlah: 100 }
                 ]
             },
             {
@@ -113,7 +125,9 @@
                     { month: 'Februari', jumlah: 50 },
                     { month: 'Maret', jumlah: 70 },
                     { month: 'April', jumlah: 65 },
-                    { month: 'Mei', jumlah: 80 }
+                    { month: 'Mei', jumlah: 80 },
+                    { month: 'Juni', jumlah: 82 },
+                    { month: 'Juli', jumlah: 85 }
                 ]
             },
             {
@@ -124,7 +138,9 @@
                     { month: 'Februari', jumlah: 25 },
                     { month: 'Maret', jumlah: 35 },
                     { month: 'April', jumlah: 40 },
-                    { month: 'Mei', jumlah: 45 }
+                    { month: 'Mei', jumlah: 45 },
+                    { month: 'Juni', jumlah: 48 },
+                    { month: 'Juli', jumlah: 50 }
                 ]
             },
             {
@@ -135,7 +151,9 @@
                     { month: 'Februari', jumlah: 35 },
                     { month: 'Maret', jumlah: 45 },
                     { month: 'April', jumlah: 50 },
-                    { month: 'Mei', jumlah: 55 }
+                    { month: 'Mei', jumlah: 55 },
+                    { month: 'Juni', jumlah: 58 },
+                    { month: 'Juli', jumlah: 60 }
                 ]
             },
             {
@@ -146,7 +164,9 @@
                     { month: 'Februari', jumlah: 20 },
                     { month: 'Maret', jumlah: 30 },
                     { month: 'April', jumlah: 28 },
-                    { month: 'Mei', jumlah: 32 }
+                    { month: 'Mei', jumlah: 32 },
+                    { month: 'Juni', jumlah: 35 },
+                    { month: 'Juli', jumlah: 38 }
                 ]
             },
             {
@@ -157,7 +177,9 @@
                     { month: 'Februari', jumlah: 40 },
                     { month: 'Maret', jumlah: 50 },
                     { month: 'April', jumlah: 48 },
-                    { month: 'Mei', jumlah: 52 }
+                    { month: 'Mei', jumlah: 52 },
+                    { month: 'Juni', jumlah: 55 },
+                    { month: 'Juli', jumlah: 58 }
                 ]
             },
             {
@@ -168,7 +190,9 @@
                     { month: 'Februari', jumlah: 85 },
                     { month: 'Maret', jumlah: 75 },
                     { month: 'April', jumlah: 95 },
-                    { month: 'Mei', jumlah: 100 }
+                    { month: 'Mei', jumlah: 100 },
+                    { month: 'Juni', jumlah: 105 },
+                    { month: 'Juli', jumlah: 110 }
                 ]
             },
             {
@@ -179,7 +203,9 @@
                     { month: 'Februari', jumlah: 15 },
                     { month: 'Maret', jumlah: 25 },
                     { month: 'April', jumlah: 22 },
-                    { month: 'Mei', jumlah: 28 }
+                    { month: 'Mei', jumlah: 28 },
+                    { month: 'Juni', jumlah: 30 },
+                    { month: 'Juli', jumlah: 33 }
                 ]
             },
             {
@@ -190,7 +216,9 @@
                     { month: 'Februari', jumlah: 60 },
                     { month: 'Maret', jumlah: 60 },
                     { month: 'April', jumlah: 75 },
-                    { month: 'Mei', jumlah: 80 }
+                    { month: 'Mei', jumlah: 80 },
+                    { month: 'Juni', jumlah: 85 },
+                    { month: 'Juli', jumlah: 90 }
                 ]
             },
             {
@@ -201,7 +229,9 @@
                     { month: 'Februari', jumlah: 50 },
                     { month: 'Maret', jumlah: 60 },
                     { month: 'April', jumlah: 58 },
-                    { month: 'Mei', jumlah: 62 }
+                    { month: 'Mei', jumlah: 62 },
+                    { month: 'Juni', jumlah: 65 },
+                    { month: 'Juli', jumlah: 68 }
                 ]
             },
             {
@@ -212,7 +242,9 @@
                     { month: 'Februari', jumlah: 28 },
                     { month: 'Maret', jumlah: 27 },
                     { month: 'April', jumlah: 35 },
-                    { month: 'Mei', jumlah: 38 }
+                    { month: 'Mei', jumlah: 38 },
+                    { month: 'Juni', jumlah: 40 },
+                    { month: 'Juli', jumlah: 42 }
                 ]
             },
             {
@@ -223,7 +255,9 @@
                     { month: 'Februari', jumlah: 30 },
                     { month: 'Maret', jumlah: 35 },
                     { month: 'April', jumlah: 40 },
-                    { month: 'Mei', jumlah: 42 }
+                    { month: 'Mei', jumlah: 42 },
+                    { month: 'Juni', jumlah: 45 },
+                    { month: 'Juli', jumlah: 48 }
                 ]
             },
             {
@@ -234,7 +268,9 @@
                     { month: 'Februari', jumlah: 45 },
                     { month: 'Maret', jumlah: 45 },
                     { month: 'April', jumlah: 50 },
-                    { month: 'Mei', jumlah: 55 }
+                    { month: 'Mei', jumlah: 55 },
+                    { month: 'Juni', jumlah: 58 },
+                    { month: 'Juli', jumlah: 60 }
                 ]
             },
             {
@@ -245,12 +281,18 @@
                     { month: 'Februari', jumlah: 22 },
                     { month: 'Maret', jumlah: 28 },
                     { month: 'April', jumlah: 30 },
-                    { month: 'Mei', jumlah: 33 }
+                    { month: 'Mei', jumlah: 33 },
+                    { month: 'Juni', jumlah: 35 },
+                    { month: 'Juli', jumlah: 38 }
                 ]
             }
         ];
 
-        let chartInstance; // Variabel untuk menyimpan instance chart agar bisa dihancurkan/diperbarui
+        let chartInstanceTop5; // Variabel untuk menyimpan instance chart Top 5
+        let chartInstanceMonthlyGrowth; // Variabel untuk menyimpan instance chart Pertumbuhan Bulanan
+
+        // Warna-warna untuk garis grafik pertumbuhan bulanan (hanya satu warna karena ini grafik total)
+        const overallGrowthLineColor = 'rgba(22, 101, 52, 1)'; // green-800
 
         /**
          * Menghitung total jumlah peserta dari data bulanan.
@@ -273,12 +315,12 @@
         }
 
         /**
-         * Mempersiapkan data untuk tabel dan chart berdasarkan filter.
+         * Mempersiapkan data untuk tabel dan chart Top 5 berdasarkan filter.
          * @param {string} kodeNamaFilter - Nilai filter kode/nama kantor pos.
          * @param {string} selectedMonth - Bulan yang dipilih ('all' atau nama bulan).
          * @returns {Array<Object>} Data yang sudah difilter dan dihitung.
          */
-        function getFilteredAndCalculatedData(kodeNamaFilter, selectedMonth) {
+        function getFilteredAndCalculatedDataForTableAndTop5(kodeNamaFilter, selectedMonth) {
             const filteredByKodeNama = allData.filter(item =>
                 item.kode.toLowerCase().includes(kodeNamaFilter.toLowerCase()) ||
                 item.nama.toLowerCase().includes(kodeNamaFilter.toLowerCase())
@@ -298,6 +340,37 @@
                 };
             });
         }
+
+        /**
+         * Mempersiapkan data untuk grafik pertumbuhan bulanan keseluruhan.
+         * Ini akan menjumlahkan peserta dari semua kantor pos yang terfilter per bulan.
+         * @param {string} kodeNamaFilter - Nilai filter kode/nama kantor pos.
+         * @param {Array<string>} allMonths - Semua bulan unik yang tersedia, diurutkan.
+         * @returns {Array<number>} Array jumlah peserta total per bulan.
+         */
+        function getOverallMonthlyGrowthData(kodeNamaFilter, allMonths) {
+            const filteredByKodeNama = allData.filter(item =>
+                item.kode.toLowerCase().includes(kodeNamaFilter.toLowerCase()) ||
+                item.nama.toLowerCase().includes(kodeNamaFilter.toLowerCase())
+            );
+
+            const monthlyTotals = {};
+            allMonths.forEach(month => {
+                monthlyTotals[month] = 0; // Inisialisasi total untuk setiap bulan
+            });
+
+            filteredByKodeNama.forEach(office => {
+                office.monthly_data.forEach(monthData => {
+                    if (monthlyTotals.hasOwnProperty(monthData.month)) {
+                        monthlyTotals[monthData.month] += monthData.jumlah;
+                    }
+                });
+            });
+
+            // Konversi objek total bulanan menjadi array data sesuai urutan bulan
+            return allMonths.map(month => monthlyTotals[month]);
+        }
+
 
         /**
          * Merender data ke dalam tabel HTML.
@@ -341,7 +414,7 @@
          * @param {Array<Object>} data - Array objek data yang sudah difilter dan dihitung.
          * @param {string} selectedMonth - Bulan yang dipilih untuk judul chart.
          */
-        function updateChart(data, selectedMonth) {
+        function updateTop5Chart(data, selectedMonth) {
             // Urutkan data berdasarkan jumlah peserta secara menurun
             const sortedData = [...data].sort((a, b) => b.jumlah - a.jumlah);
             // Ambil top 5 kantor pos
@@ -353,13 +426,13 @@
             const ctx = document.getElementById('topKantorChart').getContext('2d');
 
             // Hancurkan instance chart sebelumnya jika ada untuk menghindari duplikasi
-            if (chartInstance) {
-                chartInstance.destroy();
+            if (chartInstanceTop5) {
+                chartInstanceTop5.destroy();
             }
 
             const chartTitle = selectedMonth === 'all' ? 'Top 5 Kantor Pos Pendaftar Terbanyak (Total)' : `Top 5 Kantor Pos Pendaftar Terbanyak (${selectedMonth})`;
 
-            chartInstance = new Chart(ctx, {
+            chartInstanceTop5 = new Chart(ctx, {
                 type: 'bar', // Tipe grafik batang
                 data: {
                     labels: labels, // Label untuk sumbu X (nama kantor pos)
@@ -440,15 +513,115 @@
         }
 
         /**
-         * Memperbarui tampilan dashboard (tabel dan chart) berdasarkan filter.
+         * Memperbarui atau membuat grafik pertumbuhan peserta keseluruhan tiap bulan.
+         * @param {Array<number>} overallMonthlyData - Array jumlah peserta total per bulan.
+         * @param {Array<string>} allMonths - Semua bulan unik yang tersedia, diurutkan.
+         */
+        function updateMonthlyGrowthChart(overallMonthlyData, allMonths) {
+            const ctx = document.getElementById('monthlyGrowthChart').getContext('2d');
+
+            if (chartInstanceMonthlyGrowth) {
+                chartInstanceMonthlyGrowth.destroy();
+            }
+
+            chartInstanceMonthlyGrowth = new Chart(ctx, {
+                type: 'line', // Tipe grafik garis
+                data: {
+                    labels: allMonths, // Label sumbu X adalah bulan-bulan
+                    datasets: [{
+                        label: 'Total Peserta', // Label untuk garis tunggal
+                        data: overallMonthlyData,
+                        borderColor: overallGrowthLineColor, // Warna garis tunggal
+                        backgroundColor: overallGrowthLineColor.replace('1)', '0.2)'), // Warna latar belakang lebih transparan
+                        fill: false, // Tidak mengisi area di bawah garis
+                        tension: 0.1 // Sedikit kurva pada garis
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: true, // Tampilkan legenda untuk label "Total Peserta"
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    size: 12
+                                },
+                                color: '#333'
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Grafik Pertumbuhan Peserta Keseluruhan Tiap Bulan',
+                            font: {
+                                size: 18,
+                                weight: 'bold'
+                            },
+                            color: '#166534' // green-800
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y + ' peserta';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Jumlah Peserta',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                },
+                                color: '#4b5563'
+                            },
+                            ticks: {
+                                precision: 0
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Bulan',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                },
+                                color: '#4b5563'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+
+        /**
+         * Memperbarui tampilan dashboard (tabel dan kedua chart) berdasarkan filter.
          */
         function updateDashboard() {
             const kodeNamaFilter = document.getElementById('kodeKantorFilter').value;
             const selectedMonth = document.getElementById('monthFilter').value;
 
-            const processedData = getFilteredAndCalculatedData(kodeNamaFilter, selectedMonth);
-            renderTable(processedData, selectedMonth);
-            updateChart(processedData, selectedMonth);
+            // Data untuk tabel dan chart Top 5 (terpengaruh filter bulan)
+            const processedDataForTableAndTop5 = getFilteredAndCalculatedDataForTableAndTop5(kodeNamaFilter, selectedMonth);
+            renderTable(processedDataForTableAndTop5, selectedMonth);
+            updateTop5Chart(processedDataForTableAndTop5, selectedMonth);
+
+            // Ambil semua bulan unik yang ada di data, diurutkan secara kronologis
+            const allMonths = Array.from(new Set(allData.flatMap(item => item.monthly_data.map(m => m.month)))).sort((a, b) => {
+                const monthOrder = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                return monthOrder.indexOf(a) - monthOrder.indexOf(b);
+            });
+
+            // Data untuk chart pertumbuhan bulanan keseluruhan (hanya terpengaruh filter kode/nama)
+            const overallMonthlyData = getOverallMonthlyGrowthData(kodeNamaFilter, allMonths);
+            updateMonthlyGrowthChart(overallMonthlyData, allMonths);
         }
 
         /**
@@ -463,7 +636,7 @@
                 });
             });
 
-            // Urutkan bulan jika perlu (misal: Januari, Februari, Maret)
+            // Urutkan bulan secara kronologis
             const sortedMonths = Array.from(uniqueMonths).sort((a, b) => {
                 const monthOrder = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
                 return monthOrder.indexOf(a) - monthOrder.indexOf(b);
