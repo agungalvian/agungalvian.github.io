@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentasi Interaktif: Implementasi API v2 BP Tapera</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A single-page, vertical storytelling layout was chosen to guide the user logically from the core problem to the proposed solution and its implementation details. This narrative flow (Challenge -> Solution -> Strategy/Timeline -> KPIs -> Risks/Support) is more engaging for a strategic presentation than a static dashboard. It uses a sticky navigation bar for quick access to thematic sections, and interactive components like a clickable timeline and dynamic charts to deepen engagement and clarify complex information, making the content more digestible and impactful. -->
+    <!-- Visualization & Content Choices: 
+        - Kondisi Saat Ini: Goal: Compare/Organize. Method: HTML/CSS diagram showing two separate system silos. Interaction: Subtle hover effects. Justification: Visually demonstrates the core problem of duplication more effectively than text alone.
+        - Strategi & Timeline: Goal: Show Change/Process. Method: An interactive horizontal timeline built with HTML/JS. Interaction: Clicking a phase highlights it and reveals corresponding strategy details below. Justification: Merges two separate report sections into a single, cohesive interactive element that clearly links strategy to its place in the timeline.
+        - KPIs: Goal: Compare (Before vs. After). Method: A Chart.js bar chart. Interaction: A button toggles the view between 'Current' and 'Projected' states, animating the data change. Justification: Provides a clear, quantitative visualization of the project's expected value and impact.
+        - Pengelolaan Risiko: Goal: Organize. Method: HTML/JS accordion. Interaction: Clicking a risk category expands to show details. Justification: Prevents information overload by keeping the layout clean and allowing users to explore risks as needed.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #3D352E;
+        }
+        .nav-link {
+            transition: color 0.3s ease, border-bottom-color 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #C7A17A;
+            border-bottom-color: #C7A17A;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #EAE5E0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .timeline-item {
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .timeline-item.active {
+            background-color: #C7A17A;
+            color: #FFFFFF;
+        }
+        .kpi-button {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .kpi-button.active {
+            background-color: #3D352E;
+            color: #FFFFFF;
+        }
+        .accordion-header {
+            cursor: pointer;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg shadow-sm">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <div class="text-xl font-bold text-gray-800">BP Tapera API v2</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#challenge" class="nav-link">Tantangan</a>
+                    <a href="#solution" class="nav-link">Solusi</a>
+                    <a href="#strategy" class="nav-link">Strategi</a>
+                    <a href="#kpi" class="nav-link">KPI</a>
+                    <a href="#risk" class="nav-link">Risiko</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto text-center px-6">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 text-gray-800">Integrasi Sistem Pembiayaan</h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                    Memperkenalkan API v2: Sebuah langkah transformatif untuk menyatukan sistem pembiayaan FLPP dan Tapera, menciptakan efisiensi operasional dan pengalaman pengguna yang superior.
+                </p>
+            </div>
+        </section>
+
+        <section id="challenge" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">Tantangan Saat Ini</h2>
+                    <p class="mt-4 text-lg text-gray-600">Saat ini, BP Tapera mengoperasikan dua ekosistem pembiayaan yang terpisah. Struktur ini menimbulkan berbagai tantangan operasional yang signifikan dan menghambat potensi pertumbuhan serta efisiensi layanan kami.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-6">
+                        <div class="card p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-2">Sistem Terpisah</h3>
+                            <p>Dua proses bisnis untuk FLPP dan Tapera berjalan secara paralel, menciptakan silo informasi dan operasional.</p>
+                        </div>
+                        <div class="card p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-2">Kompleksitas Integrasi</h3>
+                            <p>Mengelola integrasi dengan 39 bank melalui dua sistem berbeda meningkatkan kerumitan teknis dan biaya.</p>
+                        </div>
+                        <div class="card p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-2">Duplikasi Sumber Daya</h3>
+                            <p>Adanya duplikasi tim, infrastruktur, dan biaya pemeliharaan yang tidak efisien.</p>
+                        </div>
+                         <div class="card p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-2">Pengalaman Tidak Konsisten</h3>
+                            <p>Pengguna (bank dan nasabah) menghadapi alur dan antarmuka yang berbeda, mengurangi kepuasan.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center p-8 space-y-4">
+                        <div class="flex space-x-8">
+                            <div class="text-center">
+                                <div class="w-24 h-24 bg-amber-100 rounded-full flex items-center justify-center text-amber-700 font-bold text-lg">FLPP</div>
+                                <div class="font-semibold mt-2">Sistem A</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-24 h-24 bg-sky-100 rounded-full flex items-center justify-center text-sky-700 font-bold text-lg">Tapera</div>
+                                <div class="font-semibold mt-2">Sistem B</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center items-center space-x-4">
+                            <div class="h-16 border-l-2 border-dashed border-gray-400 transform -skew-x-12"></div>
+                            <div class="h-16 border-l-2 border-dashed border-gray-400"></div>
+                            <div class="h-16 border-l-2 border-dashed border-gray-400"></div>
+                            <div class="h-16 border-l-2 border-dashed border-gray-400 transform skew-x-12"></div>
+                        </div>
+                        <div class="flex space-x-8">
+                            <div class="text-center">
+                                <div class="w-32 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-gray-700 font-bold">39 Bank</div>
+                            </div>
+                             <div class="text-center">
+                                <div class="w-32 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-gray-700 font-bold">Pengguna</div>
+                            </div>
+                        </div>
+                        <p class="text-center text-gray-500 mt-4 italic">Alur yang terduplikasi dan tidak efisien.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solution" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">Solusi Terintegrasi: API v2</h2>
+                    <p class="mt-4 text-lg text-gray-600">API v2 adalah jembatan yang akan menyatukan kedua sistem. Ini bukan sekadar pembaruan teknis, melainkan sebuah fondasi baru untuk operasional yang lebih efisien, layanan yang lebih baik, dan pengambilan keputusan berbasis data yang lebih akurat.</p>
+                </div>
+                <div class="text-center mb-12">
+                     <div class="flex justify-center items-center space-x-4">
+                        <div class="font-bold text-lg">FLPP</div>
+                        <div class="font-bold text-lg">Tapera</div>
+                    </div>
+                    <div class="flex justify-center items-center space-x-4">
+                        <div class="h-12 border-l-2 border-dashed border-gray-400 transform skew-x-12"></div>
+                        <div class="h-12 border-l-2 border-dashed border-gray-400 transform -skew-x-12"></div>
+                    </div>
+                    <div class="inline-block px-8 py-4 bg-emerald-600 text-white rounded-lg font-bold text-2xl shadow-lg">API v2</div>
+                    <div class="flex justify-center items-center">
+                        <div class="h-12 border-l-2 border-dashed border-gray-400"></div>
+                    </div>
+                    <div class="w-48 h-16 bg-gray-800 text-white rounded-lg flex items-center justify-center font-bold mx-auto">Sistem Tunggal</div>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-2">Efisiensi Operasional</h3>
+                        <p>Menghilangkan proses ganda, mengurangi biaya pemeliharaan, dan mengoptimalkan alokasi sumber daya.</p>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-2">Integrasi Sederhana</h3>
+                        <p>Menyediakan satu titik integrasi (single entry point) untuk semua bank penyalur, mempercepat onboarding bank baru.</p>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-2">Pengalaman Pengguna Unggul</h3>
+                        <p>Memberikan alur proses yang konsisten dan terstandarisasi bagi semua mitra dan pengguna akhir.</p>
+                    </div>
+                    <div class="card p-6 rounded-lg col-span-1 md:col-span-2 lg:col-span-3">
+                        <h3 class="text-xl font-semibold mb-2">Analisis Data Terpadu</h3>
+                        <p>Menggabungkan data dari kedua sumber pembiayaan untuk menghasilkan wawasan strategis yang komprehensif dan mendukung pengambilan keputusan yang lebih baik.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="strategy" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">Strategi & Timeline Implementasi</h2>
+                    <p class="mt-4 text-lg text-gray-600">Kami akan menerapkan pendekatan bertahap yang terukur untuk memastikan transisi yang mulus dan meminimalkan risiko. Klik setiap fase pada timeline di bawah untuk melihat detail strategi yang akan dijalankan.</p>
+                </div>
+                <div id="timeline-container" class="w-full overflow-x-auto pb-4">
+                    <div class="flex justify-between space-x-4 min-w-max">
+                        <div class="timeline-item flex-1 text-center p-4 rounded-lg border border-gray-300 active" data-target="fase-1">
+                            <h4 class="font-semibold">Fase 1: Pengembangan</h4>
+                        </div>
+                        <div class="timeline-item flex-1 text-center p-4 rounded-lg border border-gray-300" data-target="fase-2">
+                            <h4 class="font-semibold">Fase 2: Testing & Sosialisasi</h4>
+                        </div>
+                        <div class="timeline-item flex-1 text-center p-4 rounded-lg border border-gray-300" data-target="fase-3">
+                            <h4 class="font-semibold">Fase 3: Pilot Project</h4>
+                        </div>
+                        <div class="timeline-item flex-1 text-center p-4 rounded-lg border border-gray-300" data-target="fase-4">
+                            <h4 class="font-semibold">Fase 4: Implementasi Penuh</h4>
+                        </div>
+                    </div>
+                </div>
+                <div id="timeline-content" class="mt-8 card p-8 rounded-lg min-h-[200px]">
+                    <div id="fase-1" class="timeline-content-item">
+                        <h3 class="text-2xl font-bold mb-4">Pengembangan & Integrasi Awal</h3>
+                        <p>Tim teknis akan fokus pada pengembangan inti API v2, membangun arsitektur yang kokoh, dan melakukan integrasi awal dengan aplikasi pendukung internal. Tujuannya adalah menciptakan fondasi yang stabil untuk fase selanjutnya.</p>
+                    </div>
+                    <div id="fase-2" class="timeline-content-item hidden">
+                        <h3 class="text-2xl font-bold mb-4">Pengujian Menyeluruh & Sosialisasi</h3>
+                        <p>Melakukan serangkaian pengujian (unit, integration, UAT) untuk memastikan keandalan sistem. Secara paralel, kami akan memulai sosialisasi ekstensif kepada seluruh stakeholder, termasuk bank penyalur, untuk mempersiapkan mereka menghadapi perubahan.</p>
+                    </div>
+                    <div id="fase-3" class="timeline-content-item hidden">
+                        <h3 class="text-2xl font-bold mb-4">Pilot Project & Dual Running</h3>
+                        <p>Implementasi akan dimulai dengan beberapa bank terpilih sebagai pilot project. Selama periode ini, sistem lama dan baru akan berjalan bersamaan (dual running) untuk memvalidasi performa API v2 di lingkungan produksi dan mengumpulkan umpan balik.</p>
+                    </div>
+                    <div id="fase-4" class="timeline-content-item hidden">
+                        <h3 class="text-2xl font-bold mb-4">Implementasi Penuh & Migrasi</h3>
+                        <p>Setelah pilot project berhasil, kami akan melanjutkan ke implementasi penuh, melakukan migrasi bertahap untuk semua bank penyalur ke platform API v2. Sistem lama akan dinonaktifkan secara bertahap setelah semua mitra berhasil bermigrasi.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="kpi" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">Mengukur Keberhasilan (KPI)</h2>
+                    <p class="mt-4 text-lg text-gray-600">Keberhasilan proyek ini akan diukur melalui Key Performance Indicators (KPI) yang jelas dan terukur. Grafik di bawah ini memvisualisasikan dampak yang kami proyeksikan setelah implementasi API v2 berhasil sepenuhnya.</p>
+                </div>
+                <div class="text-center mb-8">
+                    <button id="kpi-current-btn" class="kpi-button px-6 py-2 rounded-l-lg border border-gray-300 active">Kondisi Saat Ini</button>
+                    <button id="kpi-projected-btn" class="kpi-button px-6 py-2 rounded-r-lg border border-gray-300">Proyeksi Dampak</button>
+                </div>
+                <div class="chart-container">
+                    <canvas id="kpiChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="risk" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                 <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">Pengelolaan Risiko & Kebutuhan Dukungan</h2>
+                    <p class="mt-4 text-lg text-gray-600">Kami telah mengidentifikasi potensi risiko dan kebutuhan dukungan krusial untuk memastikan kelancaran dan keberhasilan proyek transformasi digital ini.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6 text-center">Pengelolaan Risiko</h3>
+                        <div class="space-y-4">
+                            <div class="accordion-item border rounded-lg">
+                                <div class="accordion-header p-4 flex justify-between items-center">
+                                    <span class="font-semibold">Risiko Teknis</span>
+                                    <span class="transform transition-transform duration-300">&#9662;</span>
+                                </div>
+                                <div class="accordion-content px-4 pb-4">
+                                    <p>Strategi mitigasi: Arsitektur modular, pengujian otomatis, dan tim respons cepat. Rencana rollback disiapkan untuk setiap fase deployment.</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item border rounded-lg">
+                                <div class="accordion-header p-4 flex justify-between items-center">
+                                    <span class="font-semibold">Risiko Operasional</span>
+                                    <span class="transform transition-transform duration-300">&#9662;</span>
+                                </div>
+                                <div class="accordion-content px-4 pb-4">
+                                    <p>Strategi mitigasi: Pelatihan ekstensif bagi tim internal dan eksternal, dokumentasi yang jelas, dan periode dual running untuk adaptasi.</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item border rounded-lg">
+                                <div class="accordion-header p-4 flex justify-between items-center">
+                                    <span class="font-semibold">Risiko Bisnis</span>
+                                    <span class="transform transition-transform duration-300">&#9662;</span>
+                                </div>
+                                <div class="accordion-content px-4 pb-4">
+                                    <p>Strategi mitigasi: Komunikasi proaktif dengan bank penyalur, sosialisasi manfaat, dan pilot project untuk membangun kepercayaan.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6 text-center">Kebutuhan Dukungan</h3>
+                        <div class="space-y-4">
+                            <div class="card p-4 rounded-lg">
+                                <h4 class="font-semibold">Komitmen Manajemen</h4>
+                                <p class="text-sm text-gray-600">Dukungan penuh dari jajaran manajemen sebagai pendorong utama transformasi.</p>
+                            </div>
+                            <div class="card p-4 rounded-lg">
+                                <h4 class="font-semibold">Alokasi Sumber Daya</h4>
+                                <p class="text-sm text-gray-600">Penyediaan anggaran dan tim yang memadai untuk seluruh siklus proyek.</p>
+                            </div>
+                            <div class="card p-4 rounded-lg">
+                                <h4 class="font-semibold">Koordinasi Lintas Departemen</h4>
+                                <p class="text-sm text-gray-600">Kerja sama yang solid antara tim IT, Operasional, Bisnis, dan Hukum.</p>
+                            </div>
+                             <div class="card p-4 rounded-lg">
+                                <h4 class="font-semibold">Komunikasi Aktif</h4>
+                                <p class="text-sm text-gray-600">Membangun jalur komunikasi yang terbuka dan berkelanjutan dengan semua stakeholder.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto text-center px-6">
+            <p>&copy; 2025 BP Tapera. Proyek Implementasi API v2.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation scroll behavior
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section[id]');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 60) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            navLinks.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Timeline interaction
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const timelineContents = document.querySelectorAll('.timeline-content-item');
+
+            timelineItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    timelineItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+
+                    const targetId = item.getAttribute('data-target');
+                    timelineContents.forEach(content => {
+                        if (content.id === targetId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+            
+            // Accordion interaction
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                const icon = header.querySelector('span:last-child');
+
+                header.addEventListener('click', () => {
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        accordionItems.forEach(otherItem => {
+                            const otherContent = otherItem.querySelector('.accordion-content');
+                            const otherIcon = otherItem.querySelector('.accordion-header span:last-child');
+                            otherContent.style.maxHeight = null;
+                            otherIcon.style.transform = 'rotate(0deg)';
+                        })
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+            // KPI Chart
+            const ctx = document.getElementById('kpiChart').getContext('2d');
+            const labels = ['Kecepatan Proses (Hari)', 'Biaya Operasional (Indeks)', 'Kepuasan Pengguna (%)', 'Insiden Teknis (Jumlah)'];
+            
+            const currentData = {
+                label: 'Kondisi Saat Ini',
+                data: [14, 100, 65, 25],
+                backgroundColor: 'rgba(234, 179, 8, 0.6)',
+                borderColor: 'rgba(234, 179, 8, 1)',
+                borderWidth: 1
+            };
+
+            const projectedData = {
+                label: 'Proyeksi Dampak',
+                data: [5, 70, 90, 5],
+                backgroundColor: 'rgba(22, 163, 74, 0.6)',
+                borderColor: 'rgba(22, 163, 74, 1)',
+                borderWidth: 1
+            };
+
+            const kpiChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [currentData]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#3D352E'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#3D352E'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                color: '#3D352E'
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y;
+                                        if (context.label.includes('%')) {
+                                            label += '%';
+                                        }
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const currentBtn = document.getElementById('kpi-current-btn');
+            const projectedBtn = document.getElementById('kpi-projected-btn');
+
+            currentBtn.addEventListener('click', () => {
+                kpiChart.data.datasets[0] = currentData;
+                kpiChart.update();
+                currentBtn.classList.add('active');
+                projectedBtn.classList.remove('active');
+            });
+
+            projectedBtn.addEventListener('click', () => {
+                kpiChart.data.datasets[0] = projectedData;
+                kpiChart.update();
+                projectedBtn.classList.add('active');
+                currentBtn.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
