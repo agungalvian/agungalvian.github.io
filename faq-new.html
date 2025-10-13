@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ BP Tapera & Layanan Digital</title>
+
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .faq-section {
+    max-width: 900px;
+    margin: auto;
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  .faq-section h2 {
+    text-align: center;
+    color: #0a5c36;
+    margin-bottom: 25px;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .faq-question {
+    background: #ffffff;
+    color: #0a5c36;
+    cursor: pointer;
+    padding: 16px;
+    width: 100%;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    outline: none;
+    transition: 0.3s;
+    position: relative;
+  }
+
+  .faq-question::after {
+    content: '+';
+    font-size: 22px;
+    position: absolute;
+    right: 20px;
+    top: 12px;
+    color: #0a5c36;
+    transition: 0.3s;
+  }
+
+  .faq-question.active::after {
+    content: '-';
+  }
+
+  .faq-answer {
+    padding: 0 18px;
+    background-color: #fafafa;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s;
+  }
+
+  .faq-answer p {
+    color: #333;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .faq-answer a {
+    color: #0a5c36;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .faq-answer a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+
+<body>
+<section class="faq-section">
+  <h2>FAQ BP Tapera & Layanan Digital Tapera</h2>
+
+  <div class="faq-item">
+    <button class="faq-question">Apa itu BP Tapera?</button>
+    <div class="faq-answer">
+      <p>BP Tapera (Badan Pengelola Tabungan Perumahan Rakyat) adalah lembaga pemerintah yang mengelola tabungan perumahan bagi masyarakat Indonesia. Tujuannya membantu peserta memiliki, membangun, atau merenovasi rumah yang layak melalui sistem tabungan dan pembiayaan berkelanjutan.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Apa perbedaan Tapera dengan FLPP?</button>
+    <div class="faq-answer">
+      <p>Tapera mengelola dana tabungan wajib peserta untuk jangka panjang, sedangkan FLPP adalah subsidi bunga pembiayaan rumah. BP Tapera kini juga mengelola dana FLPP untuk integrasi pembiayaan perumahan rakyat.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Bagaimana cara membuat akun digital Tapera?</button>
+    <div class="faq-answer">
+      <p>Kunjungi <a href="https://tds.tapera.go.id">tds.tapera.go.id</a>, isi NIK dan data diri, unggah KTP dan swafoto, buat kata sandi, lalu verifikasi OTP via SMS untuk aktivasi akun digital Tapera.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Bagaimana cara mendaftar sebagai Peserta Pekerja Mandiri?</button>
+    <div class="faq-answer">
+      <p>Masuk ke menu “Daftar Peserta Pekerja Mandiri”, isi data diri, unggah dokumen, dan setujui syarat PUPPT. Tapera akan memproses pendaftaran dan menerbitkan Nomor Peserta, SID, dan IFUA melalui KSEI.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Bagaimana cara mengajukan pembiayaan Tapera atau FLPP?</button>
+    <div class="faq-answer">
+      <p>Masuk ke akun digital Tapera, pilih menu “Minat Pembiayaan Tapera”, isi form subsidi checking, pilih rumah melalui sistem Sikumbang, dan ajukan pembiayaan ke bank penyalur.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Bagaimana keamanan data peserta Tapera?</button>
+    <div class="faq-answer">
+      <p>Data peserta dilindungi dengan OTP, password, dan verifikasi wajah. Semua informasi diverifikasi melalui Dukcapil, Dirjen Pajak, dan Bank Kustodian untuk keamanan maksimal.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Kapan peserta dapat mencairkan dana Tapera?</button>
+    <div class="faq-answer">
+      <p>Dana Tapera dapat dicairkan jika peserta pensiun, meninggal dunia, atau tidak lagi memenuhi syarat kepesertaan aktif.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Bagaimana menghubungi BP Tapera?</button>
+    <div class="faq-answer">
+      <p>Email: <a href="mailto:info@tapera.go.id">info@tapera.go.id</a><br>
+      Website: <a href="https://www.tapera.go.id">www.tapera.go.id</a><br>
+      Call Center: (021) 5785-6789<br>
+      Alamat: Gedung BRI II Lt. 8–9, Jl. Jend. Sudirman, Jakarta 10210</p>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  const questions = document.querySelectorAll(".faq-question");
+  questions.forEach((q) => {
+    q.addEventListener("click", () => {
+      q.classList.toggle("active");
+      const answer = q.nextElementSibling;
+      if (answer.style.maxHeight) {
+        answer.style.maxHeight = null;
+        answer.style.padding = "0 18px";
+      } else {
+        answer.style.maxHeight = answer.scrollHeight + "px";
+        answer.style.padding = "15px 18px";
+      }
+    });
+  });
+</script>
+</body>
+</html>
