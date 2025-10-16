@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RumahSubsidi.id - Marketplace Rumah Subsidi Indonesia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c7be5;
+            --primary-dark: #1a68d1;
+            --secondary: #00d97e;
+            --light: #f9fafb;
+            --dark: #3b506c;
+            --gray: #95aac9;
+            --border: #e3ebf6;
+            --shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+            --radius: 0.5rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(44, 123, 229, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        .search-box {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: var(--shadow);
+        }
+        
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 1rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        
+        .form-group label {
+            font-size: 0.9rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+        
+        /* Stats Section */
+        .stats {
+            padding: 3rem 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Property Listings */
+        .listings {
+            padding: 3rem 0;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background-color: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .property-card {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .property-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .property-content {
+            padding: 1.5rem;
+        }
+        
+        .property-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .property-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .property-location {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .property-features {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .property-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .developer {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        /* Detail Page */
+        .detail-page {
+            display: none;
+            padding: 2rem 0;
+        }
+        
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+        
+        .detail-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .detail-location {
+            color: var(--gray);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .detail-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .detail-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        
+        .detail-gallery {
+            margin-bottom: 2rem;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+        }
+        
+        .thumbnail-container {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+        }
+        
+        .thumbnail {
+            width: 100px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: calc(var(--radius) / 2);
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        
+        .thumbnail.active {
+            opacity: 1;
+            border: 2px solid var(--primary);
+        }
+        
+        .detail-section {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .spec-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .spec-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 0.25rem;
+        }
+        
+        .spec-value {
+            font-weight: 500;
+        }
+        
+        .contact-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 100px;
+        }
+        
+        .contact-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-info {
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(44, 123, 229, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+            
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .properties-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .detail-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .detail-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo" id="homeLogo">
+                    <div class="logo-icon">🏠</div>
+                    <span>RumahSubsidi.id</span>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link" data-page="home">Beranda</a></li>
+                        <li><a href="#" class="nav-link" data-page="home">Cari Rumah</a></li>
+                        <li><a href="#">Cara Beli</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                        <li><a href="#">Bantuan</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline">Masuk</button>
+                    <button class="btn btn-primary">Daftar</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="homePage">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>Temukan Rumah Subsidi Impian Anda</h1>
+                <p>Platform resmi untuk mencari dan membeli rumah subsidi dengan mudah, cepat, dan terpercaya di seluruh Indonesia.</p>
+                
+                <div class="search-box">
+                    <form class="search-form">
+                        <div class="form-group">
+                            <label for="provinsi">Provinsi</label>
+                            <select id="provinsi" class="form-control">
+                                <option value="">Pilih Provinsi</option>
+                                <!-- Options akan diisi dengan JavaScript -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="kabupaten">Kabupaten/Kota</label>
+                            <select id="kabupaten" class="form-control">
+                                <option value="">Pilih Kabupaten/Kota</option>
+                                <!-- Options akan diisi dengan JavaScript -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>&nbsp;</label>
+                            <button type="submit" class="btn btn-primary" style="height: 42px;">Cari Rumah</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="countUnitSubsidi">787,820</div>
+                        <div class="stat-label">Unit Subsidi Tersedia</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="countUnitReady">40,888</div>
+                        <div class="stat-label">Unit Siap Huni</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="countPengembang">17,314</div>
+                        <div class="stat-label">Pengembang Terdaftar</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalLokasi">31,358</div>
+                        <div class="stat-label">Lokasi Perumahan</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Property Listings -->
+        <section class="listings">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Rumah Subsidi Tersedia</h2>
+                    <div>
+                        <button class="btn btn-outline">Lihat Semua</button>
+                    </div>
+                </div>
+                
+                <div class="filters">
+                    <button class="filter-btn active">Semua</button>
+                    <button class="filter-btn">Rumah Tapak</button>
+                    <button class="filter-btn">Rusun</button>
+                    <button class="filter-btn">Siap Huni</button>
+                    <button class="filter-btn">Dalam Pembangunan</button>
+                </div>
+                
+                <div class="properties-grid" id="propertiesGrid">
+                    <!-- Property cards akan diisi dengan JavaScript -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Detail Page -->
+    <div class="detail-page" id="detailPage">
+        <div class="container">
+            <a href="#" class="back-button" id="backButton">
+                <i class="fas fa-arrow-left"></i> Kembali ke Daftar Rumah
+            </a>
+            
+            <div class="detail-header">
+                <div>
+                    <h1 class="detail-title" id="detailTitle">Nama Perumahan</h1>
+                    <div class="detail-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span id="detailLocation">Lokasi Perumahan</span>
+                    </div>
+                </div>
+                <div class="detail-price" id="detailPrice">Rp 0</div>
+            </div>
+            
+            <div class="detail-content">
+                <div class="detail-main">
+                    <div class="detail-gallery">
+                        <img src="" alt="Rumah Subsidi" class="main-image" id="mainImage">
+                        <div class="thumbnail-container" id="thumbnailContainer">
+                            <!-- Thumbnails akan diisi dengan JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h3 class="section-title">Deskripsi Properti</h3>
+                        <p id="propertyDescription">Deskripsi properti akan ditampilkan di sini.</p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h3 class="section-title">Spesifikasi Rumah</h3>
+                        <div class="specs-grid" id="specsGrid">
+                            <!-- Spesifikasi akan diisi dengan JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h3 class="section-title">Detail Spesifikasi</h3>
+                        <div id="detailSpecs">
+                            <!-- Detail spesifikasi akan diisi dengan JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h3 class="section-title">Lokasi & Area</h3>
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-label">Provinsi</span>
+                                <span class="spec-value" id="detailProvinsi">-</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Kabupaten/Kota</span>
+                                <span class="spec-value" id="detailKabupaten">-</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Kecamatan</span>
+                                <span class="spec-value" id="detailKecamatan">-</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Kelurahan</span>
+                                <span class="spec-value" id="detailKelurahan">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-sidebar">
+                    <div class="contact-card">
+                        <h3 class="contact-title">Kantor Pemasaran</h3>
+                        <div class="contact-info" id="contactInfo">
+                            <!-- Informasi kontak akan diisi dengan JavaScript -->
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;">Hubungi Sekarang</button>
+                    </div>
+                    
+                    <div class="contact-card" style="margin-top: 1.5rem;">
+                        <h3 class="contact-title">Informasi Pengembang</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                                <div>
+                                    <div class="spec-label">Nama Pengembang</div>
+                                    <div class="spec-value" id="developerName">-</div>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div>
+                                    <div class="spec-label">Asosiasi</div>
+                                    <div class="spec-value" id="developerAsosiasi">-</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>RumahSubsidi.id</h3>
+                    <p>Platform marketplace resmi untuk rumah subsidi di Indonesia. Menghubungkan calon pembeli dengan pengembang terpercaya.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Navigasi</h3>
+                    <ul>
+                        <li><a href="#">Beranda</a></li>
+                        <li><a href="#">Cari Rumah</a></li>
+                        <li><a href="#">Cara Beli</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                        <li><a href="#">Bantuan</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Kontak</h3>
+                    <ul>
+                        <li>Email: info@rumahsubsidi.id</li>
+                        <li>Telepon: 1500-123</li>
+                        <li>Alamat: Gedung Tapera Indonesia</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Mitra</h3>
+                    <ul>
+                        <li><a href="#">Tapera</a></li>
+                        <li><a href="#">Kementerian PUPR</a></li>
+                        <li><a href="#">BP Tapera</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 RumahSubsidi.id - All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data dari API SI Kumbang Tapera
+        const sikumbangData = {
+            "count": {
+                "countUnitTotal": 2979644,
+                "countUnitSubsidi": 787820,
+                "countUnitKomersilTerjual": 271468,
+                "countUnitPembangunan": 7379,
+                "countUnitReady": 40888,
+                "countUnitTerjual": 1603083,
+                "countUnitKomersil": 225687,
+                "countUnitKomersilDibooking": 8399,
+                "countUnitDibooking": 31965,
+                "countPengembang": 17314,
+                "countUnitKomersilPembangunan": 1576,
+                "countUnitKomersilReadyStock": 1379,
+                "countAntrianKomersil": 17113,
+                "totalLokasi": 31358,
+                "totalPeminatan": null,
+                "totalPilihan": 248751
+            },
+            "data": [
+                {
+                    "idLokasi": "PLP0310012025T007",
+                    "namaPerumahan": "GRIYA FATIMAH SEJAHTERA PERMAI I LANJUTAN",
+                    "jenisPerumahan": "Rumah Tapak",
+                    "jumlahUnit": 7,
+                    "jumlahUnitKomersil": 0,
+                    "foto": [
+                        "https://sikumbang.tapera.go.id/public/upload/2025/10/10/file-lokasi-c4ac2c74-5cae-40ae-8b20-d49c49ddfaaa.jpeg",
+                        "https://sikumbang.tapera.go.id/public/upload/2025/10/10/file-lokasi-82135c07-76e3-4d9f-803a-561ce247f1b5.jpeg",
+                        "https://sikumbang.tapera.go.id/public/upload/2025/10/10/file-lokasi-3c27442c-b4fc-4fcc-b5e8-41cc2e280df9.jpeg"
+                    ],
+                    "koordinatPerumahan": "-3.0293194444444445,120.21819444444445",
+                    "kantorPemasaran": [
+                        {
+                            "id": 39030,
+                            "idLokasi": 40295,
+                            "alamat": "JL. IDRUS KAMBAU",
+                            "nomor": "0",
+                            "kodeWilayah": "7373031001",
+                            "noTelp": "085314123565",
+                            "email": "ladijamiun9@gmail.com",
+                            "website": "",
+                            "fax": "",
+                            "kantorUtama": false,
+                            "koordinat": null,
+                            "hide": false,
+                            "createdAt": "2025-10-10T00:19:47.106Z",
+                            "updatedAt": "2025-10-10T00:19:47.106Z"
+                        }
+                    ],
+                    "tipeRumah": [
+                        {
+                            "id": 88926,
+                            "idLokasi": 40295,
+                            "status": "subsidi",
+                            "nama": "36",
+                            "harga": 173000000,
+                            "kamarTidur": 2,
+                            "kamarMandi": 1,
+                            "fotoTampak": "/public/upload/2025/10/14/file-ddf2bafc-d7ba-41c9-b22b-a6bfeccf8eef.jpeg",
+                            "fotoDenah": "/public/upload/2025/10/14/file-e54305c5-b0f0-4b89-bf6d-96cc870c88e0.jpg",
+                            "jumlahLantai": "1",
+                            "createdAt": "2025-10-13T21:58:32.823Z",
+                            "updatedAt": "2025-10-13T21:58:32.823Z",
+                            "luasTanah": 78,
+                            "luasBangunan": 36,
+                            "spesifikasiAtap": "SPANDEK",
+                            "spesifikasiDinding": "BATA MERAH",
+                            "spesifikasiLantai": "KERAMIK 40X40",
+                            "spesifikasiPondasi": "BATU KALI"
+                        }
+                    ],
+                    "tipeRusun": [],
+                    "wilayah": {
+                        "kodeWilayah": "7373031001",
+                        "namaWilayah": "Takkalala",
+                        "provinsi": "SULAWESI SELATAN",
+                        "kabupaten": "KOTA PALOPO",
+                        "kecamatan": "Wara Selatan",
+                        "kelurahan": "Takkalala",
+                        "kbsni": "   "
+                    },
+                    "aktivasi": true,
+                    "rating": null,
+                    "pengembang": {
+                        "nama": "FATIMAH SEJAHTERA BABANA",
+                        "asosiasi": "HIMPERRA"
+                    }
+                },
+                {
+                    "idLokasi": "PLI0220032025T002",
+                    "namaPerumahan": "MIFTAHURRAHMAN AS-SUFI",
+                    "jenisPerumahan": "Rumah Tapak",
+                    "jumlahUnit": 11,
+                    "jumlahUnitKomersil": 0,
+                    "foto": [
+                        "https://sikumbang.tapera.go.id/public/upload/2025/10/14/file-lokasi-0c82d051-27c2-4fec-83e7-5ca38c9f92d5.jpg",
+                        "https://sikumbang.tapera.go.id/public/upload/2025/10/14/file-lokasi-72b64c00-413f-472e-925d-da2ceee4872e.jpg",
+                        "https://sikumbang.tapera.go.id/public/upload/2025/10/14/file-lokasi-ef014881-6635-43a3-9672-fac96e95ed31.jpg"
+                    ],
+                    "koordinatPerumahan": "-3.9398577175833336,115.05730424075",
+                    "kantorPemasaran": [
+                        {
+                            "id": 39065,
+                            "idLokasi": 40342,
+                            "alamat": "JL. MASUK TRANS 500 RT. 14 RW.04",
+                            "nomor": "-",
+                            "kodeWilayah": "6301022003",
+                            "noTelp": "082352098837",
+                            "email": "ptsudaismuliamandiri@gmail.com",
+                            "website": "",
+                            "fax": "",
+                            "kantorUtama": false,
+                            "koordinat": null,
+                            "hide": false,
+                            "createdAt": "2025-10-13T21:46:16.154Z",
+                            "updatedAt": "2025-10-13T21:46:16.154Z"
+                        }
+                    ],
+                    "tipeRumah": [
+                        {
+                            "id": 88981,
+                            "idLokasi": 40342,
+                            "status": "subsidi",
+                            "nama": "36",
+                            "harga": 182000000,
+                            "kamarTidur": 2,
+                            "kamarMandi": 1,
+                            "fotoTampak": "/public/upload/2025/10/15/file-ab67e978-5be6-4fdc-abe9-8fcedac7047d.jpeg",
+                            "fotoDenah": "/public/upload/2025/10/15/file-c353a686-f4bf-47dd-8cee-1cf6de24fb34.jpeg",
+                            "jumlahLantai": "1",
+                            "createdAt": "2025-10-14T23:03:39.484Z",
+                            "updatedAt": "2025-10-14T23:03:39.484Z",
+                            "luasTanah": 150,
+                            "luasBangunan": 36,
+                            "spesifikasiAtap": "- Rangka Baja Ringan\n- Multiroof\n- Plafond Kalsiboard\n",
+                            "spesifikasiDinding": "- Bata Ringan\n- Plaster\n- Cat",
+                            "spesifikasiLantai": "- Keramik",
+                            "spesifikasiPondasi": "- Pancangan Batu Gunung\n- Struktur Baton Bertulang"
+                        }
+                    ],
+                    "tipeRusun": [],
+                    "wilayah": {
+                        "kodeWilayah": "6301022003",
+                        "namaWilayah": "Asam-Asam",
+                        "provinsi": "KALIMANTAN SELATAN",
+                        "kabupaten": "KAB TANAH LAUT",
+                        "kecamatan": "Jorong",
+                        "kelurahan": "Asam-Asam",
+                        "kbsni": "   "
+                    },
+                    "aktivasi": true,
+                    "rating": null,
+                    "pengembang": {
+                        "nama": "SUDAIS MULIA MANDIRI",
+                        "asosiasi": "APERSI"
+                    }
+                },
+                {
+                    "idLokasi": "KPN2120102025T001",
+                    "namaPerumahan": "JEDONG REGENCY",
+                    "jenisPerumahan": "Rumah Tapak",
+                    "jumlahUnit": 0,
+                    "jumlahUnitKomersil": 0,
+                    "foto": [
+                        "https://sikumbang.tapera.go.id/public/upload/2025/10/13/file-lokasi-7035bf95-7143-474b-88c8-bc97bc9c1de5.JPG",
+                        "https://sikumbang.tapera.go.id/public/upload/2025/10/13/file-lokasi-0f7fcc3e-0f09-4354-ad74-edd884d992ba.JPG",
+                        "https://sikumbang.tapera.go.id/public/upload/2025/10/13/file-lokasi-7d154b11-96dd-4c90-8642-b8997bec6fb1.JPG"
+                    ],
+                    "koordinatPerumahan": "-7.986308333333334,112.57580555555555",
+                    "kantorPemasaran": [
+                        {
+                            "id": 39040,
+                            "idLokasi": 40304,
+                            "alamat": "DS. KROBYOKAN RT.001 RW.008 DESA JEDONG KECAMATAN\nWAGIR KABUPATEN MALANG PROVINSI JAWA TIMUR",
+                            "nomor": "0",
+                            "kodeWilayah": "3507212010",
+                            "noTelp": "082211068787",
+                            "email": "pttradamakmursejahtera@gmail.com",
+                            "website": "",
+                            "fax": "",
+                            "kantorUtama": false,
+                            "koordinat": null,
+                            "hide": false,
+                            "createdAt": "2025-10-12T20:11:02.773Z",
+                            "updatedAt": "2025-10-12T20:11:02.773Z"
+                        }
+                    ],
+                    "tipeRumah": [
+                        {
+                            "id": 89001,
+                            "idLokasi": 40304,
+                            "status": "komersil",
+                            "nama": "KOMERSIL",
+                            "harga": 349000000,
+                            "kamarTidur": 2,
+                            "kamarMandi": 1,
+                            "fotoTampak": "/public/upload/2025/10/15/file-a6c8a512-828b-4b32-ba41-43489b75f40e.JPG",
+                            "fotoDenah": "/public/upload/2025/10/15/file-832c41c5-e74a-4ea2-bbb0-3d7e804cf3c4.jpg",
+                            "jumlahLantai": "1",
+                            "createdAt": "2025-10-15T02:19:23.275Z",
+                            "updatedAt": "2025-10-15T02:19:41.610Z",
+                            "luasTanah": 84,
+                            "luasBangunan": 48,
+                            "spesifikasiAtap": "rangka galvalume atap spandex",
+                            "spesifikasiDinding": "dinding bata merah",
+                            "spesifikasiLantai": "menggunakan lantai tile ex.roman uk.30x30cm",
+                            "spesifikasiPondasi": "pondasi batu kali"
+                        }
+                    ],
+                    "tipeRusun": [],
+                    "wilayah": {
+                        "kodeWilayah": "3507212010",
+                        "namaWilayah": "Jedong",
+                        "provinsi": "JAWA TIMUR",
+                        "kabupaten": "KAB MALANG",
+                        "kecamatan": "Wagir",
+                        "kelurahan": "Jedong",
+                        "kbsni": "   "
+                    },
+                    "aktivasi": true,
+                    "rating": null,
+                    "pengembang": {
+                        "nama": "TRADA MAKMUR SEJAHTERA",
+                        "asosiasi": "APERSI"
+                    }
+                },
+                {
+                    "idLokasi": "PML0920142025T003",
+                    "namaPerumahan": "PEMALANG INDAH REGENCY 15",
+                    "jenisPerumahan": "Rumah Tapak",
+                    "jumlahUnit": 1,
+                    "jumlahUnitKomersil": 0,
+                    "foto": [
+                        "https://sikumbang.tapera.go.id/public/upload/2025/10/14/file-lokasi-ee01f710-5d9c-41f9-be91-3de8c72870c9.jpg",
+                        "https://sikumbang.tapera.go.id/public/upload/2025/10/14/file-lokasi-a01e66d4-e906-41c4-a9db-6b939e67f0e8.jpg",
+                        "https://sikumbang.tapera.go.id/public/upload/2025/10/14/file-lokasi-fde75051-c950-4169-966c-834ebe459337.jpg"
+                    ],
+                    "koordinatPerumahan": "-6.908968916666667,109.39174650000001",
+                    "kantorPemasaran": [
+                        {
+                            "id": 39064,
+                            "idLokasi": 40340,
+                            "alamat": "PERUM PEMALANG INDAH REGENCY 5 BLOCK A1-A3",
+                            "nomor": "A1-3",
+                            "kodeWilayah": "3327081015",
+                            "noTelp": "081229378003",
+                            "email": "rizkigroup_propertyndo@yahoo.com",
+                            "website": "",
+                            "fax": "",
+                            "kantorUtama": false,
+                            "koordinat": null,
+                            "hide": false,
+                            "createdAt": "2025-10-13T21:31:11.236Z",
+                            "updatedAt": "2025-10-13T21:31:11.236Z"
+                        }
+                    ],
+                    "tipeRumah": [
+                        {
+                            "id": 89007,
+                            "idLokasi": 40340,
+                            "status": "subsidi",
+                            "nama": "36/72",
+                            "harga": 166000000,
+                            "kamarTidur": 2,
+                            "kamarMandi": 1,
+                            "fotoTampak": "/public/upload/2025/10/16/file-c7cd8acd-686a-45ce-90e6-78da239fd058.jpg",
+                            "fotoDenah": "/public/upload/2025/10/16/file-682ccd5e-0cf7-4e42-aa2e-c321fdbd9ee9.jpg",
+                            "jumlahLantai": "1",
+                            "createdAt": "2025-10-15T19:02:00.097Z",
+                            "updatedAt": "2025-10-15T19:02:00.097Z",
+                            "luasTanah": 72,
+                            "luasBangunan": 36,
+                            "spesifikasiAtap": "Kayu kalimantan dan Glugu dengan Penutup Genteng Press",
+                            "spesifikasiDinding": "Pasangan Batu Bata,Plester Aci dan Dicat",
+                            "spesifikasiLantai": "keramik 40 x 40",
+                            "spesifikasiPondasi": "Batu Belah"
+                        }
+                    ],
+                    "tipeRusun": [],
+                    "wilayah": {
+                        "kodeWilayah": "3327092014",
+                        "namaWilayah": "Kaligelang",
+                        "provinsi": "JAWA TENGAH",
+                        "kabupaten": "KAB PEMALANG",
+                        "kecamatan": "Taman",
+                        "kelurahan": "Kaligelang",
+                        "kbsni": "   "
+                    },
+                    "aktivasi": true,
+                    "rating": null,
+                    "pengembang": {
+                        "nama": "RIZKI GROUP PROPERTYNDO",
+                        "asosiasi": "REI"
+                    }
+                }
+            ]
+        };
+
+        // Format angka dengan pemisah ribuan
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        // Format harga menjadi Rupiah
+        function formatRupiah(angka) {
+            return 'Rp ' + formatNumber(angka);
+        }
+
+        // Memuat data statistik
+        document.getElementById('countUnitSubsidi').textContent = formatNumber(sikumbangData.count.countUnitSubsidi);
+        document.getElementById('countUnitReady').textContent = formatNumber(sikumbangData.count.countUnitReady);
+        document.getElementById('countPengembang').textContent = formatNumber(sikumbangData.count.countPengembang);
+        document.getElementById('totalLokasi').textContent = formatNumber(sikumbangData.count.totalLokasi);
+
+        // Memuat daftar properti
+        const propertiesGrid = document.getElementById('propertiesGrid');
+        
+        // Filter hanya rumah subsidi
+        const subsidizedProperties = sikumbangData.data.filter(property => {
+            return property.tipeRumah.some(tipe => tipe.status === 'subsidi') && property.aktivasi;
+        });
+        
+        // Render properti
+        subsidizedProperties.forEach(property => {
+            const tipeSubsidi = property.tipeRumah.find(tipe => tipe.status === 'subsidi');
+            if (!tipeSubsidi) return;
+            
+            const propertyCard = document.createElement('div');
+            propertyCard.className = 'property-card';
+            propertyCard.setAttribute('data-id', property.idLokasi);
+            
+            propertyCard.innerHTML = `
+                <img src="${property.foto[0]}" alt="${property.namaPerumahan}" class="property-image">
+                <div class="property-content">
+                    <div class="property-price">${formatRupiah(tipeSubsidi.harga)}</div>
+                    <h3 class="property-title">${property.namaPerumahan}</h3>
+                    <div class="property-location">
+                        <span>📍</span>
+                        ${property.wilayah.kelurahan}, ${property.wilayah.kecamatan}, ${property.wilayah.kabupaten}
+                    </div>
+                    <div class="property-features">
+                        <div class="feature">
+                            <span>🛏️</span> ${tipeSubsidi.kamarTidur} Kamar
+                        </div>
+                        <div class="feature">
+                            <span>🚿</span> ${tipeSubsidi.kamarMandi} Kamar Mandi
+                        </div>
+                        <div class="feature">
+                            <span>📐</span> ${tipeSubsidi.luasBangunan} m²
+                        </div>
+                    </div>
+                    <div class="property-footer">
+                        <div class="developer">${property.pengembang.nama}</div>
+                        <button class="btn btn-primary view-detail" data-id="${property.idLokasi}">Detail</button>
+                    </div>
+                </div>
+            `;
+            
+            propertiesGrid.appendChild(propertyCard);
+        });
+
+        // Filter button functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                // Filter functionality would be implemented here
+            });
+        });
+
+        // Navigation between pages
+        const homePage = document.getElementById('homePage');
+        const detailPage = document.getElementById('detailPage');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const backButton = document.getElementById('backButton');
+        const homeLogo = document.getElementById('homeLogo');
+        
+        // Show home page by default
+        homePage.style.display = 'block';
+        detailPage.style.display = 'none';
+        
+        // Navigation event listeners
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                homePage.style.display = 'block';
+                detailPage.style.display = 'none';
+            });
+        });
+        
+        backButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            homePage.style.display = 'block';
+            detailPage.style.display = 'none';
+        });
+        
+        homeLogo.addEventListener('click', (e) => {
+            e.preventDefault();
+            homePage.style.display = 'block';
+            detailPage.style.display = 'none';
+        });
+        
+        // View detail button functionality
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('view-detail')) {
+                const propertyId = e.target.getAttribute('data-id');
+                showPropertyDetail(propertyId);
+            }
+        });
+        
+        // Show property detail
+        function showPropertyDetail(propertyId) {
+            const property = sikumbangData.data.find(p => p.idLokasi === propertyId);
+            if (!property) return;
+            
+            const tipeSubsidi = property.tipeRumah.find(tipe => tipe.status === 'subsidi');
+            
+            // Update detail page content
+            document.getElementById('detailTitle').textContent = property.namaPerumahan;
+            document.getElementById('detailLocation').textContent = `${property.wilayah.kelurahan}, ${property.wilayah.kecamatan}, ${property.wilayah.kabupaten}`;
+            document.getElementById('detailPrice').textContent = formatRupiah(tipeSubsidi.harga);
+            
+            // Update images
+            const mainImage = document.getElementById('mainImage');
+            const thumbnailContainer = document.getElementById('thumbnailContainer');
+            
+            if (property.foto && property.foto.length > 0) {
+                mainImage.src = property.foto[0];
+                thumbnailContainer.innerHTML = '';
+                
+                property.foto.forEach((foto, index) => {
+                    const thumbnail = document.createElement('img');
+                    thumbnail.src = foto;
+                    thumbnail.alt = `Thumbnail ${index + 1}`;
+                    thumbnail.className = `thumbnail ${index === 0 ? 'active' : ''}`;
+                    thumbnail.addEventListener('click', () => {
+                        mainImage.src = foto;
+                        document.querySelectorAll('.thumbnail').forEach(thumb => thumb.classList.remove('active'));
+                        thumbnail.classList.add('active');
+                    });
+                    thumbnailContainer.appendChild(thumbnail);
+                });
+            }
+            
+            // Update description
+            document.getElementById('propertyDescription').textContent = `${property.namaPerumahan} adalah perumahan subsidi ${property.jenisPerumahan.toLowerCase()} yang terletak di ${property.wilayah.kelurahan}, ${property.wilayah.kecamatan}, ${property.wilayah.kabupaten}. Perumahan ini dikembangkan oleh ${property.pengembang.nama} dan memiliki ${property.jumlahUnit} unit rumah subsidi.`;
+            
+            // Update specs
+            const specsGrid = document.getElementById('specsGrid');
+            specsGrid.innerHTML = '';
+            
+            const specItems = [
+                { label: 'Tipe Rumah', value: tipeSubsidi.nama },
+                { label: 'Luas Bangunan', value: `${tipeSubsidi.luasBangunan} m²` },
+                { label: 'Luas Tanah', value: `${tipeSubsidi.luasTanah} m²` },
+                { label: 'Kamar Tidur', value: tipeSubsidi.kamarTidur },
+                { label: 'Kamar Mandi', value: tipeSubsidi.kamarMandi },
+                { label: 'Jumlah Lantai', value: tipeSubsidi.jumlahLantai },
+                { label: 'Jenis Perumahan', value: property.jenisPerumahan },
+                { label: 'Jumlah Unit', value: property.jumlahUnit }
+            ];
+            
+            specItems.forEach(item => {
+                const specItem = document.createElement('div');
+                specItem.className = 'spec-item';
+                specItem.innerHTML = `
+                    <span class="spec-label">${item.label}</span>
+                    <span class="spec-value">${item.value}</span>
+                `;
+                specsGrid.appendChild(specItem);
+            });
+            
+            // Update detail specs
+            const detailSpecs = document.getElementById('detailSpecs');
+            detailSpecs.innerHTML = `
+                <div class="spec-item" style="margin-bottom: 1rem;">
+                    <span class="spec-label">Spesifikasi Atap</span>
+                    <span class="spec-value">${tipeSubsidi.spesifikasiAtap}</span>
+                </div>
+                <div class="spec-item" style="margin-bottom: 1rem;">
+                    <span class="spec-label">Spesifikasi Dinding</span>
+                    <span class="spec-value">${tipeSubsidi.spesifikasiDinding}</span>
+                </div>
+                <div class="spec-item" style="margin-bottom: 1rem;">
+                    <span class="spec-label">Spesifikasi Lantai</span>
+                    <span class="spec-value">${tipeSubsidi.spesifikasiLantai}</span>
+                </div>
+                <div class="spec-item" style="margin-bottom: 1rem;">
+                    <span class="spec-label">Spesifikasi Pondasi</span>
+                    <span class="spec-value">${tipeSubsidi.spesifikasiPondasi}</span>
+                </div>
+            `;
+            
+            // Update location details
+            document.getElementById('detailProvinsi').textContent = property.wilayah.provinsi;
+            document.getElementById('detailKabupaten').textContent = property.wilayah.kabupaten;
+            document.getElementById('detailKecamatan').textContent = property.wilayah.kecamatan;
+            document.getElementById('detailKelurahan').textContent = property.wilayah.kelurahan;
+            
+            // Update contact info
+            const contactInfo = document.getElementById('contactInfo');
+            contactInfo.innerHTML = '';
+            
+            if (property.kantorPemasaran && property.kantorPemasaran.length > 0) {
+                const kantor = property.kantorPemasaran[0];
+                
+                const contactItems = [
+                    { icon: 'fas fa-map-marker-alt', label: 'Alamat', value: kantor.alamat },
+                    { icon: 'fas fa-phone', label: 'Telepon', value: kantor.noTelp },
+                    { icon: 'fas fa-envelope', label: 'Email', value: kantor.email }
+                ];
+                
+                contactItems.forEach(item => {
+                    if (item.value) {
+                        const contactItem = document.createElement('div');
+                        contactItem.className = 'contact-item';
+                        contactItem.innerHTML = `
+                            <div class="contact-icon">
+                                <i class="${item.icon}"></i>
+                            </div>
+                            <div>
+                                <div class="spec-label">${item.label}</div>
+                                <div class="spec-value">${item.value}</div>
+                            </div>
+                        `;
+                        contactInfo.appendChild(contactItem);
+                    }
+                });
+            }
+            
+            // Update developer info
+            document.getElementById('developerName').textContent = property.pengembang.nama;
+            document.getElementById('developerAsosiasi').textContent = property.pengembang.asosiasi;
+            
+            // Show detail page
+            homePage.style.display = 'none';
+            detailPage.style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
