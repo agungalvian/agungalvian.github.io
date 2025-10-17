@@ -94,7 +94,7 @@
         /* Search Section */
         .search-section {
             background-color: white;
-            padding: 2.5rem 1rem;
+            padding: 2rem 1rem;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             border-bottom: 1px solid var(--border);
         }
@@ -133,103 +133,92 @@
         }
 
         /* Main Content */
-        .container {
+        .main-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2.5rem 1rem;
+            display: flex;
+            gap: 2rem;
         }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            position: relative;
-        }
-
-        .section-title h2 {
-            font-size: 2.2rem;
-            color: var(--secondary);
-            display: inline-block;
-            padding-bottom: 10px;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: var(--primary);
-            border-radius: 2px;
-        }
-
-        .faq-categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.8rem;
-            margin-bottom: 4rem;
-        }
-
-        .category-card {
-            background: var(--card-bg);
+        /* Categories Sidebar */
+        .categories-sidebar {
+            flex: 0 0 320px;
+            background: white;
             border-radius: 16px;
-            padding: 2rem 1.5rem;
             box-shadow: var(--shadow);
-            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .categories-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .categories-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.2rem;
+            background: var(--primary-light);
+            border-radius: 10px;
             cursor: pointer;
-            border-top: 5px solid var(--primary);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
         }
 
-        .category-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+        .category-item:hover {
+            background: rgba(102, 178, 67, 0.2);
+            transform: translateX(5px);
         }
 
-        .category-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
+        .category-item.active {
+            background: rgba(102, 178, 67, 0.25);
+            border-left-color: var(--primary);
+            box-shadow: 0 4px 8px rgba(102, 178, 67, 0.2);
         }
 
         .category-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
+            margin-right: 12px;
+            font-size: 1.3rem;
             color: var(--primary);
-            display: inline-block;
-            width: 80px;
-            height: 80px;
-            line-height: 80px;
-            border-radius: 50%;
-            background-color: var(--primary-light);
+            width: 30px;
+            text-align: center;
         }
 
-        .category-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
+        .category-name {
+            font-weight: 600;
             color: var(--text);
         }
 
-        .category-card p {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            line-height: 1.5;
+        /* FAQ Content */
+        .faq-content {
+            flex: 1;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            min-height: 600px;
         }
 
-        /* FAQ Items */
         .faq-section {
-            margin-bottom: 3.5rem;
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 2.5rem;
-            box-shadow: var(--shadow);
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .faq-section.active {
+            display: block;
         }
 
         .faq-section-title {
@@ -328,6 +317,26 @@
             text-decoration: underline;
         }
 
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .no-results h3 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .no-results p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
         /* Contact Section */
         .contact-section {
             background: linear-gradient(135deg, var(--primary-light), #e8f5e9);
@@ -420,30 +429,22 @@
             filter: brightness(0) invert(1);
         }
 
-        /* No Results */
-        .no-results {
-            text-align: center;
-            padding: 3rem;
-            background: white;
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-        }
-
-        .no-results h3 {
-            font-size: 1.8rem;
-            color: var(--secondary);
-            margin-bottom: 1rem;
-        }
-
-        .no-results p {
-            color: var(--text-light);
-            font-size: 1.1rem;
-        }
-
         /* Responsive */
         @media (max-width: 992px) {
-            .faq-categories {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .categories-sidebar {
+                flex: none;
+                width: 100%;
+                position: static;
+            }
+            
+            .categories-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1rem;
             }
         }
 
@@ -456,10 +457,6 @@
                 font-size: 1.1rem;
             }
             
-            .faq-categories {
-                grid-template-columns: 1fr;
-            }
-            
             .contact-methods {
                 flex-direction: column;
                 align-items: center;
@@ -470,7 +467,7 @@
                 max-width: 350px;
             }
             
-            .faq-section {
+            .faq-content {
                 padding: 1.5rem;
             }
         }
@@ -493,8 +490,8 @@
                 font-size: 1.8rem;
             }
             
-            .section-title h2 {
-                font-size: 1.8rem;
+            .categories-list {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -564,91 +561,84 @@
     </section>
 
     <!-- Main Content -->
-    <div class="container">
-        <!-- Categories -->
-        <div class="section-title">
-            <h2>Kategori Pertanyaan</h2>
-        </div>
-        
-        <div class="faq-categories">
-            <div class="category-card" data-category="pengembalian-dana">
-                <div class="category-icon">
-                    <i class="fas fa-hand-holding-usd"></i>
+    <div class="main-container">
+        <!-- Categories Sidebar -->
+        <div class="categories-sidebar">
+            <h2 class="categories-title">Kategori FAQ</h2>
+            <div class="categories-list">
+                <div class="category-item active" data-category="pengembalian-dana">
+                    <div class="category-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <div class="category-name">Pengembalian Dana Tabungan</div>
                 </div>
-                <h3>Pengembalian Dana Tabungan</h3>
-                <p>Informasi tentang proses pengembalian dana tabungan pensiun</p>
-            </div>
-            <div class="category-card" data-category="tentang-bp-tapera">
-                <div class="category-icon">
-                    <i class="fas fa-building"></i>
+                <div class="category-item" data-category="tentang-bp-tapera">
+                    <div class="category-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="category-name">Tentang BP TAPERA</div>
                 </div>
-                <h3>Tentang BP TAPERA</h3>
-                <p>Mengenal lebih jauh tentang BP TAPERA dan programnya</p>
-            </div>
-            <div class="category-card" data-category="pengelolaan-dana">
-                <div class="category-icon">
-                    <i class="fas fa-chart-line"></i>
+                <div class="category-item" data-category="pengelolaan-dana">
+                    <div class="category-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="category-name">Pengelolaan Dana TAPERA</div>
                 </div>
-                <h3>Pengelolaan Dana TAPERA</h3>
-                <p>Cara BP TAPERA mengelola dana peserta dengan aman</p>
-            </div>
-            <div class="category-card" data-category="kpr-tapera">
-                <div class="category-icon">
-                    <i class="fas fa-home"></i>
+                <div class="category-item" data-category="kpr-tapera">
+                    <div class="category-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="category-name">KPR TAPERA</div>
                 </div>
-                <h3>KPR TAPERA</h3>
-                <p>Pembiayaan KPR untuk memiliki rumah pertama</p>
-            </div>
-            <div class="category-card" data-category="kbr-tapera">
-                <div class="category-icon">
-                    <i class="fas fa-hammer"></i>
+                <div class="category-item" data-category="kbr-tapera">
+                    <div class="category-icon">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    <div class="category-name">KBR TAPERA</div>
                 </div>
-                <h3>KBR TAPERA</h3>
-                <p>Pembiayaan untuk membangun rumah di atas tanah sendiri</p>
-            </div>
-            <div class="category-card" data-category="krr-tapera">
-                <div class="category-icon">
-                    <i class="fas fa-tools"></i>
+                <div class="category-item" data-category="krr-tapera">
+                    <div class="category-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="category-name">KRR TAPERA</div>
                 </div>
-                <h3>KRR TAPERA</h3>
-                <p>Pembiayaan untuk perbaikan dan renovasi rumah</p>
-            </div>
-            <div class="category-card" data-category="flpp">
-                <div class="category-icon">
-                    <i class="fas fa-house-user"></i>
+                <div class="category-item" data-category="flpp">
+                    <div class="category-icon">
+                        <i class="fas fa-house-user"></i>
+                    </div>
+                    <div class="category-name">FLPP</div>
                 </div>
-                <h3>FLPP</h3>
-                <p>Fasilitas Likuiditas Pembiayaan Perumahan</p>
-            </div>
-            <div class="category-card" data-category="pengembalian-tabungan">
-                <div class="category-icon">
-                    <i class="fas fa-wallet"></i>
+                <div class="category-item" data-category="pengembalian-tabungan">
+                    <div class="category-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="category-name">Pengembalian Tabungan</div>
                 </div>
-                <h3>Pengembalian Tabungan</h3>
-                <p>Proses pengembalian tabungan saat pensiun</p>
-            </div>
-            <div class="category-card" data-category="kepesertaan">
-                <div class="category-icon">
-                    <i class="fas fa-users"></i>
+                <div class="category-item" data-category="kepesertaan">
+                    <div class="category-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="category-name">Kepesertaan TAPERA</div>
                 </div>
-                <h3>Kepesertaan TAPERA</h3>
-                <p>Syarat dan cara menjadi peserta TAPERA</p>
-            </div>
-            <div class="category-card" data-category="tapera-channel">
-                <div class="category-icon">
-                    <i class="fas fa-mobile-alt"></i>
+                <div class="category-item" data-category="tapera-channel">
+                    <div class="category-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="category-name">TAPERA Channel</div>
                 </div>
-                <h3>TAPERA Channel</h3>
-                <p>Layanan digital dan kontak BP TAPERA</p>
             </div>
         </div>
 
-        <!-- FAQ Sections -->
-        <div id="faqContent">
-            <!-- Konten FAQ akan dimuat di sini secara dinamis -->
+        <!-- FAQ Content -->
+        <div class="faq-content">
+            <div id="faqContent">
+                <!-- Konten FAQ akan dimuat di sini secara dinamis -->
+            </div>
         </div>
+    </div>
 
-        <!-- Contact Section -->
+    <!-- Contact Section -->
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
         <section class="contact-section">
             <h2>Butuh Bantuan Lebih Lanjut?</h2>
             <p>Hubungi kami melalui berbagai saluran yang tersedia. Tim kami siap membantu Anda!</p>
@@ -699,7 +689,7 @@
     </div>
 
     <script>
-        // Data FAQ (disederhanakan untuk contoh)
+        // Data FAQ
         const faqData = {
             "pengembalian-dana": [
                 {
@@ -835,56 +825,68 @@
             title.innerHTML = `<span class="section-icon">${icon}</span> ${categoryName}`;
             section.appendChild(title);
             
-            faqs.forEach((faq, index) => {
-                const faqItem = document.createElement('div');
-                faqItem.className = 'faq-item';
-                
-                const question = document.createElement('div');
-                question.className = 'faq-question';
-                question.textContent = faq.question;
-                
-                const answer = document.createElement('div');
-                answer.className = 'faq-answer';
-                answer.innerHTML = `<p>${faq.answer}</p>`;
-                
-                faqItem.appendChild(question);
-                faqItem.appendChild(answer);
-                
-                // Event listener untuk toggle FAQ
-                question.addEventListener('click', () => {
-                    faqItem.classList.toggle('active');
+            if (faqs.length === 0) {
+                const noResults = document.createElement('div');
+                noResults.className = 'no-results';
+                noResults.innerHTML = '<p>Tidak ada pertanyaan yang cocok dengan pencarian Anda.</p>';
+                section.appendChild(noResults);
+            } else {
+                faqs.forEach((faq, index) => {
+                    const faqItem = document.createElement('div');
+                    faqItem.className = 'faq-item';
+                    
+                    const question = document.createElement('div');
+                    question.className = 'faq-question';
+                    question.textContent = faq.question;
+                    
+                    const answer = document.createElement('div');
+                    answer.className = 'faq-answer';
+                    answer.innerHTML = `<p>${faq.answer}</p>`;
+                    
+                    faqItem.appendChild(question);
+                    faqItem.appendChild(answer);
+                    
+                    // Event listener untuk toggle FAQ
+                    question.addEventListener('click', () => {
+                        faqItem.classList.toggle('active');
+                    });
+                    
+                    section.appendChild(faqItem);
                 });
-                
-                section.appendChild(faqItem);
-            });
+            }
             
             return section;
         }
 
-        // Fungsi untuk memuat semua FAQ
-        function loadAllFAQs() {
+        // Fungsi untuk menampilkan kategori yang dipilih
+        function showCategory(categoryId) {
+            // Update active class pada kategori
+            document.querySelectorAll('.category-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`.category-item[data-category="${categoryId}"]`).classList.add('active');
+            
+            // Tampilkan konten FAQ
             const faqContent = document.getElementById('faqContent');
             faqContent.innerHTML = '';
             
-            for (const [categoryId, faqs] of Object.entries(faqData)) {
-                let categoryName = '';
-                
-                switch(categoryId) {
-                    case 'pengembalian-dana': categoryName = 'Pengembalian Dana Tabungan'; break;
-                    case 'tentang-bp-tapera': categoryName = 'Tentang BP TAPERA'; break;
-                    case 'pengelolaan-dana': categoryName = 'Pengelolaan Dana TAPERA'; break;
-                    case 'kpr-tapera': categoryName = 'KPR TAPERA'; break;
-                    case 'kbr-tapera': categoryName = 'KBR TAPERA'; break;
-                    case 'krr-tapera': categoryName = 'KRR TAPERA'; break;
-                    case 'flpp': categoryName = 'FLPP'; break;
-                    case 'pengembalian-tabungan': categoryName = 'Pengembalian Tabungan'; break;
-                    case 'kepesertaan': categoryName = 'Kepesertaan TAPERA'; break;
-                    case 'tapera-channel': categoryName = 'TAPERA Channel'; break;
-                }
-                
-                const section = createFAQSection(categoryId, categoryName, faqs);
-                faqContent.appendChild(section);
+            let categoryName = '';
+            switch(categoryId) {
+                case 'pengembalian-dana': categoryName = 'Pengembalian Dana Tabungan'; break;
+                case 'tentang-bp-tapera': categoryName = 'Tentang BP TAPERA'; break;
+                case 'pengelolaan-dana': categoryName = 'Pengelolaan Dana TAPERA'; break;
+                case 'kpr-tapera': categoryName = 'KPR TAPERA'; break;
+                case 'kbr-tapera': categoryName = 'KBR TAPERA'; break;
+                case 'krr-tapera': categoryName = 'KRR TAPERA'; break;
+                case 'flpp': categoryName = 'FLPP'; break;
+                case 'pengembalian-tabungan': categoryName = 'Pengembalian Tabungan'; break;
+                case 'kepesertaan': categoryName = 'Kepesertaan TAPERA'; break;
+                case 'tapera-channel': categoryName = 'TAPERA Channel'; break;
             }
+            
+            const faqs = faqData[categoryId] || [];
+            const section = createFAQSection(categoryId, categoryName, faqs);
+            faqContent.appendChild(section);
         }
 
         // Fungsi pencarian
@@ -894,7 +896,9 @@
             
             const lowerQuery = query.toLowerCase();
             let foundResults = false;
+            let allResults = [];
             
+            // Kumpulkan semua hasil dari semua kategori
             for (const [categoryId, faqs] of Object.entries(faqData)) {
                 const filteredFAQs = faqs.filter(faq => 
                     faq.question.toLowerCase().includes(lowerQuery) || 
@@ -903,41 +907,48 @@
                 
                 if (filteredFAQs.length > 0) {
                     foundResults = true;
-                    
-                    let categoryName = '';
-                    switch(categoryId) {
-                        case 'pengembalian-dana': categoryName = 'Pengembalian Dana Tabungan'; break;
-                        case 'tentang-bp-tapera': categoryName = 'Tentang BP TAPERA'; break;
-                        case 'pengelolaan-dana': categoryName = 'Pengelolaan Dana TAPERA'; break;
-                        case 'kpr-tapera': categoryName = 'KPR TAPERA'; break;
-                        case 'kbr-tapera': categoryName = 'KBR TAPERA'; break;
-                        case 'krr-tapera': categoryName = 'KRR TAPERA'; break;
-                        case 'flpp': categoryName = 'FLPP'; break;
-                        case 'pengembalian-tabungan': categoryName = 'Pengembalian Tabungan'; break;
-                        case 'kepesertaan': categoryName = 'Kepesertaan TAPERA'; break;
-                        case 'tapera-channel': categoryName = 'TAPERA Channel'; break;
-                    }
-                    
-                    const section = createFAQSection(categoryId, categoryName, filteredFAQs);
-                    
-                    // Highlight teks yang cocok dengan query
-                    const questions = section.querySelectorAll('.faq-question');
-                    const answers = section.querySelectorAll('.faq-answer');
-                    
-                    questions.forEach(question => {
-                        question.innerHTML = highlightText(question.textContent, lowerQuery);
-                    });
-                    
-                    answers.forEach(answer => {
-                        answer.innerHTML = highlightText(answer.innerHTML, lowerQuery);
-                    });
-                    
-                    faqContent.appendChild(section);
+                    allResults = allResults.concat(filteredFAQs.map(faq => ({
+                        ...faq,
+                        categoryId
+                    })));
                 }
             }
             
-            if (!foundResults) {
-                faqContent.innerHTML = '<div class="no-results fade-in"><h3>Tidak ditemukan hasil untuk pencarian Anda</h3><p>Coba gunakan kata kunci yang berbeda atau lihat semua kategori FAQ di atas.</p></div>';
+            if (foundResults) {
+                const section = document.createElement('div');
+                section.className = 'faq-section fade-in';
+                
+                const title = document.createElement('h2');
+                title.className = 'faq-section-title';
+                title.innerHTML = `<span class="section-icon"><i class="fas fa-search"></i></span> Hasil Pencarian: "${query}"`;
+                section.appendChild(title);
+                
+                allResults.forEach((faq, index) => {
+                    const faqItem = document.createElement('div');
+                    faqItem.className = 'faq-item';
+                    
+                    const question = document.createElement('div');
+                    question.className = 'faq-question';
+                    question.innerHTML = highlightText(faq.question, lowerQuery);
+                    
+                    const answer = document.createElement('div');
+                    answer.className = 'faq-answer';
+                    answer.innerHTML = `<p>${highlightText(faq.answer, lowerQuery)}</p>`;
+                    
+                    faqItem.appendChild(question);
+                    faqItem.appendChild(answer);
+                    
+                    // Event listener untuk toggle FAQ
+                    question.addEventListener('click', () => {
+                        faqItem.classList.toggle('active');
+                    });
+                    
+                    section.appendChild(faqItem);
+                });
+                
+                faqContent.appendChild(section);
+            } else {
+                faqContent.innerHTML = '<div class="no-results fade-in"><h3>Tidak ditemukan hasil untuk pencarian Anda</h3><p>Coba gunakan kata kunci yang berbeda atau lihat semua kategori FAQ di sebelah kiri.</p></div>';
             }
         }
 
@@ -949,21 +960,11 @@
             return text.replace(regex, '<span class="highlight">$1</span>');
         }
 
-        // Event listener untuk kategori card
-        document.querySelectorAll('.category-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const categoryId = card.getAttribute('data-category');
-                const section = document.getElementById(categoryId);
-                
-                if (section) {
-                    section.scrollIntoView({ behavior: 'smooth' });
-                    
-                    // Buka semua FAQ di section tersebut
-                    const faqItems = section.querySelectorAll('.faq-item');
-                    faqItems.forEach(item => {
-                        item.classList.add('active');
-                    });
-                }
+        // Event listener untuk kategori
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const categoryId = item.getAttribute('data-category');
+                showCategory(categoryId);
             });
         });
 
@@ -974,7 +975,9 @@
             if (query.length > 2) {
                 searchFAQs(query);
             } else if (query.length === 0) {
-                loadAllFAQs();
+                // Kembali ke kategori aktif saat pencarian dikosongkan
+                const activeCategory = document.querySelector('.category-item.active').getAttribute('data-category');
+                showCategory(activeCategory);
             }
         });
 
@@ -996,9 +999,9 @@
             });
         });
 
-        // Muat semua FAQ saat halaman dimuat
+        // Muat kategori default saat halaman dimuat
         document.addEventListener('DOMContentLoaded', () => {
-            loadAllFAQs();
+            showCategory('pengembalian-dana');
         });
     </script>
 </body>
