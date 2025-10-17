@@ -355,11 +355,38 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             margin-bottom: 2rem;
+            position: relative;
         }
         
         #map {
             height: 100%;
             width: 100%;
+        }
+        
+        .map-error {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            color: var(--dark);
+        }
+        
+        .map-error h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .map-error p {
+            margin-bottom: 1.5rem;
+            max-width: 500px;
         }
         
         /* Detail Page */
@@ -769,7 +796,13 @@
             </div>
             
             <div class="map-container">
-                <div id="map"></div>
+                <div id="map">
+                    <div class="map-error" id="mapError" style="display: none;">
+                        <h3>Peta Tidak Dapat Dimuat</h3>
+                        <p>Maaf, peta tidak dapat ditampilkan saat ini. Anda masih dapat mencari rumah subsidi menggunakan filter di atas.</p>
+                        <button class="btn btn-primary" id="retryMap">Coba Lagi</button>
+                    </div>
+                </div>
             </div>
             
             <div class="properties-grid" id="searchResults">
@@ -924,9 +957,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Load Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5cT5p3pKq5p5p5p5p5p5p5p5p5p5p5p5p5&callback=initMap" async defer></script>
 
     <script>
         // Data dari API SI Kumbang Tapera
@@ -1450,6 +1480,7 @@
         let map;
         let markers = [];
         let filteredProperties = [];
+        let mapInitialized = false;
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
@@ -1468,11 +1499,10 @@
             // Setup search form
             setupSearchForm();
 
-            // Initialize map when search page is shown
-            document.getElementById('searchPage').addEventListener('DOMNodeInserted', function() {
-                if (document.getElementById('searchPage').style.display === 'block') {
-                    initMap();
-                }
+            // Setup retry map button
+            document.getElementById('retryMap').addEventListener('click', function() {
+                document.getElementById('mapError').style.display = 'none';
+                initMap();
             });
         });
 
@@ -1564,7 +1594,7 @@
                     detailPage.style.display = 'none';
                     
                     // Initialize map if showing search page
-                    if (page === 'search') {
+                    if (page === 'search' && !mapInitialized) {
                         initMap();
                     }
                 });
@@ -1635,59 +1665,76 @@
 
         // Initialize Google Maps
         function initMap() {
-            // Default center (Indonesia)
-            const center = { lat: -2.5489, lng: 118.0149 };
+            // Check if Google Maps API is available
+            if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
+                showMapError();
+                return;
+            }
             
-            // Create map
-            map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 5,
-                center: center,
-                styles: [
-                    {
-                        "featureType": "administrative",
-                        "elementType": "labels.text.fill",
-                        "stylers": [{"color": "#444444"}]
-                    },
-                    {
-                        "featureType": "landscape",
-                        "elementType": "all",
-                        "stylers": [{"color": "#f2f2f2"}]
-                    },
-                    {
-                        "featureType": "poi",
-                        "elementType": "all",
-                        "stylers": [{"visibility": "off"}]
-                    },
-                    {
-                        "featureType": "road",
-                        "elementType": "all",
-                        "stylers": [{"saturation": -100}, {"lightness": 45}]
-                    },
-                    {
-                        "featureType": "road.highway",
-                        "elementType": "all",
-                        "stylers": [{"visibility": "simplified"}]
-                    },
-                    {
-                        "featureType": "road.arterial",
-                        "elementType": "labels.icon",
-                        "stylers": [{"visibility": "off"}]
-                    },
-                    {
-                        "featureType": "transit",
-                        "elementType": "all",
-                        "stylers": [{"visibility": "off"}]
-                    },
-                    {
-                        "featureType": "water",
-                        "elementType": "all",
-                        "stylers": [{"color": "#d4e6ff"}, {"visibility": "on"}]
-                    }
-                ]
-            });
-            
-            // Add markers for all properties
-            addPropertyMarkers();
+            try {
+                // Default center (Indonesia)
+                const center = { lat: -2.5489, lng: 118.0149 };
+                
+                // Create map
+                map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 5,
+                    center: center,
+                    styles: [
+                        {
+                            "featureType": "administrative",
+                            "elementType": "labels.text.fill",
+                            "stylers": [{"color": "#444444"}]
+                        },
+                        {
+                            "featureType": "landscape",
+                            "elementType": "all",
+                            "stylers": [{"color": "#f2f2f2"}]
+                        },
+                        {
+                            "featureType": "poi",
+                            "elementType": "all",
+                            "stylers": [{"visibility": "off"}]
+                        },
+                        {
+                            "featureType": "road",
+                            "elementType": "all",
+                            "stylers": [{"saturation": -100}, {"lightness": 45}]
+                        },
+                        {
+                            "featureType": "road.highway",
+                            "elementType": "all",
+                            "stylers": [{"visibility": "simplified"}]
+                        },
+                        {
+                            "featureType": "road.arterial",
+                            "elementType": "labels.icon",
+                            "stylers": [{"visibility": "off"}]
+                        },
+                        {
+                            "featureType": "transit",
+                            "elementType": "all",
+                            "stylers": [{"visibility": "off"}]
+                        },
+                        {
+                            "featureType": "water",
+                            "elementType": "all",
+                            "stylers": [{"color": "#d4e6ff"}, {"visibility": "on"}]
+                        }
+                    ]
+                });
+                
+                // Add markers for all properties
+                addPropertyMarkers();
+                mapInitialized = true;
+            } catch (error) {
+                console.error('Error initializing map:', error);
+                showMapError();
+            }
+        }
+
+        // Show map error message
+        function showMapError() {
+            document.getElementById('mapError').style.display = 'flex';
         }
 
         // Add property markers to map
