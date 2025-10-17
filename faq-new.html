@@ -1,172 +1,1005 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FAQ BP Tapera & Layanan Digital</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - BP TAPERA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset dan variabel */
+        :root {
+            --primary: #66b243;
+            --primary-dark: #4f8a34;
+            --primary-light: #e8f5e9;
+            --secondary: #2e7d32;
+            --accent: #ffc107;
+            --text: #263238;
+            --text-light: #546e7a;
+            --background: #f5f9f6;
+            --card-bg: #ffffff;
+            --border: #c8e6c9;
+            --shadow: 0 4px 12px rgba(102, 178, 67, 0.15);
+            --shadow-hover: 0 8px 20px rgba(102, 178, 67, 0.25);
+        }
 
-<style>
-  body {
-    font-family: "Poppins", sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 20px;
-  }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  .faq-section {
-    max-width: 900px;
-    margin: auto;
-    background: #fff;
-    padding: 25px 30px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--background);
+        }
 
-  .faq-section h2 {
-    text-align: center;
-    color: #0a5c36;
-    margin-bottom: 25px;
-  }
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-  .faq-item {
-    border-bottom: 1px solid #ddd;
-  }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
 
-  .faq-question {
-    background: #ffffff;
-    color: #0a5c36;
-    cursor: pointer;
-    padding: 16px;
-    width: 100%;
-    text-align: left;
-    font-size: 1rem;
-    font-weight: 600;
-    border: none;
-    outline: none;
-    transition: 0.3s;
-    position: relative;
-  }
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-  .faq-question::after {
-    content: '+';
-    font-size: 22px;
-    position: absolute;
-    right: 20px;
-    top: 12px;
-    color: #0a5c36;
-    transition: 0.3s;
-  }
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
 
-  .faq-question.active::after {
-    content: '-';
-  }
+        .logo {
+            height: 70px;
+            margin-right: 20px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
 
-  .faq-answer {
-    padding: 0 18px;
-    background-color: #fafafa;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out, padding 0.4s;
-  }
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
 
-  .faq-answer p {
-    color: #333;
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
 
-  .faq-answer a {
-    color: #0a5c36;
-    text-decoration: none;
-    font-weight: 600;
-  }
+        /* Search Section */
+        .search-section {
+            background-color: white;
+            padding: 2.5rem 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid var(--border);
+        }
 
-  .faq-answer a:hover {
-    text-decoration: underline;
-  }
-</style>
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 1.2rem 1.8rem;
+            font-size: 1.1rem;
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            outline: none;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+            background-color: var(--primary-light);
+        }
+
+        .search-box:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 178, 67, 0.3);
+            background-color: white;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--secondary);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .faq-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 4rem;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border-top: 5px solid var(--primary);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+        }
+
+        .category-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .category-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* FAQ Items */
+        .faq-section {
+            margin-bottom: 3.5rem;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .faq-section-title {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--primary);
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-icon {
+            margin-right: 15px;
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .faq-item {
+            background: var(--primary-light);
+            border-radius: 12px;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 8px rgba(102, 178, 67, 0.1);
+            overflow: hidden;
+            border-left: 4px solid var(--primary);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--primary-light);
+            transition: background-color 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .faq-question:hover {
+            background-color: rgba(102, 178, 67, 0.15);
+        }
+
+        .faq-question::after {
+            content: '\f107';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 1.3rem;
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s, padding 0.4s;
+            background-color: white;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 1.5rem;
+            max-height: 1000px;
+        }
+
+        .faq-answer p, .faq-answer ul, .faq-answer ol {
+            margin-bottom: 1rem;
+        }
+
+        .faq-answer ul, .faq-answer ol {
+            padding-left: 1.5rem;
+        }
+
+        .faq-answer ul li, .faq-answer ol li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight {
+            background-color: #fff9c4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .contact-link {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary-light), #e8f5e9);
+            padding: 3.5rem 2rem;
+            border-radius: 20px;
+            margin-top: 4rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .contact-section h2 {
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            font-size: 2.2rem;
+        }
+
+        .contact-section > p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            min-width: 280px;
+        }
+
+        .contact-method:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .contact-icon {
+            margin-right: 15px;
+            font-size: 2rem;
+            color: var(--primary);
+            width: 50px;
+            text-align: center;
+        }
+
+        .contact-details {
+            text-align: left;
+        }
+
+        .contact-details strong {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--secondary);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--secondary), #1b5e20);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer p {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .footer-logo {
+            height: 50px;
+            margin-bottom: 1.5rem;
+            filter: brightness(0) invert(1);
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .no-results h3 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .no-results p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .faq-categories {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
+            }
+            
+            .faq-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-methods {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .contact-method {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .faq-section {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                padding: 2rem 1rem;
+            }
+            
+            .logo-container {
+                flex-direction: column;
+            }
+            
+            .logo {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+    </style>
 </head>
-
 <body>
-<section class="faq-section">
-  <h2>FAQ BP Tapera & Layanan Digital Tapera</h2>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="https://via.placeholder.com/70x70/66b243/ffffff?text=BP" alt="BP TAPERA Logo" class="logo">
+                <h1>FAQ BP TAPERA</h1>
+            </div>
+            <p>Temukan Jawaban Anda & Raih Manfaatnya!</p>
+        </div>
+    </header>
 
-  <div class="faq-item">
-    <button class="faq-question">Apa itu BP Tapera?</button>
-    <div class="faq-answer">
-      <p>BP Tapera (Badan Pengelola Tabungan Perumahan Rakyat) adalah lembaga pemerintah yang mengelola tabungan perumahan bagi masyarakat Indonesia. Tujuannya membantu peserta memiliki, membangun, atau merenovasi rumah yang layak melalui sistem tabungan dan pembiayaan berkelanjutan.</p>
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-box" placeholder="Cari pertanyaan atau kata kunci...">
+            <div class="search-icon">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Categories -->
+        <div class="section-title">
+            <h2>Kategori Pertanyaan</h2>
+        </div>
+        
+        <div class="faq-categories">
+            <div class="category-card" data-category="pengembalian-dana">
+                <div class="category-icon">
+                    <i class="fas fa-hand-holding-usd"></i>
+                </div>
+                <h3>Pengembalian Dana Tabungan</h3>
+                <p>Informasi tentang proses pengembalian dana tabungan pensiun</p>
+            </div>
+            <div class="category-card" data-category="tentang-bp-tapera">
+                <div class="category-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3>Tentang BP TAPERA</h3>
+                <p>Mengenal lebih jauh tentang BP TAPERA dan programnya</p>
+            </div>
+            <div class="category-card" data-category="pengelolaan-dana">
+                <div class="category-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Pengelolaan Dana TAPERA</h3>
+                <p>Cara BP TAPERA mengelola dana peserta dengan aman</p>
+            </div>
+            <div class="category-card" data-category="kpr-tapera">
+                <div class="category-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3>KPR TAPERA</h3>
+                <p>Pembiayaan KPR untuk memiliki rumah pertama</p>
+            </div>
+            <div class="category-card" data-category="kbr-tapera">
+                <div class="category-icon">
+                    <i class="fas fa-hammer"></i>
+                </div>
+                <h3>KBR TAPERA</h3>
+                <p>Pembiayaan untuk membangun rumah di atas tanah sendiri</p>
+            </div>
+            <div class="category-card" data-category="krr-tapera">
+                <div class="category-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3>KRR TAPERA</h3>
+                <p>Pembiayaan untuk perbaikan dan renovasi rumah</p>
+            </div>
+            <div class="category-card" data-category="flpp">
+                <div class="category-icon">
+                    <i class="fas fa-house-user"></i>
+                </div>
+                <h3>FLPP</h3>
+                <p>Fasilitas Likuiditas Pembiayaan Perumahan</p>
+            </div>
+            <div class="category-card" data-category="pengembalian-tabungan">
+                <div class="category-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <h3>Pengembalian Tabungan</h3>
+                <p>Proses pengembalian tabungan saat pensiun</p>
+            </div>
+            <div class="category-card" data-category="kepesertaan">
+                <div class="category-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Kepesertaan TAPERA</h3>
+                <p>Syarat dan cara menjadi peserta TAPERA</p>
+            </div>
+            <div class="category-card" data-category="tapera-channel">
+                <div class="category-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>TAPERA Channel</h3>
+                <p>Layanan digital dan kontak BP TAPERA</p>
+            </div>
+        </div>
+
+        <!-- FAQ Sections -->
+        <div id="faqContent">
+            <!-- Konten FAQ akan dimuat di sini secara dinamis -->
+        </div>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <h2>Butuh Bantuan Lebih Lanjut?</h2>
+            <p>Hubungi kami melalui berbagai saluran yang tersedia. Tim kami siap membantu Anda!</p>
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <strong>Call Center</strong>
+                        1500156 atau 156
+                    </div>
+                </div>
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="contact-details">
+                        <strong>WhatsApp</strong>
+                        08118 156 156
+                    </div>
+                </div>
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <strong>Email</strong>
+                        layanan@tapera.go.id
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-  </div>
 
-  <div class="faq-item">
-    <button class="faq-question">Apa perbedaan Tapera dengan FLPP?</button>
-    <div class="faq-answer">
-      <p>Tapera mengelola dana tabungan wajib peserta untuk jangka panjang, sedangkan FLPP adalah subsidi bunga pembiayaan rumah. BP Tapera kini juga mengelola dana FLPP untuk integrasi pembiayaan perumahan rakyat.</p>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <img src="https://via.placeholder.com/50x50/ffffff/66b243?text=BP" alt="BP TAPERA Logo" class="footer-logo">
+            <p>&copy; 2023 BP TAPERA - Badan Pengelola Tabungan Perumahan Rakyat</p>
+            <p>Menara Mandiri 2, Lantai 7–9, Jl. Jend. Sudirman Kav. 52-53 No. 54-55, Senayan, Kebayoran Baru, Jakarta Selatan</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
     </div>
-  </div>
 
-  <div class="faq-item">
-    <button class="faq-question">Bagaimana cara membuat akun digital Tapera?</button>
-    <div class="faq-answer">
-      <p>Kunjungi <a href="https://tds.tapera.go.id">tds.tapera.go.id</a>, isi NIK dan data diri, unggah KTP dan swafoto, buat kata sandi, lalu verifikasi OTP via SMS untuk aktivasi akun digital Tapera.</p>
-    </div>
-  </div>
+    <script>
+        // Data FAQ (disederhanakan untuk contoh)
+        const faqData = {
+            "pengembalian-dana": [
+                {
+                    question: "Bagaimana mengetahui jika peserta telah menerima pengembalian dana tabungan?",
+                    answer: "Peserta dapat menghubungi layanan Contact Center (156) dengan mengirimkan kelengkapan data untuk dilakukan pengecekan."
+                },
+                {
+                    question: "Bagaimana mekanisme pengembalian tabungan pensiun normal?",
+                    answer: "Proses pengembalian tabungan menggunakan mekanisme transfer ke rekening bank yang sudah terdaftar. Pastikan data rekening Anda sudah terupdate di sistem BP TAPERA."
+                }
+            ],
+            "tentang-bp-tapera": [
+                {
+                    question: "Apa itu TAPERA?",
+                    answer: "Tabungan Perumahan Rakyat (TAPERA) adalah simpanan yang dilakukan oleh peserta secara periodik dalam jangka waktu tertentu yang hanya dapat dimanfaatkan untuk pembiayaan rumah."
+                },
+                {
+                    question: "Apa itu BP TAPERA?",
+                    answer: "Badan Hukum Publik di Indonesia yang dibentuk untuk mengelola Tabungan Perumahan Rakyat. BP Tapera bertanggungjawab pada Komite Tapera yang beranggotakan Menteri Perumahan dan Kawasan Pemukiman, Menteri Keuangan, Komisioner Otoritas Jasa Keuangan, serta unsur profesional yang memahami perumahan dan permukiman."
+                },
+                {
+                    question: "Bagaimana mekanisme pengelolaan dana di BP TAPERA?",
+                    answer: "Dana peserta dikelola secara profesional dan diinvestasikan untuk meningkatkan nilai simpanan, dengan hasil yang akan dikembalikan saat peserta pensiun atau mengakhiri kepesertaan."
+                }
+            ],
+            "pengelolaan-dana": [
+                {
+                    question: "Bagaimana TAPERA mengelola dana pesertanya?",
+                    answer: "Pengelolaan dana Tapera terbagi menjadi 3 (tiga) core business yaitu Pengerahan, Pemupukan dan Pemanfaatan yang dijabarkan sebagai berikut: 1. Pengerahan Dana Tapera dilakukan untuk pengumpulan dana dari Peserta serta dana yang dikumpulkan disimpan oleh Bank Kustodian; 2. Pemupukan Dana Tapera dilakukan untuk meningkatkan nilai Dana Tapera yang dilakukan dengan prinsip konvensional atau prinsip syariah; 3. Pemanfaatan Dana Tapera dilakukan untuk pembiayaan perumahan bagi Peserta yang dilaksanakan melalui Bank atau Perusahaan Pembiayaan yang meliputi KPR, KBR dan KRR."
+                },
+                {
+                    question: "Apakah investasi di TAPERA aman?",
+                    answer: "Tentu, kami menjamin investasi yang aman dan terpercaya karena dana yang dikelola oleh BP Tapera aman dan terpercaya karena dikelola oleh Manajer Investasi dan Bank Kustodian."
+                }
+            ],
+            "kpr-tapera": [
+                {
+                    question: "Apa itu KPR TAPERA?",
+                    answer: "KPR TAPERA adalah produk pembiayaan bagi peserta yang ingin membeli rumah dengan skema Kredit Pemilikan Rumah."
+                },
+                {
+                    question: "Apa keunggulan KPR TAPERA dibandingkan KPR bank biasa?",
+                    answer: "KPR TAPERA menawarkan bunga kompetitif, tenor panjang sesuai kemampuan, serta kemudahan proses bagi peserta Tapera."
+                }
+            ],
+            "kbr-tapera": [
+                {
+                    question: "Apa itu KBR TAPERA?",
+                    answer: "KBR TAPERA adalah produk pembiayaan bagi peserta yang ingin membangun rumah di atas tanah pribadi milik sendiri."
+                },
+                {
+                    question: "Apakah tanah yang digunakan harus sudah bersertifikat?",
+                    answer: "Iya, tanah harus sudah bersertifikat sebagai bukti kepemilikan legal untuk pengajuan KBR TAPERA."
+                }
+            ],
+            "krr-tapera": [
+                {
+                    question: "Apa itu KRR TAPERA?",
+                    answer: "KRR TAPERA adalah produk pembiayaan yang membantu peserta membeli rumah yang sudah jadi dengan ketentuan dan metode pembiayaan tertentu."
+                },
+                {
+                    question: "Apakah KRR TAPERA bisa digunakan untuk membeli rumah bekas (second)?",
+                    answer: "Ya, KRR TAPERA dapat digunakan untuk membeli rumah bekas yang memenuhi standar kelayakan dari BP TAPERA."
+                }
+            ],
+            "flpp": [
+                {
+                    question: "Apa itu FLPP?",
+                    answer: "FLPP adalah pembiayaan perumahan subsidi pemerintah untuk masyarakat non-ASN yang ingin membeli rumah pertama."
+                },
+                {
+                    question: "Apakah FLPP hanya untuk warga yang belum pernah memiliki rumah?",
+                    answer: "Ya, FLPP ditujukan bagi masyarakat yang belum memiliki rumah untuk mendorong kepemilikan pertama."
+                }
+            ],
+            "pengembalian-tabungan": [
+                {
+                    question: "Apa itu produk Pengembalian Tabungan?",
+                    answer: "Produk ini mengatur pengembalian simpanan pokok dan hasil investasi kepada peserta yang sudah pensiun atau mengakhiri kepesertaan."
+                },
+                {
+                    question: "Kapan peserta berhak mengajukan pengembalian tabungan?",
+                    answer: "Saat pensiun atau sesuai ketentuan di peraturan BP TAPERA."
+                }
+            ],
+            "kepesertaan": [
+                {
+                    question: "Siapa saja yang bisa menjadi peserta TAPERA?",
+                    answer: "Berdasarkan UU No.4 Tahun 2016 tentang Tabungan Perumahan Rakyat, bahwa setiap pekerja dan pekerja mandiri yang berpenghasilan paling sedikit sebesar upah minimum wajib menjadi Peserta Tapera."
+                },
+                {
+                    question: "Siapakah yang wajib menjadi peserta TAPERA?",
+                    answer: "Sesuai dengan Pasal 7 ayat (1) dan ayat (3) UU No 4 Tahun 2016 mengamanatkan: Setiap Pekerja dan Pekerja Mandiri yang berpenghasilan paling sedikit sebesar upah minimum WAJIB menjadi Peserta, lebih lanjut diatur pekerja dan pekerja mandiri diamaksud telah berusia 20 tahun atau sudah menikah. dan berakhir usia 58 tahun"
+                }
+            ],
+            "tapera-channel": [
+                {
+                    question: "Apa itu Tapera Digital Service?",
+                    answer: "Tapera Digital Service adalah layanan digital milik BP Tapera yang memudahkan peserta dan pengembang dalam mengakses seluruh fitur Tapera secara online."
+                },
+                {
+                    question: "Apa saja layanan yang tersedia di Tapera Digital Service?",
+                    answer: "Melalui portal SITARA, pengguna dapat mengakses: Pendaftaran dan validasi kepesertaan Tapera, Pengajuan pengembalian tabungan (e-Klaim), Pemutakhiran data pribadi dan pekerjaan, Pemantauan saldo tabungan, Panduan dan informasi layanan Tapera."
+                }
+            ]
+        };
 
-  <div class="faq-item">
-    <button class="faq-question">Bagaimana cara mendaftar sebagai Peserta Pekerja Mandiri?</button>
-    <div class="faq-answer">
-      <p>Masuk ke menu “Daftar Peserta Pekerja Mandiri”, isi data diri, unggah dokumen, dan setujui syarat PUPPT. Tapera akan memproses pendaftaran dan menerbitkan Nomor Peserta, SID, dan IFUA melalui KSEI.</p>
-    </div>
-  </div>
+        // Fungsi untuk membuat elemen FAQ
+        function createFAQSection(categoryId, categoryName, faqs) {
+            const section = document.createElement('div');
+            section.className = 'faq-section fade-in';
+            section.id = categoryId;
+            
+            const title = document.createElement('h2');
+            title.className = 'faq-section-title';
+            
+            // Menambahkan ikon berdasarkan kategori
+            let icon = '';
+            switch(categoryId) {
+                case 'pengembalian-dana': icon = '<i class="fas fa-hand-holding-usd"></i>'; break;
+                case 'tentang-bp-tapera': icon = '<i class="fas fa-building"></i>'; break;
+                case 'pengelolaan-dana': icon = '<i class="fas fa-chart-line"></i>'; break;
+                case 'kpr-tapera': icon = '<i class="fas fa-home"></i>'; break;
+                case 'kbr-tapera': icon = '<i class="fas fa-hammer"></i>'; break;
+                case 'krr-tapera': icon = '<i class="fas fa-tools"></i>'; break;
+                case 'flpp': icon = '<i class="fas fa-house-user"></i>'; break;
+                case 'pengembalian-tabungan': icon = '<i class="fas fa-wallet"></i>'; break;
+                case 'kepesertaan': icon = '<i class="fas fa-users"></i>'; break;
+                case 'tapera-channel': icon = '<i class="fas fa-mobile-alt"></i>'; break;
+                default: icon = '<i class="fas fa-question-circle"></i>';
+            }
+            
+            title.innerHTML = `<span class="section-icon">${icon}</span> ${categoryName}`;
+            section.appendChild(title);
+            
+            faqs.forEach((faq, index) => {
+                const faqItem = document.createElement('div');
+                faqItem.className = 'faq-item';
+                
+                const question = document.createElement('div');
+                question.className = 'faq-question';
+                question.textContent = faq.question;
+                
+                const answer = document.createElement('div');
+                answer.className = 'faq-answer';
+                answer.innerHTML = `<p>${faq.answer}</p>`;
+                
+                faqItem.appendChild(question);
+                faqItem.appendChild(answer);
+                
+                // Event listener untuk toggle FAQ
+                question.addEventListener('click', () => {
+                    faqItem.classList.toggle('active');
+                });
+                
+                section.appendChild(faqItem);
+            });
+            
+            return section;
+        }
 
-  <div class="faq-item">
-    <button class="faq-question">Bagaimana cara mengajukan pembiayaan Tapera atau FLPP?</button>
-    <div class="faq-answer">
-      <p>Masuk ke akun digital Tapera, pilih menu “Minat Pembiayaan Tapera”, isi form subsidi checking, pilih rumah melalui sistem Sikumbang, dan ajukan pembiayaan ke bank penyalur.</p>
-    </div>
-  </div>
+        // Fungsi untuk memuat semua FAQ
+        function loadAllFAQs() {
+            const faqContent = document.getElementById('faqContent');
+            faqContent.innerHTML = '';
+            
+            for (const [categoryId, faqs] of Object.entries(faqData)) {
+                let categoryName = '';
+                
+                switch(categoryId) {
+                    case 'pengembalian-dana': categoryName = 'Pengembalian Dana Tabungan'; break;
+                    case 'tentang-bp-tapera': categoryName = 'Tentang BP TAPERA'; break;
+                    case 'pengelolaan-dana': categoryName = 'Pengelolaan Dana TAPERA'; break;
+                    case 'kpr-tapera': categoryName = 'KPR TAPERA'; break;
+                    case 'kbr-tapera': categoryName = 'KBR TAPERA'; break;
+                    case 'krr-tapera': categoryName = 'KRR TAPERA'; break;
+                    case 'flpp': categoryName = 'FLPP'; break;
+                    case 'pengembalian-tabungan': categoryName = 'Pengembalian Tabungan'; break;
+                    case 'kepesertaan': categoryName = 'Kepesertaan TAPERA'; break;
+                    case 'tapera-channel': categoryName = 'TAPERA Channel'; break;
+                }
+                
+                const section = createFAQSection(categoryId, categoryName, faqs);
+                faqContent.appendChild(section);
+            }
+        }
 
-  <div class="faq-item">
-    <button class="faq-question">Bagaimana keamanan data peserta Tapera?</button>
-    <div class="faq-answer">
-      <p>Data peserta dilindungi dengan OTP, password, dan verifikasi wajah. Semua informasi diverifikasi melalui Dukcapil, Dirjen Pajak, dan Bank Kustodian untuk keamanan maksimal.</p>
-    </div>
-  </div>
+        // Fungsi pencarian
+        function searchFAQs(query) {
+            const faqContent = document.getElementById('faqContent');
+            faqContent.innerHTML = '';
+            
+            const lowerQuery = query.toLowerCase();
+            let foundResults = false;
+            
+            for (const [categoryId, faqs] of Object.entries(faqData)) {
+                const filteredFAQs = faqs.filter(faq => 
+                    faq.question.toLowerCase().includes(lowerQuery) || 
+                    faq.answer.toLowerCase().includes(lowerQuery)
+                );
+                
+                if (filteredFAQs.length > 0) {
+                    foundResults = true;
+                    
+                    let categoryName = '';
+                    switch(categoryId) {
+                        case 'pengembalian-dana': categoryName = 'Pengembalian Dana Tabungan'; break;
+                        case 'tentang-bp-tapera': categoryName = 'Tentang BP TAPERA'; break;
+                        case 'pengelolaan-dana': categoryName = 'Pengelolaan Dana TAPERA'; break;
+                        case 'kpr-tapera': categoryName = 'KPR TAPERA'; break;
+                        case 'kbr-tapera': categoryName = 'KBR TAPERA'; break;
+                        case 'krr-tapera': categoryName = 'KRR TAPERA'; break;
+                        case 'flpp': categoryName = 'FLPP'; break;
+                        case 'pengembalian-tabungan': categoryName = 'Pengembalian Tabungan'; break;
+                        case 'kepesertaan': categoryName = 'Kepesertaan TAPERA'; break;
+                        case 'tapera-channel': categoryName = 'TAPERA Channel'; break;
+                    }
+                    
+                    const section = createFAQSection(categoryId, categoryName, filteredFAQs);
+                    
+                    // Highlight teks yang cocok dengan query
+                    const questions = section.querySelectorAll('.faq-question');
+                    const answers = section.querySelectorAll('.faq-answer');
+                    
+                    questions.forEach(question => {
+                        question.innerHTML = highlightText(question.textContent, lowerQuery);
+                    });
+                    
+                    answers.forEach(answer => {
+                        answer.innerHTML = highlightText(answer.innerHTML, lowerQuery);
+                    });
+                    
+                    faqContent.appendChild(section);
+                }
+            }
+            
+            if (!foundResults) {
+                faqContent.innerHTML = '<div class="no-results fade-in"><h3>Tidak ditemukan hasil untuk pencarian Anda</h3><p>Coba gunakan kata kunci yang berbeda atau lihat semua kategori FAQ di atas.</p></div>';
+            }
+        }
 
-  <div class="faq-item">
-    <button class="faq-question">Kapan peserta dapat mencairkan dana Tapera?</button>
-    <div class="faq-answer">
-      <p>Dana Tapera dapat dicairkan jika peserta pensiun, meninggal dunia, atau tidak lagi memenuhi syarat kepesertaan aktif.</p>
-    </div>
-  </div>
+        // Fungsi untuk menyorot teks yang cocok
+        function highlightText(text, query) {
+            if (!query) return text;
+            
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
 
-  <div class="faq-item">
-    <button class="faq-question">Bagaimana menghubungi BP Tapera?</button>
-    <div class="faq-answer">
-      <p>Email: <a href="mailto:info@tapera.go.id">info@tapera.go.id</a><br>
-      Website: <a href="https://www.tapera.go.id">www.tapera.go.id</a><br>
-      Call Center: (021) 5785-6789<br>
-      Alamat: Gedung BRI II Lt. 8–9, Jl. Jend. Sudirman, Jakarta 10210</p>
-    </div>
-  </div>
+        // Event listener untuk kategori card
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const categoryId = card.getAttribute('data-category');
+                const section = document.getElementById(categoryId);
+                
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Buka semua FAQ di section tersebut
+                    const faqItems = section.querySelectorAll('.faq-item');
+                    faqItems.forEach(item => {
+                        item.classList.add('active');
+                    });
+                }
+            });
+        });
 
-</section>
+        // Event listener untuk pencarian
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            
+            if (query.length > 2) {
+                searchFAQs(query);
+            } else if (query.length === 0) {
+                loadAllFAQs();
+            }
+        });
 
-<script>
-  const questions = document.querySelectorAll(".faq-question");
-  questions.forEach((q) => {
-    q.addEventListener("click", () => {
-      q.classList.toggle("active");
-      const answer = q.nextElementSibling;
-      if (answer.style.maxHeight) {
-        answer.style.maxHeight = null;
-        answer.style.padding = "0 18px";
-      } else {
-        answer.style.maxHeight = answer.scrollHeight + "px";
-        answer.style.padding = "15px 18px";
-      }
-    });
-  });
-</script>
+        // Scroll to top functionality
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Muat semua FAQ saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAllFAQs();
+        });
+    </script>
 </body>
 </html>
