@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RumahSubsidi.id - Marketplace Rumah Subsidi Indonesia</title>
+    <title>RUMAGO.id - Marketplace Rumah Subsidi Indonesia</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -94,6 +94,29 @@
         .auth-buttons {
             display: flex;
             gap: 1rem;
+            align-items: center;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .user-name {
+            font-weight: 500;
         }
         
         .btn {
@@ -127,30 +150,290 @@
             background-color: rgba(44, 123, 229, 0.1);
         }
         
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: var(--radius);
+            width: 100%;
+            max-width: 500px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+        
+        .role-selection {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .role-card {
+            flex: 1;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .role-card:hover {
+            border-color: var(--primary);
+        }
+        
+        .role-card.selected {
+            border-color: var(--primary);
+            background-color: rgba(44, 123, 229, 0.05);
+        }
+        
+        .role-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .role-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .role-description {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+        
+        /* Developer Dashboard */
+        .developer-dashboard {
+            padding: 2rem 0;
+            display: none;
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .dashboard-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .developer-properties {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .properties-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .properties-table th,
+        .properties-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .properties-table th {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-sm {
+            padding: 0.25rem 0.75rem;
+            font-size: 0.875rem;
+        }
+        
+        /* Customer Dashboard */
+        .customer-dashboard {
+            padding: 2rem 0;
+            display: none;
+        }
+        
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .orders-table th,
+        .orders-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .orders-table th {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .status-pending {
+            background-color: #fff8e1;
+            color: #ffa000;
+        }
+        
+        .status-confirmed {
+            background-color: #e8f5e9;
+            color: #4caf50;
+        }
+        
+        .status-cancelled {
+            background-color: #ffebee;
+            color: #f44336;
+        }
+        
+        /* Order Modal */
+        .order-form {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        /* Property Edit Form */
+        .property-form {
+            display: grid;
+            gap: 1rem;
+        }
+        
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80');
+            background-size: cover;
+            background-position: center;
             color: white;
-            padding: 4rem 0;
+            padding: 6rem 0;
             text-align: center;
         }
         
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             max-width: 700px;
-            margin: 0 auto 2rem;
+            margin: 0 auto 3rem;
             opacity: 0.9;
         }
         
         .search-box {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.9);
             border-radius: var(--radius);
-            padding: 1.5rem;
+            padding: 2rem;
             max-width: 800px;
             margin: 0 auto;
             box-shadow: var(--shadow);
@@ -623,6 +906,22 @@
             .filter-row {
                 grid-template-columns: 1fr;
             }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .role-selection {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
@@ -633,20 +932,28 @@
             <div class="header-content">
                 <a href="#" class="logo" id="homeLogo">
                     <div class="logo-icon">🏠</div>
-                    <span>RumahSubsidi.id</span>
+                    <span class="text-3xl font-extrabold text-rumago-primary">RUMAGO</span>
+                    <span class="text-3xl font-light text-rumago-secondary">.id</span>
                 </a>
                 <nav>
                     <ul>
                         <li><a href="#" class="nav-link" data-page="home">Beranda</a></li>
                         <li><a href="#" class="nav-link" data-page="search">Cari Rumah</a></li>
+                        <li><a href="#" class="nav-link" data-page="developer-dashboard" id="developerDashboardLink" style="display: none;">Dashboard Developer</a></li>
+                        <li><a href="#" class="nav-link" data-page="customer-dashboard" id="customerDashboardLink" style="display: none;">Dashboard Customer</a></li>
                         <li><a href="#">Cara Beli</a></li>
                         <li><a href="#">Syarat & Ketentuan</a></li>
                         <li><a href="#">Bantuan</a></li>
                     </ul>
                 </nav>
-                <div class="auth-buttons">
-                    <button class="btn btn-outline">Masuk</button>
-                    <button class="btn btn-primary">Daftar</button>
+                <div class="auth-buttons" id="authButtons">
+                    <button class="btn btn-outline" id="loginButton">Masuk</button>
+                    <button class="btn btn-primary" id="registerButton">Daftar</button>
+                </div>
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div class="user-name" id="userName">User</div>
+                    <button class="btn btn-outline btn-sm" id="logoutButton">Keluar</button>
                 </div>
             </div>
         </div>
@@ -658,7 +965,7 @@
         <section class="hero">
             <div class="container">
                 <h1>Temukan Rumah Subsidi Impian Anda</h1>
-                <p>Platform resmi untuk mencari dan membeli rumah subsidi dengan mudah, cepat, dan terpercaya di seluruh Indonesia.</p>
+                <p>Platform terpercaya untuk mencari dan membeli rumah subsidi dengan mudah, cepat, dan terjangkau di seluruh Indonesia.</p>
                 
                 <div class="search-box">
                     <form class="search-form" id="heroSearchForm">
@@ -886,7 +1193,7 @@
                         <div class="contact-info" id="contactInfo">
                             <!-- Informasi kontak akan diisi dengan JavaScript -->
                         </div>
-                        <button class="btn btn-primary" style="width: 100%;">Hubungi Sekarang</button>
+                        <button class="btn btn-primary" style="width: 100%;" id="orderButton">Pesan Sekarang</button>
                     </div>
                     
                     <div class="contact-card" style="margin-top: 1.5rem;">
@@ -917,13 +1224,307 @@
         </div>
     </div>
 
+    <!-- Developer Dashboard -->
+    <div class="developer-dashboard" id="developerDashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Dashboard Developer</h1>
+                <button class="btn btn-primary" id="addPropertyButton">Tambah Perumahan</button>
+            </div>
+            
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="developerPropertyCount">0</div>
+                    <div class="stat-label">Total Perumahan</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="developerUnitCount">0</div>
+                    <div class="stat-label">Total Unit</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="developerAvailableCount">0</div>
+                    <div class="stat-label">Unit Tersedia</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="developerSoldCount">0</div>
+                    <div class="stat-label">Unit Terjual</div>
+                </div>
+            </div>
+            
+            <div class="developer-properties">
+                <h3 class="section-title">Daftar Perumahan</h3>
+                <table class="properties-table">
+                    <thead>
+                        <tr>
+                            <th>Nama Perumahan</th>
+                            <th>Lokasi</th>
+                            <th>Jumlah Unit</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="developerPropertiesList">
+                        <!-- Daftar perumahan developer akan diisi dengan JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Dashboard -->
+    <div class="customer-dashboard" id="customerDashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Dashboard Customer</h1>
+            </div>
+            
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="customerOrderCount">0</div>
+                    <div class="stat-label">Total Pesanan</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="customerPendingCount">0</div>
+                    <div class="stat-label">Menunggu Konfirmasi</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="customerConfirmedCount">0</div>
+                    <div class="stat-label">Terkonfirmasi</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="customerCancelledCount">0</div>
+                    <div class="stat-label">Dibatalkan</div>
+                </div>
+            </div>
+            
+            <div class="developer-properties">
+                <h3 class="section-title">Riwayat Pesanan</h3>
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>ID Pesanan</th>
+                            <th>Nama Perumahan</th>
+                            <th>Tanggal Pesan</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customerOrdersList">
+                        <!-- Daftar pesanan customer akan diisi dengan JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Masuk ke Akun Anda</h2>
+                <button class="close-modal" id="closeLoginModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="role-selection">
+                    <div class="role-card" data-role="customer">
+                        <div class="role-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="role-title">Customer</div>
+                        <div class="role-description">Masuk sebagai pembeli rumah</div>
+                    </div>
+                    <div class="role-card" data-role="developer">
+                        <div class="role-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="role-title">Developer</div>
+                        <div class="role-description">Masuk sebagai pengembang</div>
+                    </div>
+                </div>
+                
+                <form id="loginForm">
+                    <input type="hidden" id="loginRole" name="role">
+                    <div class="form-group">
+                        <label for="loginEmail" class="form-label">Email</label>
+                        <input type="email" id="loginEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancelLogin">Batal</button>
+                <button class="btn btn-primary" id="submitLogin">Masuk</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Daftar Akun Baru</h2>
+                <button class="close-modal" id="closeRegisterModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="role-selection">
+                    <div class="role-card" data-role="customer">
+                        <div class="role-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="role-title">Customer</div>
+                        <div class="role-description">Daftar sebagai pembeli rumah</div>
+                    </div>
+                    <div class="role-card" data-role="developer">
+                        <div class="role-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="role-title">Developer</div>
+                        <div class="role-description">Daftar sebagai pengembang</div>
+                    </div>
+                </div>
+                
+                <form id="registerForm">
+                    <input type="hidden" id="registerRole" name="role">
+                    <div class="form-group">
+                        <label for="registerName" class="form-label">Nama Lengkap</label>
+                        <input type="text" id="registerName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail" class="form-label">Email</label>
+                        <input type="email" id="registerEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword" class="form-label">Password</label>
+                        <input type="password" id="registerPassword" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerConfirmPassword" class="form-label">Konfirmasi Password</label>
+                        <input type="password" id="registerConfirmPassword" class="form-control" required>
+                    </div>
+                    <div class="form-group" id="developerFields" style="display: none;">
+                        <label for="registerCompany" class="form-label">Nama Perusahaan</label>
+                        <input type="text" id="registerCompany" class="form-control">
+                        <label for="registerAssociation" class="form-label">Asosiasi</label>
+                        <select id="registerAssociation" class="form-control">
+                            <option value="">Pilih Asosiasi</option>
+                            <option value="REI">REI</option>
+                            <option value="APERSI">APERSI</option>
+                            <option value="HIMPERRA">HIMPERRA</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancelRegister">Batal</button>
+                <button class="btn btn-primary" id="submitRegister">Daftar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Modal -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Pesan Rumah Subsidi</h2>
+                <button class="close-modal" id="closeOrderModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="order-form" id="orderForm">
+                    <div class="form-group">
+                        <label for="orderPropertyName" class="form-label">Nama Perumahan</label>
+                        <input type="text" id="orderPropertyName" class="form-control" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderPropertyPrice" class="form-label">Harga</label>
+                        <input type="text" id="orderPropertyPrice" class="form-control" readonly>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="orderName" class="form-label">Nama Lengkap</label>
+                            <input type="text" id="orderName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orderPhone" class="form-label">Nomor Telepon</label>
+                            <input type="tel" id="orderPhone" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderEmail" class="form-label">Email</label>
+                        <input type="email" id="orderEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderAddress" class="form-label">Alamat</label>
+                        <textarea id="orderAddress" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderNotes" class="form-label">Catatan (Opsional)</label>
+                        <textarea id="orderNotes" class="form-control" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancelOrder">Batal</button>
+                <button class="btn btn-primary" id="submitOrder">Pesan Sekarang</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Property Form Modal -->
+    <div class="modal" id="propertyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="propertyModalTitle">Tambah Perumahan</h2>
+                <button class="close-modal" id="closePropertyModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="property-form" id="propertyForm">
+                    <div class="form-group">
+                        <label for="propertyName" class="form-label">Nama Perumahan</label>
+                        <input type="text" id="propertyName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="propertyType" class="form-label">Jenis Perumahan</label>
+                        <select id="propertyType" class="form-control" required>
+                            <option value="">Pilih Jenis</option>
+                            <option value="Rumah Tapak">Rumah Tapak</option>
+                            <option value="Rusun">Rusun</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="propertyUnits" class="form-label">Jumlah Unit</label>
+                        <input type="number" id="propertyUnits" class="form-control" required min="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="propertyPrice" class="form-label">Harga (Rp)</label>
+                        <input type="number" id="propertyPrice" class="form-control" required min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="propertyLocation" class="form-label">Lokasi</label>
+                        <input type="text" id="propertyLocation" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="propertyDescription" class="form-label">Deskripsi</label>
+                        <textarea id="propertyDescription" class="form-control" rows="3" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancelProperty">Batal</button>
+                <button class="btn btn-primary" id="submitProperty">Simpan</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>RumahSubsidi.id</h3>
-                    <p>Platform marketplace resmi untuk rumah subsidi di Indonesia. Menghubungkan calon pembeli dengan pengembang terpercaya.</p>
+                    <h3>Rumago.id</h3>
+                    <p>Platform marketplace terpercaya untuk rumah subsidi di Indonesia. Menghubungkan calon pembeli dengan pengembang terpercaya.</p>
                 </div>
                 <div class="footer-column">
                     <h3>Navigasi</h3>
@@ -938,7 +1539,7 @@
                 <div class="footer-column">
                     <h3>Kontak</h3>
                     <ul>
-                        <li>Email: info@rumahsubsidi.id</li>
+                        <li>Email: info@rumago.id</li>
                         <li>Telepon: 1500-123</li>
                         <li>Alamat: Gedung Tapera Indonesia</li>
                     </ul>
@@ -953,7 +1554,7 @@
                 </div>
             </div>
             <div class="copyright">
-                &copy; 2023 RumahSubsidi.id - All rights reserved.
+                &copy; 2023 Rumago.id - All rights reserved.
             </div>
         </div>
     </footer>
@@ -1481,6 +2082,9 @@
         let markers = [];
         let filteredProperties = [];
         let mapInitialized = false;
+        let currentUser = null;
+        let currentProperty = null;
+        let editingPropertyId = null;
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
@@ -1499,20 +2103,436 @@
             // Setup search form
             setupSearchForm();
 
+            // Setup modals
+            setupModals();
+
             // Setup retry map button
             document.getElementById('retryMap').addEventListener('click', function() {
                 document.getElementById('mapError').style.display = 'none';
                 initMap();
             });
+
+            // Check if user is logged in
+            checkLoginStatus();
         });
+
+        // Check if user is logged in
+        function checkLoginStatus() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (user) {
+                currentUser = user;
+                updateUIForLoggedInUser();
+            }
+        }
+
+        // Update UI for logged in user
+        function updateUIForLoggedInUser() {
+            document.getElementById('authButtons').style.display = 'none';
+            document.getElementById('userInfo').style.display = 'flex';
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('userAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
+
+            // Show appropriate dashboard link
+            if (currentUser.role === 'developer') {
+                document.getElementById('developerDashboardLink').style.display = 'block';
+            } else if (currentUser.role === 'customer') {
+                document.getElementById('customerDashboardLink').style.display = 'block';
+            }
+        }
+
+        // Setup modals
+        function setupModals() {
+            // Login modal
+            const loginModal = document.getElementById('loginModal');
+            const loginButton = document.getElementById('loginButton');
+            const closeLoginModal = document.getElementById('closeLoginModal');
+            const cancelLogin = document.getElementById('cancelLogin');
+            const submitLogin = document.getElementById('submitLogin');
+            const loginRoleCards = document.querySelectorAll('#loginModal .role-card');
+
+            loginButton.addEventListener('click', () => {
+                loginModal.style.display = 'flex';
+            });
+
+            closeLoginModal.addEventListener('click', () => {
+                loginModal.style.display = 'none';
+            });
+
+            cancelLogin.addEventListener('click', () => {
+                loginModal.style.display = 'none';
+            });
+
+            // Role selection for login
+            loginRoleCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    loginRoleCards.forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    document.getElementById('loginRole').value = card.getAttribute('data-role');
+                });
+            });
+
+            // Submit login
+            submitLogin.addEventListener('click', () => {
+                const role = document.getElementById('loginRole').value;
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+
+                if (!role) {
+                    alert('Pilih peran terlebih dahulu');
+                    return;
+                }
+
+                if (!email || !password) {
+                    alert('Email dan password harus diisi');
+                    return;
+                }
+
+                // In a real app, this would be an API call
+                // For demo purposes, we'll use localStorage
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const user = users.find(u => u.email === email && u.password === password && u.role === role);
+
+                if (user) {
+                    currentUser = user;
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    loginModal.style.display = 'none';
+                    updateUIForLoggedInUser();
+                    alert('Login berhasil!');
+                } else {
+                    alert('Email, password, atau peran tidak sesuai');
+                }
+            });
+
+            // Register modal
+            const registerModal = document.getElementById('registerModal');
+            const registerButton = document.getElementById('registerButton');
+            const closeRegisterModal = document.getElementById('closeRegisterModal');
+            const cancelRegister = document.getElementById('cancelRegister');
+            const submitRegister = document.getElementById('submitRegister');
+            const registerRoleCards = document.querySelectorAll('#registerModal .role-card');
+
+            registerButton.addEventListener('click', () => {
+                registerModal.style.display = 'flex';
+            });
+
+            closeRegisterModal.addEventListener('click', () => {
+                registerModal.style.display = 'none';
+            });
+
+            cancelRegister.addEventListener('click', () => {
+                registerModal.style.display = 'none';
+            });
+
+            // Role selection for register
+            registerRoleCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    registerRoleCards.forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    document.getElementById('registerRole').value = card.getAttribute('data-role');
+                    
+                    // Show/hide developer fields
+                    if (card.getAttribute('data-role') === 'developer') {
+                        document.getElementById('developerFields').style.display = 'block';
+                    } else {
+                        document.getElementById('developerFields').style.display = 'none';
+                    }
+                });
+            });
+
+            // Submit register
+            submitRegister.addEventListener('click', () => {
+                const role = document.getElementById('registerRole').value;
+                const name = document.getElementById('registerName').value;
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+                const confirmPassword = document.getElementById('registerConfirmPassword').value;
+                const company = document.getElementById('registerCompany').value;
+                const association = document.getElementById('registerAssociation').value;
+
+                if (!role) {
+                    alert('Pilih peran terlebih dahulu');
+                    return;
+                }
+
+                if (!name || !email || !password || !confirmPassword) {
+                    alert('Semua field harus diisi');
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    alert('Password dan konfirmasi password tidak cocok');
+                    return;
+                }
+
+                if (role === 'developer' && (!company || !association)) {
+                    alert('Nama perusahaan dan asosiasi harus diisi untuk developer');
+                    return;
+                }
+
+                // In a real app, this would be an API call
+                // For demo purposes, we'll use localStorage
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                
+                // Check if email already exists
+                if (users.find(u => u.email === email)) {
+                    alert('Email sudah terdaftar');
+                    return;
+                }
+
+                // Create new user
+                const newUser = {
+                    id: Date.now(),
+                    role,
+                    name,
+                    email,
+                    password,
+                    company: role === 'developer' ? company : null,
+                    association: role === 'developer' ? association : null
+                };
+
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+
+                registerModal.style.display = 'none';
+                alert('Pendaftaran berhasil! Silakan login.');
+            });
+
+            // Order modal
+            const orderModal = document.getElementById('orderModal');
+            const orderButton = document.getElementById('orderButton');
+            const closeOrderModal = document.getElementById('closeOrderModal');
+            const cancelOrder = document.getElementById('cancelOrder');
+            const submitOrder = document.getElementById('submitOrder');
+
+            orderButton.addEventListener('click', () => {
+                if (!currentUser) {
+                    alert('Silakan login terlebih dahulu untuk memesan rumah');
+                    return;
+                }
+
+                if (currentUser.role !== 'customer') {
+                    alert('Hanya customer yang dapat memesan rumah');
+                    return;
+                }
+
+                // Fill order form with property details
+                document.getElementById('orderPropertyName').value = document.getElementById('detailTitle').textContent;
+                document.getElementById('orderPropertyPrice').value = document.getElementById('detailPrice').textContent;
+                document.getElementById('orderName').value = currentUser.name;
+                document.getElementById('orderEmail').value = currentUser.email;
+
+                orderModal.style.display = 'flex';
+            });
+
+            closeOrderModal.addEventListener('click', () => {
+                orderModal.style.display = 'none';
+            });
+
+            cancelOrder.addEventListener('click', () => {
+                orderModal.style.display = 'none';
+            });
+
+            submitOrder.addEventListener('click', () => {
+                const name = document.getElementById('orderName').value;
+                const phone = document.getElementById('orderPhone').value;
+                const email = document.getElementById('orderEmail').value;
+                const address = document.getElementById('orderAddress').value;
+                const notes = document.getElementById('orderNotes').value;
+
+                if (!name || !phone || !email || !address) {
+                    alert('Semua field wajib diisi');
+                    return;
+                }
+
+                // In a real app, this would be an API call
+                // For demo purposes, we'll use localStorage
+                const orders = JSON.parse(localStorage.getItem('orders')) || [];
+                
+                const newOrder = {
+                    id: 'ORD' + Date.now(),
+                    propertyId: currentProperty.idLokasi,
+                    propertyName: document.getElementById('detailTitle').textContent,
+                    propertyPrice: document.getElementById('detailPrice').textContent,
+                    customerName: name,
+                    customerPhone: phone,
+                    customerEmail: email,
+                    customerAddress: address,
+                    notes: notes,
+                    status: 'pending',
+                    orderDate: new Date().toISOString()
+                };
+
+                orders.push(newOrder);
+                localStorage.setItem('orders', JSON.stringify(orders));
+
+                orderModal.style.display = 'none';
+                alert('Pesanan berhasil dikirim! Kami akan menghubungi Anda dalam waktu 1x24 jam.');
+            });
+
+            // Property modal
+            const propertyModal = document.getElementById('propertyModal');
+            const addPropertyButton = document.getElementById('addPropertyButton');
+            const closePropertyModal = document.getElementById('closePropertyModal');
+            const cancelProperty = document.getElementById('cancelProperty');
+            const submitProperty = document.getElementById('submitProperty');
+
+            addPropertyButton.addEventListener('click', () => {
+                if (!currentUser || currentUser.role !== 'developer') {
+                    alert('Hanya developer yang dapat menambah perumahan');
+                    return;
+                }
+
+                // Reset form
+                document.getElementById('propertyForm').reset();
+                document.getElementById('propertyModalTitle').textContent = 'Tambah Perumahan';
+                editingPropertyId = null;
+
+                propertyModal.style.display = 'flex';
+            });
+
+            closePropertyModal.addEventListener('click', () => {
+                propertyModal.style.display = 'none';
+            });
+
+            cancelProperty.addEventListener('click', () => {
+                propertyModal.style.display = 'none';
+            });
+
+            submitProperty.addEventListener('click', () => {
+                const name = document.getElementById('propertyName').value;
+                const type = document.getElementById('propertyType').value;
+                const units = document.getElementById('propertyUnits').value;
+                const price = document.getElementById('propertyPrice').value;
+                const location = document.getElementById('propertyLocation').value;
+                const description = document.getElementById('propertyDescription').value;
+
+                if (!name || !type || !units || !price || !location || !description) {
+                    alert('Semua field harus diisi');
+                    return;
+                }
+
+                // In a real app, this would be an API call
+                // For demo purposes, we'll use localStorage
+                const developerProperties = JSON.parse(localStorage.getItem('developerProperties')) || [];
+
+                if (editingPropertyId) {
+                    // Update existing property
+                    const index = developerProperties.findIndex(p => p.id === editingPropertyId);
+                    if (index !== -1) {
+                        developerProperties[index] = {
+                            ...developerProperties[index],
+                            namaPerumahan: name,
+                            jenisPerumahan: type,
+                            jumlahUnit: parseInt(units),
+                            tipeRumah: [{
+                                ...developerProperties[index].tipeRumah[0],
+                                harga: parseInt(price)
+                            }],
+                            wilayah: {
+                                ...developerProperties[index].wilayah,
+                                kelurahan: location
+                            }
+                        };
+                    }
+                } else {
+                    // Add new property
+                    const newProperty = {
+                        id: 'DEV' + Date.now(),
+                        idLokasi: 'DEV' + Date.now(),
+                        namaPerumahan: name,
+                        jenisPerumahan: type,
+                        jumlahUnit: parseInt(units),
+                        jumlahUnitKomersil: 0,
+                        foto: [
+                            "https://via.placeholder.com/600x400?text=Perumahan+Subsidi",
+                            "https://via.placeholder.com/600x400?text=Interior+Rumah",
+                            "https://via.placeholder.com/600x400?text=Lokasi+Perumahan"
+                        ],
+                        koordinatPerumahan: "-6.2088,106.8456", // Default to Jakarta
+                        kantorPemasaran: [
+                            {
+                                alamat: location,
+                                nomor: "-",
+                                noTelp: currentUser.phone || "-",
+                                email: currentUser.email
+                            }
+                        ],
+                        tipeRumah: [
+                            {
+                                status: "subsidi",
+                                nama: "36",
+                                harga: parseInt(price),
+                                kamarTidur: 2,
+                                kamarMandi: 1,
+                                luasTanah: 72,
+                                luasBangunan: 36,
+                                spesifikasiAtap: "Genteng Metal",
+                                spesifikasiDinding: "Bata Merah",
+                                spesifikasiLantai: "Keramik",
+                                spesifikasiPondasi: "Batu Kali"
+                            }
+                        ],
+                        tipeRusun: [],
+                        wilayah: {
+                            provinsi: "JAWA BARAT",
+                            kabupaten: "KAB BEKASI",
+                            kecamatan: "Cikarang",
+                            kelurahan: location
+                        },
+                        aktivasi: true,
+                        rating: null,
+                        pengembang: {
+                            nama: currentUser.company || currentUser.name,
+                            asosiasi: currentUser.association || "REI"
+                        }
+                    };
+
+                    developerProperties.push(newProperty);
+                }
+
+                localStorage.setItem('developerProperties', JSON.stringify(developerProperties));
+                propertyModal.style.display = 'none';
+
+                // Reload developer dashboard
+                if (document.getElementById('developerDashboard').style.display === 'block') {
+                    loadDeveloperDashboard();
+                }
+
+                alert(editingPropertyId ? 'Perumahan berhasil diperbarui' : 'Perumahan berhasil ditambahkan');
+            });
+
+            // Logout button
+            document.getElementById('logoutButton').addEventListener('click', () => {
+                currentUser = null;
+                localStorage.removeItem('currentUser');
+                document.getElementById('authButtons').style.display = 'flex';
+                document.getElementById('userInfo').style.display = 'none';
+                document.getElementById('developerDashboardLink').style.display = 'none';
+                document.getElementById('customerDashboardLink').style.display = 'none';
+                
+                // Show home page if on dashboard
+                if (document.getElementById('developerDashboard').style.display === 'block' || 
+                    document.getElementById('customerDashboard').style.display === 'block') {
+                    document.getElementById('homePage').style.display = 'block';
+                    document.getElementById('developerDashboard').style.display = 'none';
+                    document.getElementById('customerDashboard').style.display = 'none';
+                }
+                
+                alert('Anda telah logout');
+            });
+        }
 
         // Load properties to home page
         function loadProperties() {
             const propertiesGrid = document.getElementById('propertiesGrid');
             propertiesGrid.innerHTML = '';
 
+            // Get properties from API and developer properties
+            const developerProperties = JSON.parse(localStorage.getItem('developerProperties')) || [];
+            const allProperties = [...sikumbangData.data, ...developerProperties];
+
             // Filter hanya rumah subsidi yang aktif dan memiliki tipe rumah subsidi
-            const subsidizedProperties = sikumbangData.data.filter(property => {
+            const subsidizedProperties = allProperties.filter(property => {
                 return property.tipeRumah.some(tipe => tipe.status === 'subsidi') && property.aktivasi;
             });
 
@@ -1569,6 +2589,8 @@
             const homePage = document.getElementById('homePage');
             const searchPage = document.getElementById('searchPage');
             const detailPage = document.getElementById('detailPage');
+            const developerDashboard = document.getElementById('developerDashboard');
+            const customerDashboard = document.getElementById('customerDashboard');
             const navLinks = document.querySelectorAll('.nav-link');
             const backButton = document.getElementById('backButton');
             const homeLogo = document.getElementById('homeLogo');
@@ -1577,6 +2599,8 @@
             homePage.style.display = 'block';
             searchPage.style.display = 'none';
             detailPage.style.display = 'none';
+            developerDashboard.style.display = 'none';
+            customerDashboard.style.display = 'none';
 
             // Navigation event listeners
             navLinks.forEach(link => {
@@ -1592,10 +2616,19 @@
                     homePage.style.display = page === 'home' ? 'block' : 'none';
                     searchPage.style.display = page === 'search' ? 'block' : 'none';
                     detailPage.style.display = 'none';
+                    developerDashboard.style.display = page === 'developer-dashboard' ? 'block' : 'none';
+                    customerDashboard.style.display = page === 'customer-dashboard' ? 'block' : 'none';
                     
                     // Initialize map if showing search page
                     if (page === 'search' && !mapInitialized) {
                         initMap();
+                    }
+                    
+                    // Load dashboard data if showing dashboard
+                    if (page === 'developer-dashboard') {
+                        loadDeveloperDashboard();
+                    } else if (page === 'customer-dashboard') {
+                        loadCustomerDashboard();
                     }
                 });
             });
@@ -1605,6 +2638,8 @@
                 homePage.style.display = 'block';
                 searchPage.style.display = 'none';
                 detailPage.style.display = 'none';
+                developerDashboard.style.display = 'none';
+                customerDashboard.style.display = 'none';
                 
                 // Update active nav link
                 navLinks.forEach(nav => nav.classList.remove('active'));
@@ -1616,6 +2651,8 @@
                 homePage.style.display = 'block';
                 searchPage.style.display = 'none';
                 detailPage.style.display = 'none';
+                developerDashboard.style.display = 'none';
+                customerDashboard.style.display = 'none';
                 
                 // Update active nav link
                 navLinks.forEach(nav => nav.classList.remove('active'));
@@ -1743,8 +2780,12 @@
             markers.forEach(marker => marker.setMap(null));
             markers = [];
             
+            // Get properties from API and developer properties
+            const developerProperties = JSON.parse(localStorage.getItem('developerProperties')) || [];
+            const allProperties = [...sikumbangData.data, ...developerProperties];
+            
             // Filter properties for map (only active and with coordinates)
-            const propertiesForMap = sikumbangData.data.filter(property => {
+            const propertiesForMap = allProperties.filter(property => {
                 return property.aktivasi && 
                        property.tipeRumah.some(tipe => tipe.status === 'subsidi') &&
                        property.koordinatPerumahan;
@@ -1851,8 +2892,12 @@
             const hargaMax = document.getElementById('searchHargaMax').value;
             const unit = document.getElementById('searchUnit').value;
             
+            // Get properties from API and developer properties
+            const developerProperties = JSON.parse(localStorage.getItem('developerProperties')) || [];
+            const allProperties = [...sikumbangData.data, ...developerProperties];
+            
             // Filter properties
-            filteredProperties = sikumbangData.data.filter(property => {
+            filteredProperties = allProperties.filter(property => {
                 // Basic filters
                 if (!property.aktivasi) return false;
                 
@@ -1993,10 +3038,15 @@
 
         // Show property detail page
         function showPropertyDetail(propertyId) {
-            const property = sikumbangData.data.find(p => p.idLokasi === propertyId);
+            // Get properties from API and developer properties
+            const developerProperties = JSON.parse(localStorage.getItem('developerProperties')) || [];
+            const allProperties = [...sikumbangData.data, ...developerProperties];
+            
+            const property = allProperties.find(p => p.idLokasi === propertyId);
             if (!property) return;
             
             const tipeSubsidi = property.tipeRumah.find(tipe => tipe.status === 'subsidi');
+            currentProperty = property;
             
             // Update detail page content
             document.getElementById('detailTitle').textContent = property.namaPerumahan;
@@ -2119,9 +3169,211 @@
             document.getElementById('homePage').style.display = 'none';
             document.getElementById('searchPage').style.display = 'none';
             document.getElementById('detailPage').style.display = 'block';
+            document.getElementById('developerDashboard').style.display = 'none';
+            document.getElementById('customerDashboard').style.display = 'none';
             
             // Scroll to top
             window.scrollTo(0, 0);
+        }
+
+        // Load developer dashboard
+        function loadDeveloperDashboard() {
+            if (!currentUser || currentUser.role !== 'developer') {
+                alert('Hanya developer yang dapat mengakses dashboard ini');
+                document.querySelector('.nav-link[data-page="home"]').click();
+                return;
+            }
+
+            const developerProperties = JSON.parse(localStorage.getItem('developerProperties')) || [];
+            const propertiesList = document.getElementById('developerPropertiesList');
+            
+            // Update stats
+            document.getElementById('developerPropertyCount').textContent = developerProperties.length;
+            document.getElementById('developerUnitCount').textContent = developerProperties.reduce((sum, prop) => sum + prop.jumlahUnit, 0);
+            document.getElementById('developerAvailableCount').textContent = developerProperties.reduce((sum, prop) => sum + prop.jumlahUnit, 0); // Simplified
+            document.getElementById('developerSoldCount').textContent = 0; // Simplified
+
+            // Populate properties table
+            propertiesList.innerHTML = '';
+            
+            if (developerProperties.length === 0) {
+                propertiesList.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 2rem; color: var(--gray);">
+                            Belum ada perumahan yang ditambahkan. <a href="#" id="addFirstProperty">Tambah perumahan pertama</a>
+                        </td>
+                    </tr>
+                `;
+                
+                document.getElementById('addFirstProperty').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.getElementById('addPropertyButton').click();
+                });
+            } else {
+                developerProperties.forEach(property => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${property.namaPerumahan}</td>
+                        <td>${property.wilayah.kelurahan}, ${property.wilayah.kecamatan}</td>
+                        <td>${property.jumlahUnit}</td>
+                        <td>${property.aktivasi ? 'Aktif' : 'Nonaktif'}</td>
+                        <td class="action-buttons">
+                            <button class="btn btn-outline btn-sm edit-property" data-id="${property.id}">Edit</button>
+                            <button class="btn btn-outline btn-sm delete-property" data-id="${property.id}">Hapus</button>
+                        </td>
+                    `;
+                    propertiesList.appendChild(row);
+                });
+
+                // Add event listeners to edit buttons
+                document.querySelectorAll('.edit-property').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const propertyId = this.getAttribute('data-id');
+                        editProperty(propertyId);
+                    });
+                });
+
+                // Add event listeners to delete buttons
+                document.querySelectorAll('.delete-property').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const propertyId = this.getAttribute('data-id');
+                        deleteProperty(propertyId);
+                    });
+                });
+            }
+        }
+
+        // Edit property
+        function editProperty(propertyId) {
+            const developerProperties = JSON.parse(localStorage.getItem('developerProperties')) || [];
+            const property = developerProperties.find(p => p.id === propertyId);
+            
+            if (!property) return;
+            
+            // Fill form with property data
+            document.getElementById('propertyName').value = property.namaPerumahan;
+            document.getElementById('propertyType').value = property.jenisPerumahan;
+            document.getElementById('propertyUnits').value = property.jumlahUnit;
+            document.getElementById('propertyPrice').value = property.tipeRumah[0].harga;
+            document.getElementById('propertyLocation').value = property.wilayah.kelurahan;
+            document.getElementById('propertyDescription').value = `${property.namaPerumahan} adalah perumahan subsidi ${property.jenisPerumahan.toLowerCase()} yang terletak di ${property.wilayah.kelurahan}, ${property.wilayah.kecamatan}, ${property.wilayah.kabupaten}.`;
+            
+            // Update modal title
+            document.getElementById('propertyModalTitle').textContent = 'Edit Perumahan';
+            editingPropertyId = propertyId;
+            
+            // Show modal
+            document.getElementById('propertyModal').style.display = 'flex';
+        }
+
+        // Delete property
+        function deleteProperty(propertyId) {
+            if (!confirm('Apakah Anda yakin ingin menghapus perumahan ini?')) return;
+            
+            const developerProperties = JSON.parse(localStorage.getItem('developerProperties')) || [];
+            const updatedProperties = developerProperties.filter(p => p.id !== propertyId);
+            
+            localStorage.setItem('developerProperties', JSON.stringify(updatedProperties));
+            loadDeveloperDashboard();
+            alert('Perumahan berhasil dihapus');
+        }
+
+        // Load customer dashboard
+        function loadCustomerDashboard() {
+            if (!currentUser || currentUser.role !== 'customer') {
+                alert('Hanya customer yang dapat mengakses dashboard ini');
+                document.querySelector('.nav-link[data-page="home"]').click();
+                return;
+            }
+
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const customerOrders = orders.filter(order => order.customerEmail === currentUser.email);
+            const ordersList = document.getElementById('customerOrdersList');
+            
+            // Update stats
+            document.getElementById('customerOrderCount').textContent = customerOrders.length;
+            document.getElementById('customerPendingCount').textContent = customerOrders.filter(order => order.status === 'pending').length;
+            document.getElementById('customerConfirmedCount').textContent = customerOrders.filter(order => order.status === 'confirmed').length;
+            document.getElementById('customerCancelledCount').textContent = customerOrders.filter(order => order.status === 'cancelled').length;
+
+            // Populate orders table
+            ordersList.innerHTML = '';
+            
+            if (customerOrders.length === 0) {
+                ordersList.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 2rem; color: var(--gray);">
+                            Belum ada pesanan. <a href="#" class="nav-link" data-page="home">Cari rumah subsidi</a> untuk memesan.
+                        </td>
+                    </tr>
+                `;
+            } else {
+                customerOrders.forEach(order => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${order.id}</td>
+                        <td>${order.propertyName}</td>
+                        <td>${new Date(order.orderDate).toLocaleDateString('id-ID')}</td>
+                        <td><span class="status-badge status-${order.status}">${getStatusText(order.status)}</span></td>
+                        <td class="action-buttons">
+                            <button class="btn btn-outline btn-sm view-order" data-id="${order.id}">Detail</button>
+                            ${order.status === 'pending' ? `<button class="btn btn-outline btn-sm cancel-order" data-id="${order.id}">Batal</button>` : ''}
+                        </td>
+                    `;
+                    ordersList.appendChild(row);
+                });
+
+                // Add event listeners to view order buttons
+                document.querySelectorAll('.view-order').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const orderId = this.getAttribute('data-id');
+                        viewOrder(orderId);
+                    });
+                });
+
+                // Add event listeners to cancel order buttons
+                document.querySelectorAll('.cancel-order').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const orderId = this.getAttribute('data-id');
+                        cancelOrder(orderId);
+                    });
+                });
+            }
+        }
+
+        // Get status text
+        function getStatusText(status) {
+            switch(status) {
+                case 'pending': return 'Menunggu Konfirmasi';
+                case 'confirmed': return 'Terkonfirmasi';
+                case 'cancelled': return 'Dibatalkan';
+                default: return status;
+            }
+        }
+
+        // View order details
+        function viewOrder(orderId) {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const order = orders.find(o => o.id === orderId);
+            
+            if (!order) return;
+            
+            alert(`Detail Pesanan:\n\nID: ${order.id}\nPerumahan: ${order.propertyName}\nHarga: ${order.propertyPrice}\nNama: ${order.customerName}\nTelepon: ${order.customerPhone}\nEmail: ${order.customerEmail}\nAlamat: ${order.customerAddress}\nCatatan: ${order.notes || '-'}\nStatus: ${getStatusText(order.status)}\nTanggal Pesan: ${new Date(order.orderDate).toLocaleDateString('id-ID')}`);
+        }
+
+        // Cancel order
+        function cancelOrder(orderId) {
+            if (!confirm('Apakah Anda yakin ingin membatalkan pesanan ini?')) return;
+            
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const orderIndex = orders.findIndex(o => o.id === orderId);
+            
+            if (orderIndex !== -1) {
+                orders[orderIndex].status = 'cancelled';
+                localStorage.setItem('orders', JSON.stringify(orders));
+                loadCustomerDashboard();
+                alert('Pesanan berhasil dibatalkan');
+            }
         }
     </script>
 </body>
