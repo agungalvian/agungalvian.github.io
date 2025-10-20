@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BengBro - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+   
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-light: #f8fafc;
+            --bg-dark: #1e293b;
+            --text-light: #f1f5f9;
+            --text-dark: #0f172a;
+            --border-color: #e2e8f0;
+            --sidebar-width: 260px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            display: flex;
+            height: 100vh;
+            overflow-x: hidden;
+        }
+
+        #sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding: 1.5em 1em;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        #sidebar h1 {
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 1.5em;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5em;
+        }
+        
+        #sidebar nav ul {
+            list-style: none;
+        }
+        
+        #sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            padding: 1em;
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 0.5em;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        
+        #sidebar nav a:hover, #sidebar nav a.active {
+            background-color: var(--primary);
+            color: #fff;
+        }
+        
+        #sidebar nav a i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        #logout-btn {
+            margin-top: auto;
+        }
+
+        #main-content {
+            flex-grow: 1;
+            padding: 2em;
+            overflow-y: auto;
+        }
+       
+        #main-header {
+            display: none;
+        }
+
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 1.5em;
+            margin-bottom: 1.5em;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5em;
+            padding-bottom: 1em;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .card-header h2 {
+            font-size: 1.5em;
+            color: var(--text-dark);
+        }
+
+        .btn {
+            padding: 0.75em 1.25em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5em;
+            text-decoration: none;
+        }
+        
+        .btn-primary { background-color: var(--primary); color: #fff; }
+        .btn-primary:hover { background-color: var(--primary-hover); }
+        .btn-success { background-color: var(--success); color: #fff; }
+        .btn-danger { background-color: var(--danger); color: #fff; }
+        .btn-secondary { background-color: var(--secondary); color: #fff; }
+        .btn-icon { background: none; color: var(--secondary); padding: 0.5em; }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8em;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 1em;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+        }
+        
+        th, td {
+            padding: 1em;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+        
+        th {
+            background-color: var(--bg-light);
+            font-weight: 600;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            color: var(--secondary);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tr:hover {
+            background-color: #f9fafb;
+        }
+
+        .status {
+            padding: 0.35em 0.75em;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8em;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .status.Estimasi   { background-color: var(--warning); }
+        .status.Antrian    { background-color: #3b82f6; }
+        .status.Dikerjakan { background-color: var(--primary); }
+        .status.Selesai    { background-color: var(--success); }
+        .status.Batal      { background-color: var(--secondary); }
+
+        #login-page {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-dark);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        
+        #login-card {
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        #login-card h2 { margin-bottom: 1.5em; }
+       
+        #app-container {
+            display: none;
+            width: 100%;
+        }
+       
+        #app-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5em;
+        }
+        
+        .stat-card {
+            background-color: #fff;
+            padding: 1.5em;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-card .icon {
+            font-size: 2em;
+            padding: 0.75em;
+            border-radius: 50%;
+            color: #fff;
+        }
+        
+        .stat-card .icon.revenue { background-color: var(--success); }
+        .stat-card .icon.transactions { background-color: var(--primary); }
+        .stat-card .icon.services { background-color: var(--warning); }
+        
+        .stat-card .info h3 {
+            font-size: 1.75em;
+            font-weight: 700;
+        }
+        
+        .stat-card .info p {
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5em;
+        }
+       
+        .total-section {
+            text-align: right;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 1em;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 2em;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            animation: slide-down 0.3s ease-out;
+        }
+        
+        @keyframes slide-down {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5em;
+        }
+        
+        .modal-header h3 { font-size: 1.25em; }
+        
+        .close-btn { cursor: pointer; font-size: 1.5em; color: var(--secondary); }
+
+        @media print {
+            body {
+                display: block;
+                background-color: #fff;
+            }
+            
+            #sidebar, #main-content, .modal, .no-print {
+                display: none;
+            }
+            
+            #invoice-page {
+                display: block !important;
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+            }
+        }
+        
+        #invoice-page {
+            display: none;
+            padding: 2em;
+            margin: 0 auto;
+            max-width: 80mm;
+            background: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+        }
+        
+        #invoice-page h2 { font-size: 16px; text-align: center; }
+        #invoice-page p { margin: 5px 0; }
+        #invoice-page table { font-size: 12px; margin-top: 15px; }
+        #invoice-page th, #invoice-page td { padding: 4px; border: none; }
+        #invoice-page .invoice-total { text-align: right; font-weight: bold; margin-top: 10px;}
+        #invoice-page .footer { text-align: center; margin-top: 20px; }
+
+        .payment-method-container {
+            margin: 1em 0;
+        }
+        
+        .payment-method-options {
+            display: flex;
+            gap: 0.5em;
+            margin-bottom: 1em;
+        }
+        
+        .payment-method-option {
+            flex: 1;
+            text-align: center;
+            padding: 0.75em;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .payment-method-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+        
+        .payment-method-option i {
+            font-size: 1.5em;
+            margin-bottom: 0.5em;
+            display: block;
+        }
+        
+        .payment-method-details {
+            display: none;
+            padding: 1em;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-top: 1em;
+            text-align: center;
+        }
+        
+        .payment-method-details.active {
+            display: block;
+        }
+        
+        .qrcode-image {
+            max-width: 200px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        /* New styles for unfinished transactions */
+        .unfinished-transactions {
+            margin-top: 2em;
+        }
+
+        .unfinished-transactions .card-header {
+            padding-bottom: 0;
+            margin-bottom: 0.5em;
+        }
+
+        .unfinished-transactions table {
+            font-size: 0.9em;
+        }
+
+        .unfinished-transactions th, 
+        .unfinished-transactions td {
+            padding: 0.5em;
+        }
+
+        .edit-transaction-btn {
+            background-color: var(--warning);
+            color: white;
+            padding: 0.3em 0.6em;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+
+        @media (max-width: 768px) {
+            #sidebar {
+                position: fixed;
+                left: 0;
+                height: 100%;
+                transform: translateX(calc(-1 * var(--sidebar-width)));
+                z-index: 1000;
+            }
+            
+            #sidebar.open {
+                transform: translateX(0);
+                box-shadow: 5px 0px 15px rgba(0,0,0,0.1);
+            }
+           
+            #main-content {
+                padding: 1em;
+            }
+
+            #main-header {
+                display: flex;
+                align-items: center;
+                gap: 1em;
+                padding: 0.5em 1em;
+                background-color: #fff;
+                border-radius: 8px;
+                margin-bottom: 1em;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            }
+           
+            #page-title {
+                display: none;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1em;
+            }
+            
+            .card-header .filter-controls {
+                width: 100%;
+            }
+            
+            .card-header .filter-controls input {
+                width: auto;
+                flex-grow: 1;
+            }
+
+            .payment-method-options {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HALAMAN LOGIN -->
+    <div id="login-page">
+        <div id="login-card" class="card">
+            <h2><i class="fa-solid fa-warehouse"></i> BengBro</h2>
+            <p style="color:var(--secondary); margin-bottom: 1.5em;">Silakan login untuk melanjutkan</p>
+            <input type="text" id="username" placeholder="Username (coba: admin)" value="admin"/>
+            <input type="password" id="password" placeholder="Password (coba: admin)" value="admin"/>
+            <button class="btn btn-primary" style="width: 100%;" onclick="app.doLogin()">
+                <i class="fa-solid fa-right-to-bracket"></i> Login
+            </button>
+        </div>
+    </div>
+   
+    <!-- APLIKASI UTAMA -->
+    <div id="app-container">
+        <!-- OVERLAY UNTUK MOBILE -->
+        <div id="app-overlay" onclick="app.toggleMenu()"></div>
+
+        <!-- SIDEBAR -->
+        <aside id="sidebar">
+            <h1><i class="fa-solid fa-car-burst"></i> BengBro</h1>
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link active" onclick="app.showPage('dashboard')"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+                    <li><a href="#" class="nav-link" onclick="app.showPage('pos')"><i class="fa-solid fa-cash-register"></i> Kasir (POS)</a></li>
+                    <li><a href="#" class="nav-link" onclick="app.showPage('transactions')"><i class="fa-solid fa-receipt"></i> Laporan Transaksi</a></li>
+                    <li><a href="#" class="nav-link" onclick="app.showPage('products')"><i class="fa-solid fa-box"></i> Manajemen Produk/Jasa</a></li>
+                    <li><a href="#" class="nav-link" onclick="app.showPage('customers')"><i class="fa-solid fa-users"></i> Manajemen Pelanggan</a></li>
+                    <li id="menu-users" style="display:none;"><a href="#" class="nav-link" onclick="app.showPage('users')"><i class="fa-solid fa-user-shield"></i> Manajemen User</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="btn btn-secondary" id="logout-btn" onclick="app.logout()">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout (<span id="currentUser"></span>)
+            </a>
+        </aside>
+
+        <!-- KONTEN UTAMA -->
+        <main id="main-content">
+            <!-- Header khusus Mobile -->
+            <div id="main-header">
+                <button class="btn-icon" id="menu-toggle" onclick="app.toggleMenu()">
+                    <i class="fa-solid fa-bars fa-lg"></i>
+                </button>
+                <h2 id="page-title-mobile" style="font-size: 1.25em;">Dashboard</h2>
+            </div>
+           
+            <!-- PAGE: DASHBOARD -->
+            <div id="dashboard-page" class="page active">
+                <div class="card-header" style="border:none; padding-bottom: 0;">
+                    <h2 id="page-title">Dashboard</h2>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <div class="icon revenue"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="info">
+                            <h3 id="total-revenue-today">Rp 0</h3>
+                            <p>Pendapatan Hari Ini</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon transactions"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                        <div class="info">
+                            <h3 id="total-transactions-today">0</h3>
+                            <p>Transaksi Hari Ini</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon services"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                        <div class="info">
+                            <h3 id="active-services">0</h3>
+                            <p>Servis Sedang Dikerjakan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="margin-top: 2em;">
+                    <div class="card-header">
+                        <h2>Ringkasan Status Transaksi</h2>
+                    </div>
+                    <canvas id="chartCanvas" height="120"></canvas>
+                </div>
+            </div>
+
+            <!-- PAGE: POS / KASIR -->
+            <div id="pos-page" class="page">
+                <div class="grid-2">
+                    <!-- Sisi Kiri: Input & Keranjang -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 id="page-title">Kasir / Transaksi Baru</h2>
+                        </div>
+                       
+                        <!-- Info Pelanggan & Kendaraan -->
+                        <h3>Info Pelanggan & Kendaraan</h3>
+                        <select id="pos-customer-select" onchange="app.handlers.onCustomerSelect(this.value)"></select>
+                        <input type="text" id="pos-plate-number" placeholder="No. Polisi (e.g. B 1234 ABC)" />
+                        <input type="text" id="pos-vehicle-model" placeholder="Model Kendaraan (e.g. Honda Beat)" />
+
+                        <!-- Tambah Item -->
+                        <h3 style="margin-top: 1.5em;">Tambah Produk / Jasa</h3>
+                        <select id="pos-product-select"></select>
+                        <input type="number" id="pos-qty" placeholder="Jumlah" value="1" min="1" />
+                        <button class="btn btn-primary" style="width: 100%;" onclick="app.handlers.addToCart()">
+                            <i class="fa-solid fa-cart-plus"></i> Tambah ke Keranjang
+                        </button>
+                    </div>
+
+                    <!-- Sisi Kanan: Detail Keranjang -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Keranjang</h2>
+                        </div>
+                        <div class="table-wrapper">
+                            <table style="margin-top:0;">
+                                <thead><tr><th>Item</th><th>Qty</th><th>Subtotal</th><th>Aksi</th></tr></thead>
+                                <tbody id="cart-table">
+                                    <tr><td colspan="4" style="text-align: center; color: var(--secondary);">Keranjang kosong</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="total-section">
+                            Total: Rp <span id="cart-total">0</span>
+                        </div>
+                        <button class="btn btn-success" style="width: 100%; margin-top: 1.5em;" onclick="app.handlers.showProcessOptions()">
+                            <i class="fa-solid fa-gears"></i> Proses
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bagian baru: Daftar Transaksi Belum Selesai -->
+                <div class="unfinished-transactions">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Transaksi Belum Selesai</h2>
+                        </div>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>No. Transaksi</th>
+                                        <th>Pelanggan</th>
+                                        <th>Kendaraan</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="unfinished-transactions-table"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: LAPORAN TRANSAKSI -->
+            <div id="transactions-page" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 id="page-title">Laporan Transaksi</h2>
+                        <div class="filter-controls" style="display: flex; gap: 1em; align-items: center;">
+                             <label for="filter-date">Filter Tanggal:</label>
+                             <input type="date" id="filter-date" onchange="app.render.reportTable()" style="width: auto; margin: 0;">
+                             <button class="btn btn-secondary" onclick="document.getElementById('filter-date').value=''; app.render.reportTable();"><i class="fa-solid fa-times"></i> Reset</button>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>No. Transaksi</th>
+                                    <th>Tanggal</th>
+                                    <th>Pelanggan</th>
+                                    <th>Detail</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="report-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: MANAJEMEN PRODUK -->
+            <div id="products-page" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 id="page-title">Manajemen Produk & Jasa</h2>
+                        <button class="btn btn-primary" onclick="app.handlers.showProductModal()">
+                            <i class="fa-solid fa-plus"></i> Tambah Baru
+                        </button>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead><tr><th>Nama Item</th><th>Harga</th><th>Tipe</th><th>Aksi</th></tr></thead>
+                            <tbody id="products-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: MANAJEMEN PELANGGAN -->
+            <div id="customers-page" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 id="page-title">Manajemen Pelanggan</h2>
+                        <button class="btn btn-primary" onclick="app.handlers.showCustomerModal()">
+                            <i class="fa-solid fa-user-plus"></i> Tambah Baru
+                        </button>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead><tr><th>Nama Pelanggan</th><th>No. Telepon</th><th>Kendaraan</th><th>Aksi</th></tr></thead>
+                            <tbody id="customers-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE: MANAJEMEN USER -->
+            <div id="users-page" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 id="page-title">Manajemen User</h2>
+                        <button class="btn btn-primary" onclick="app.handlers.showUserModal()">
+                            <i class="fa-solid fa-user-plus"></i> Tambah User Baru
+                        </button>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead><tr><th>Username</th><th>Role</th><th>Aksi</th></tr></thead>
+                            <tbody id="users-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL (Pop-up) -->
+    <div id="modal-container" class="modal" onclick="if(event.target === this) app.closeModal()">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Judul Modal</h3>
+                <span class="close-btn" onclick="app.closeModal()">&times;</span>
+            </div>
+            <div id="modal-body">
+                <!-- Konten modal akan diinjeksi di sini -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL OPSI PROSES -->
+    <div id="process-options-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3>Pilih Proses Transaksi</h3>
+                <span class="close-btn" onclick="app.handlers.closeProcessOptions()">&times;</span>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <button class="btn btn-primary" style="width: 100%; margin-bottom: 1em; padding: 1em;" 
+                        onclick="app.handlers.showPaymentModal()">
+                    <i class="fa-solid fa-money-bill-wave"></i> Proses Pembayaran
+                </button>
+                <button class="btn btn-secondary" style="width: 100%; padding: 1em;" 
+                        onclick="app.handlers.createEstimation()">
+                    <i class="fa-solid fa-file-invoice"></i> Pembuatan Estimasi
+                </button>
+            </div>
+        </div>
+    </div>
+   
+    <!-- INVOICE/STRUK (Hanya untuk cetak) -->
+    <div id="invoice-page"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    const app = {
+        // STATE: Semua data aplikasi
+        state: {
+            currentUser: null,
+            users: [
+                { id: 1, name: 'admin', password: 'admin', role: 'admin' },
+                { id: 2, name: 'kasir', password: 'kasir', role: 'kasir' }
+            ],
+            products: [
+                { id: 1, name: 'Oli Mesin MPX', price: 55000, type: 'Produk' },
+                { id: 2, name: 'Busi NGK', price: 25000, type: 'Produk' },
+                { id: 3, name: 'Jasa Servis Ringan', price: 75000, type: 'Jasa' },
+                { id: 4, name: 'Ganti Ban', price: 30000, type: 'Jasa' },
+                { id: 5, name: 'Kampas Rem', price: 120000, type: 'Produk' },
+                { id: 6, name: 'Jasa Ganti Oli', price: 40000, type: 'Jasa' }
+            ],
+            customers: [
+                { id: 1, name: 'Budi Santoso', phone: '081234567890', vehicles: [{plate: 'B 1234 ABC', model: 'Honda Vario 150'}] },
+                { id: 2, name: 'Citra Lestari', phone: '085678901234', vehicles: [{plate: 'F 5678 XYZ', model: 'Yamaha NMAX'}] },
+                { id: 3, name: 'Ahmad Fauzi', phone: '081122334455', vehicles: [{plate: 'D 9876 KLM', model: 'Suzuki Satria'}] },
+                { id: 4, name: 'Dewi Anggraeni', phone: '082233445566', vehicles: [{plate: 'L 5432 HIJ', model: 'Honda Scoopy'}] }
+            ],
+            transactions: [
+                {
+                    id: 1,
+                    date: new Date(Date.now() - 86400000).toISOString(),
+                    customerId: 1,
+                    plateNumber: 'B 1234 ABC',
+                    vehicleModel: 'Honda Vario 150',
+                    items: [
+                        { productId: 1, name: 'Oli Mesin MPX', qty: 1, price: 55000, subtotal: 55000 },
+                        { productId: 3, name: 'Jasa Servis Ringan', qty: 1, price: 75000, subtotal: 75000 }
+                    ],
+                    total: 130000,
+                    paymentMethod: 'cash',
+                    paid: 150000,
+                    change: 20000,
+                    status: 'Selesai',
+                    cashier: 'kasir'
+                },
+                {
+                    id: 2,
+                    date: new Date(Date.now() - 172800000).toISOString(),
+                    customerId: 2,
+                    plateNumber: 'F 5678 XYZ',
+                    vehicleModel: 'Yamaha NMAX',
+                    items: [
+                        { productId: 2, name: 'Busi NGK', qty: 2, price: 25000, subtotal: 50000 },
+                        { productId: 4, name: 'Ganti Ban', qty: 1, price: 30000, subtotal: 30000 }
+                    ],
+                    total: 80000,
+                    paymentMethod: 'debit',
+                    paid: 80000,
+                    change: 0,
+                    status: 'Selesai',
+                    cashier: 'kasir'
+                },
+                {
+                    id: 3,
+                    date: new Date(Date.now() - 259200000).toISOString(),
+                    customerId: 3,
+                    plateNumber: 'D 9876 KLM',
+                    vehicleModel: 'Suzuki Satria',
+                    items: [
+                        { productId: 5, name: 'Kampas Rem', qty: 1, price: 120000, subtotal: 120000 },
+                        { productId: 6, name: 'Jasa Ganti Oli', qty: 1, price: 40000, subtotal: 40000 }
+                    ],
+                    total: 160000,
+                    paymentMethod: 'qris',
+                    paid: 160000,
+                    change: 0,
+                    status: 'Selesai',
+                    cashier: 'admin'
+                },
+                {
+                    id: 4,
+                    date: new Date().toISOString(),
+                    customerId: 4,
+                    plateNumber: 'L 5432 HIJ',
+                    vehicleModel: 'Honda Scoopy',
+                    items: [
+                        { productId: 1, name: 'Oli Mesin MPX', qty: 1, price: 55000, subtotal: 55000 },
+                        { productId: 6, name: 'Jasa Ganti Oli', qty: 1, price: 40000, subtotal: 40000 }
+                    ],
+                    total: 95000,
+                    paymentMethod: 'cash',
+                    paid: 100000,
+                    change: 5000,
+                    status: 'Dikerjakan',
+                    cashier: 'kasir'
+                },
+                {
+                    id: 5,
+                    date: new Date().toISOString(),
+                    customerId: null,
+                    plateNumber: 'AB 1234 CD',
+                    vehicleModel: 'Yamaha Mio',
+                    items: [
+                        { productId: 4, name: 'Ganti Ban', qty: 1, price: 30000, subtotal: 30000 }
+                    ],
+                    total: 30000,
+                    paymentMethod: 'cash',
+                    paid: 30000,
+                    change: 0,
+                    status: 'Antrian',
+                    cashier: 'kasir'
+                }
+            ],
+            cart: [],
+            currentEditingId: null,
+            selectedPaymentMethod: 'cash',
+            editingTransaction: null
+        },
+
+        // INIT: Fungsi yang dijalankan pertama kali
+        init() {
+            this.loadData();
+            if(this.state.currentUser) {
+                this.showApp();
+            } else {
+                this.showLogin();
+            }
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelector('.nav-link.active').classList.remove('active');
+                    e.currentTarget.classList.add('active');
+                });
+            });
+        },
+       
+        // --- MANAJEMEN DATA (LocalStorage) ---
+        loadData() {
+            for (const key in this.state) {
+                const savedData = localStorage.getItem(`bengkelPOS_${key}`);
+                if (savedData) {
+                    this.state[key] = JSON.parse(savedData);
+                }
+            }
+        },
+
+        saveData() {
+            for (const key in this.state) {
+                localStorage.setItem(`bengkelPOS_${key}`, JSON.stringify(this.state[key]));
+            }
+        },
+
+        // --- MANAJEMEN UI & NAVIGASI ---
+        showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const pageElement = document.getElementById(`${pageId}-page`);
+            pageElement.classList.add('active');
+           
+            const pageTitle = pageElement.querySelector('#page-title')?.textContent || pageId.charAt(0).toUpperCase() + pageId.slice(1);
+            document.getElementById('page-title-mobile').textContent = pageTitle;
+
+            switch(pageId) {
+                case 'dashboard': this.render.dashboard(); break;
+                case 'pos': 
+                    this.render.posPage(); 
+                    this.render.unfinishedTransactions();
+                    break;
+                case 'transactions': this.render.reportTable(); break;
+                case 'products': this.render.productsTable(); break;
+                case 'customers': this.render.customersTable(); break;
+                case 'users': this.render.usersTable(); break;
+            }
+            if (window.innerWidth <= 768) {
+                this.toggleMenu(false);
+            }
+        },
+       
+        toggleMenu(forceOpen) {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('app-overlay');
+            const isOpen = sidebar.classList.contains('open');
+
+            if (typeof forceOpen === 'boolean' ? forceOpen : !isOpen) {
+                sidebar.classList.add('open');
+                overlay.style.display = 'block';
+            } else {
+                sidebar.classList.remove('open');
+                overlay.style.display = 'none';
+            }
+        },
+
+        showApp() {
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('app-container').style.display = 'flex';
+            document.getElementById('currentUser').innerText = this.state.currentUser.name;
+
+            if (this.state.currentUser.role === 'admin') {
+                document.getElementById('menu-users').style.display = 'block';
+            } else {
+                document.getElementById('menu-users').style.display = 'none';
+            }
+           
+            document.querySelector('.nav-link.active').classList.remove('active');
+            document.querySelector('a[onclick="app.showPage(\'dashboard\')"]').classList.add('active');
+            this.showPage('dashboard');
+        },
+
+        showLogin() {
+            document.getElementById('login-page').style.display = 'flex';
+            document.getElementById('app-container').style.display = 'none';
+        },
+       
+        doLogin() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const user = this.state.users.find(u => u.name === username && u.password === password);
+            if(user) {
+                this.state.currentUser = user;
+                this.saveData();
+                this.showApp();
+            } else {
+                alert('Username atau password salah!');
+            }
+        },
+
+        logout() {
+            if(confirm('Apakah Anda yakin ingin logout?')) {
+                this.state.currentUser = null;
+                this.saveData();
+                this.showLogin();
+            }
+        },
+
+        closeModal() {
+            document.getElementById('modal-container').style.display = 'none';
+        },
+
+        // --- FUNGSI RENDER (menampilkan data ke HTML) ---
+        render: {
+            dashboard() {
+                const today = new Date().toISOString().slice(0, 10);
+                const todaysTransactions = app.state.transactions.filter(t => t.date.startsWith(today));
+
+                const totalRevenue = todaysTransactions.reduce((sum, t) => sum + t.total, 0);
+                const activeServices = app.state.transactions.filter(t => t.status === 'Dikerjakan').length;
+
+                document.getElementById('total-revenue-today').innerText = app.util.formatCurrency(totalRevenue);
+                document.getElementById('total-transactions-today').innerText = todaysTransactions.length;
+                document.getElementById('active-services').innerText = activeServices;
+               
+                this.chart();
+            },
+           
+            chart() {
+                const ctx = document.getElementById('chartCanvas').getContext('2d');
+                if (window.myChart instanceof Chart) window.myChart.destroy();
+
+                // Group transactions by status and count them
+                const statusCounts = app.state.transactions.reduce((acc, t) => {
+                    acc[t.status] = (acc[t.status] || 0) + 1;
+                    return acc;
+                }, {});
+
+                // Define status order for consistent display
+                const statusOrder = ['Estimasi', 'Antrian', 'Dikerjakan', 'Selesai', 'Batal'];
+                const labels = statusOrder.filter(status => statusCounts[status] !== undefined);
+                const data = labels.map(status => statusCounts[status] || 0);
+
+                // Define colors for each status
+                const backgroundColors = labels.map(status => {
+                    switch (status) {
+                        case 'Estimasi': return 'rgba(245, 158, 11, 0.7)';
+                        case 'Antrian': return 'rgba(59, 130, 246, 0.7)';
+                        case 'Dikerjakan': return 'rgba(79, 70, 229, 0.7)';
+                        case 'Selesai': return 'rgba(16, 185, 129, 0.7)';
+                        case 'Batal': return 'rgba(100, 116, 139, 0.7)';
+                        default: return 'rgba(201, 203, 207, 0.7)';
+                    }
+                });
+
+                window.myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Jumlah Transaksi',
+                            data: data,
+                            backgroundColor: backgroundColors,
+                            borderColor: backgroundColors.map(color => color.replace('0.7', '1')),
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { 
+                                display: false
+                            },
+                            title: { 
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.parsed.y} transaksi`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    precision: 0
+                                }
+                            }
+                        }
+                    }
+                });
+            },
+
+            usersTable() {
+                const tbody = document.getElementById('users-table');
+                tbody.innerHTML = '';
+                app.state.users.forEach(u => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${u.name}</td>
+                            <td><span class="status" style="background-color:${u.role === 'admin' ? 'var(--danger)' : 'var(--secondary)'}">${u.role}</span></td>
+                            <td>
+                                <button class="btn-icon" onclick="app.handlers.showUserModal(${u.id})"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="btn-icon" onclick="app.handlers.deleteUser(${u.id})"><i class="fa-solid fa-trash" style="color:var(--danger)"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            },
+
+            productsTable() {
+                const tbody = document.getElementById('products-table');
+                tbody.innerHTML = '';
+                if(app.state.products.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--secondary);">Tidak ada data produk/jasa.</td></tr>`;
+                    return;
+                }
+                app.state.products.forEach(p => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${p.name}</td>
+                            <td>${app.util.formatCurrency(p.price)}</td>
+                            <td>${p.type}</td>
+                            <td>
+                                <button class="btn-icon" onclick="app.handlers.showProductModal(${p.id})"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="btn-icon" onclick="app.handlers.deleteProduct(${p.id})"><i class="fa-solid fa-trash" style="color:var(--danger)"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            },
+           
+            customersTable() {
+                const tbody = document.getElementById('customers-table');
+                tbody.innerHTML = '';
+                if(app.state.customers.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--secondary);">Tidak ada data pelanggan.</td></tr>`;
+                    return;
+                }
+                app.state.customers.forEach(c => {
+                    const vehicles = c.vehicles.map(v => `<li>${v.plate} (${v.model})</li>`).join('');
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${c.name}</td>
+                            <td>${c.phone}</td>
+                            <td><ul style="padding-left: 1.2em; margin: 0;">${vehicles || '<i>Belum ada data</i>'}</ul></td>
+                            <td>
+                                <button class="btn-icon" onclick="app.handlers.showCustomerModal(${c.id})"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="btn-icon" onclick="app.handlers.deleteCustomer(${c.id})"><i class="fa-solid fa-trash" style="color:var(--danger)"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            },
+           
+            reportTable() {
+                const tbody = document.getElementById('report-table');
+                const filterDate = document.getElementById('filter-date').value;
+                tbody.innerHTML = '';
+
+                const filteredTransactions = app.state.transactions
+                    .filter(t => !filterDate || t.date.startsWith(filterDate))
+                    .sort((a, b) => b.id - a.id);
+
+                if(filteredTransactions.length === 0) {
+                     tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--secondary);">Tidak ada data transaksi.</td></tr>`;
+                     return;
+                }
+
+                filteredTransactions.forEach(t => {
+                    const detail = t.items.map(i => `${i.name} x${i.qty}`).join(', ');
+                    const customer = app.state.customers.find(c => c.id == t.customerId);
+                    const customerName = customer ? customer.name : '<i>Pelanggan Umum</i>';
+                   
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>TRX-${t.id.toString().padStart(4, '0')}</td>
+                            <td>${new Date(t.date).toLocaleString('id-ID')}</td>
+                            <td>${customerName}<br><small>${t.plateNumber}</small></td>
+                            <td>${detail}</td>
+                            <td>${app.util.formatCurrency(t.total)}</td>
+                            <td><span class="status ${t.status.replace(' ', '')}">${t.status}</span></td>
+                            <td>
+                                <select onchange="app.handlers.updateStatus(${t.id}, this.value)" style="width: auto; padding: 0.5em; font-size: 0.85em;">
+                                    <option ${t.status==='Estimasi'?'selected':''}>Estimasi</option>
+                                    <option ${t.status==='Antrian'?'selected':''}>Antrian</option>
+                                    <option ${t.status==='Dikerjakan'?'selected':''}>Dikerjakan</option>
+                                    <option ${t.status==='Selesai'?'selected':''}>Selesai</option>
+                                    <option ${t.status==='Batal'?'selected':''}>Batal</option>
+                                </select>
+                                <button class="btn-icon" title="Cetak Ulang Struk" onclick="app.handlers.printInvoice(${t.id})"><i class="fa-solid fa-print"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            },
+
+            posPage() {
+                const productSelect = document.getElementById('pos-product-select');
+                productSelect.innerHTML = '<option value="">-- Pilih Produk/Jasa --</option>';
+                app.state.products.forEach(p => {
+                    productSelect.innerHTML += `<option value="${p.id}">${p.name} - ${app.util.formatCurrency(p.price)}</option>`;
+                });
+
+                const customerSelect = document.getElementById('pos-customer-select');
+                customerSelect.innerHTML = '<option value="">-- Pelanggan Umum --</option>';
+                app.state.customers.forEach(c => {
+                    customerSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+                });
+
+                document.getElementById('pos-plate-number').value = '';
+                document.getElementById('pos-vehicle-model').value = '';
+                app.state.cart = [];
+                this.cartTable();
+            },
+
+            cartTable() {
+                const tbody = document.getElementById('cart-table');
+                const totalEl = document.getElementById('cart-total');
+                tbody.innerHTML = '';
+                let total = 0;
+
+                if (app.state.cart.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--secondary);">Keranjang kosong</td></tr>`;
+                    totalEl.innerText = '0';
+                    return;
+                }
+
+                app.state.cart.forEach((item, index) => {
+                    total += item.subtotal;
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${item.name}</td>
+                            <td>${item.qty}</td>
+                            <td>${app.util.formatCurrency(item.subtotal)}</td>
+                            <td>
+                                <button class="btn-icon" onclick="app.handlers.removeFromCart(${index})"><i class="fa-solid fa-trash" style="color:var(--danger)"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                totalEl.innerText = app.util.formatCurrency(total, false);
+            },
+
+            unfinishedTransactions() {
+                const tbody = document.getElementById('unfinished-transactions-table');
+                tbody.innerHTML = '';
+
+                // Get unfinished transactions (status not 'Selesai' or 'Batal')
+                const unfinished = app.state.transactions.filter(t => 
+                    t.status !== 'Selesai' && t.status !== 'Batal'
+                ).sort((a, b) => b.id - a.id);
+
+                if (unfinished.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--secondary);">Tidak ada transaksi yang belum selesai</td></tr>`;
+                    return;
+                }
+
+                unfinished.forEach(t => {
+                    const customer = app.state.customers.find(c => c.id == t.customerId);
+                    const customerName = customer ? customer.name : 'Pelanggan Umum';
+                    
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>TRX-${t.id.toString().padStart(4, '0')}</td>
+                            <td>${customerName}</td>
+                            <td>${t.plateNumber} (${t.vehicleModel})</td>
+                            <td>${app.util.formatCurrency(t.total)}</td>
+                            <td><span class="status ${t.status.replace(' ', '')}">${t.status}</span></td>
+                            <td>
+                                <select onchange="app.handlers.updateStatus(${t.id}, this.value)" style="width: auto; padding: 0.5em; font-size: 0.85em;">
+                                    <option ${t.status==='Estimasi'?'selected':''}>Estimasi</option>
+                                    <option ${t.status==='Antrian'?'selected':''}>Antrian</option>
+                                    <option ${t.status==='Dikerjakan'?'selected':''}>Dikerjakan</option>
+                                    <option ${t.status==='Selesai'?'selected':''}>Selesai</option>
+                                    <option ${t.status==='Batal'?'selected':''}>Batal</option>
+                                </select>
+                                <button class="edit-transaction-btn" onclick="app.handlers.editTransaction(${t.id})">
+                                    <i class="fa-solid fa-pen"></i> Edit
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+        },
+
+        // --- HANDLERS: Aksi dari user (klik tombol, dll) ---
+        handlers: {
+            showProcessOptions() {
+                if (app.state.cart.length === 0) {
+                    alert("Keranjang masih kosong!");
+                    return;
+                }
+                document.getElementById('process-options-modal').style.display = 'flex';
+            },
+
+            closeProcessOptions() {
+                document.getElementById('process-options-modal').style.display = 'none';
+            },
+
+            createEstimation() {
+                const total = app.state.cart.reduce((sum, item) => sum + item.subtotal, 0);
+                const newId = app.state.transactions.length > 0 ? Math.max(...app.state.transactions.map(t => t.id)) + 1 : 1;
+                
+                const newEstimation = {
+                    id: newId,
+                    date: new Date().toISOString(),
+                    customerId: document.getElementById('pos-customer-select').value || null,
+                    plateNumber: document.getElementById('pos-plate-number').value,
+                    vehicleModel: document.getElementById('pos-vehicle-model').value,
+                    items: [...app.state.cart],
+                    total: total,
+                    status: 'Estimasi',
+                    cashier: app.state.currentUser.name
+                };
+
+                app.state.transactions.push(newEstimation);
+                app.saveData();
+                app.closeModal();
+                app.handlers.closeProcessOptions();
+
+                alert(`Estimasi TRX-${newId.toString().padStart(4, '0')} berhasil dibuat!`);
+                app.showPage('pos');
+            },
+
+            editTransaction(transactionId) {
+                const transaction = app.state.transactions.find(t => t.id === transactionId);
+                if (!transaction) return;
+
+                // Set the transaction being edited
+                app.state.editingTransaction = transactionId;
+                
+                // Fill the form with transaction data
+                document.getElementById('pos-customer-select').value = transaction.customerId || '';
+                document.getElementById('pos-plate-number').value = transaction.plateNumber || '';
+                document.getElementById('pos-vehicle-model').value = transaction.vehicleModel || '';
+                
+                // Set the cart items
+                app.state.cart = [...transaction.items];
+                app.render.cartTable();
+                
+                // Scroll to the form
+                document.querySelector('#pos-page .grid-2').scrollIntoView({ behavior: 'smooth' });
+            },
+
+            showUserModal(id = null) {
+                const isEditing = id !== null;
+                const user = isEditing ? app.state.users.find(u => u.id === id) : {};
+                app.state.currentEditingId = id;
+
+                document.getElementById('modal-title').innerText = isEditing ? 'Edit User' : 'Tambah User Baru';
+                document.getElementById('modal-body').innerHTML = `
+                    <input type="text" id="user-username" placeholder="Username" value="${user.name || ''}" />
+                    <input type="password" id="user-password" placeholder="Password (isi untuk mengubah)" />
+                    <select id="user-role">
+                        <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+                        <option value="kasir" ${user.role === 'kasir' ? 'selected' : ''}>Kasir</option>
+                    </select>
+                    <button class="btn btn-primary" style="width:100%" onclick="app.handlers.saveUser()">${isEditing ? 'Simpan Perubahan' : 'Tambahkan User'}</button>
+                `;
+                document.getElementById('modal-container').style.display = 'flex';
+                document.getElementById('user-username').focus();
+            },
+
+            saveUser() {
+                const username = document.getElementById('user-username').value.trim();
+                const password = document.getElementById('user-password').value;
+                const role = document.getElementById('user-role').value;
+                const isEditing = app.state.currentEditingId !== null;
+
+                if (!username) {
+                    alert('Username tidak boleh kosong!');
+                    return;
+                }
+               
+                const isDuplicate = app.state.users.some(u => u.name === username && u.id !== app.state.currentEditingId);
+                if (isDuplicate) {
+                    alert('Username sudah digunakan!');
+                    return;
+                }
+               
+                if (isEditing) {
+                    const index = app.state.users.findIndex(u => u.id === app.state.currentEditingId);
+                    if (index > -1) {
+                        app.state.users[index].name = username;
+                        app.state.users[index].role = role;
+                        if (password) {
+                           app.state.users[index].password = password;
+                        }
+                    }
+                } else {
+                    if (!password) {
+                        alert('Password harus diisi untuk user baru!');
+                        return;
+                    }
+                    const newId = app.state.users.length > 0 ? Math.max(...app.state.users.map(u => u.id)) + 1 : 1;
+                    app.state.users.push({ id: newId, name: username, password, role });
+                }
+               
+                app.saveData();
+                app.render.usersTable();
+                app.closeModal();
+            },
+
+            deleteUser(id) {
+                if (id === app.state.currentUser.id) {
+                    alert('Anda tidak bisa menghapus akun yang sedang digunakan.');
+                    return;
+                }
+
+                const adminCount = app.state.users.filter(u => u.role === 'admin').length;
+                const userToDelete = app.state.users.find(u => u.id === id);
+                if (adminCount <= 1 && userToDelete.role === 'admin') {
+                    alert('Tidak dapat menghapus admin terakhir.');
+                    return;
+                }
+               
+                if (confirm(`Apakah Anda yakin ingin menghapus user "${userToDelete.name}"?`)) {
+                    app.state.users = app.state.users.filter(u => u.id !== id);
+                    app.saveData();
+                    app.render.usersTable();
+                }
+            },
+
+            showProductModal(id = null) {
+                const isEditing = id !== null;
+                const product = isEditing ? app.state.products.find(p => p.id === id) : {};
+                app.state.currentEditingId = id;
+
+                document.getElementById('modal-title').innerText = isEditing ? 'Edit Produk/Jasa' : 'Tambah Produk/Jasa';
+                document.getElementById('modal-body').innerHTML = `
+                    <input type="text" id="product-name" placeholder="Nama Produk atau Jasa" value="${product.name || ''}" />
+                    <input type="number" id="product-price" placeholder="Harga" value="${product.price || ''}" />
+                    <select id="product-type">
+                        <option value="Produk" ${product.type === 'Produk' ? 'selected' : ''}>Produk</option>
+                        <option value="Jasa" ${product.type === 'Jasa' ? 'selected' : ''}>Jasa</option>
+                    </select>
+                    <button class="btn btn-primary" style="width:100%" onclick="app.handlers.saveProduct()">${isEditing ? 'Simpan Perubahan' : 'Tambahkan'}</button>
+                `;
+                document.getElementById('modal-container').style.display = 'flex';
+                document.getElementById('product-name').focus();
+            },
+
+            saveProduct() {
+                const name = document.getElementById('product-name').value;
+                const price = parseFloat(document.getElementById('product-price').value);
+                const type = document.getElementById('product-type').value;
+
+                if (!name || isNaN(price)) {
+                    alert('Nama dan Harga harus diisi dengan benar!');
+                    return;
+                }
+
+                if (app.state.currentEditingId !== null) {
+                    const index = app.state.products.findIndex(p => p.id === app.state.currentEditingId);
+                    if(index > -1) {
+                        app.state.products[index] = { ...app.state.products[index], name, price, type };
+                    }
+                } else {
+                    const newId = app.state.products.length > 0 ? Math.max(...app.state.products.map(p => p.id)) + 1 : 1;
+                    app.state.products.push({ id: newId, name, price, type });
+                }
+               
+                app.saveData();
+                app.render.productsTable();
+                app.closeModal();
+            },
+
+            deleteProduct(id) {
+                if (confirm('Apakah Anda yakin ingin menghapus produk ini?')) {
+                    app.state.products = app.state.products.filter(p => p.id !== id);
+                    app.saveData();
+                    app.render.productsTable();
+                }
+            },
+
+            showCustomerModal(id = null) {
+                const isEditing = id !== null;
+                const customer = isEditing ? app.state.customers.find(c => c.id === id) : { vehicles: [] };
+                app.state.currentEditingId = id;
+               
+                const vehicle = customer.vehicles[0] || {};
+
+                document.getElementById('modal-title').innerText = isEditing ? 'Edit Pelanggan' : 'Tambah Pelanggan';
+                document.getElementById('modal-body').innerHTML = `
+                    <input type="text" id="customer-name" placeholder="Nama Pelanggan" value="${customer.name || ''}" />
+                    <input type="tel" id="customer-phone" placeholder="No. Telepon" value="${customer.phone || ''}" />
+                    <h4 style="margin-top:1em; margin-bottom:0.5em;">Info Kendaraan Utama</h4>
+                    <input type="text" id="customer-plate" placeholder="No. Polisi" value="${vehicle.plate || ''}" />
+                    <input type="text" id="customer-model" placeholder="Model Kendaraan" value="${vehicle.model || ''}" />
+                    <button class="btn btn-primary" style="width:100%" onclick="app.handlers.saveCustomer()">${isEditing ? 'Simpan Perubahan' : 'Tambahkan'}</button>
+                `;
+                document.getElementById('modal-container').style.display = 'flex';
+                document.getElementById('customer-name').focus();
+            },
+           
+            saveCustomer() {
+                 const name = document.getElementById('customer-name').value;
+                 const phone = document.getElementById('customer-phone').value;
+                 const plate = document.getElementById('customer-plate').value;
+                 const model = document.getElementById('customer-model').value;
+
+                 if (!name) {
+                     alert('Nama Pelanggan harus diisi!');
+                     return;
+                 }
+               
+                 const vehicleData = (plate || model) ? [{ plate, model }] : [];
+
+                 if (app.state.currentEditingId !== null) {
+                    const index = app.state.customers.findIndex(c => c.id === app.state.currentEditingId);
+                     if(index > -1) {
+                         app.state.customers[index] = { ...app.state.customers[index], name, phone, vehicles: vehicleData };
+                     }
+                 } else {
+                    const newId = app.state.customers.length > 0 ? Math.max(...app.state.customers.map(p => p.id)) + 1 : 1;
+                    app.state.customers.push({ id: newId, name, phone, vehicles: vehicleData });
+                 }
+                 app.saveData();
+                 app.render.customersTable();
+                 app.closeModal();
+            },
+
+            deleteCustomer(id) {
+                if (confirm('Apakah Anda yakin ingin menghapus pelanggan ini?')) {
+                    app.state.customers = app.state.customers.filter(c => c.id !== id);
+                    app.saveData();
+                    app.render.customersTable();
+                }
+            },
+           
+            onCustomerSelect(customerId) {
+                if(!customerId) {
+                    document.getElementById('pos-plate-number').value = '';
+                    document.getElementById('pos-vehicle-model').value = '';
+                    return;
+                }
+                const customer = app.state.customers.find(c => c.id == customerId);
+                if (customer && customer.vehicles.length > 0) {
+                    document.getElementById('pos-plate-number').value = customer.vehicles[0].plate || '';
+                    document.getElementById('pos-vehicle-model').value = customer.vehicles[0].model || '';
+                }
+            },
+
+            addToCart() {
+                const productId = document.getElementById('pos-product-select').value;
+                const qty = parseInt(document.getElementById('pos-qty').value);
+
+                if (!productId || isNaN(qty) || qty <= 0) {
+                    alert('Pilih produk dan masukkan jumlah yang valid.');
+                    return;
+                }
+                const product = app.state.products.find(p => p.id == productId);
+                const subtotal = product.price * qty;
+
+                app.state.cart.push({
+                    productId: product.id,
+                    name: product.name,
+                    qty,
+                    price: product.price,
+                    subtotal,
+                });
+
+                app.render.cartTable();
+                document.getElementById('pos-qty').value = 1;
+            },
+           
+            removeFromCart(index) {
+                app.state.cart.splice(index, 1);
+                app.render.cartTable();
+            },
+           
+            showPaymentModal() {
+                const total = app.state.cart.reduce((sum, item) => sum + item.subtotal, 0);
+                document.getElementById('modal-title').innerText = 'Proses Pembayaran';
+                document.getElementById('modal-body').innerHTML = `
+                    <div style="font-size: 1.2em; margin-bottom: 1em;">Total Belanja:
+                        <strong style="float: right;">${app.util.formatCurrency(total)}</strong>
+                    </div>
+                    
+                    <div class="payment-method-container">
+                        <h4>Metode Pembayaran</h4>
+                        <div class="payment-method-options">
+                            <div class="payment-method-option ${app.state.selectedPaymentMethod === 'cash' ? 'selected' : ''}" 
+                                 onclick="app.handlers.selectPaymentMethod('cash')">
+                                <i class="fa-solid fa-money-bill-wave"></i>
+                                <span>Cash</span>
+                            </div>
+                            <div class="payment-method-option ${app.state.selectedPaymentMethod === 'debit' ? 'selected' : ''}" 
+                                 onclick="app.handlers.selectPaymentMethod('debit')">
+                                <i class="fa-solid fa-credit-card"></i>
+                                <span>Debit</span>
+                            </div>
+                            <div class="payment-method-option ${app.state.selectedPaymentMethod === 'qris' ? 'selected' : ''}" 
+                                 onclick="app.handlers.selectPaymentMethod('qris')">
+                                <i class="fa-solid fa-qrcode"></i>
+                                <span>QRIS</span>
+                            </div>
+                        </div>
+                        
+                        <div id="cash-details" class="payment-method-details ${app.state.selectedPaymentMethod === 'cash' ? 'active' : ''}">
+                            <input type="number" id="payment-amount" placeholder="Jumlah Uang Diterima" onkeyup="app.handlers.calculateChange(${total})" />
+                            <div style="font-size: 1.2em; margin-top: 1em;">Kembalian:
+                                <strong style="float: right;" id="payment-change">Rp 0</strong>
+                            </div>
+                        </div>
+                        
+                        <div id="debit-details" class="payment-method-details ${app.state.selectedPaymentMethod === 'debit' ? 'active' : ''}">
+                            <p><strong>Nomor Rekening BCA: 123456789</strong></p>
+                            <p><strong>Atas Nama: BengBro Store</strong></p>
+                            <input type="text" id="debit-reference" placeholder="Nomor Referensi Pembayaran" />
+                        </div>
+                        
+                        <div id="qris-details" class="payment-method-details ${app.state.selectedPaymentMethod === 'qris' ? 'active' : ''}">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=BengBengStore-${Date.now()}" class="qrcode-image" alt="QR Code">
+                            <p style="margin-top: 1em;">Scan QR Code di atas untuk melakukan pembayaran</p>
+                            <input type="text" id="qris-reference" placeholder="Nomor Referensi Pembayaran" />
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-success" style="width:100%; margin-top: 2em;" onclick="app.handlers.processCheckout(${total})">
+                        <i class="fa-solid fa-check"></i> Konfirmasi Pembayaran
+                    </button>
+                `;
+                document.getElementById('modal-container').style.display = 'flex';
+                if (app.state.selectedPaymentMethod === 'cash') {
+                    document.getElementById('payment-amount').focus();
+                }
+            },
+            
+            selectPaymentMethod(method) {
+                app.state.selectedPaymentMethod = method;
+                document.querySelectorAll('.payment-method-option').forEach(el => {
+                    el.classList.remove('selected');
+                });
+                document.querySelector(`.payment-method-option[onclick="app.handlers.selectPaymentMethod('${method}')"]`).classList.add('selected');
+                
+                document.querySelectorAll('.payment-method-details').forEach(el => {
+                    el.classList.remove('active');
+                });
+                document.getElementById(`${method}-details`).classList.add('active');
+            },
+           
+            calculateChange(total) {
+                const amountPaid = parseFloat(document.getElementById('payment-amount').value) || 0;
+                const change = amountPaid - total;
+                document.getElementById('payment-change').innerText = app.util.formatCurrency(Math.max(0, change));
+            },
+
+            processCheckout(total) {
+                if (app.state.selectedPaymentMethod === 'cash') {
+                    const amountPaid = parseFloat(document.getElementById('payment-amount').value) || 0;
+                    if (amountPaid < total) {
+                        alert("Jumlah pembayaran kurang!");
+                        return;
+                    }
+                } else if (app.state.selectedPaymentMethod === 'debit') {
+                    const reference = document.getElementById('debit-reference').value.trim();
+                    if (!reference) {
+                        alert("Harap masukkan nomor referensi pembayaran!");
+                        return;
+                    }
+                } else if (app.state.selectedPaymentMethod === 'qris') {
+                    const reference = document.getElementById('qris-reference').value.trim();
+                    if (!reference) {
+                        alert("Harap masukkan nomor referensi pembayaran!");
+                        return;
+                    }
+                }
+                
+                let newTransaction;
+                const isEditing = app.state.editingTransaction !== null;
+                
+                if (isEditing) {
+                    // Update existing transaction
+                    const index = app.state.transactions.findIndex(t => t.id === app.state.editingTransaction);
+                    if (index > -1) {
+                        app.state.transactions[index] = {
+                            ...app.state.transactions[index],
+                            customerId: document.getElementById('pos-customer-select').value || null,
+                            plateNumber: document.getElementById('pos-plate-number').value,
+                            vehicleModel: document.getElementById('pos-vehicle-model').value,
+                            items: [...app.state.cart],
+                            total: total,
+                            paymentMethod: app.state.selectedPaymentMethod,
+                            paid: app.state.selectedPaymentMethod === 'cash' ? parseFloat(document.getElementById('payment-amount').value) : total,
+                            change: app.state.selectedPaymentMethod === 'cash' ? (parseFloat(document.getElementById('payment-amount').value) - total) : 0,
+                            status: 'Selesai',
+                            cashier: app.state.currentUser.name
+                        };
+                        newTransaction = app.state.transactions[index];
+                    }
+                    app.state.editingTransaction = null;
+                } else {
+                    // Create new transaction
+                    const newId = app.state.transactions.length > 0 ? Math.max(...app.state.transactions.map(t => t.id)) + 1 : 1;
+                    newTransaction = {
+                        id: newId,
+                        date: new Date().toISOString(),
+                        customerId: document.getElementById('pos-customer-select').value || null,
+                        plateNumber: document.getElementById('pos-plate-number').value,
+                        vehicleModel: document.getElementById('pos-vehicle-model').value,
+                        items: [...app.state.cart],
+                        total: total,
+                        paymentMethod: app.state.selectedPaymentMethod,
+                        paid: app.state.selectedPaymentMethod === 'cash' ? parseFloat(document.getElementById('payment-amount').value) : total,
+                        change: app.state.selectedPaymentMethod === 'cash' ? (parseFloat(document.getElementById('payment-amount').value) - total) : 0,
+                        status: 'Selesai',
+                        cashier: app.state.currentUser.name
+                    };
+                    app.state.transactions.push(newTransaction);
+                }
+                
+                app.saveData();
+                app.closeModal();
+
+                if(confirm(`Transaksi TRX-${newTransaction.id.toString().padStart(4, '0')} berhasil! Apakah Anda ingin mencetak struk?`)){
+                    this.printInvoice(newTransaction.id);
+                }
+               
+                app.showPage('pos');
+            },
+           
+            updateStatus(transactionId, newStatus) {
+                const transaction = app.state.transactions.find(t => t.id === transactionId);
+                if (transaction) {
+                    transaction.status = newStatus;
+                    app.saveData();
+                    app.render.reportTable();
+                    app.render.dashboard();
+                    app.render.unfinishedTransactions();
+                }
+            },
+
+            printInvoice(transactionId) {
+                const trx = app.state.transactions.find(t => t.id === transactionId);
+                if (!trx) return;
+
+                const customer = app.state.customers.find(c => c.id == trx.customerId);
+                const invoiceEl = document.getElementById('invoice-page');
+                let itemsHtml = '';
+                trx.items.forEach(item => {
+                    itemsHtml += `
+                        <tr>
+                            <td colspan="2">${item.name}</td>
+                        </tr>
+                        <tr>
+                            <td>${item.qty} x ${app.util.formatCurrency(item.price)}</td>
+                            <td style="text-align: right;">${app.util.formatCurrency(item.subtotal)}</td>
+                        </tr>
+                    `;
+                });
+
+                let paymentInfo = '';
+                if (trx.paymentMethod === 'cash') {
+                    paymentInfo = `
+                        <p>Metode: Tunai</p>
+                        <p>Dibayar: ${app.util.formatCurrency(trx.paid)}</p>
+                        <p>Kembali: ${app.util.formatCurrency(trx.change)}</p>
+                    `;
+                } else if (trx.paymentMethod === 'debit') {
+                    paymentInfo = `<p>Metode: Debit</p>`;
+                } else if (trx.paymentMethod === 'qris') {
+                    paymentInfo = `<p>Metode: QRIS</p>`;
+                }
+
+                invoiceEl.innerHTML = `
+                    <div class="no-print" style="text-align:center; margin-bottom: 2em;">
+                        <button class="btn btn-primary" onclick="window.print()"><i class="fa-solid fa-print"></i> Cetak</button>
+                        <button class="btn btn-secondary" onclick="document.getElementById('invoice-page').style.display='none'">Tutup</button>
+                    </div>
+
+                    <h2>BengBro</h2>
+                    <p style="text-align: center;">Jl. Otomotif Raya No. 123</p>
+                    <hr>
+                    <p>No: TRX-${trx.id.toString().padStart(4, '0')}</p>
+                    <p>Tgl: ${new Date(trx.date).toLocaleString('id-ID')}</p>
+                    <p>Kasir: ${trx.cashier}</p>
+                    <p>Plg: ${customer ? customer.name : 'Umum'}</p>
+                    <p>No.Pol: ${trx.plateNumber}</p>
+                    <hr>
+                    <table>
+                        ${itemsHtml}
+                    </table>
+                    <hr>
+                    <p class="invoice-total">Total: ${app.util.formatCurrency(trx.total)}</p>
+                    ${paymentInfo}
+                    <hr>
+                    <p class="footer">-- Terima Kasih --<br>Servis berikutnya 3 bulan lagi</p>
+                `;
+                invoiceEl.style.display = 'block';
+            }
+        },
+
+        util: {
+            formatCurrency(value, withPrefix = true) {
+                return (withPrefix ? 'Rp ' : '') + new Intl.NumberFormat('id-ID').format(value);
+            }
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => app.init());
+    </script>
+</body>
+</html>
