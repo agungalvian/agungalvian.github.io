@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ BP TAPERA - Interaktif</title>
+    <title>FAQ BP TAPERA - Interaktif (Dominan Hijau)</title>
     <style>
         :root {
-            --primary-color: #007bff; /* Biru untuk elemen utama */
+            /* Warna Dominan Hijau Tua */
+            --primary-color: #00695c; /* Hijau Tua */
+            --dark-primary: #004d40; /* Hijau Lebih Gelap untuk Hover/Shadow */
             --secondary-color: #6c757d; /* Abu-abu untuk teks sekunder */
-            --bg-light: #f8f9fa; /* Latar belakang terang */
-            --border-color: #dee2e6;
+            --bg-light: #e0f2f1; /* Latar belakang hijau sangat terang */
+            --border-color: #b2dfdb; /* Border hijau muda */
             --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
@@ -27,16 +29,17 @@
             background: #fff;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            color: var(--primary-color);
+            color: var(--dark-primary);
             text-align: center;
             margin-bottom: 30px;
             font-weight: 700;
         }
-
+        
+        /* Gaya Kotak Pencarian */
         .search-box {
             margin-bottom: 30px;
             padding: 15px;
@@ -57,11 +60,14 @@
         .search-box input[type="text"]:focus {
             outline: none;
             border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(0, 105, 92, 0.5);
         }
 
         /* --- Accordion Styles --- */
 
         .faq-group-title {
+            display: flex; /* Untuk menempatkan ikon di samping judul */
+            align-items: center;
             background-color: var(--primary-color);
             color: white;
             padding: 10px 20px;
@@ -70,8 +76,15 @@
             border-radius: 6px;
             font-size: 1.25rem;
             font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
+        .faq-group-title span.icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+            /* Ikon diatur agar warna lebih terang jika diperlukan */
+        }
+        
         .accordion details {
             background-color: #fff;
             border: 1px solid var(--border-color);
@@ -82,7 +95,7 @@
         }
 
         .accordion details:hover {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
         }
 
         .accordion summary {
@@ -92,13 +105,17 @@
             padding: 15px 20px;
             font-weight: 600;
             cursor: pointer;
-            list-style: none; /* Hilangkan ikon default di Firefox */
-            color: #343a40;
+            list-style: none;
+            color: var(--dark-primary);
             transition: background-color 0.3s;
         }
 
+        .accordion summary:hover {
+             background-color: #f1f8e9; /* Sedikit hijau muda saat hover */
+        }
+
         .accordion summary::-webkit-details-marker {
-            display: none; /* Hilangkan ikon default di Chrome/Safari */
+            display: none;
         }
 
         /* Ikon panah kustom */
@@ -113,7 +130,7 @@
 
         .accordion details[open] summary {
             background-color: var(--bg-light);
-            color: var(--primary-color);
+            color: var(--dark-primary);
         }
 
         .accordion details[open] summary::after {
@@ -128,23 +145,11 @@
             animation: slideDown 0.3s ease-out;
         }
 
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Styling for list and ordered list inside content */
+        /* Tambahan styling untuk konten di dalam jawaban */
         .accordion-content ul, .accordion-content ol {
             padding-left: 20px;
             margin: 10px 0;
         }
-        
         .accordion-content p {
             margin: 5px 0;
         }
@@ -155,15 +160,16 @@
             border-radius: 3px;
             font-weight: bold;
         }
-        .highlight-yellow { background-color: #fff3cd; color: #856404; }
-        .highlight-teal { background-color: #d4edda; color: #155724; }
-        .highlight-blue { background-color: #cce5ff; color: #004085; }
-        .highlight-red { background-color: #f8d7da; color: #721c24; }
-        .highlight-gray { background-color: #e2e3e5; color: #383d41; }
-        .highlight-purple { background-color: #e8d7f9; color: #4f2a93; }
-        .highlight-black { background-color: #343a40; color: white; }
-        .highlight-default { background-color: #f0f0f0; color: #343a40; }
+        /* Mengatur warna highlight agar tetap terbaca di dominasi hijau */
+        .highlight-yellow { background-color: #fff9c4; color: #827717; } /* Kuning Pucat */
+        .highlight-teal { background-color: #c8e6c9; color: #388e3c; } /* Hijau Muda */
+        .highlight-blue { background-color: #bbdefb; color: #1565c0; } /* Biru Muda */
+        .highlight-red { background-color: #ffcdd2; color: #c62828; } /* Merah Muda */
+        .highlight-gray { background-color: #e0e0e0; color: #424242; } /* Abu-abu */
+        .highlight-purple { background-color: #e1bee7; color: #6a1b9a; } /* Ungu Muda */
+        .highlight-black { background-color: #212121; color: white; } /* Hitam */
 
+        /* Tabel Responsif */
         .responsive-table {
             width: 100%;
             border-collapse: collapse;
@@ -171,12 +177,13 @@
         }
         .responsive-table th, .responsive-table td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 10px;
             text-align: left;
         }
         .responsive-table th {
             background-color: var(--bg-light);
             font-weight: 600;
+            color: var(--dark-primary);
         }
     </style>
 </head>
@@ -194,7 +201,9 @@
 
     <div id="faqList">
 
-        <h2 class="faq-group-title">TENTANG BP TAPERA</h2>
+        <h2 class="faq-group-title">
+            <span class="icon" aria-hidden="true">&#9733;</span> TENTANG BP TAPERA
+        </h2>
         <div class="accordion">
             <details class="faq-item" open>
                 <summary>Apa itu TAPERA?</summary>
@@ -338,7 +347,9 @@
             </details>
         </div>
 
-        <h2 class="faq-group-title">PEMANFAATAN TAPERA</h2>
+        <h2 class="faq-group-title">
+            <span class="icon" aria-hidden="true">&#127968;</span> PEMANFAATAN TAPERA (KPR, KBR, KRR)
+        </h2>
         <div class="accordion">
             <details class="faq-item" open>
                 <summary>Apa manfaat yang akan diperoleh saat menjadi peserta Tapera?</summary>
@@ -412,7 +423,9 @@
             </details>
         </div>
 
-        <h2 class="faq-group-title">KEPESERTAAN - PEMBERI KERJA</h2>
+        <h2 class="faq-group-title">
+            <span class="icon" aria-hidden="true">&#128188;</span> KEPESERTAAN - PEMBERI KERJA
+        </h2>
         <div class="accordion">
             <details class="faq-item" open>
                 <summary>Apa saja hak pemberi kerja?</summary>
@@ -444,7 +457,9 @@
             </details>
         </div>
 
-        <h2 class="faq-group-title">KEPESERTAAN - PEKERJA MANDIRI</h2>
+        <h2 class="faq-group-title">
+            <span class="icon" aria-hidden="true">&#128100;</span> KEPESERTAAN - PEKERJA MANDIRI
+        </h2>
         <div class="accordion">
             <details class="faq-item" open>
                 <summary>Apa itu Pekerja Mandiri?</summary>
@@ -526,7 +541,9 @@
             </details>
         </div>
 
-        <h2 class="faq-group-title">KRR TAPERA (Kredit Renovasi Rumah)</h2>
+        <h2 class="faq-group-title">
+            <span class="icon" aria-hidden="true">&#9993;</span> KRR TAPERA (Kredit Renovasi Rumah)
+        </h2>
         <div class="accordion">
             <details class="faq-item" open>
                 <summary>Apa itu KRR TAPERA?</summary>
@@ -663,7 +680,9 @@
             </details>
         </div>
 
-        <h2 class="faq-group-title">FLPP (Fasilitas Likuiditas Pembiayaan Perumahan)</h2>
+        <h2 class="faq-group-title">
+            <span class="icon" aria-hidden="true">&#128176;</span> FLPP (Fasilitas Likuiditas Pembiayaan Perumahan)
+        </h2>
         <div class="accordion">
             <details class="faq-item" open>
                 <summary>Apa itu FLPP?</summary>
@@ -815,7 +834,9 @@
             </details>
         </div>
 
-        <h2 class="faq-group-title">MONITORING & EVALUASI (MONEV)</h2>
+        <h2 class="faq-group-title">
+            <span class="icon" aria-hidden="true">&#128269;</span> MONITORING & EVALUASI (MONEV)
+        </h2>
         <div class="accordion">
             <details class="faq-item" open>
                 <summary>Bagaimana proses bisnis pemantauan Rumah MBR?</summary>
@@ -865,7 +886,9 @@
             </details>
         </div>
         
-        <h2 class="faq-group-title">KONTAK LAYANAN (CONTACT CENTER)</h2>
+        <h2 class="faq-group-title">
+            <span class="icon" aria-hidden="true">&#9742;</span> KONTAK LAYANAN (CONTACT CENTER)
+        </h2>
         <div class="accordion">
             <details class="faq-item" open>
                 <summary>Bagaimana cara menghubungi Contact Center BP TAPERA?</summary>
@@ -892,42 +915,29 @@
 
 <script>
     function filterFAQ() {
-        // Ambil input dari user dan ubah ke huruf kecil
         var input = document.getElementById('faqSearch');
         var filter = input.value.toLowerCase();
-        
-        // Ambil semua item FAQ (elemen details)
         var faqItems = document.getElementsByClassName('faq-item');
 
-        // Iterasi melalui setiap item FAQ
         for (var i = 0; i < faqItems.length; i++) {
             var item = faqItems[i];
-            
-            // Ambil teks dari Pertanyaan (Summary) dan Jawaban (Content)
             var summary = item.querySelector('summary').textContent;
-            // Gunakan innerHTML untuk mengambil semua teks, termasuk dari list dan tabel
             var content = item.querySelector('.accordion-content').innerHTML; 
-
-            // Gabungkan teks untuk pencarian
             var fullText = summary + " " + content;
 
-            // Periksa apakah kata kunci ada di dalam teks
             if (fullText.toLowerCase().indexOf(filter) > -1) {
-                item.style.display = ""; // Tampilkan item jika cocok
-                
-                // Jika ada filter, buka details secara otomatis
+                item.style.display = "";
+                // Buka item secara otomatis saat ada hasil pencarian
                 if (filter.length > 0) {
                     item.open = true;
                 } else {
-                    // Jika filter kosong, kembalikan ke state awal (terbuka)
-                    item.open = true; 
+                    item.open = true; // Pertahankan state awal terbuka
                 }
             } else {
-                item.style.display = "none"; // Sembunyikan item jika tidak cocok
+                item.style.display = "none";
             }
         }
         
-        // Atur tampilan judul kelompok FAQ
         // Logika untuk menyembunyikan judul kelompok yang tidak memiliki anggota
         var groups = document.getElementsByClassName('faq-group-title');
         for (var i = 0; i < groups.length; i++) {
@@ -938,24 +948,22 @@
             if (nextElement && nextElement.classList.contains('accordion')) {
                 var items = nextElement.getElementsByClassName('faq-item');
                 for (var j = 0; j < items.length; j++) {
-                    // Check if item is not explicitly hidden
-                    if (items[j].style.display !== "none") { 
+                    if (items[j].style.display !== "none") {
                         hasVisibleItems = true;
                         break;
                     }
                 }
             }
 
-            // Tampilkan judul jika ada item yang terlihat di dalamnya ATAU jika kolom pencarian kosong
             if (hasVisibleItems) {
-                groupTitle.style.display = "";
+                groupTitle.style.display = "flex";
             } else {
                 groupTitle.style.display = "none";
             }
         }
     }
     
-    // Inisialisasi: Pastikan semua item terbuka saat dimuat (sesuai permintaan awal)
+    // Inisialisasi: Pastikan semua item terbuka saat dimuat
     document.addEventListener('DOMContentLoaded', function() {
         var faqItems = document.getElementsByClassName('faq-item');
         for (var i = 0; i < faqItems.length; i++) {
