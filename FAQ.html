@@ -1,712 +1,740 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>FAQ </title><style>
-/* cspell:disable-file */
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 10px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.collection-content td {
-	white-space: pre-wrap;
-	word-break: break-word;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	padding-inline-start: 0;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-.page-description {
-	margin-bottom: 2em;
-}
-
-.simple-table {
-	margin-top: 1em;
-	font-size: 0.875rem;
-	empty-cells: show;
-}
-.simple-table td {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table th {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table-header-color {
-	background: rgb(247, 246, 243);
-	color: black;
-}
-.simple-table-header {
-	font-weight: 500;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.callout img.notion-static-icon {
-	width: 1em;
-	height: 1em;
-}
-
-.callout p {
-	margin: 0;
-}
-
-.callout h1,
-.callout h2,
-.callout h3 {
-	margin: 0 0 0.6rem;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	max-height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-blockquote.quote-large {
-	font-size: 1.25em;
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
-.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
-.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
-.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
-.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
-.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
-.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.highlight-default {
-	color: rgba(44, 44, 43, 1);
-}
-.highlight-gray {
-	color: rgba(134, 131, 126, 1);
-	fill: rgba(134, 131, 126, 1);
-}
-.highlight-brown {
-	color: rgba(159, 118, 90, 1);
-	fill: rgba(159, 118, 90, 1);
-}
-.highlight-orange {
-	color: rgba(210, 123, 45, 1);
-	fill: rgba(210, 123, 45, 1);
-}
-.highlight-yellow {
-	color: rgba(203, 148, 52, 1);
-	fill: rgba(203, 148, 52, 1);
-}
-.highlight-teal {
-	color: rgba(80, 148, 110, 1);
-	fill: rgba(80, 148, 110, 1);
-}
-.highlight-blue {
-	color: rgba(56, 125, 201, 1);
-	fill: rgba(56, 125, 201, 1);
-}
-.highlight-purple {
-	color: rgba(154, 107, 180, 1);
-	fill: rgba(154, 107, 180, 1);
-}
-.highlight-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.highlight-red {
-	color: rgba(207, 81, 72, 1);
-	fill: rgba(207, 81, 72, 1);
-}
-.highlight-default_background {
-	color: rgba(44, 44, 43, 1);
-}
-.highlight-gray_background {
-	background: rgba(42, 28, 0, 0.07);
-}
-.highlight-brown_background {
-	background: rgba(139, 46, 0, 0.086);
-}
-.highlight-orange_background {
-	background: rgba(224, 101, 1, 0.129);
-}
-.highlight-yellow_background {
-	background: rgba(211, 168, 0, 0.137);
-}
-.highlight-teal_background {
-	background: rgba(0, 100, 45, 0.09);
-}
-.highlight-blue_background {
-	background: rgba(0, 124, 215, 0.094);
-}
-.highlight-purple_background {
-	background: rgba(102, 0, 178, 0.078);
-}
-.highlight-pink_background {
-	background: rgba(197, 0, 93, 0.086);
-}
-.highlight-red_background {
-	background: rgba(223, 22, 0, 0.094);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(134, 131, 126, 1);
-	fill: rgba(134, 131, 126, 1);
-}
-.block-color-brown {
-	color: rgba(159, 118, 90, 1);
-	fill: rgba(159, 118, 90, 1);
-}
-.block-color-orange {
-	color: rgba(210, 123, 45, 1);
-	fill: rgba(210, 123, 45, 1);
-}
-.block-color-yellow {
-	color: rgba(203, 148, 52, 1);
-	fill: rgba(203, 148, 52, 1);
-}
-.block-color-teal {
-	color: rgba(80, 148, 110, 1);
-	fill: rgba(80, 148, 110, 1);
-}
-.block-color-blue {
-	color: rgba(56, 125, 201, 1);
-	fill: rgba(56, 125, 201, 1);
-}
-.block-color-purple {
-	color: rgba(154, 107, 180, 1);
-	fill: rgba(154, 107, 180, 1);
-}
-.block-color-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.block-color-red {
-	color: rgba(207, 81, 72, 1);
-	fill: rgba(207, 81, 72, 1);
-}
-.block-color-default_background {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray_background {
-	background: rgba(240, 239, 237, 1);
-}
-.block-color-brown_background {
-	background: rgba(245, 237, 233, 1);
-}
-.block-color-orange_background {
-	background: rgba(251, 235, 222, 1);
-}
-.block-color-yellow_background {
-	background: rgba(249, 243, 220, 1);
-}
-.block-color-teal_background {
-	background: rgba(232, 241, 236, 1);
-}
-.block-color-blue_background {
-	background: rgba(229, 242, 252, 1);
-}
-.block-color-purple_background {
-	background: rgba(243, 235, 249, 1);
-}
-.block-color-pink_background {
-	background: rgba(250, 233, 241, 1);
-}
-.block-color-red_background {
-	background: rgba(252, 233, 231, 1);
-}
-.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
-.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
-.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
-.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
-.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
-.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
-.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
-.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
-.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
-.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="28b901c1-ccfd-8061-9526-f847927e7b3d" class="page sans"><header><img class="page-cover-image" src="FAQ/Business_Website_in_White__Grey__Modern_Corporate_Style.jpg" style="object-position:center 2.969999999999995%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="FAQ/Logo_BP_Tapera.png"/></div><h1 class="page-title">FAQ </h1><p class="page-description"></p></header><div class="page-body"><p id="28d901c1-ccfd-8025-824e-ce74022f05c1" class=""><em>Temukan jawaban anda tentang layanan Tapera, pengajuan klaim, dan hak peserta.</em></p><figure class="callout" style="white-space:pre-wrap;display:flex" id="28b901c1-ccfd-819a-b95d-e94f0879509f"><div style="font-size:1.5em"><img class="icon notion-static-icon" src="https://www.notion.so/icons/home_green.svg"/></div><div style="width:100%"><mark class="highlight-teal"><strong>TENTANG BP TAPERA</strong></mark><ul id="28b901c1-ccfd-8132-a767-f2bed27fd9dc" class="toggle"><li><details open=""><summary><strong>Apa itu BP TAPERA?</strong></summary><p id="28b901c1-ccfd-81e3-be1e-e127bb6fc4fe" class="">BP TAPERA adalah Badan Pengelola Tabungan Perumahan Rakyat, yang mengelola program tabungan perumahan bagi pekerja ASN dan pekerja mandiri untuk membantu kepemilikan rumah.</p><hr id="28b901c1-ccfd-81a8-b715-c7a8e43e4b01"/></details></li></ul><ul id="28d901c1-ccfd-804f-b248-d4127d17ed4f" class="toggle"><li><details open=""><summary><strong>Bagaimana mekanisme pengelolaan dana di BP TAPERA?</strong></summary><p id="28d901c1-ccfd-8081-a83d-c2cc6656bcfd" class="">Dana peserta dikelola secara profesional dan diinvestasikan untuk meningkatkan nilai simpanan, dengan hasil yang akan dikembalikan saat peserta pensiun atau mengakhiri kepesertaan.</p></details></li></ul><ul id="28d901c1-ccfd-80c5-b9b7-ffffe2aeb83d" class="toggle"><li><details open=""><summary><strong>Apa saja tujuan pembiayaan perumahan BP TAPERA?</strong></summary><p id="28d901c1-ccfd-80c8-8322-feb54dcb1032" class="">Pembiayaan perumahan ditujukan untuk membantu peserta membeli, membangun, atau merenovasi rumah agar dapat memiliki hunian layak dengan cicilan terjangkau</p></details></li></ul></div></figure><figure class="callout" style="white-space:pre-wrap;display:flex" id="28b901c1-ccfd-81fe-a9fa-c3e02ce82ab6"><div style="font-size:1.5em"><img class="icon notion-static-icon" src="https://www.notion.so/icons/people_green.svg"/></div><div style="width:100%"><mark class="highlight-teal"><strong>KPR TAPERA</strong></mark><mark class="highlight-red"><strong> </strong></mark><ul id="28b901c1-ccfd-8181-a9ed-ed4690e6cfb4" class="toggle"><li><details open=""><summary><strong>Apa itu KPR TAPERA? </strong></summary><p id="28b901c1-ccfd-8110-827c-ff00ccfd603c" class="">KPR TAPERA adalah produk pembiayaan bagi peserta yang ingin membangun rumah di atas tanah pribadi milik sendiri.</p></details></li></ul><ul id="28b901c1-ccfd-811a-8fe1-fbc8cb2deed9" class="toggle"><li><details open=""><summary><strong>Apa keunggulan KPR TAPERA dibandingkan KPR bank biasa?</strong></summary><p id="28b901c1-ccfd-8181-8338-fc4d81cc4181" class="">KPR TAPERA menawarkan bunga kompetitif, tenor panjang sesuai kemampuan, serta kemudahan proses bagi peserta Tapera.</p></details></li></ul><ul id="28d901c1-ccfd-801f-8ae4-fdf86bdf07c2" class="toggle"><li><details open=""><summary><strong>Apa saja syarat untuk mendapatkan manfaat Pembiayaan KPR FLPP </strong></summary><p id="28d901c1-ccfd-80a5-8fea-e064ad35af0a" class="">Maksimal pembiayaan ditentukan berdasarkan kebijakan BP TAPERA dan kemampuan peserta, biasanya disesuaikan dengan nilai rumah dan kapasitas bayar.</p></details></li></ul><p id="28d901c1-ccfd-8002-84ed-e81eaf511c87" class="">/</p><p id="28d901c1-ccfd-8069-bbb7-c8f7cdcc8138" class="">
-</p><p id="28d901c1-ccfd-8026-8a2a-f97dddc00710" class="">
-</p><ul id="28d901c1-ccfd-80e4-b806-d1ca9f7e8ed3" class="toggle"><li><details open=""><summary><strong>Apakah KPR TAPERA bisa digunakan untuk rumah di seluruh wilayah Indonesia?</strong></summary><p id="28d901c1-ccfd-8020-afd6-f12dc2dd6bc9" class="">Ya, selama rumah tersebut memenuhi kriteria dan persyaratan dari BP TAPERA.</p></details></li></ul><ul id="28d901c1-ccfd-80e0-8f9c-f429b1379c93" class="toggle"><li><details open=""><summary><strong>Bagaimana proses pencairan dana KPR TAPERA?</strong></summary><p id="28d901c1-ccfd-80d8-a0f7-d7fcd3ab47e6" class="">Setelah pengajuan disetujui, dana pencairan akan dilakukan bertahap sesuai progress pembelian atau berdasarkan perjanjian.</p></details></li></ul></div></figure><figure class="callout" style="white-space:pre-wrap;display:flex" id="28d901c1-ccfd-8003-86b2-e704c29490a4"><div style="font-size:1.5em"><img class="icon notion-static-icon" src="https://www.notion.so/icons/home_green.svg"/></div><div style="width:100%"><mark class="highlight-teal"><strong>KBR TAPERA </strong></mark><ul id="28d901c1-ccfd-809a-8702-e613b4b07953" class="toggle"><li><details open=""><summary><strong>Apa itu KBR TAPERA?</strong></summary><p id="28d901c1-ccfd-80ff-89d2-d9e703e01f15" class="">KBR TAPERA adalah produk pembiayaan bagi peserta yang ingin membangun rumah di atas tanah pribadi milik sendiri.</p></details></li></ul><ul id="28d901c1-ccfd-8085-aeb4-fc928dc73bbb" class="toggle"><li><details open=""><summary><strong>Apakah tanah yang digunakan harus sudah bersertifikat?</strong></summary><p id="28d901c1-ccfd-8026-8043-e4f826763e73" class="">Iya, tanah harus sudah bersertifikat sebagai bukti kepemilikan legal untuk pengajuan KBR TAPERA.</p></details></li></ul><ul id="28d901c1-ccfd-801d-bd7a-ef684c5296bf" class="toggle"><li><details open=""><summary><strong>Berapa maksimal waktu pembangunan rumah menggunakan KBR TAPERA?</strong></summary><p id="28d901c1-ccfd-8079-8de2-f91c1fac38ae" class="">Durasi maksimal pembangunan biasanya diatur oleh perjanjian pembiayaan, umumnya sekitar 12-24 bulan.</p></details></li></ul><ul id="28d901c1-ccfd-8020-9b73-fa06853eb823" class="toggle"><li><details open=""><summary><strong>Apakah dana KBR TAPERA bisa dipakai untuk perbaikan rumah?</strong></summary><p id="28d901c1-ccfd-80f3-8ac0-ce49bead984f" class="">KBR TAPERA fokus untuk pembangunan rumah baru, sedangkan untuk perbaikan biasanya ada produk lain yang dapat diakses.</p></details></li></ul><ul id="28d901c1-ccfd-8094-8a8c-f9aae8ce59b8" class="toggle"><li><details open=""><summary><strong>Bagaimana jika terjadi keterlambatan pembangunan?</strong></summary><p id="28d901c1-ccfd-80b3-95fe-dd7813cc9507" class="">Peserta harus melaporkan kepada BP TAPERA dan dapat melakukan perpanjangan waktu sesuai ketentuan yang berlaku.</p></details></li></ul></div></figure><figure class="callout" style="white-space:pre-wrap;display:flex" id="28b901c1-ccfd-811b-9800-fd03dcb35db3"><div style="font-size:1.5em"><img class="icon notion-static-icon" src="https://www.notion.so/icons/home_green.svg"/></div><div style="width:100%"><mark class="highlight-teal"><strong>KKR TAPERA</strong></mark><mark class="highlight-red"><strong> </strong></mark><ul id="28b901c1-ccfd-810a-a932-d483b461015b" class="toggle"><li><details open=""><summary><strong>Apa itu KRR TAPERA?</strong></summary><p id="28b901c1-ccfd-81d8-a5b3-d9496a62df7d" class="">KRR TAPERA adalah produk pembiayaan yang membantu peserta membeli rumah yang sudah jadi dengan ketentuan dan metode pembiayaan tertentu.</p></details></li></ul><ul id="28d901c1-ccfd-80d2-9eef-e95e42a5952e" class="toggle"><li><details open=""><summary><strong>Apa persyaratan khusus untuk mendapatkan KRR TAPERA?</strong></summary><p id="28d901c1-ccfd-8054-8122-efaef74c1f59" class="">Persyaratan meliputi kepesertaan aktif, kelengkapan dokumen identitas, serta evaluasi kemampuan pembayaran.</p></details></li></ul><ul id="28d901c1-ccfd-801d-b6d9-e709b380be0d" class="toggle"><li><details open=""><summary><strong>Apakah KRR TAPERA bisa digunakan untuk membeli rumah bekas </strong><em><strong>(second)</strong></em><strong>?</strong></summary><p id="28d901c1-ccfd-8042-af36-c71cbdf510a0" class="">Ya, KRR TAPERA dapat digunakan untuk membeli rumah bekas yang memenuhi standar kelayakan dari BP TAPERA.</p></details></li></ul><ul id="28d901c1-ccfd-8033-92e1-f8a2d978e001" class="toggle"><li><details open=""><summary><strong>Bagaimana sistem cicilan di KRR TAPERA?</strong></summary><p id="28d901c1-ccfd-80f0-959a-fb6bb98e5378" class="">Cicilan disesuaikan dengan tenor dan kemampuan peserta berdasarkan evaluasi BP TAPERA.</p></details></li></ul></div></figure><figure class="callout" style="white-space:pre-wrap;display:flex" id="28b901c1-ccfd-8129-9326-e43ba4c53201"><div style="font-size:1.5em"><img class="icon notion-static-icon" src="https://www.notion.so/icons/cash_green.svg"/></div><div style="width:100%"><mark class="highlight-teal"><strong>FLPP (Fasilitas Likuiditas Pembiayaan Perumahan)</strong></mark><ul id="28b901c1-ccfd-8165-a1f8-fd5d46fac6fa" class="toggle"><li><details open=""><summary><mark class="highlight-default"><strong>Apa itu FLPP </strong></mark></summary><p id="28b901c1-ccfd-8167-b0f6-c601ab0d9aaa" class="">FLPP adalah pembiayaan perumahan subsidi pemerintah untuk masyarakat non-ASN yang ingin membeli rumah pertama.</p></details></li></ul><ul id="28d901c1-ccfd-80ad-a158-ec7538830a92" class="toggle"><li><details open=""><summary><strong>Apakah FLPP hanya untuk warga yang belum pernah memiliki rumah?</strong></summary><p id="28d901c1-ccfd-80f7-a4b9-cd738a796483" class="">Ya, FLPP ditujukan bagi masyarakat yang belum memiliki rumah untuk mendorong kepemilikan pertama.</p></details></li></ul><ul id="28d901c1-ccfd-80a1-a67b-e9f683dd9a75" class="toggle"><li><details open=""><summary><strong>Bagaimana cara mendapatkan subsidi bunga FLPP?</strong></summary><p id="28d901c1-ccfd-803f-96a4-f277673074c2" class="">Subsidi bunga diberikan oleh pemerintah, dan peserta harus memenuhi syarat administrasi serta melalui pengembang/perbankan mitra pemerintah.</p></details></li></ul><ul id="28d901c1-ccfd-8087-8982-ef0684201e6c" class="toggle"><li><details open=""><summary><strong>Apakah FLPP tersedia di seluruh Indonesia?</strong></summary><p id="28d901c1-ccfd-80af-bd02-f872e021edd6" class="">Ya, FLPP tersedia di seluruh wilayah Indonesia melalui jaringan perbankan dan pengembang mitra.</p></details></li></ul><ul id="28d901c1-ccfd-80e8-8844-c1af068e7f7b" class="toggle"><li><details open=""><summary><strong>Berapa lama proses persetujuan FLPP?</strong></summary><p id="28d901c1-ccfd-803d-9192-e3fc32527471" class="">Proses biasanya memakan waktu beberapa minggu tergantung kelengkapan dokumen dan evaluasi perbankan.</p></details></li></ul></div></figure><figure class="callout" style="white-space:pre-wrap;display:flex" id="28d901c1-ccfd-80a7-b302-c2a3b5c31cdb"><div style="font-size:1.5em"><img class="icon notion-static-icon" src="https://www.notion.so/icons/cash_green.svg"/></div><div style="width:100%"><mark class="highlight-teal"><strong>PENGEMBALIAN TABUNGAN</strong></mark><ul id="28d901c1-ccfd-8039-9f04-ef43b03674f8" class="toggle"><li><details open=""><summary><strong>Apa itu produk Pengembalian Tabungan?</strong></summary><p id="28d901c1-ccfd-8016-a4a1-e3146a76b66f" class="">Produk ini mengatur pengembalian simpanan pokok dan hasil investasi kepada peserta yang sudah pensiun atau mengakhiri kepesertaan.</p></details></li></ul><ul id="28d901c1-ccfd-8072-adb1-dc78c4cd7ea1" class="toggle"><li><details open=""><summary><strong>Kapan peserta berhak mengajukan pengembalian tabungan?</strong></summary><p id="28d901c1-ccfd-8065-8c6f-ea636a54a8eb" class="">Saat pensiun, berhenti bekerja, pindah ke luar negeri, atau sesuai ketentuan di peraturan BP TAPERA.</p></details></li></ul><ul id="28d901c1-ccfd-8076-ae5a-ec4c84a89774" class="toggle"><li><details open=""><summary><strong>Apa saja dokumen yang harus disiapkan untuk pengembalian tabungan?</strong></summary><p id="28d901c1-ccfd-80d7-8617-ed0e4230b192" class="">Dokumen identitas, bukti kepesertaan, surat berhenti kerja atau pensiun, dan dokumen lain yang diminta BP TAPERA.</p></details></li></ul><ul id="28d901c1-ccfd-807f-8750-d4091836e32f" class="toggle"><li><details open=""><summary><strong>Berapa lama proses pengembalian tabungan biasanya?</strong></summary><p id="28d901c1-ccfd-809f-a96a-d40c445138ec" class="">Proses bisa memakan waktu beberapa minggu setelah dokumen lengkap diterima dan diverifikasi.</p></details></li></ul><ul id="28d901c1-ccfd-8003-94a3-feb2ea9c52e1" class="toggle"><li><details open=""><summary><strong>Apakah ada potongan biaya administrasi saat pengembalian?</strong></summary><p id="28d901c1-ccfd-806a-99f9-f16329ac92db" class="">Biasanya tidak ada potongan, namun peserta wajib konfirmasi ketentuan terbaru ke BP TAPERA.</p></details></li></ul></div></figure><figure class="callout" style="white-space:pre-wrap;display:flex" id="28d901c1-ccfd-805a-a51a-d8cc9b2f39ce"><div style="font-size:1.5em"><img class="icon notion-static-icon" src="https://www.notion.so/icons/accessibility_green.svg"/></div><div style="width:100%"><mark class="highlight-teal"><strong>PENDAFTARAN PESERTA PEKERJA MANDIRI</strong></mark><ul id="28d901c1-ccfd-8051-8eb5-da1b70adc5d3" class="toggle"><li><details open=""><summary><strong>Apa itu layanan pendaftaran peserta pekerja mandiri?</strong></summary><p id="28d901c1-ccfd-804b-879b-dbdd03c4a3b6" class="">Layanan ini memfasilitasi pendaftaran pekerja mandiri, seperti :</p><ol type="1" id="28d901c1-ccfd-80c3-bffe-d5a1596357a9" class="numbered-list" start="1"><li>pelaku usaha mikro,</li></ol><ol type="1" id="28d901c1-ccfd-8052-9378-e6bd28f1e398" class="numbered-list" start="2"><li>petani/nelayan,</li></ol><ol type="1" id="28d901c1-ccfd-80e6-ae52-f08439b487f0" class="numbered-list" start="3"><li>seniman, </li></ol><ol type="1" id="28d901c1-ccfd-80b1-9d01-fd3147c99faa" class="numbered-list" start="4"><li>pengrajin mandiri, </li></ol><ol type="1" id="28d901c1-ccfd-80d9-ac73-ea7ec3c776f1" class="numbered-list" start="5"><li>pengemudi <em>online,</em> dan </li></ol><ol type="1" id="28d901c1-ccfd-8097-8653-c3152b95f9d6" class="numbered-list" start="6"><li><em>freelancer.</em></li></ol></details></li></ul><ul id="28d901c1-ccfd-8006-bdf7-e5ea2983e8a4" class="toggle"><li><details open=""><summary><strong>Apa kriteria agar pekerja mandiri bisa menjadi peserta?</strong></summary><p id="28d901c1-ccfd-8089-a99b-cb71f7ca016a" class="">Peserta harus dapat membuktikan identitas dan aktivitas pekerjaan mandiri yang sah sesuai ketentuan BP TAPERA.</p></details></li></ul><ul id="28d901c1-ccfd-8006-890f-c18bd9526534" class="toggle"><li><details open=""><summary><strong>Bagaimana cara melakukan pendaftaran online untuk pekerja mandiri?</strong></summary><p id="28d901c1-ccfd-800e-8a99-c4af36490fb0" class="">Pendaftaran bisa dilakukan melalui platform digital resmi BP TAPERA dengan mengunggah dokumen pendukung.</p></details></li></ul><ul id="28d901c1-ccfd-80c0-9da3-f15b7678cf11" class="toggle"><li><details open=""><summary><strong>Apakah pekerja mandiri juga berhak mendapatkan pembiayaan KPR TAPERA?</strong></summary><p id="28d901c1-ccfd-807f-a87c-d4921d6c5e77" class="">Ya, pekerja mandiri yang telah menjadi peserta dapat mengajukan berbagai produk pembiayaan sesuai dengan ketentuan BP TAPERA.</p></details></li></ul><ul id="28d901c1-ccfd-8041-9bbf-c3b580d2849c" class="toggle"><li><details open=""><summary><strong>Bagaimana mekanisme pembayaran iuran peserta pekerja mandiri?</strong></summary><p id="28d901c1-ccfd-80e5-9b77-ddc8e1a42215" class="">Pembayaran iuran peserta dilakukan secara mandiri secara berkala dengan metode dan jadwal yang ditentukan BP TAPERA.</p></details></li></ul></div></figure><hr id="28b901c1-ccfd-81ea-b5ca-d07d8579a536"/><figure class="callout" style="white-space:pre-wrap;display:flex" id="28d901c1-ccfd-8049-a6ac-ffc2c21734d7"><div style="font-size:1.5em"><img class="icon notion-static-icon" src="https://www.notion.so/icons/phone_green.svg"/></div><div style="width:100%"><mark class="highlight-teal"><strong>TAPERA CHANNEL</strong></mark><ul id="28d901c1-ccfd-80ce-a739-e6318c0f2e63" class="toggle"><li><details open=""><summary><strong>Tapera Digital Service (TDS)</strong></summary><ul id="28d901c1-ccfd-806e-87bc-f02ec6af94ee" class="toggle"><li><details open=""><summary><strong>Apa itu Tapera Digital Service?</strong></summary><p id="76516dca-e995-4d7c-adcd-ee1c5a05d29c" class="">Tapera Digital Service adalah layanan digital milik BP Tapera yang memudahkan peserta dan pengembang dalam mengakses seluruh fitur Tapera secara online. </p></details></li></ul><ul id="475ef0b4-a396-4305-ad9c-e11db144bf2d" class="toggle"><li><details open=""><summary><strong>Apa saja layanan yang tersedia di Tapera Digital Service?</strong></summary><p id="3eddcdab-a51f-4b82-ad1c-a867445e7c6f" class="">Melalui portal <mark class="highlight-teal"><strong><a href="https://sitara.tapera.go.id/peserta/login">SITARA</a></strong></mark>, pengguna dapat mengakses:</p><ul id="59246797-aacb-42a7-a46e-718a12a3827f" class="bulleted-list"><li style="list-style-type:disc">Pendaftaran dan validasi kepesertaan Tapera</li></ul><ul id="e593ab29-831d-4a5c-8002-6276dd961c78" class="bulleted-list"><li style="list-style-type:disc">Pengajuan pengembalian tabungan <em>(e-Klaim)</em></li></ul><ul id="ca5ca165-15e5-48ef-b957-f5959b2fbd11" class="bulleted-list"><li style="list-style-type:disc">Pemutakhiran data pribadi dan pekerjaan</li></ul><ul id="bcf1233a-a364-4a13-a94a-ad28e857c413" class="bulleted-list"><li style="list-style-type:disc">Pemantauan saldo tabungan</li></ul><ul id="608e41e5-6f0b-4e31-b5a2-a923f3da08fa" class="bulleted-list"><li style="list-style-type:disc">Panduan dan informasi layanan Tapera</li></ul></details></li></ul><ul id="28d901c1-ccfd-8074-a8c2-d6dcd27320b8" class="toggle"><li><details open=""><summary><strong>Bagaimana cara mengajukan klaim pengembalian dana Tapera secara online?</strong></summary><p id="22365b84-5019-4b42-8af8-040d5d0793fd" class="">Anda dapat mengajukan klaim melalui situs resmi:</p><p id="47db7165-5e78-4aad-b6ee-164c53b640a3" class="">🔗 <a href="https://sitara.tapera.go.id/klaim-pengembalian">https://sitara.tapera.go.id/klaim-pengembalian</a></p></details></li></ul><p id="28d901c1-ccfd-8073-b804-d9188bc838f9" class="">
-</p></details></li></ul><ul id="28d901c1-ccfd-80a7-ac41-cfd58f3fab56" class="toggle"><li><details open=""><summary><strong>Tapera Mobile</strong></summary><ul id="28d901c1-ccfd-801e-93ee-e338aa6952b8" class="toggle"><li><details open=""><summary><strong>Apa itu Tapera Mobile</strong><br/>Tapera Mobile adalah aplikasi resmi dari BP Tapera yang memungkinkan peserta dan masyarakat umum untuk mengakses informasi kepesertaan, saldo tabungan, simulasi pembiayaan, hingga mengajukan pembiayaan perumahan. Aplikasi ini tersedia di IOS maupun android.</summary></details></li></ul><hr id="28d901c1-ccfd-80f2-a1cc-c7da66059fdc"/><p id="28d901c1-ccfd-80e0-9439-cfba8089fa02" class=""><br/></p></details></li></ul><ul id="28d901c1-ccfd-8093-871b-fdb9bb5ea58a" class="toggle"><li><details open=""><summary><strong>E-Klaim</strong></summary><p id="28d901c1-ccfd-80bc-a5da-d746d7cfa87a" class="">E-Klaim adalah platform digital yang dikembangkan oleh BP TAPERA untuk memudahkan peserta dalam mengajukan klaim pengembalian tabungan perumahan secara online</p><ul id="28d901c1-ccfd-8043-bea4-e7352f165afc" class="toggle"><li><details open=""><summary><strong>Apa itu E-Klaim BPTAPERA?</strong></summary><p id="28d901c1-ccfd-80b7-a6c5-eb12952d5345" class="">E-Klaim adalah sistem pengajuan klaim online yang memungkinkan peserta mengajukan pengembalian tabungan perumahan tanpa harus datang ke kantor secara langsung.</p></details></li></ul><ul id="28d901c1-ccfd-8013-a67b-dd590a9ddcb7" class="toggle"><li><details open=""><summary><strong>Siapa yang bisa menggunakan E-Klaim?</strong></summary><p id="363c2184-376c-4d8f-a13f-ac95af970b7f" class="">Semua peserta TAPERA yang memenuhi syarat pengembalian tabungan, termasuk peserta yang telah <strong>pensiun </strong>maupun yang <strong>meninggal dunia</strong>.<br/>Bagi peserta yang meninggal dunia, <strong>pengajuan pengembalian tabungan dilakukan oleh ahli waris yang sah atau pihak yang diberi kuasa</strong>.</p></details></li></ul><ul id="28d901c1-ccfd-8010-ac2b-ca0ec2e02771" class="toggle"><li><details open=""><summary><strong>Bagaimana cara mengakses E-Klaim?</strong></summary><p id="28d901c1-ccfd-8077-81d5-ddcee43686cf" class="">Peserta dapat mengakses E-Klaim melalui website resmi <a href="https://sitara.tapera.go.id/klaim-pengembalian">BP TAPERA</a>.</p></details></li></ul><ul id="28d901c1-ccfd-80fd-b8b1-cfe49572f844" class="toggle"><li><details open=""><summary><strong>Apa saja dokumen yang perlu diunggah di E-Klaim?</strong></summary><ul id="28d901c1-ccfd-8094-b73c-e343f73127a7" class="toggle"><li><details open=""><summary>PNS Pensiun</summary><ol type="1" id="28d901c1-ccfd-80bb-81d2-f9e942e5625c" class="numbered-list" start="1"><li>E-KTP</li></ol><ol type="1" id="28d901c1-ccfd-80a7-9144-cac2f989aa67" class="numbered-list" start="2"><li>NIP</li></ol><ol type="1" id="28d901c1-ccfd-8072-b778-db832e41e673" class="numbered-list" start="3"><li>NPWP</li></ol><ol type="1" id="28d901c1-ccfd-8005-9ee4-d08813ffaf40" class="numbered-list" start="4"><li>Buku Tabungan </li></ol><ol type="1" id="28d901c1-ccfd-8000-a50b-e0fca9e8ff06" class="numbered-list" start="5"><li>SK Pensiun</li></ol><ol type="1" id="28d901c1-ccfd-80e7-b075-e7a3930f9015" class="numbered-list" start="6"><li>Kartu Keluarga</li></ol><ol type="1" id="28d901c1-ccfd-80ab-96d6-fa3f89f278ed" class="numbered-list" start="7"><li>Nomor Handphone</li></ol></details></li></ul><ul id="28d901c1-ccfd-8005-99c9-cfcc61b24474" class="toggle"><li><details open=""><summary>PNS Pensiun Meninggal</summary><ul id="28d901c1-ccfd-8045-8ea0-d38391ef1915" class="toggle"><li><details open=""><summary>PNS Pensiun Meninggal</summary><ol type="1" id="28d901c1-ccfd-80dc-ab00-d7cc25d4de16" class="numbered-list" start="1"><li>E-KTP</li></ol><ol type="1" id="28d901c1-ccfd-80f5-8bef-c2ad584f4130" class="numbered-list" start="2"><li>NIP</li></ol><ol type="1" id="28d901c1-ccfd-803a-a82e-c14267ec39ed" class="numbered-list" start="3"><li>SK Pensiun</li></ol><ol type="1" id="28d901c1-ccfd-802f-ab1a-e535a4d7572f" class="numbered-list" start="4"><li>Kartu Keluarga</li></ol><ol type="1" id="28d901c1-ccfd-805b-a695-ede8a84068e8" class="numbered-list" start="5"><li>Surat Kematian</li></ol></details></li></ul><ul id="28d901c1-ccfd-8052-ab03-d22062ecf8b6" class="toggle"><li><details open=""><summary>Ahli Waris yang diberi Kuasa</summary><ol type="1" id="28d901c1-ccfd-801c-afb0-dde85090031f" class="numbered-list" start="1"><li>E-KTP Ahli Waris</li></ol><ol type="1" id="28d901c1-ccfd-801b-875a-db68dbacb82d" class="numbered-list" start="2"><li>NPWP Ahli Waris</li></ol><ol type="1" id="28d901c1-ccfd-805a-b731-dcf89a0cfbf7" class="numbered-list" start="3"><li>Buku Tabungan Ahli Waris</li></ol><ol type="1" id="28d901c1-ccfd-80f0-99d2-e1f389bee0d7" class="numbered-list" start="4"><li>Kartu Keluarga Ahli Waris</li></ol><ol type="1" id="28d901c1-ccfd-8054-ab3c-ee6326d21b3a" class="numbered-list" start="5"><li>Nomor Handphone Ahli Waris</li></ol><ol type="1" id="28d901c1-ccfd-8080-abf2-cb91c9ce026f" class="numbered-list" start="6"><li>Akta Kelahiran Ahli Waris</li></ol><ol type="1" id="28d901c1-ccfd-8089-8b35-c69d923d573c" class="numbered-list" start="7"><li>Surat Keterangan Ahli Waris</li></ol><ol type="1" id="28d901c1-ccfd-8050-8834-f4ec130fbe70" class="numbered-list" start="8"><li>Surat Kuasa Ahli Waris</li></ol></details></li></ul></details></li></ul></details></li></ul><ul id="28d901c1-ccfd-8003-b6fb-cb6f365294fe" class="bulleted-list"><li style="list-style-type:disc"><strong>Apakah proses E-Klaim lebih cepat dibanding manual?</strong> - Ya, E-Klaim mempercepat proses verifikasi dan pengajuan karena dilakukan secara digital dan terintegrasi dengan sistem BP TAPERA.</li></ul><ul id="28d901c1-ccfd-807a-85b4-f755976ed116" class="bulleted-list"><li style="list-style-type:disc"><strong>Bagaimana cara melacak status pengajuan klaim?</strong> - Peserta dapat memantau status pengajuan klaim secara real-time melalui dashboard E-Klaim di aplikasi atau website.</li></ul><ul id="28d901c1-ccfd-80df-8140-c52efc1d2a78" class="bulleted-list"><li style="list-style-type:disc"><strong>Berapa lama proses pencairan dana melalui E-Klaim?</strong> - Proses pencairan biasanya memakan waktu beberapa minggu setelah dokumen lengkap dan diverifikasi oleh BP TAPERA.</li></ul><ul id="28d901c1-ccfd-8027-ae05-e78b8756a26f" class="bulleted-list"><li style="list-style-type:disc"><strong>Apakah ada biaya untuk menggunakan E-Klaim?</strong> - Tidak ada biaya untuk menggunakan layanan E-Klaim. Layanan ini gratis untuk semua peserta TAPERA.</li></ul><ul id="28d901c1-ccfd-80c2-957a-ec1ee2469bd8" class="bulleted-list"><li style="list-style-type:disc"><strong>Bagaimana jika pengajuan E-Klaim ditolak?</strong> - Peserta akan menerima notifikasi beserta alasan penolakan dan dapat melengkapi dokumen atau informasi yang kurang untuk mengajukan kembali.</li></ul><ul id="28d901c1-ccfd-80de-a850-c156343a5557" class="bulleted-list"><li style="list-style-type:disc"><strong>Apakah E-Klaim aman?</strong> - Ya, E-Klaim menggunakan sistem keamanan terenkripsi dan terintegrasi langsung dengan database BP TAPERA untuk melindungi data peserta.</li></ul></details></li></ul><ul id="28d901c1-ccfd-80d2-a4a3-e7e826d8cc73" class="toggle"><li><details open=""><summary><strong>APT Mobile</strong></summary></details></li></ul><ul id="28d901c1-ccfd-8027-bb92-ef76de9ad33d" class="toggle"><li><details open=""><summary><strong>Mitra Penyalur</strong></summary></details></li></ul><ul id="28d901c1-ccfd-80cb-99b3-d0b8a4635665" class="toggle"><li><details open=""><summary><strong>Sikumbang</strong></summary></details></li></ul><ul id="28d901c1-ccfd-8089-9ab0-e5e4ce8e0d21" class="toggle"><li><details open=""><summary><strong>Tapera Contact Center</strong></summary><ul id="4236ec32-a93b-4806-82db-719b7b62a783" class="toggle"><li><details open=""><summary><strong>Apa itu Tapera Contact Center?</strong></summary><p id="28d901c1-ccfd-8051-b781-f027be4d6c63" class="">Tapera Contact Center adalah layanan pusat bantuan / dukungan (helpdesk) yang disediakan oleh BP Tapera untuk membantu masyarakat dan peserta dalam mengakses informasi, mengajukan pertanyaan, atau menyampaikan keluhan melalui berbagai kanal komunikasi: Call Center, WhatsApp, email, media sosial, atau layanan LiveChat.</p></details></li></ul><ul id="139c9dfc-bd04-4e2a-ac33-eda2926c1f28" class="toggle"><li><details open=""><summary><strong>Jam operasional Tapera Contact Center kapan?</strong></summary><ul id="28d901c1-ccfd-8011-bf5e-d4313b64d049" class="bulleted-list"><li style="list-style-type:disc">Hari kerja (Senin – Jumat)</li></ul><ul id="28d901c1-ccfd-80a7-84e2-d885103bf3d2" class="bulleted-list"><li style="list-style-type:disc">Pukul <strong>08.00 – 16.00 WIB</strong> untuk layanan Helpdesk umum</li></ul><ul id="28d901c1-ccfd-80ca-9a6e-e54447162c8f" class="bulleted-list"><li style="list-style-type:disc">Pukul <strong>08.00 – 17.00 WIB</strong> untuk layanan Call Center, WhatsApp, E-Mail, Sosial Media dan LiveChat</li></ul></details></li></ul><ul id="a59eca79-dbb1-4357-b7bf-37f38df04f8e" class="toggle"><li><details open=""><summary><strong>Kanal apa saja yang bisa digunakan untuk menghubungi Tapera Contact Center?</strong></summary><p id="28d901c1-ccfd-8050-b6b0-e92bf8301fd2" class="">Beberapa kanal yang bisa digunakan adalah:</p><ul id="668f28e7-904f-46de-8e29-96126374b6df" class="bulleted-list"><li style="list-style-type:disc"><strong>Salam Tapera 156 </strong><ul id="28d901c1-ccfd-8061-abe8-ed77381508eb" class="bulleted-list"><li style="list-style-type:circle"><strong>1500156 </strong>dan <strong>156 </strong></li></ul></li></ul><ul id="fb6f7c70-2fe5-4af1-b773-19e3be8e13e2" class="bulleted-list"><li style="list-style-type:disc"><strong>WhatsApp (WA)</strong><ul id="28d901c1-ccfd-8017-8b9a-fe42bcdf4b23" class="bulleted-list"><li style="list-style-type:circle">08118 156 156</li></ul></li></ul><ul id="41d7bcff-7f89-47b1-a1cb-74172a8f0627" class="bulleted-list"><li style="list-style-type:disc"><strong>Email</strong><ul id="28d901c1-ccfd-80ed-9ec5-fd7395fd92ee" class="bulleted-list"><li style="list-style-type:circle">layanan@tapera.go.id</li></ul></li></ul><ul id="d1b08499-905a-45a2-855d-5ed3ea2aa5c2" class="bulleted-list"><li style="list-style-type:disc"><strong>Media Sosial</strong> <ul id="28d901c1-ccfd-8036-8789-f02617b436f5" class="bulleted-list"><li style="list-style-type:circle"><a href="https://www.instagram.com/bp.tapera/">Instagram</a></li></ul><ul id="28d901c1-ccfd-8020-9a96-d09a63b07242" class="bulleted-list"><li style="list-style-type:circle"><a href="https://web.facebook.com/BPTAPERA">Facebook</a></li></ul><ul id="28d901c1-ccfd-80a1-97a6-d35a59869d33" class="bulleted-list"><li style="list-style-type:circle"><a href="https://x.com/BP_Tapera">X</a></li></ul><ul id="28d901c1-ccfd-805a-b230-f30c54047c0e" class="bulleted-list"><li style="list-style-type:circle"><a href="https://www.youtube.com/channel/UCmZovvae-0ZkoRH6o4uWMFw">Youtube</a></li></ul></li></ul><ul id="9c89b2b2-b95f-49cb-add6-630d0cc6e3ff" class="bulleted-list"><li style="list-style-type:disc"><strong>LiveChat</strong> di situs web tapera</li></ul></details></li></ul><ul id="6cf72979-ed1f-4de1-a3fb-8b47ab1730ca" class="toggle"><li><details open=""><summary><strong>Dimana lokasi kantor BP Tapera?</strong></summary><p id="406c8069-21a1-442c-9c01-ce171b02020c" class="">Tapera memiliki kantor pusat dan kantor layanan, yaitu:</p><ul id="d68491e4-e75b-42ee-9712-113c9275490f" class="bulleted-list"><li style="list-style-type:disc"><strong>Kantor Pusat</strong>: Menara Mandiri 2, Lantai 7–9, Jl. Jend. Sudirman Kav. 52-53 No. 54-55, Senayan, Kebayoran Baru, Jakarta Selatan, DKI Jakarta 12110</li></ul><ul id="702ca6c8-b5ac-451d-b1c4-8d1ce6fd2bca" class="bulleted-list"><li style="list-style-type:disc"><strong>Kantor Layanan</strong>: Wisma Iskandarsyah Blok B2, B3 dan C3, Jl. Iskandarsyah Raya Kav. 12-14, Kebayoran Baru, Jakarta Selatan, DKI Jakarta 12160</li></ul></details></li></ul><ul id="76d8fd03-062f-45f3-9cf3-33a6024d941a" class="toggle"><li><details open=""><summary><strong>Apakah layanan Tapera Contact Center tersedia di akhir pekan (Sabtu/Minggu) atau hari libur nasional?</strong></summary><p id="76f2e741-3c28-46da-8e41-cb8a0634904d" class="">Layanan Tapera Contact Center hanya tersedia pada jadwal yang sudah ditentukan sebelumnya. Saat ini, operasional Contact Center dilakukan pada hari dan jam kerja sebagaimana tercantum dalam ketentuan resmi BP Tapera</p></details></li></ul><ul id="505f6dbe-64c8-4e50-a2c7-20a15277ba9c" class="toggle"><li><details open=""><summary><strong>Apakah layanan Contact Center itu gratis?</strong></summary><p id="db8c9feb-db34-4838-8c03-ff1958a4a2a0" class="">Penggunaan layanan<strong> Call Center</strong> dapat dikenakan tarif sesuai ketentuan operator telekomunikasi yang digunakan.<br/>Sedangkan untuk kanal lain seperti <strong>WhatsApp, email, dan media sosial</strong>, tidak dikenakan biaya oleh BP Tapera, namun pengguna tetap perlu memastikan ketersediaan <strong>akses internet.</strong></p></details></li></ul><ul id="c394af99-cc18-4581-bb0f-ba681f5f46ee" class="toggle"><li><details open=""><summary><strong>Untuk pertanyaan teknis (misalnya login aplikasi, gangguan sistem) apakah bisa ditangani lewat Contact Center?</strong></summary><p id="69b4a960-0b04-4cba-a80e-d8c34d0c67d9" class="">Ya. Kanal Contact Center dilayani melalui berbagai jalur (Call Center, WA, Email, Media Sosial, LiveChat) yang siap membantu pertanyaan teknis seperti akses aplikasi Tapera, pendaftaran, pengajuan, pengembalian atau gangguan sistem.</p></details></li></ul><ul id="97156afd-478f-433a-923d-cdcdfe4d3b37" class="toggle"><li><details open=""><summary><strong>Bagaimana cara menyampaikan keluhan atau pengaduan melalui Contact Center?</strong></summary><p id="76a70a31-37d2-4dd3-8e11-a2a66e3e11b1" class="">Kamu bisa menghubungi melalui salah satu kanal Contact Center (telepon, WA, email, atau LiveChat) dan menyampaikan pengaduan secara langsung. Pastikan kamu menyertakan detail:</p><ul id="7dd224a4-7691-4917-870f-6f8470d3474c" class="bulleted-list"><li style="list-style-type:disc">Nama lengkap</li></ul><ul id="0768f73c-6850-4fea-97b3-e16ad5776d3b" class="bulleted-list"><li style="list-style-type:disc">Nomor peserta atau identitas terkait</li></ul><ul id="30747492-31f5-47eb-9f08-f8efe10e25d7" class="bulleted-list"><li style="list-style-type:disc">Deskripsi masalah atau keluhan</li></ul><ul id="2d66b60d-ed49-4fb2-8a77-e7ffeb635405" class="bulleted-list"><li style="list-style-type:disc">Waktu terjadinya masalah</li></ul><ul id="f3f94fa6-af01-4594-a520-18a7be2138f2" class="bulleted-list"><li style="list-style-type:disc">Bukti pendukung (jika ada, misalnya tangkapan layar)</li></ul></details></li></ul><ul id="eaa3f2ce-7287-4ee8-9025-126df62ed18c" class="toggle"><li><details open=""><summary><strong>Apakah Contact Center bisa membantu proses pengajuan KPR, KBR, KRR Tapera?</strong></summary><p id="7c9e1dbf-e927-4910-81b7-1d0cea2423d3" class="">Ya. Kanal-kanal Contact Center dapat memberikan panduan atau informasi terkait produk-produk Tapera seperti KPR, KBR, KRR, termasuk prosedur, persyaratan, dan status pengajuan.</p></details></li></ul><ul id="a57e5cf9-67fc-4fcc-8712-09e62251f36e" class="toggle"><li><details open=""><summary><strong>Apakah Contact Center bisa diakses oleh siapa saja atau terbatas untuk peserta Tapera?</strong></summary><p id="14da535f-d92a-4977-a836-424fd116c914" class="">Layanan Contact Center bersifat publik, sehingga siapa saja (masyarakat umum ataupun peserta Tapera) bisa menghubungi untuk bertanya atau mengakses informasi tentang Tapera.</p></details></li></ul></details></li></ul></div></figure><p id="28d901c1-ccfd-80ce-8456-cb828f6097a7" class="">
-</p><p id="28d901c1-ccfd-805e-9d3d-c8114d0ee9bb" class="">
-</p><p id="28d901c1-ccfd-8086-be75-f323c37b0c35" class="block-color-teal_background">
-</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ BP TAPERA - User Friendly</title>
+    <style>
+        :root {
+            --primary-color: #20b127;
+            --light-bg: #f5f5f5;
+            --text-color: #333;
+            --shadow-color: rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 30px;
+        }
+
+        .sidebar {
+            flex: 0 0 250px; /* Lebar kategori di kiri */
+            padding-right: 20px;
+            border-right: 1px solid #ddd;
+        }
+
+        .sidebar h2 {
+            font-size: 1.2em;
+            color: var(--text-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .category-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .category-item {
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background-color 0.2s, color 0.2s;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .category-item:hover {
+            background-color: #e6f6e6; /* Warna latar belakang hover */
+            color: var(--primary-color);
+        }
+
+        .category-item.active {
+            background-color: var(--primary-color);
+            color: #fff;
+            box-shadow: 0 2px 5px rgba(32, 177, 39, 0.3);
+        }
+
+        .category-item span.icon {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .faq-content {
+            flex: 1; /* Sisa ruang di kanan */
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+            outline-color: var(--primary-color);
+        }
+
+        .faq-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+        }
+
+        .faq-item.hidden {
+            display: none;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+
+        .faq-question {
+            background-color: #fbfbfb;
+            padding: 15px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            text-align: left;
+            border: none;
+            font-size: 1em;
+            font-weight: 600;
+            color: var(--primary-color);
+            transition: background-color 0.2s;
+        }
+
+        .faq-question:hover {
+            background-color: #f0fff0;
+        }
+
+        .faq-answer {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            background-color: #fff;
+            line-height: 1.6;
+        }
+        
+        /* Style untuk konten jawaban di dalam details */
+        .faq-answer p, .faq-answer ul, .faq-answer ol {
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+
+        .faq-answer ol, .faq-answer ul {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <h1>FAQ BP TAPERA</h1>
+            <p><em>Temukan Jawaban Anda &amp; Raih Manfaatnya!</em></p>
+        </header>
+
+        <div class="main-content">
+            <aside class="sidebar">
+                <h2>Kategori</h2>
+                <ul class="category-list" id="category-filter">
+                    <li class="category-item active" data-category="all"><span class="icon">✨</span> Semua Pertanyaan</li>
+                    <li class="category-item" data-category="TENTANG BP TAPERA"><span class="icon">🏦</span> Tentang BP TAPERA</li>
+                    <li class="category-item" data-category="KEPESERTAAN"><span class="icon">👥</span> Kepesertaan</li>
+                    <li class="category-item" data-category="FLPP"><span class="icon">💰</span> FLPP</li>
+                    <li class="category-item" data-category="PEMANFAATAN TAPERA"><span class="icon">🏘️</span> Pemanfaatan Tapera</li>
+                    <li class="category-item" data-category="KREDIT BANGUN RUMAH (KBR) TAPERA"><span class="icon">🏗️</span> KBR Tapera</li>
+                    <li class="category-item" data-category="KRR TAPERA"><span class="icon">🛠️</span> KRR Tapera</li>
+                    <li class="category-item" data-category="KEGIATAN SYARIAH"><span class="icon">🌙</span> Kegiatan Syariah</li>
+                    <li class="category-item" data-category="MONITORING & EVALUASI (MONEV)"><span class="icon">📝</span> Monev</li>
+                    <li class="category-item" data-category="CONTACT CENTER"><span class="icon">📞</span> Contact Center</li>
+                </ul>
+            </aside>
+
+            <section class="faq-content">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Cari pertanyaan...">
+                </div>
+
+                <div id="faq-list">
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa itu TAPERA?</summary>
+                            <div class="faq-answer"><p>Tabungan Perumahan Rakyat (TAPERA) adalah simpanan yang dilakukan oleh peserta secara periodik dalam jangka waktu tertentu yang hanya dapat dimanfaatkan untuk pembiayaan rumah.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa itu BP TAPERA?</summary>
+                            <div class="faq-answer"><p>Badan Hukum Publik di Indonesia yang dibentuk untuk mengelola Tabungan Perumahan Rakyat. BP Tapera bertanggungjawab pada Komite Tapera yang beranggotakan Menteri Perumahan dan Kawasan Pemukiman, Menteri Keuangan, Komisioner Otoritas Jasa Keuangan, serta unsur profesional yang memahami perumahan dan permukiman.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Bagaimana mekanisme pengelolaan dana di BP TAPERA?</summary>
+                            <div class="faq-answer"><p>Dana peserta dikelola secara profesional dan diinvestasikan untuk meningkatkan nilai simpanan, dengan hasil yang akan dikembalikan saat peserta pensiun atau mengakhiri kepesertaan.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa saja tujuan pembiayaan perumahan BP TAPERA?</summary>
+                            <div class="faq-answer"><p>Pembiayaan perumahan ditujukan untuk membantu peserta membeli, membangun, atau merenovasi rumah agar dapat memiliki hunian layak dengan cicilan terjangkau.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apakah latar belakang dibentuknya TAPERA?</summary>
+                            <div class="faq-answer"><p>Tapera dibentuk untuk memenuhi kebutuhan setiap orang yang berhak hidup sejahtera lahir dan batin, bertempat tinggal, mendapatkan lingkungan hidup yang baik dan sehat serta berhak memperoleh pelayanan kesehatan.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa landasan hukum dibentuknya BP Tapera?</summary>
+                            <div class="faq-answer"><p><strong>Undang-undang nomor 4 Tahun 2016 tentang Tabungan Perumahan Rakyat Pasal 21 Ayat (2) </strong>"Pemupukan Dana Tapera sebagaimana dimaksud pada ayat (1) dilakukan dengan prinsip konvensional atau prinsip syariah.</p><p><strong>Peraturan Pemerintah Nomor 25 Tahun 2020 tentang Penyelenggaraan Tabungan Perumahan Rakyat Pasal 8 Ayat (5) </strong>"Pekerja sebagaimana dimaksud pada ayat (1) dan Pekerja Mandiri sebagaimana dimaksud pada ayat (2) dapat memilih prinsip pengelolaan Tapera sesuai dengan prinsip Konvensional atau prinsip syariah</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Bagaimana pengelolaan dana TAPERA?</summary>
+                            <div class="faq-answer"><p>1. Pengerahan Dana Tapera adalah kegiatan menghimpun Simpanan Peserta</p><p>2. Pemupukan Dana Tapera adalah upaya untuk memberikan nilai tambah atas Dana Tapera melalu investasi</p><p>3. Pemanfaatan Dana Tapera adalah kegiatan pemanfaatan Dana Tapera yang dilakukan untuk pembiayaan bagi Peserta untuk memiliki rumah pertama.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa yang dimaksud Pengerahan Dana Tapera?</summary>
+                            <div class="faq-answer"><p>Pengerahan Dana Tapera adalah kegiatan penghimpunan Simpanan.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa yang dimaksud dengan Pekerja?</summary>
+                            <div class="faq-answer"><p>Pekerja adalah setiap orang yang bekerja dengan menerima upah atau imbalan dalam bentuk lain sesuai dengan ketentuan peraturan perundang-undangan</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa yang dimaksud dengan Pemberi Kerja?</summary>
+                            <div class="faq-answer"><p>Pemberi kerja adalah orang perseorangan, pengusaha, badan hukum, atau badan lainnya yang mempekerjakan tenaga kerja dengan membayar upah atau imbalan dalam bentuk lain atau penyelenggara negara yang mempekerjakan pegawai Aparatur Sipil Negara, prajurit Tentara Nasional Indonesia, dan anggota Kepolisian Negara Republik Indonesia dengan membayar gaji sesuai dengan ketentuan peraturan perundang-undangan.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa yang dimaksud dengan Masyarakat Berpenghasilan Rendah (MBR)?</summary>
+                            <div class="faq-answer"><p>MBR adalah masyarakat yang mempunyai keterbatasan daya beli sehingga perlu mendapat dukungan pemerintah untuk memperoleh rumah.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa itu komite BP TAPERA dan siapa anggotanya?</summary>
+                            <div class="faq-answer"><p>1. Menteri Perumahan dan Kawasan Permukiman sebagai Ketua merangkap Anggota;</p><p>2. Menteri Keuangan sebagai Anggota ;</p><p>3. Menteri Ketenagakerjaan sebagai Anggota ;</p><p>4. Dr. Frederica Widyasari Dewi, S.E., M.B.A., Komisioner Otoritas Jasa Keuangan sebagai Anggota;</p><p>5. Eko Djoeli Heripoerwanto, unsur professional, sebagai Anggota.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Darimana Sumber Dana TAPERA?</summary>
+                            <div class="faq-answer"><p>Sumber Dana Tapera sebagaimana diamanatkan dalam Pasal 61 ayat (1) UU No 4 Tahun 2016 bersumber dari:</p><ol><li>hasil penghimpunan Simpanan Peserta;</li><li>hasil pemupukan Simpanan Peserta;</li><li>hasil pengembalian kredit/pembiayaan dari Peserta;</li><li>hasil pengalihan aset Tabungan Perumahan Pegawai Negeri Sipil yang dikelola oleh Badan Pertimbangan Tabungan Perumahan Pegawai Negeri Sipil;</li><li>dana wakaf; dan</li><li>dana lainnya yang sah sesuai dengan ketentuan peraturan perundang-undangan.</li></ol><p>Berdasarkan Pasal 62 ayat (1) UU No 4 Tahun 2016 Aset BP Tapera bersumber dari:</p><ol><li>modal awal dari Pemerintah yang merupakan kekayaan negara yang dipisahkan;</li><li>hasil pengembangan aset BP Tapera;</li><li>sebagian dari hasil pemupukan Dana Tapera yang digunakan untuk menutup kekurangan pengelolaan modal awal guna memenuhi biaya operasional BP Tapera; dan</li><li>sumber lain yang sah sesuai dengan ketentuan peraturan perundang-undangan</li></ol></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Kapan bisa melakukan pencairan?</summary>
+                            <div class="faq-answer"><p>Pencairan dana Tapera dapat dilakukan apabila kepesertaan telah berakhir yang diatur dalam Pasal 14 ayat (1) UU No 4 Tahun 2016 yaitu:</p><ol><li>Telah pensiun bagi Pekerja;</li><li>Telah mencapai usia 58 (lima puluh delapan) tahun bagi Pekerja Mandiri;</li><li>Meninggal dunia;</li><li>Peserta bukan lagi Pekerja dan/atau Pekerja Mandiri selama 5 (lima) tahun berturut-turut;</li><li>Peserta mengundurkan diri; atau</li><li>Peserta dikeluarkan.</li></ol></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa yang dimaksud dengan Pekerja Mandiri?</summary>
+                            <div class="faq-answer"><p>Pekerja Mandiri adalah setiap orang yang bekerja dan tidak menerima upah dari Pemberi Kerja.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa yang dimaksud dengan perumahan?</summary>
+                            <div class="faq-answer"><p>Perumahan adalah kumpulan rumah sebagai bagian dari permukiman, baik perkotaan maupun pedesaan, yang berfungsi sebagai tempat hunian.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa itu Tabungan Rumah Tapera?</summary>
+                            <div class="faq-answer"><p>Produk simpanan Tapera yang diperuntukan bagi segmen Pekerja Mandiri dan memiliki fitur pembiayaan perumahan yang dananya bersumber dari dana FLPP.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa tujuan Tabungan Rumah Tapera?</summary>
+                            <div class="faq-answer"><p>Tersedianya produk bagi pekerja mandiri/informal sebagai solusi dalam perluasan kepersertaan dan pemerataan penyediaan pembiayaan perumahan sebagaimana yang tertuang dalam UU No. 4 tahun 2016 dan PP No. 25 tahun 2020.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa latar belakang Tabungan Rumah Tapera?</summary>
+                            <div class="faq-answer"><p>a. Perluasan kepesertaan segmen Pekerja Mandiri;<br/>b. Peningkatan Jumlah penerima manfaat FLPP untuk segmen Pekerja Mandiri;<br/>c. Kemudahan Akses pembiayaan perumahan bagi Pekerja Mandiri.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa itu agregator?</summary>
+                            <div class="faq-answer"><p>Agregator adalah adalah suatu badan hukum (perusahaan yang berbasis digital platform/agen Bank) atau perkumpulan dari suatu masyarakat/sekelompok orang yang memiliki karakteristik dan kepentingan yang sama (asosiasi/komunitas).</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa syarat untuk menjadi calon peserta Tapera?</summary>
+                            <div class="faq-answer"><p>a. Warga Negara Indonesia (WNI)</p><p>b. Usia minimum 20 (dua puluh) tahun atau sudah kawin;</p><p>c. Berpenghasilan paling sedikit sebesar upah minimum;</p><p>d. Mempunyai masa kepesertaan paling singkat 12 (dua belas) bulan;</p><p>e. Belum pernah memiliki rumah</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa yang dimaksud dengan Simpanan?</summary>
+                            <div class="faq-answer"><p>Simpanan adalah sejumlah uang yang disetor secara periodik oleh Peserta dan/atau Pemberi Kerja dalam jangka waktu tertentu yang hanya dapat dimanfaatkan untuk Pembiayaan Perumahan dan/atau dikembalikan berikut hasil pemupukannya setelah masa kepesertaan berakhir.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apakah peserta yang sudah memiliki rumah dapat mengajukan pembiayaan perumahan?</summary>
+                            <div class="faq-answer"><p>Tidak. Program pembiayaan perumahan dari BP Tapera hanya ditujukan untuk peserta yang <strong>belum memiliki rumah</strong>.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apakah peserta yang mengajukan pembiayaan perumahan harus berstatus menikah?</summary>
+                            <div class="faq-answer"><p>Tidak, peserta yang belum menikah tetap dapat mengajukan pembiayaan perumahan sepanjang memenuhi persyaratan lain yang ditetapkan.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="TENTANG BP TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa yang dimaksud dengan Rumah?</summary>
+                            <div class="faq-answer"><p>Rumah adalah bangunan yang berfungsi sebagai tempat hunian.</p></div>
+                        </details>
+                    </div>
+                    
+                    <div class="faq-item" data-category="MONITORING & EVALUASI (MONEV)">
+                        <details>
+                            <summary class="faq-question">Bagaimana proses bisnis pemantauan Rumah MBR?</summary>
+                            <div class="faq-answer"><p>Dalam pelaksanaannya ada 3 Petugas Monev yaitu : </p><ol><li>Petugas Administrasi,</li><li>Petugas Verifikasi, dan </li><li>Petugas Lapangan. </li></ol><p>Petugas-petugas Monev tersebut akan melakukan survei lapangan setelah 1 (satu) tahun setelah penerima rumah sejahtera melakukan akad kredit.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="MONITORING & EVALUASI (MONEV)">
+                        <details>
+                            <summary class="faq-question">Apa saja hasil pemantauan dari Tim Lapangan?</summary>
+                            <div class="faq-answer"><p>Hasil pemantauan meliputi:</p><ol><li>Penerima manfaat menempati rumah paling singkat 1 tahun;</li><li>Rumah tidak disewakan/dipindahtangankan;</li><li>Rumah memiliki sertifikat/IMB/PBG.</li></ol></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="MONITORING & EVALUASI (MONEV)">
+                        <details>
+                            <summary class="faq-question">Apa yang harus dilakukan jika ada pertanyaan terkait SBUM, B2PT dan SSB?</summary>
+                            <div class="faq-answer"><p>Masyarakat bisa mengirimkan melalui email ke <a href="mailto:satker.ditjen.pp@gmail.com">satker.ditjen.pp@gmail.com</a></p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="MONITORING & EVALUASI (MONEV)">
+                        <details>
+                            <summary class="faq-question">Apa yang harus dilakukan jika ada pertanyaan terkait SBUM?</summary>
+                            <div class="faq-answer"><p>terkait KPR subsidi dapat kami informasikan untuk Subsidi Bantuan Uang Muka (SBUM) (Bapak/Ibu) dapat mengirimkan email ke <a href="mailto:satker.ditjen.pp@gmail.com">satker.ditjen.pp@gmail.com</a> untuk informasi lebih lanjut.</p></div>
+                        </details>
+                    </div>
+
+                    <div class="faq-item" data-category="PEMANFAATAN TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa manfaat yang akan diperoleh saat menjadi peserta Tapera?</summary>
+                            <div class="faq-answer"><p>Manfaat yang akan diperoleh meliputi: pembiayaan pemilikan rumah (KPR), pembiayaan pembangunan rumah (KBR), dan pembiayaan perbaikan/renovasi rumah (KRR).</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="PEMANFAATAN TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa itu KPR TAPERA?</summary>
+                            <div class="faq-answer"><p>KPR TAPERA adalah produk pembiayaan yang ditujukan untuk membantu peserta membeli rumah baru atau bekas yang memenuhi standar kelayakan dari BP TAPERA.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="PEMANFAATAN TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa ketentuan pengajuan KPR Tapera?</summary>
+                            <div class="faq-answer"><p>KPR Tapera atau KPR Tapera Syariah diperuntukan bagi Peserta yang ingin membeli Rumah Tapak/Rumah Susun yang layak huni, baik rumah baru dari pengembang maupun rumah lama (bekas) dan belum pernah memiliki rumah sebelumnya.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="PEMANFAATAN TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa saja dokumen yang dibutuhkan untuk memperoleh KPR Tapera?</summary>
+                            <div class="faq-answer"><p>a. Fotokopi bukti alas hak yang sah.<br/>b. Surat Pemesanan Rumah (SPR) dari Pengembang (untuk rumah baru).<br/>c. Dokumen identitas diri, seperti KTP dan Kartu Keluarga.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="PEMANFAATAN TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa saja Bank Penyalur KPR?</summary>
+                            <div class="faq-answer"><ol><li>Bank BPD NTT</li><li>Bank MANDIRI</li><li>Bank BRI</li><li>Bank BSI</li><li>Bank Kalsel Konvensional</li><li>Bank BJB</li><li>Bank Kaltimtara</li><li>Bank Jambi Konvensional</li><li>Bank BNI</li><li>Bank Jambi Syariah</li><li>Bank Jateng Syariah</li><li>Bank Kalbar</li><li>Bank BTN</li><li>Bank Sumsel Babel</li><li>Bank Sulselbar Syariah</li><li>Bank Nagari</li></ol></div>
+                        </details>
+                    </div>
+
+                    <div class="faq-item" data-category="KRR TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa itu KRR TAPERA?</summary>
+                            <div class="faq-answer"><p>KRR TAPERA adalah produk pembiayaan yang membantu peserta membeli rumah yang sudah jadi dengan ketentuan dan metode pembiayaan tertentu.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KRR TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa ketentuan pengajuan KRR Tapera?</summary>
+                            <div class="faq-answer"><p>KRR Tapera atau KRR Tapera Syariah diperuntukan bagi Peserta yang akan melakukan perbaikan Rumah Tapak dengan tujuan memperbaiki kerusakan dan/atau meningkatkan kualitas Rumah Tapak menjadi layak huni.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KRR TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa saja jenis perbaikan/renovasi rumah yang dapat dibiayai oleh KRR Tapera?</summary>
+                            <div class="faq-answer"><p>Perbaikan rumah meliputi:<br/>a. perbaikan bahan penutup atap, lantai, dan dinding bangunan.<br/>b. pemenuhan standar kecukupan sarana pencahayaan dan penghawaan serta sarana mandi, cuci, dan kakus.<br/>c. penambahan luas ruang gerak minimum per-orang untuk kenyamanan bangunan.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KRR TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa persyaratan khusus untuk mendapatkan KRR TAPERA?</summary>
+                            <div class="faq-answer"><p>Persyaratan meliputi kepesertaan aktif, kelengkapan dokumen identitas, serta evaluasi kemampuan pembayaran.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KRR TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa saja dokumen yang dibutuhkan untuk memperoleh KRR Tapera?</summary>
+                            <div class="faq-answer"><p>a. Fotokopi bukti alas hak yang sah.<br/>b. Kondisi awal rumah dilengkapi dengan foto.<br/>c. RAB dan denah/gambar rencana perbaikan rumah.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KRR TAPERA">
+                        <details>
+                            <summary class="faq-question">Apakah dapat mengajukan program KPR, jika rumah yang akan diajukan sertifikatnya masih dijaminkan di Bank (rumah masih dalam masa KPR)?</summary>
+                            <div class="faq-answer"><p>Dapat dimungkinkan sepanjang Peserta memenuhi ketentuan dan persyaratan. Sebagai informasi tambahan, Peserta harus mengajukan permohonan pengikatan agunan menggunakan hak tanggungan peringkat ke-2 (dua).</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KRR TAPERA">
+                        <details>
+                            <summary class="faq-question">Apabila setelah dihitung nilai RAB ternyata lebih besar dari limit kredit sesuai kelompok penghasilan maka kredit yang dapat diberikan sesuai perhitungan yang mana?</summary>
+                            <div class="faq-answer"><p>Kredit yang dapat diberikan adalah sebesar limit kredit. Kelebihan perhitungan RAB menjadi biaya yang harus disiapkan oleh Peserta <em>(self financing)</em> apabila tetap ingin merenovasi rumah sesuai dengan nilai RAB yang telah dihitung.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KRR TAPERA">
+                        <details>
+                            <summary class="faq-question">Apabila setelah dihitung nilai RAB ternyata lebih kecil dari limit kredit sesuai kelompok penghasilan maka kredit yang dapat diberikan sesuai perhitungan yang mana?</summary>
+                            <div class="faq-answer"><p>Kredit yang dapat diberikan adalah sebesar nilai RAB sesuai kebutuhan Peserta dalam kegiatan renovasi rumah.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KRR TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa saja Bank Penyalur KRR?</summary>
+                            <div class="faq-answer"><ol><li>Bank Kalsel Konvensional</li><li>Bank BJB</li><li>Bank Jambi Konvensional</li><li>Bank NTB Syariah</li><li>Bank Kalsel Syariah</li><li>Bank BNI</li><li>Bank BTN</li><li>Bank BTN Syariah</li></ol></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KRR TAPERA">
+                        <details>
+                            <summary class="faq-question">Apakah KRR TAPERA bisa digunakan untuk membeli rumah bekas <em>(second)</em>?</summary>
+                            <div class="faq-answer"><p>Ya, KRR TAPERA dapat digunakan untuk membeli rumah bekas yang memenuhi standar kelayakan dari BP TAPERA.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KRR TAPERA">
+                        <details>
+                            <summary class="faq-question">Apakah KRR Tapera dapat diajukan untuk Rumah bukan milik peserta?</summary>
+                            <div class="faq-answer"><p>Kepemilikan Rumah untuk KRR Tapera merupakan rumah yang sertifikat tanah dan bangunannya atas nama milik suami/istri dari Peserta yang layak dijaminkan.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KRR TAPERA">
+                        <details>
+                            <summary class="faq-question">Bagaimana sistem cicilan KRR TAPERA?</summary>
+                            <div class="faq-answer"><p>Cicilan disesuaikan dengan tenor dan kemampuan peserta berdasarkan evaluasi BP TAPERA.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KRR TAPERA">
+                        <details>
+                            <summary class="faq-question">Berapa limit kredit pembiayaan KRR Tapera?</summary>
+                            <div class="faq-answer"><table style="width:100%; border-collapse: collapse; text-align: left;"><thead><tr><th style="border: 1px solid #ddd; padding: 8px;">Zona</th><th style="border: 1px solid #ddd; padding: 8px;">Limit Kredit</th><th style="border: 1px solid #ddd; padding: 8px;">Provinsi</th></tr></thead><tbody><tr><td style="border: 1px solid #ddd; padding: 8px;">Zona 1</td><td style="border: 1px solid #ddd; padding: 8px;">Rp. 88.000.000</td><td style="border: 1px solid #ddd; padding: 8px;">1. Nanggroe Aceh Darussalam, 2. Sumatera Utara, 3. Sumatera Selatan, 4. Sumatera Barat, 5. Bengkulu, 6. Riau, 7. Kepulauan Riau, 8. Jambi, 9. Lampung, 10. Bangka Belitung, 11. Kalimantan Barat, 12. Kalimantan Timur, 13. Kalimantan Selatan, 14. Kalimantan Tengah, 15. Kalimantan Utara</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">Zona 2</td><td style="border: 1px solid #ddd; padding: 8px;">Rp. 114.400.000</td><td style="border: 1px solid #ddd; padding: 8px;">16. Banten, 17. DKI Jakarta, 18. Jawa Barat, 19. Jawa Tengah, 20. DI Yogyakarta, 21. Jawa Timur, 22. Bali, 23. Nusa Tenggara Barat, 24. Nusa Tenggara Timur, 25. Sulawesi Selatan, 26. Sulawesi Barat, 27. Sulawesi Tengah, 28. Gorontalo, 29. Sulawesi Utara, 30. Sulawesi Tenggara, 31. Maluku, 32. Maluku Utara, 33. Papua, 34. Papua Barat, 35. Papua Barat Daya, 36. Papua Tengah, 37. Papua Pegunungan, 38. Papua Selatan</td></tr></tbody></table></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KRR TAPERA">
+                        <details>
+                            <summary class="faq-question">Apakah KRR Tapera dapat diajukan di tanah bukan milik peserta?</summary>
+                            <div class="faq-answer"><p>Kepemilikan tanah yang disarankan untuk KBR Tapera merupakan tanah milik suami/isteri yang layak dijaminkan.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KRR TAPERA">
+                        <details>
+                            <summary class="faq-question">Berapa suku bunga KRR Tapera?</summary>
+                            <div class="faq-answer"><p>Ketentuan Kredit Renovasi Rumah (KBR) tahun 2025 memiliki <strong>suku bunga</strong> sebesar <strong>5%</strong> tetap hingga lunas dengan <strong>jangka waktu maksimal 8 tahun</strong>. Namun, sehubungan dengan adanya Putusan MK, BP Tapera saat ini masih menunggu ketentuan dan kebijakan terbaru terkait pelaksanaan program Kredit Bangun Rumah.</p></div>
+                        </details>
+                    </div>
+
+                    <div class="faq-item" data-category="FLPP">
+                        <details>
+                            <summary class="faq-question">Apa itu FLPP?</summary>
+                            <div class="faq-answer"><p>FLPP adalah dukungan fasilitas likuiditas pembiayaan perumahan kepada MBR yang pengelolaannya dilaksanakan oleh BP TAPERA.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="FLPP">
+                        <details>
+                            <summary class="faq-question">Apa itu fitur FLPP?</summary>
+                            <div class="faq-answer"><p>Fitur subsidi FLPP yaitu berupa cicilan tetap hingga lunas dengan suku bunga 5%, uang muka ringan dan tenor cicilan bisa mencapai hingga 20 tahun.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="FLPP">
+                        <details>
+                            <summary class="faq-question">Apa saja dokumen yang harus disiapkan oleh calon debitur KPR-FLPP?</summary>
+                            <div class="faq-answer"><p>Dokumen yang harus disiapkan saat pengajuan, diantaranya:</p><ol><li>Surat pemesanan rumah dari Pengembang paling sedikit memuat harga jual rumah dan alamat rumah;</li><li>Fotokopi kartu tanda penduduk elektronik atau resi kartu tanda penduduk elektronik;</li><li>Fotokopi kartu keluarga;</li><li>Fotokopi akta nikah atau akta perkawinan bagi yang berstatus kawin;</li><li>Fotokopi nomor pokok wajib pajak;</li><li>Fotokopi surat pemberitahuan tahunan pajak penghasilan orang pribadi;</li><li>Surat Pernyataan Pemohon; dan</li><li>Slip gaji yang disahkan oleh pejabat yang berwenang bagi Pemohon yang berpenghasilan tetap atau surat pernyataan penghasilan yang ditandatangani oleh Pemohon dan diketahui oleh kepala desa/lurah bagi Pemohon yang tidak berpenghasilan tetap.</li></ol></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="FLPP">
+                        <details>
+                            <summary class="faq-question">Apa saja Bank Penyalur FLPP?</summary>
+                            <div class="faq-answer"><ol><li>Bank BTN </li><li>Bank BTN Syariah</li><li>Bank BRI</li><li>MANDIRI</li><li>BNI</li><li>BSI</li><li>BANK NTT</li><li>BANK KALSEL</li><li>Bank Kalsel Syariah</li><li>Bank BJB</li><li>Bank NTB Syariah</li><li>Bank Sulselbar</li><li>Bank Sulselbar Syariah</li><li>Bank Jambi</li><li>Bank Jambi Syariah</li><li>Bank Nagari</li><li>Bank Nagari Syariah</li><li>Bank Sumsel Babel</li><li>Bank Sumsel Babel Syariah</li><li>Bank Kaltim</li><li>Bank Jatim</li><li>Bank Jatim Syariah</li><li>Bank Papua</li><li>Bank Sumut</li><li>Bank Kalbar</li><li>Bank Kalbar Syariah</li><li>Bank RiauKepri Syariah</li><li>Bank DKI</li><li>Bank DKI Syariah</li><li>Bank Mega Syariah</li><li>Bank Jateng</li><li>Bank Jateng Syariah</li><li>Bank Bengkulu</li><li>Bank Kalteng</li><li>Bank Sulteng</li></ol></div>
+                        </details>
+                    </div>
+
+                    <div class="faq-item" data-category="KEPESERTAAN">
+                        <details>
+                            <summary class="faq-question">Siapa saja yang wajib menjadi peserta TAPERA?</summary>
+                            <div class="faq-answer"><p>Peserta Tapera adalah setiap warga negara Indonesia dan warga negara asing pemegang izin tinggal tetap yang telah berumur paling sedikit 20 (dua puluh) tahun atau sudah kawin yang pada saat mendaftar memiliki penghasilan paling sedikit sebesar upah minimum.</p><p>Peserta wajib meliputi:</p><ol><li>Calon Pegawai Negeri Sipil;</li><li>Pegawai Aparatur Sipil Negara;</li><li>Prajurit Tentara Nasional Indonesia;</li><li>Anggota Kepolisian Negara Republik Indonesia;</li><li>Pejabat Negara;</li><li>Pekerja/Buruh Badan Usaha Milik Negara, Badan Usaha Milik Daerah, Badan Usaha Milik Desa, dan Badan Usaha Milik Swasta; dan</li><li>Pekerja lain yang menerima Gaji atau Upah.</li></ol></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KEPESERTAAN">
+                        <details>
+                            <summary class="faq-question">Siapa yang tidak termasuk peserta TAPERA?</summary>
+                            <div class="faq-answer"><p>Setiap Pekerja Mandiri yang berpenghasilan dibawah UMP/UMK tidak termasuk peserta TAPERA.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KEPESERTAAN">
+                        <details>
+                            <summary class="faq-question">Kapan Pemberi Kerja wajib mendaftarkan pekerjanya sebagai peserta Tapera?</summary>
+                            <div class="faq-answer"><p>Pemberi Kerja wajib mendaftarkan Pekerjanya sebagai Peserta Tapera paling lambat 7 (tujuh) tahun sejak tanggal berlakunya UU No 4 Tahun 2016 tentang Tabungan Perumahan Rakyat.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KEPESERTAAN">
+                        <details>
+                            <summary class="faq-question">Kapan Pekerja Mandiri menjadi peserta Tapera?</summary>
+                            <div class="faq-answer"><p>Pekerja Mandiri dapat mendaftarkan dirinya menjadi Peserta Tapera paling lambat 10 (sepuluh) tahun sejak tanggal berlakunya UU No 4 Tahun 2016 tentang Tabungan Perumahan Rakyat.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KEPESERTAAN">
+                        <details>
+                            <summary class="faq-question">Berapa besaran Simpanan TAPERA?</summary>
+                            <div class="faq-answer"><p>Besaran Simpanan TAPERA ditetapkan sebesar 3% (tiga persen) dari gaji atau upah Peserta.</p><p>Untuk Pekerja, Simpanan ditanggung 0,5% oleh Pemberi Kerja dan 2,5% oleh Pekerja. Untuk Pekerja Mandiri, Simpanan ditanggung sepenuhnya (3%) oleh Pekerja Mandiri.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KEPESERTAAN">
+                        <details>
+                            <summary class="faq-question">Apakah Simpanan TAPERA bersifat wajib bagi seluruh pekerja?</summary>
+                            <div class="faq-answer"><p>Wajib bagi Pekerja yang tercantum dalam Pasal 7 UU No 4 Tahun 2016 dan berpenghasilan paling sedikit sebesar upah minimum.</p></div>
+                        </details>
+                    </div>
+
+                    <div class="faq-item" data-category="KEGIATAN SYARIAH">
+                        <details>
+                            <summary class="faq-question">Apa itu Akad Murabahah di BP Tapera?</summary>
+                            <div class="faq-answer"><p>Peraturan BP Tapera No 3 Tahun 2020 Tentang Prinsip Syariah dalam Pengelolaan Dana Tapera yaitu akad jual beli di mana penjual menyatakan harga perolehan dan keuntungan (margin) yang disepakati dengan pembeli.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KEGIATAN SYARIAH">
+                        <details>
+                            <summary class="faq-question">Apa itu Akad Musyarakah Mutanaqishah (MMQ) di BP Tapera?</summary>
+                            <div class="faq-answer"><p>Peraturan BP Tapera No 3 Tahun 2020 Tentang Prinsip Syariah dalam Pengelolaan Dana Tapera yaitu musyarakah atau syirkah yang kepemilikan aset (barang) atau modal salah satu pihak berkurang disebabkan pembelian secara bertahap oleh pihak lainnya.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KEGIATAN SYARIAH">
+                        <details>
+                            <summary class="faq-question">Bagaimana akad Istishna di BP Tapera?</summary>
+                            <div class="faq-answer"><p>Peraturan BP Tapera No 3 Tahun 2020 Tentang Prinsip Syariah dalam Pengelolaan Dana Tapera yaitu akad jual beli dalam bentuk pemesanan pembuatan barang tertentu dengan kriteria dan persyaratan tertentu yang disepakati antara pemesanan (pembeli, mustashni) dan penjual (pembuat, shani).</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KEGIATAN SYARIAH">
+                        <details>
+                            <summary class="faq-question">Bagaimana akad Ijarah Muntahiya Bit Tamlik (IMBT) di BP Tapera?</summary>
+                            <div class="faq-answer"><p>Peraturan BP Tapera No 3 Tahun 2020 Tentang Prinsip Syariah dalam Pengelolaan Dana Tapera yaitu akad ijarah atas manfaat barang yang disertai dengan janji pemindahan hak milik atas barang sewa kepada penyewa setelah selesai atau diakhirnya akad ijarah.</p></div>
+                        </details>
+                    </div>
+
+                    <div class="faq-item" data-category="KREDIT BANGUN RUMAH (KBR) TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa itu KBR TAPERA?</summary>
+                            <div class="faq-answer"><p>KBR TAPERA adalah pembiayaan yang ditujukan untuk membantu peserta membangun rumah di atas tanah milik sendiri dengan ketentuan dan metode pembiayaan tertentu.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KREDIT BANGUN RUMAH (KBR) TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa ketentuan pengajuan KBR Tapera?</summary>
+                            <div class="faq-answer"><p>KBR Tapera atau KBR Tapera Syariah diperuntukan bagi Peserta yang akan melakukan pembangunan Rumah Tapak yang layak huni, diatas tanah milik sendiri (peserta/suami/istri), dan belum pernah memiliki rumah sebelumnya.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KREDIT BANGUN RUMAH (KBR) TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa saja dokumen yang dibutuhkan untuk memperoleh KBR Tapera?</summary>
+                            <div class="faq-answer"><p>a. Fotokopi bukti alas hak yang sah.<br/>b. Izin Mendirikan Bangunan (IMB)/Persetujuan Bangunan Gedung (PBG) dan/atau Izin lainnya.<br/>c. RAB dan denah/gambar rencana pembangunan rumah.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KREDIT BANGUN RUMAH (KBR) TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa saja jenis perbaikan/renovasi rumah yang dapat dibiayai oleh KBR Tapera?</summary>
+                            <div class="faq-answer"><p>Jenis perbaikan yang dibiayai KBR Tapera adalah <strong>Pembangunan Rumah Tapak</strong>.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KREDIT BANGUN RUMAH (KBR) TAPERA">
+                        <details>
+                            <summary class="faq-question">Berapa limit kredit pembiayaan KBR Tapera?</summary>
+                            <div class="faq-answer"><table style="width:100%; border-collapse: collapse; text-align: left;"><thead><tr><th style="border: 1px solid #ddd; padding: 8px;">Zona</th><th style="border: 1px solid #ddd; padding: 8px;">Limit Kredit</th><th style="border: 1px solid #ddd; padding: 8px;">Provinsi</th></tr></thead><tbody><tr><td style="border: 1px solid #ddd; padding: 8px;">Zona 1</td><td style="border: 1px solid #ddd; padding: 8px;">Rp. 175.000.000</td><td style="border: 1px solid #ddd; padding: 8px;">1. Nanggroe Aceh Darussalam, 2. Sumatera Utara, 3. Sumatera Selatan, 4. Sumatera Barat, 5. Bengkulu, 6. Riau, 7. Kepulauan Riau, 8. Jambi, 9. Lampung, 10. Bangka Belitung, 11. Kalimantan Barat, 12. Kalimantan Timur, 13. Kalimantan Selatan, 14. Kalimantan Tengah, 15. Kalimantan Utara</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">Zona 2</td><td style="border: 1px solid #ddd; padding: 8px;">Rp. 227.500.000</td><td style="border: 1px solid #ddd; padding: 8px;">16. Banten, 17. DKI Jakarta, 18. Jawa Barat, 19. Jawa Tengah, 20. DI Yogyakarta, 21. Jawa Timur, 22. Bali, 23. Nusa Tenggara Barat, 24. Nusa Tenggara Timur, 25. Sulawesi Selatan, 26. Sulawesi Barat, 27. Sulawesi Tengah, 28. Gorontalo, 29. Sulawesi Utara, 30. Sulawesi Tenggara, 31. Maluku, 32. Maluku Utara</td></tr><tr><td style="border: 1px solid #ddd; padding: 8px;">Zona 3</td><td style="border: 1px solid #ddd; padding: 8px;">Rp. 350.000.000</td><td style="border: 1px solid #ddd; padding: 8px;">33. Papua, 34. Papua Barat, 35. Papua Barat Daya, 36. Papua Tengah, 37. Papua Pegunungan, 38. Papua Selatan</td></tr></tbody></table></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KREDIT BANGUN RUMAH (KBR) TAPERA">
+                        <details>
+                            <summary class="faq-question">Apa saja Bank Penyalur KBR?</summary>
+                            <div class="faq-answer"><ol><li>Bank Kalsel Konvensional</li><li>Bank BJB</li><li>Bank Jambi Konvensional</li><li>Bank NTB Syariah</li><li>Bank Kalsel Syariah</li><li>Bank BNI</li><li>Bank BTN</li><li>Bank BTN Syariah</li></ol></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KREDIT BANGUN RUMAH (KBR) TAPERA">
+                        <details>
+                            <summary class="faq-question">Apakah KBR Tapera dapat diajukan di tanah bukan milik peserta?</summary>
+                            <div class="faq-answer"><p>Kepemilikan tanah yang disarankan untuk KBR Tapera merupakan tanah milik suami/isteri yang layak dijaminkan.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KREDIT BANGUN RUMAH (KBR) TAPERA">
+                        <details>
+                            <summary class="faq-question">Apakah KBR Tapera bisa digunakan untuk membeli rumah bekas (*second*)?</summary>
+                            <div class="faq-answer"><p>Tidak. KBR TAPERA ditujukan hanya untuk <strong>pembangunan rumah</strong> baru di atas tanah milik sendiri.</p></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="KREDIT BANGUN RUMAH (KBR) TAPERA">
+                        <details>
+                            <summary class="faq-question">Berapa suku bunga KBR Tapera?</summary>
+                            <div class="faq-answer"><p>Ketentuan Kredit Bangun Rumah (KBR) tahun 2025 memiliki <strong>suku bunga</strong> sebesar <strong>5%</strong> tetap hingga lunas dengan <strong>jangka waktu maksimal 8 tahun</strong>. Namun, sehubungan dengan adanya Putusan MK, BP Tapera saat ini masih menunggu ketentuan dan kebijakan terbaru terkait pelaksanaan program Kredit Bangun Rumah.</p></div>
+                        </details>
+                    </div>
+                    
+                    <div class="faq-item" data-category="CONTACT CENTER">
+                        <details>
+                            <summary class="faq-question">Apa saja kanal Contact Center BP Tapera?</summary>
+                            <div class="faq-answer"><ol><li>Telepon 150 811</li><li>Whatsapp 0811 8 150 811</li><li>Email <a href="mailto:layanan@tapera.go.id">layanan@tapera.go.id</a></li><li>Media Sosial Instagram, Twitter, Facebook @bp_tapera</li></ol></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="CONTACT CENTER">
+                        <details>
+                            <summary class="faq-question">Apa saja Informasi yang dibutuhkan Contact Center saat menyampaikan pengaduan?</summary>
+                            <div class="faq-answer"><p>Informasi yang dibutuhkan meliputi:</p><ul><li>Nomor Kepesertaan (NIP/NRP)</li><li>Nama Lengkap Peserta</li><li>Deskripsi masalah atau keluhan</li><li>Waktu terjadinya masalah</li><li>Bukti pendukung (jika ada, misalnya tangkapan layar)</li></ul></div>
+                        </details>
+                    </div>
+                    <div class="faq-item" data-category="CONTACT CENTER">
+                        <details>
+                            <summary class="faq-question">Apakah Contact Center bisa membantu proses pengajuan KPR, KBR, KRR Tapera?</summary>
+                            <div class="faq-answer"><p>Ya. Kanal-kanal Contact Center dapat memberikan panduan atau informasi terkait produk-produk Tapera seperti KPR, KBR, KRR, termasuk prosedur, persyaratan, dan status pengajuan.</p></div>
+                        </details>
+                    </div>
+
+                    <div id="no-results" class="faq-item hidden" style="text-align: center; padding: 20px; font-weight: bold; color: #cc0000; border: none; box-shadow: none; background: none;">
+                        <p>Tidak ada hasil yang ditemukan untuk pencarian ini.</p>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const categoryFilter = document.getElementById('category-filter');
+            const faqItems = document.querySelectorAll('.faq-item');
+            const noResults = document.getElementById('no-results');
+            let activeCategory = 'all';
+
+            // --- Fungsi Pencarian (Search) ---
+            function filterFAQs() {
+                const searchTerm = searchInput.value.toLowerCase();
+                let resultsFound = 0;
+                
+                faqItems.forEach(item => {
+                    const category = item.getAttribute('data-category');
+                    const questionText = item.querySelector('.faq-question').textContent.toLowerCase();
+                    const answerText = item.querySelector('.faq-answer').textContent.toLowerCase();
+
+                    const categoryMatch = activeCategory === 'all' || category === activeCategory;
+                    const searchMatch = questionText.includes(searchTerm) || answerText.includes(searchTerm);
+
+                    if (categoryMatch && searchMatch) {
+                        item.classList.remove('hidden');
+                        resultsFound++;
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+
+                if (resultsFound === 0) {
+                    noResults.classList.remove('hidden');
+                } else {
+                    noResults.classList.add('hidden');
+                }
+            }
+
+            // --- Fungsi Filter Kategori ---
+            categoryFilter.addEventListener('click', function(e) {
+                const target = e.target.closest('.category-item');
+                if (!target) return;
+
+                // Atur status aktif kategori
+                document.querySelectorAll('.category-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                target.classList.add('active');
+                
+                // Set kategori aktif baru
+                activeCategory = target.getAttribute('data-category');
+                
+                // Tutup semua accordion saat ganti kategori
+                faqItems.forEach(item => {
+                    const details = item.querySelector('details');
+                    if (details) {
+                        details.open = false;
+                    }
+                });
+
+                // Terapkan filter
+                filterFAQs();
+            });
+
+            // --- Event Listener untuk Pencarian ---
+            searchInput.addEventListener('input', filterFAQs);
+
+            // Inisialisasi tampilan awal
+            filterFAQs();
+        });
+    </script>
+</body>
+</html>
