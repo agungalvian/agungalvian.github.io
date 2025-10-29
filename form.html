@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Sosialiasi Pemanfaatan BP Tapera</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Konfigurasi Tailwind untuk warna dan font Inter -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'tapera-green': '#009045', // Hijau Khas (Contoh)
+                        'tapera-light': '#E6F0E9', // Hijau Muda
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Gaya tambahan untuk input focus */
+        input:focus, select:focus, textarea:focus {
+            border-color: #009045 !important;
+            box-shadow: 0 0 0 3px rgba(0, 144, 69, 0.3) !important;
+        }
+    </style>
+</head>
+<body class="bg-tapera-light min-h-screen flex items-center justify-center p-4 sm:p-8 font-sans">
+
+    <div class="w-full max-w-4xl bg-white shadow-2xl rounded-xl overflow-hidden">
+        
+        <!-- Header / Kop Formulir (Dominasi Hijau) -->
+        <header class="bg-tapera-green text-white p-6 sm:p-8 flex items-center space-x-4">
+            <!-- Logo BP Tapera Placeholder (Gunakan placeholder berwarna putih agar kontras) -->
+            <img 
+                src="https://placehold.co/60x60/ffffff/009045?text=LOGO" 
+                alt="Logo BP Tapera" 
+                class="rounded-full shadow-md"
+                onerror="this.onerror=null; this.src='https://placehold.co/60x60/ffffff/009045?text=LOGO';"
+            >
+            <div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">FORMULIR SOSIALISASI PEMANFAATAN</h1>
+                <p class="text-sm sm:text-base font-light opacity-90">Badan Pengelola Tabungan Perumahan Rakyat (BP Tapera)</p>
+            </div>
+        </header>
+
+        <!-- Form Body -->
+        <form class="p-6 sm:p-10 space-y-6" onsubmit="handleSubmit(event)">
+
+            <!-- 1. Nomor NIK -->
+            <div>
+                <label for="nik" class="block text-sm font-medium text-gray-700 mb-1">1. Nomor NIK <span class="text-red-500">*</span></label>
+                <input type="text" id="nik" name="nik" 
+                       placeholder="Masukkan 16 digit NIK Anda"
+                       pattern="\d{16}"
+                       maxlength="16"
+                       required
+                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none text-gray-900 transition duration-150">
+            </div>
+
+            <!-- 2. Nama Lengkap -->
+            <div>
+                <label for="nama_lengkap" class="block text-sm font-medium text-gray-700 mb-1">2. Nama Lengkap <span class="text-red-500">*</span></label>
+                <input type="text" id="nama_lengkap" name="nama_lengkap" 
+                       placeholder="Nama Lengkap sesuai KTP"
+                       required
+                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none text-gray-900 transition duration-150">
+            </div>
+
+            <!-- 3. Nomor HP -->
+            <div>
+                <label for="nomor_hp" class="block text-sm font-medium text-gray-700 mb-1">3. Nomor HP Aktif <span class="text-red-500">*</span></label>
+                <input type="tel" id="nomor_hp" name="nomor_hp" 
+                       placeholder="Contoh: 081234567890"
+                       required
+                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none text-gray-900 transition duration-150">
+            </div>
+
+            <!-- 4. Nama Instansi/Perusahaan/Tempat bekerja -->
+            <div>
+                <label for="instansi" class="block text-sm font-medium text-gray-700 mb-1">4. Nama Instansi/Perusahaan/Tempat Bekerja <span class="text-red-500">*</span></label>
+                <input type="text" id="instansi" name="instansi" 
+                       placeholder="Masukkan nama instansi/perusahaan Anda"
+                       required
+                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none text-gray-900 transition duration-150">
+            </div>
+
+            <!-- 5. Lokasi Perumahan yang Diminati -->
+            <fieldset class="border border-tapera-green/50 p-4 rounded-lg">
+                <legend class="text-base font-semibold text-tapera-green px-2">5. Lokasi Perumahan yang Diminati <span class="text-red-500">*</span></legend>
+                <p class="text-xs text-gray-500 mb-4">Data referensi mengacu pada Kemendagri (Contoh Data Sampel)</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    
+                    <!-- a. Provinsi -->
+                    <div>
+                        <label for="provinsi" class="block text-xs font-medium text-gray-700 mb-1">a. Provinsi</label>
+                        <select id="provinsi" name="provinsi" required
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none appearance-none bg-white text-gray-900 transition duration-150">
+                            <option value="">-- Pilih Provinsi --</option>
+                            <option value="dki_jakarta">DKI Jakarta</option>
+                            <option value="jawa_barat">Jawa Barat</option>
+                            <option value="jawa_tengah">Jawa Tengah</option>
+                            <option value="jawa_timur">Jawa Timur</option>
+                            <!-- Tambahkan lebih banyak provinsi jika perlu -->
+                        </select>
+                    </div>
+
+                    <!-- b. Kab/Kota (Dibuat statis untuk contoh) -->
+                    <div>
+                        <label for="kab_kota" class="block text-xs font-medium text-gray-700 mb-1">b. Kab/Kota</label>
+                        <select id="kab_kota" name="kab_kota" required
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none appearance-none bg-white text-gray-900 transition duration-150">
+                            <option value="">-- Pilih Kab/Kota --</option>
+                            <option value="jakarta_selatan">Jakarta Selatan</option>
+                            <option value="bandung">Bandung</option>
+                            <option value="semarang">Semarang</option>
+                            <!-- Data ini idealnya dimuat secara dinamis berdasarkan Provinsi -->
+                        </select>
+                    </div>
+
+                    <!-- c. Kecamatan (Dibuat statis untuk contoh) -->
+                    <div>
+                        <label for="kecamatan" class="block text-xs font-medium text-gray-700 mb-1">c. Kecamatan</label>
+                        <select id="kecamatan" name="kecamatan" required
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none appearance-none bg-white text-gray-900 transition duration-150">
+                            <option value="">-- Pilih Kecamatan --</option>
+                            <option value="kebayoran_baru">Kebayoran Baru</option>
+                            <option value="cibeunying_kidul">Cibeunying Kidul</option>
+                            <option value="gajahmungkur">Gajahmungkur</option>
+                            <!-- Data ini idealnya dimuat secara dinamis berdasarkan Kab/Kota -->
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- 6. Status Pernikahan -->
+            <fieldset>
+                <legend class="text-sm font-medium text-gray-700 mb-2">6. Status Pernikahan <span class="text-red-500">*</span></legend>
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex items-center">
+                        <input id="belum_menikah" name="status_nikah" type="radio" value="Belum menikah" required
+                               onclick="togglePasanganFields(false)"
+                               class="focus:ring-tapera-green h-4 w-4 text-tapera-green border-gray-300">
+                        <label for="belum_menikah" class="ml-2 block text-sm text-gray-700">a. Belum menikah</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="sudah_menikah" name="status_nikah" type="radio" value="Sudah menikah"
+                               onclick="togglePasanganFields(true)"
+                               class="focus:ring-tapera-green h-4 w-4 text-tapera-green border-gray-300">
+                        <label for="sudah_menikah" class="ml-2 block text-sm text-gray-700">b. Sudah menikah</label>
+                    </div>
+                </div>
+
+                <!-- Form Input Pasangan (Tampil jika Sudah Menikah dipilih) -->
+                <div id="pasangan_fields" class="mt-4 space-y-4 p-4 border-l-4 border-tapera-green bg-tapera-light/50 hidden">
+                    <!-- NIK Pasangan -->
+                    <div>
+                        <label for="nik_pasangan" class="block text-sm font-medium text-gray-700 mb-1">NIK Pasangan <span class="text-red-500">*</span></label>
+                        <input type="text" id="nik_pasangan" name="nik_pasangan" 
+                               placeholder="Masukkan 16 digit NIK Pasangan"
+                               pattern="\d{16}"
+                               maxlength="16"
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none text-gray-900 transition duration-150">
+                    </div>
+                    <!-- Nama Pasangan -->
+                    <div>
+                        <label for="nama_pasangan" class="block text-sm font-medium text-gray-700 mb-1">Nama Pasangan <span class="text-red-500">*</span></label>
+                        <input type="text" id="nama_pasangan" name="nama_pasangan" 
+                               placeholder="Nama Lengkap Pasangan sesuai KTP"
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none text-gray-900 transition duration-150">
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- 7. Pilih Bank Penyalur -->
+            <div>
+                <label for="bank_penyalur" class="block text-sm font-medium text-gray-700 mb-1">7. Pilih Bank Penyalur <span class="text-red-500">*</span></label>
+                <select id="bank_penyalur" name="bank_penyalur" required
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none appearance-none bg-white text-gray-900 transition duration-150">
+                    <option value="">-- Pilih Bank Penyalur BP Tapera --</option>
+                    <option value="btn">Bank BTN</option>
+                    <option value="bri">Bank BRI</option>
+                    <option value="bni">Bank BNI</option>
+                    <option value="mandiri">Bank Mandiri</option>
+                    <option value="bpd_jabar">BPD Jawa Barat (Bank BJB)</option>
+                    <option value="bpd_jateng">BPD Jawa Tengah</option>
+                </select>
+            </div>
+
+            <!-- 8. Persetujuan -->
+            <div class="flex items-start pt-4 border-t border-gray-200">
+                <div class="flex items-center h-5">
+                    <input id="persetujuan" name="persetujuan" type="checkbox" required
+                           class="focus:ring-tapera-green h-4 w-4 text-tapera-green border-gray-300 rounded">
+                </div>
+                <div class="ml-3 text-sm">
+                    <label for="persetujuan" class="font-medium text-gray-700">
+                        Saya menyetujui bahwa data ini dapat digunakan oleh BP Tapera dan Bank Penyalur untuk keperluan verifikasi dan analisis program Tapera. <span class="text-red-500">*</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Tombol Submit -->
+            <div class="pt-6">
+                <button type="submit"
+                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-md text-base font-medium text-white bg-tapera-green hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-tapera-green transition duration-150 transform hover:scale-[1.01]">
+                    Kirim Formulir Pendaftaran
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+    <script>
+        /**
+         * Fungsi untuk menampilkan atau menyembunyikan field input pasangan (NIK dan Nama).
+         * @param {boolean} show - true untuk menampilkan, false untuk menyembunyikan.
+         */
+        function togglePasanganFields(show) {
+            const pasanganFields = document.getElementById('pasangan_fields');
+            const nikPasangan = document.getElementById('nik_pasangan');
+            const namaPasangan = document.getElementById('nama_pasangan');
+            
+            if (show) {
+                // Tampilkan container
+                pasanganFields.classList.remove('hidden');
+                
+                // Atur atribut 'required'
+                nikPasangan.setAttribute('required', 'required');
+                namaPasangan.setAttribute('required', 'required');
+            } else {
+                // Sembunyikan container
+                pasanganFields.classList.add('hidden');
+                
+                // Hapus atribut 'required' dan kosongkan nilai
+                nikPasangan.removeAttribute('required');
+                namaPasangan.removeAttribute('required');
+                nikPasangan.value = '';
+                namaPasangan.value = '';
+            }
+        }
+
+        /**
+         * Fungsi untuk menangani pengiriman formulir (hanya untuk simulasi).
+         */
+        function handleSubmit(event) {
+            event.preventDefault(); // Mencegah pengiriman form default
+
+            // Kumpulkan data (simulasi)
+            const formData = new FormData(event.target);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+
+            // Pesan sukses (menggantikan alert)
+            const formContainer = document.querySelector('.w-full.max-w-4xl');
+            const successMessage = document.createElement('div');
+            successMessage.className = 'fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50';
+            successMessage.innerHTML = `
+                <div class="bg-white p-8 rounded-lg shadow-xl max-w-sm text-center">
+                    <svg class="mx-auto h-12 w-12 text-tapera-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h3 class="mt-4 text-lg font-medium text-gray-900">Formulir Terkirim!</h3>
+                    <p class="mt-2 text-sm text-gray-500">Terima kasih atas partisipasi Anda. Data Anda telah kami terima.</p>
+                    <button type="button" onclick="window.location.reload()" 
+                            class="mt-5 w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 bg-tapera-green text-base font-medium text-white hover:bg-green-700 focus:outline-none sm:text-sm transition duration-150">
+                        Tutup
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(successMessage);
+
+            console.log("Data Formulir yang Dikirim (Simulasi):", data);
+
+            // Di aplikasi nyata, Anda akan mengirim data ini ke server
+            // Contoh: fetch('/api/submit-form', { method: 'POST', body: JSON.stringify(data) })
+        }
+
+        // Panggil fungsi togglePasanganFields saat halaman dimuat untuk memastikan kondisi awal sudah benar (sembunyi)
+        window.onload = function() {
+            togglePasanganFields(false);
+        };
+    </script>
+</body>
+</html>
