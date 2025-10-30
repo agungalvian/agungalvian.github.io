@@ -3,319 +3,985 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio - Agung Alvian, IT Infrastruktur Profesional</title>
-    <!-- Memuat Tailwind CSS untuk styling modern dan responsif -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Agung Alvian - IT Infrastructure Professional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Menggunakan font Inter */
-        body { font-family: 'Inter', sans-serif; }
-        /* Efek scroll halus */
-        html { scroll-behavior: smooth; }
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --transition: all 0.3s ease;
+        }
         
-        /* Animasi fade-in saat elemen muncul */
-        .fade-in {
-            animation: fadeIn 1s ease-out forwards;
-            opacity: 0;
-            transition: opacity 1s, transform 1s;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- ANIMASI KHUSUS UNTUK MIGRASI --- */
-        .migration-animate {
-            animation: moveLightly 3s infinite alternate ease-in-out;
-        }
-        @keyframes moveLightly {
-            0% { transform: translateX(0) translateY(0); }
-            100% { transform: translateX(5px) translateY(-5px); }
-        }
-        /* --- END ANIMASI KHUSUS --- */
-
-        /* Gaya Khusus ala Apple: Kontras dan Minimalis */
+        
         body {
-            background-color: #f5f5f7; /* Off-White Background */
-            color: #1d1d1f; /* Dark text */
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
         }
         
-        /* Gaya Kartu Proyek (Feature Block) */
-        .feature-block {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-
-        .feature-block:hover {
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-
-        /* Navbar Transparan (Floating Bar) */
-        .apple-navbar {
-            backdrop-filter: blur(10px);
-            background-color: rgba(255, 255, 255, 0.8);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-
-    </style>
-    <script>
-        // Konfigurasi Tailwind: Mengubah skema warna ke kontras tinggi (Apple Style)
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary': '#1d1d1f', /* Near Black/Dark Gray */
-                        'secondary': '#0071e3', /* Bright Blue (Link/Accent) */
-                        'bg-light': '#f5f5f7', /* Off-White */
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            animation: fadeIn 2s ease;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 4px;
+            background-color: var(--secondary);
+            margin: 10px auto;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .about-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .profile-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--secondary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Projects Section */
+        .projects {
+            padding: 100px 0;
+            background-color: var(--light);
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .project-img {
+            height: 200px;
+            width: 100%;
+            background-color: var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-img.migration {
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+        }
+        
+        .project-img.monitoring {
+            background: linear-gradient(45deg, #F46800, #6C63FF);
+        }
+        
+        .migration-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M10,50 L90,50" stroke="white" stroke-width="2" stroke-dasharray="5,5"/><circle cx="20" cy="50" r="8" fill="white"><animate attributeName="cx" from="20" to="80" dur="2s" repeatCount="indefinite"/></circle></svg>') center no-repeat;
+            animation: pulse 2s infinite;
+        }
+        
+        .monitoring-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+        
+        .project-content {
+            padding: 25px;
+        }
+        
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .project-content p {
+            margin-bottom: 20px;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .tech-item {
+            background-color: var(--light);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .tech-item i {
+            color: var(--secondary);
+        }
+        
+        /* Skills Section */
+        .skills {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-category {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .skill-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .skill-category h3 i {
+            color: var(--secondary);
+        }
+        
+        .skill-list {
+            list-style: none;
+        }
+        
+        .skill-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .skill-list li i {
+            color: var(--secondary);
+        }
+        
+        /* Certifications Section */
+        .certifications {
+            padding: 100px 0;
+            background-color: var(--light);
+        }
+        
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .cert-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .cert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cert-badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .ccna-badge {
+            background: linear-gradient(135deg, #1E5DFF, #00A0FF);
+        }
+        
+        .hcia-badge {
+            background: linear-gradient(135deg, #FF6B00, #FF8C00);
+        }
+        
+        .aca-badge {
+            background: linear-gradient(135deg, #FF6A00, #FF8C00);
+        }
+        
+        .devops-badge {
+            background: linear-gradient(135deg, #1E5DFF, #00A0FF);
+        }
+        
+        .vcp-badge {
+            background: linear-gradient(135deg, #607D8B, #78909C);
+        }
+        
+        .cert-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .cert-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .contact-container {
+            display: flex;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 30px;
+        }
+        
+        .contact-details {
+            list-style: none;
+        }
+        
+        .contact-details li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .contact-details li i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+        
+        .contact-form {
+            flex: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
-
-        // Fungsi untuk mendapatkan kode SVG ikon
-        function getIcon(name, isSmall = false) {
-            // Mengatur ukuran ikon berdasarkan di mana ia digunakan (judul atau tag)
-            const baseClass = isSmall ? "w-4 h-4 mr-1.5" : "w-7 h-7 inline-block mr-2";
-            
-            const icons = {
-                // Ikon Placeholder Sederhana
-                'SERVER': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>`,
-                'STORAGE': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="22 10 12 15 2 10"/><path d="M12 2v13"/></svg>`,
-                'DATABASE': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M21 19c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14"/></svg>`,
-                'CLOUD': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1-6.72-9.62"/><path d="M10 13l2 2 2-2M12 15V3"/></svg>`,
-                'KUBERNETES': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-indigo-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-2z"/><path d="M6 10a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H6z"/><path d="M10 2a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-4z"/></svg>`,
-                'DEVOPS': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-green-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>`,
-                'SECURITY': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-yellow-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
-                'ITSM': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-cyan-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>`,
-                'TOOL': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l-4 4-2-2 4-4 2 2z"/><path d="M19 12l2 2-7 7-2-2 7-7z"/><path d="M13 3l-3 3-5-5 3-3 5 5z"/></svg>`,
-                // Specific Logos (GCP & Alibaba placeholder)
-                'GCP': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 22h20L12 2zm0 18l-5-10h10l-5 10z"/></svg>`,
-                'ALI': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-orange-500" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path fill="white" d="M12 8l4 4-4 4-4-4 4-4z"/></svg>`,
-            };
-            return icons[name.toUpperCase().replace(/\s/g, '').replace(/-/g, '')] || icons['TOOL'];
+        
+        @keyframes pulse {
+            0% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.7;
+            }
         }
-
-        // --- JavaScript untuk Interaksi dan Injeksi Ikon ---
-        document.addEventListener('DOMContentLoaded', () => {
-            // Observer untuk memicu animasi fade-in saat elemen masuk viewport
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = 1;
-                        entry.target.style.transform = 'translateY(0)';
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.fade-in').forEach(el => {
-                observer.observe(el);
-            });
+        
+        @keyframes chartPulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
             
-            // LOGIKA INJEKSI IKON
-            document.querySelectorAll('.icon-placeholder').forEach(placeholder => {
-                const iconName = placeholder.getAttribute('data-icon-name');
-                const isSmall = placeholder.closest('.tech-stack') !== null;
-                
-                if (iconName) {
-                    placeholder.innerHTML = getIcon(iconName, isSmall);
-                }
-            });
-
-            console.log("Portofolio siap dimuat.");
-        });
-    </script>
+            .contact-container {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary);
+                flex-direction: column;
+                padding: 20px 0;
+                text-align: center;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-<body class="text-primary">
-
-    <!-- Header & Navigasi (Apple Floating Navbar) -->
-    <header class="apple-navbar sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-            <div class="text-primary text-xl font-bold tracking-wide">
-                AGUNG ALVIAN
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">Agung <span>Alvian</span></div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
             </div>
-            <nav class="space-x-8">
-                <a href="#tentang" class="text-sm font-medium text-gray-700 hover:text-secondary transition duration-300">Tentang</a>
-                <a href="#fitur" class="text-sm font-medium text-gray-700 hover:text-secondary transition duration-300">Fitur Kunci</a>
-                <a href="#kontak" class="text-sm font-medium text-gray-700 hover:text-secondary transition duration-300">Kontak</a>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Tentang</a></li>
+                    <li><a href="#projects">Proyek</a></li>
+                    <li><a href="#skills">Keahlian</a></li>
+                    <li><a href="#certifications">Sertifikasi</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
             </nav>
         </div>
     </header>
 
-    <main>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Agung Alvian</h1>
+            <p>IT Infrastructure Professional dengan pengalaman lebih dari 15 tahun dalam migrasi data center, cloud computing, dan implementasi DevOps.</p>
+            <a href="#projects" class="btn">Lihat Proyek Saya</a>
+        </div>
+    </section>
 
-        <!-- Bagian 1: HERO - Tipografi Besar -->
-        <section id="hero" class="py-24 md:py-40 text-center fade-in bg-white border-b border-gray-200">
-            <div class="max-w-4xl mx-auto px-4">
-                <p class="text-xl md:text-2xl text-secondary font-semibold mb-4">IT INFRASTRUCTURE PROFESSIONAL</p>
-                <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter leading-none text-primary">
-                    Membangun Fondasi Digital.
-                </h1>
-                <p class="text-2xl md:text-4xl text-gray-600 mt-6 font-light">
-                    15+ tahun pengalaman menciptakan sistem yang **Tangguh**, **Skalabel**, dan **Berkinerja Tinggi**.
-                </p>
-                <a href="#fitur" class="mt-10 inline-block bg-primary text-white py-3 px-8 rounded-full text-lg font-semibold hover:bg-gray-700 transition duration-300 shadow-lg tracking-wider">
-                    Lihat Proyek Kunci
-                </a>
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tentang Saya</h2>
             </div>
-        </section>
-
-        <!-- Bagian 2: TENTANG SAYA - Minimalis -->
-        <section id="tentang" class="py-20 max-w-5xl mx-auto px-4 fade-in">
-            <div class="text-center">
-                <h2 class="text-4xl font-bold mb-8 text-primary">Kejelasan dan Eksekusi</h2>
-                <p class="text-xl leading-relaxed text-gray-700 max-w-3xl mx-auto">
-                    Saya **Agung Alvian**, fokus utama saya adalah merancang, mengimplementasikan, dan mengelola infrastruktur IT yang tidak hanya memenuhi kebutuhan saat ini, tetapi juga siap menghadapi tantangan masa depan melalui adopsi *multi-cloud* dan metodologi **DevOps** modern.
-                </p>
-            </div>
-        </section>
-        
-        <!-- Bagian 3: FITUR UTAMA (Proyek) - Grid ala Produk Apple -->
-        <section id="fitur" class="py-20 bg-bg-light">
-            <div class="max-w-7xl mx-auto px-4">
-                <h2 class="text-4xl md:text-5xl font-extrabold text-primary mb-16 text-center">Fitur Kunci: Proyek Berdampak Besar</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    
-                    <!-- ITEM 1: Migrasi DC Bank BTN (Diberi Animasi Migrasi) -->
-                    <div class="feature-block p-8 fade-in migration-animate">
-                        <div class="flex items-start mb-4">
-                            <span class="icon-placeholder" data-icon-name="SERVER"></span>
-                            <h3 class="text-3xl font-bold text-primary ml-2">MIGRASI DATA CENTER KRITIS</h3>
-                        </div>
-                        <p class="text-lg text-gray-700 mb-4">
-                            Memimpin migrasi Data Center Bank BTN (DC Harmony ke DC Sentul) sebagai Leader Server & Storage, memastikan transisi infrastruktur vital dengan **minim *downtime***.
-                        </p>
-                        <h4 class="text-sm font-semibold text-secondary uppercase mb-2">Hardware Vital:</h4>
-                        <div class="flex flex-wrap gap-2 text-sm tech-stack">
-                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="SERVER"></span>IBM P Series</span>
-                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="SERVER"></span>Server Blade (IBM HS, HP C7000)</span>
-                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="STORAGE"></span>IBM V7000 & DS5000 Storage</span>
-                        </div>
-                    </div>
-
-                    <!-- ITEM 2: Migrasi Exadata (Diberi Animasi Migrasi) -->
-                    <div class="feature-block p-8 fade-in migration-animate" style="animation-delay: 0.2s;">
-                        <div class="flex items-start mb-4">
-                            <span class="icon-placeholder" data-icon-name="DATABASE"></span>
-                            <h3 class="text-3xl font-bold text-primary ml-2">ORACLE EXADATA UPGRADE</h3>
-                        </div>
-                        <p class="text-lg text-gray-700 mb-4">
-                            Migrasi database kritis (Internet Banking & RTGS) dari M5000 ke **Oracle Exadata** untuk peningkatan performa dan skalabilitas yang diperlukan oleh layanan finansial kritikal.
-                        </p>
-                        <h4 class="text-sm font-semibold text-secondary uppercase mb-2">Benefit Kunci:</h4>
-                        <div class="flex flex-wrap gap-2 text-sm tech-stack">
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="DATABASE"></span>RTGS Performance Boost</span>
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="DATABASE"></span>Skalabilitas Eksponensial</span>
-                        </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>IT Infrastructure Professional</h3>
+                    <p>Saya adalah seorang profesional IT Infrastructure dengan pengalaman lebih dari 15 tahun di industri teknologi informasi. Saya memiliki keahlian khusus dalam migrasi data center, implementasi cloud computing, dan pengelolaan infrastruktur IT yang kompleks.</p>
+                    <p>Selama karir saya, saya telah memimpin berbagai proyek migrasi skala besar, membangun arsitektur cloud yang tangguh, dan mengimplementasikan praktik DevOps untuk meningkatkan efisiensi operasional.</p>
+                    <p>Saya memiliki kemampuan dalam memimpin tim, mengelola proyek kompleks, dan memberikan solusi IT yang inovatif untuk memenuhi kebutuhan bisnis.</p>
+                </div>
+                <div class="about-image">
+                    <div class="profile-img-placeholder">
+                        <i class="fas fa-user-tie" style="font-size: 300px; color: #3498db;"></i>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <!-- Bagian Kunci Utama (Full Width - Strong Feature) -->
-                <div class="feature-block p-10 mt-12 fade-in" style="animation-delay: 0.4s;">
-                    <div class="text-center">
-                        <div class="flex items-center justify-center mb-6">
-                            <span class="icon-placeholder" data-icon-name="CLOUD"></span>
-                            <h3 class="text-4xl font-extrabold text-primary ml-4">ARCHITECTURE: ACTIVE-ACTIVE MULTI-CLOUD</h3>
-                        </div>
-                        <p class="text-xl leading-relaxed text-gray-700 max-w-4xl mx-auto">
-                            Mengimplementasikan arsitektur *Active-Active Data Center* di **GCP** dan **Alibaba Cloud** untuk ketahanan global, didukung oleh **CockroachDB** (Distributed Database) dan **Keycloak HA** (IAM).
-                        </p>
-                        <h4 class="text-sm font-semibold text-secondary uppercase mt-8 mb-4">Aplikasi & Otomasi:</h4>
-                        <div class="flex flex-wrap justify-center gap-4 text-sm tech-stack">
-                            <span class="bg-indigo-100 text-indigo-800 px-4 py-1.5 rounded-full font-semibold flex items-center"><span class="icon-placeholder" data-icon-name="KUBERNETES"></span> Kubernetes Platform</span>
-                            <span class="bg-green-100 text-green-800 px-4 py-1.5 rounded-full font-semibold flex items-center"><span class="icon-placeholder" data-icon-name="DEVOPS"></span> Spinnaker (Auto Deployment)</span>
-                            <span class="bg-red-100 text-red-800 px-4 py-1.5 rounded-full font-semibold flex items-center"><span class="icon-placeholder" data-icon-name="GCP"></span> GCP</span>
-                            <span class="bg-orange-100 text-orange-800 px-4 py-1.5 rounded-full font-semibold flex items-center"><span class="icon-placeholder" data-icon-name="ALI"></span> Alibaba Cloud</span>
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Proyek Unggulan</h2>
+            </div>
+            <div class="project-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-img migration">
+                        <div class="migration-animation"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Migrasi Data Center Bank BTN</h3>
+                        <p>Memimpin migrasi collocation data center Bank BTN dari DC Harmony ke DC Sentul sebagai leader bidang Server dan Storage.</p>
+                        <div class="tech-stack">
+                            <div class="tech-item"><i class="fas fa-server"></i> IBM P Series</div>
+                            <div class="tech-item"><i class="fas fa-server"></i> Server Blade</div>
+                            <div class="tech-item"><i class="fas fa-hdd"></i> IBM v7000</div>
+                            <div class="tech-item"><i class="fas fa-hdd"></i> IBM DS5000</div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- DevOps and ITSM Section (2-column again) -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
-                    
-                    <!-- ITEM 4: Integrasi Core Application (Diberi Animasi Migrasi) -->
-                    <div class="feature-block p-8 fade-in migration-animate" style="animation-delay: 0.6s;">
-                         <div class="flex items-start mb-4">
-                            <span class="icon-placeholder" data-icon-name="KUBERNETES"></span>
-                            <h3 class="text-3xl font-bold text-primary ml-2">KONSOLIDASI CORE APPS</h3>
-                        </div>
-                        <p class="text-lg text-gray-700 mb-4">
-                            Konsolidasi dan migrasi Core FLPP (Java/VM) ke platform **Kubernetes**, mengintegrasikannya secara *seamless* dengan Sitara Core (Golang) dalam satu *datacenter* melalui jaringan privat **IPSec**.
-                        </p>
-                        <h4 class="text-sm font-semibold text-secondary uppercase mb-2">Tools & Integrasi:</h4>
-                        <div class="flex flex-wrap gap-2 text-sm tech-stack">
-                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="KUBERNETES"></span>Kubernetes</span>
-                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="TOOL"></span>IPSec VPN</span>
-                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="TOOL"></span>Java & Golang Microservices</span>
-                        </div>
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-img migration">
+                        <div class="migration-animation"></div>
                     </div>
-
-                    <!-- ITEM 5: Tools ITSM Kustomisasi -->
-                    <div class="feature-block p-8 fade-in" style="animation-delay: 0.8s;">
-                        <div class="flex items-start mb-4">
-                            <span class="icon-placeholder" data-icon-name="ITSM"></span>
-                            <h3 class="text-3xl font-bold text-primary ml-2">PLATFORM ITSM KUSTOM</h3>
-                        </div>
-                        <p class="text-lg text-gray-700 mb-4">
-                            Mengembangkan dan mengkustomisasi tools ITSM berbasis Open Source untuk operasional IT yang terstruktur, mencakup: Ticketing, Change, Asset, Knowledge, dan Project Management.
-                        </p>
-                        <h4 class="text-sm font-semibold text-secondary uppercase mb-2">Komponen Kunci:</h4>
-                        <div class="flex flex-wrap gap-2 text-sm tech-stack">
-                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="ITSM"></span>Helpdesk Ticketing</span>
-                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="ITSM"></span>Change & Asset Management</span>
+                    <div class="project-content">
+                        <h3>Migrasi Database Oracle</h3>
+                        <p>Migrasi database Oracle dari M5000 ke Oracle Exadata untuk mendukung kebutuhan Internet banking dan server RTGS.</p>
+                        <div class="tech-stack">
+                            <div class="tech-item"><i class="fas fa-database"></i> Oracle</div>
+                            <div class="tech-item"><i class="fas fa-database"></i> Exadata</div>
+                            <div class="tech-item"><i class="fas fa-university"></i> Internet Banking</div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Ringkasan Tools DevOps (Footer Section) -->
-                <div class="mt-16 pt-8 border-t border-gray-300 text-center fade-in" style="animation-delay: 1.0s;">
-                    <h4 class="text-2xl font-bold text-primary mb-4">ALAT PENGEMBANGAN & KEAMANAN (DEVOPS)</h4>
-                    <div class="flex flex-wrap justify-center gap-6 text-base font-medium">
-                        <!-- Menggunakan span placeholder untuk ikon -->
-                        <span class="text-gray-600 flex items-center"><span class="icon-placeholder" data-icon-name="TOOL"></span> Bitbucket (VCS)</span>
-                        <span class="text-gray-600 flex items-center"><span class="icon-placeholder" data-icon-name="TOOL"></span> Nexus (Repo)</span>
-                        <span class="text-gray-600 flex items-center"><span class="icon-placeholder" data-icon-name="TOOL"></span> Jenkins (CI/CD)</span>
-                        <span class="text-gray-600 flex items-center"><span class="icon-placeholder" data-icon-name="TOOL"></span> Jira & Confluence (Kolaborasi)</span>
-                        <span class="text-gray-600 flex items-center"><span class="icon-placeholder" data-icon-name="SECURITY"></span> SonarQube (SAST)</span>
-                        <span class="text-gray-600 flex items-center"><span class="icon-placeholder" data-icon-name="SECURITY"></span> Burp Suite (DAST)</span>
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <div style="background: linear-gradient(45deg, #4285F4, #34A853); height: 100%; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-cloud" style="font-size: 80px; color: white;"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Active-Active Data Center</h3>
+                        <p>Membangun active-active data center menggunakan GCP dan Alibaba Cloud dengan teknologi modern untuk high availability.</p>
+                        <div class="tech-stack">
+                            <div class="tech-item"><i class="fab fa-google"></i> GCP</div>
+                            <div class="tech-item"><i class="fas fa-cloud"></i> Alibaba Cloud</div>
+                            <div class="tech-item"><i class="fas fa-database"></i> CockroachDB</div>
+                            <div class="tech-item"><i class="fas fa-key"></i> Keycloak</div>
+                            <div class="tech-item"><i class="fas fa-ship"></i> Kubernetes</div>
+                        </div>
                     </div>
                 </div>
                 
-            </div>
-        </section>
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <div class="project-img migration">
+                        <div class="migration-animation"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Integrasi Platform Core Application</h3>
+                        <p>Integrasi platform untuk core application berbeda ke dalam satu environment Kubernetes dan satu data center.</p>
+                        <div class="tech-stack">
+                            <div class="tech-item"><i class="fab fa-java"></i> Java</div>
+                            <div class="tech-item"><i class="fab fa-golang"></i> Golang</div>
+                            <div class="tech-item"><i class="fas fa-ship"></i> Kubernetes</div>
+                            <div class="tech-item"><i class="fas fa-network-wired"></i> IPSec</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <div style="background: linear-gradient(45deg, #E44D26, #F16529); height: 100%; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-tools" style="font-size: 80px; color: white;"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>ITSM Tools Development</h3>
+                        <p>Membuat tools ITSM (IT Service Management) menggunakan open source yang dikustomisasi dengan berbagai fitur lengkap.</p>
+                        <div class="tech-stack">
+                            <div class="tech-item"><i class="fas fa-ticket-alt"></i> Helpdesk</div>
+                            <div class="tech-item"><i class="fas fa-exchange-alt"></i> Change Management</div>
+                            <div class="tech-item"><i class="fas fa-boxes"></i> Asset Management</div>
+                            <div class="tech-item"><i class="fas fa-book"></i> Knowledge Base</div>
+                        </div>
+                    </div>
+                </div>
 
-
-        <!-- Bagian Kontak -->
-        <section id="kontak" class="py-20 bg-white">
-            <div class="max-w-3xl mx-auto px-4 text-center fade-in">
-                <h2 class="text-4xl md:text-5xl font-extrabold text-primary mb-6">Siap Berkolaborasi.</h2>
-                <p class="text-xl text-gray-700 mb-10">
-                    Mari diskusikan bagaimana pengalaman 15+ tahun di bidang Infrastruktur dapat memperkuat tim dan platform digital Anda.
-                </p>
-                <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-8">
-                    <a href="mailto:agung.alvian@example.com" class="bg-secondary text-white py-3 px-10 rounded-full text-lg font-semibold hover:bg-blue-800 transition duration-300 shadow-md transform hover:scale-105">
-                        KIRIM EMAIL
-                    </a>
-                    <a href="[Link Profil LinkedIn Anda]" target="_blank" class="bg-gray-200 text-primary py-3 px-10 rounded-full text-lg font-semibold hover:bg-gray-300 transition duration-300 shadow-md transform hover:scale-105">
-                        LinkedIn
-                    </a>
+                <!-- Project 6 - Monitoring Tools -->
+                <div class="project-card">
+                    <div class="project-img monitoring">
+                        <div class="monitoring-animation">
+                            <i class="fas fa-chart-line" style="animation: chartPulse 2s infinite;"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Implementation Monitoring & Observability</h3>
+                        <p>Mengimplementasikan comprehensive monitoring solution untuk availability, performance, dan log monitoring menggunakan tools modern.</p>
+                        <div class="tech-stack">
+                            <div class="tech-item"><i class="fas fa-chart-line"></i> Grafana</div>
+                            <div class="tech-item"><i class="fas fa-search"></i> SigNoz</div>
+                            <div class="tech-item"><i class="fas fa-bell"></i> Alerting</div>
+                            <div class="tech-item"><i class="fas fa-tachometer-alt"></i> Performance</div>
+                            <div class="tech-item"><i class="fas fa-clipboard-list"></i> Dashboard</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-    </main>
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <div class="section-title">
+                <h2>Keahlian & Teknologi</h2>
+            </div>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3><i class="fas fa-cloud"></i> Cloud & Infrastructure</h3>
+                    <ul class="skill-list">
+                        <li><i class="fas fa-check"></i> Google Cloud Platform (GCP)</li>
+                        <li><i class="fas fa-check"></i> Alibaba Cloud</li>
+                        <li><i class="fas fa-check"></i> Kubernetes</li>
+                        <li><i class="fas fa-check"></i> Docker</li>
+                        <li><i class="fas fa-check"></i> Data Center Migration</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-category">
+                    <h3><i class="fas fa-database"></i> Database</h3>
+                    <ul class="skill-list">
+                        <li><i class="fas fa-check"></i> Oracle Database</li>
+                        <li><i class="fas fa-check"></i> CockroachDB</li>
+                        <li><i class="fas fa-check"></i> Exadata</li>
+                        <li><i class="fas fa-check"></i> IBM DB2</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-category">
+                    <h3><i class="fas fa-tools"></i> DevOps Tools</h3>
+                    <ul class="skill-list">
+                        <li><i class="fas fa-check"></i> Jenkins</li>
+                        <li><i class="fas fa-check"></i> Bitbucket</li>
+                        <li><i class="fas fa-check"></i> Nexus</li>
+                        <li><i class="fas fa-check"></i> Spinnaker</li>
+                        <li><i class="fas fa-check"></i> SonarQube</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-category">
+                    <h3><i class="fas fa-shield-alt"></i> Security & Monitoring</h3>
+                    <ul class="skill-list">
+                        <li><i class="fas fa-check"></i> Keycloak IAM</li>
+                        <li><i class="fas fa-check"></i> Burp Suite</li>
+                        <li><i class="fas fa-check"></i> SAST/DAST</li>
+                        <li><i class="fas fa-check"></i> Grafana Monitoring</li>
+                        <li><i class="fas fa-check"></i> SigNoz Logging</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section class="certifications" id="certifications">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sertifikasi</h2>
+            </div>
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <div class="cert-badge ccna-badge">
+                        <i class="fab fa-cisco"></i>
+                    </div>
+                    <h3>CCNA</h3>
+                    <p>Cisco Certified Network Associate</p>
+                </div>
+                
+                <div class="cert-card">
+                    <div class="cert-badge hcia-badge">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>HCIA</h3>
+                    <p>Huawei Certified ICT Associate</p>
+                </div>
+                
+                <div class="cert-card">
+                    <div class="cert-badge aca-badge">
+                        <i class="fab fa-alipay"></i>
+                    </div>
+                    <h3>ACA</h3>
+                    <p>Alibaba Cloud Certified Associate</p>
+                </div>
+                
+                <div class="cert-card">
+                    <div class="cert-badge devops-badge">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3>DevOps Speciality</h3>
+                    <p>Alibaba Cloud DevOps Speciality</p>
+                </div>
+                
+                <div class="cert-card">
+                    <div class="cert-badge vcp-badge">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>VCP</h3>
+                    <p>VMware Certified Professional</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2 style="color: white;">Kontak Saya</h2>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Mari Berkolaborasi</h3>
+                    <p>Saya terbuka untuk peluang baru dan kolaborasi dalam proyek IT Infrastructure yang menantang. Jangan ragu untuk menghubungi saya.</p>
+                    <ul class="contact-details">
+                        <li><i class="fas fa-envelope"></i> agung.alvian@example.com</li>
+                        <li><i class="fas fa-phone"></i> +62 812 3456 7890</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</li>
+                    </ul>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nama</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subjek</label>
+                            <input type="text" id="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Pesan</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="bg-primary text-gray-400 py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
-            <p>&copy; 2025 Agung Alvian Portofolio. Desain Minimalis, Kinerja Maksimal.</p>
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>&copy; 2023 Agung Alvian. All Rights Reserved.</p>
         </div>
     </footer>
 
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu after clicking
+                    document.querySelector('nav ul').classList.remove('show');
+                }
+            });
+        });
+        
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Terima kasih! Pesan Anda telah dikirim. Saya akan menghubungi Anda segera.');
+            this.reset();
+        });
+        
+        // Add animation on scroll
+        window.addEventListener('scroll', function() {
+            const elements = document.querySelectorAll('.project-card, .skill-category, .cert-card');
+            
+            elements.forEach(element => {
+                const position = element.getBoundingClientRect();
+                
+                // If element is in viewport
+                if(position.top < window.innerHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        });
+        
+        // Initialize elements for animation
+        document.querySelectorAll('.project-card, .skill-category, .cert-card').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+        
+        // Trigger initial animation
+        window.dispatchEvent(new Event('scroll'));
+    </script>
 </body>
 </html>
