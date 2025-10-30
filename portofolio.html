@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio - Agung Alvian, IT Infrastruktur Profesional</title>
+    <!-- Memuat Tailwind CSS untuk styling modern dan responsif -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Menggunakan font Inter */
+        body { font-family: 'Inter', sans-serif; }
+        /* Efek scroll halus */
+        html { scroll-behavior: smooth; }
+        
+        /* Animasi fade-in saat elemen muncul */
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+            opacity: 0;
+            transition: opacity 1s, transform 1s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- ANIMASI KHUSUS UNTUK MIGRASI --- */
+        .migration-animate {
+            animation: moveLightly 3s infinite alternate ease-in-out;
+        }
+        @keyframes moveLightly {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(5px) translateY(-5px); }
+        }
+        /* --- END ANIMASI KHUSUS --- */
+
+        /* Gaya Khusus ala Apple: Kontras dan Minimalis */
+        body {
+            background-color: #f5f5f7; /* Off-White Background */
+            color: #1d1d1f; /* Dark text */
+        }
+        
+        /* Gaya Kartu Proyek (Feature Block) */
+        .feature-block {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .feature-block:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Navbar Transparan (Floating Bar) */
+        .apple-navbar {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+    </style>
+    <script>
+        // Konfigurasi Tailwind: Mengubah skema warna ke kontras tinggi (Apple Style)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#1d1d1f', /* Near Black/Dark Gray */
+                        'secondary': '#0071e3', /* Bright Blue (Link/Accent) */
+                        'bg-light': '#f5f5f7', /* Off-White */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+
+        // Fungsi untuk mendapatkan kode SVG ikon
+        function getIcon(name, isSmall = false) {
+            // Mengatur ukuran ikon berdasarkan di mana ia digunakan (judul atau tag)
+            const baseClass = isSmall ? "w-4 h-4 mr-1.5" : "w-7 h-7 inline-block mr-2";
+            
+            const icons = {
+                // Ikon Placeholder Sederhana
+                'SERVER': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>`,
+                'STORAGE': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="22 10 12 15 2 10"/><path d="M12 2v13"/></svg>`,
+                'DATABASE': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M21 19c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14"/></svg>`,
+                'CLOUD': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1-6.72-9.62"/><path d="M10 13l2 2 2-2M12 15V3"/></svg>`,
+                'KUBERNETES': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-indigo-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-2z"/><path d="M6 10a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H6z"/><path d="M10 2a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-4z"/></svg>`,
+                'DEVOPS': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-green-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>`,
+                'SECURITY': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-yellow-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+                'ITSM': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-cyan-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>`,
+                'TOOL': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l-4 4-2-2 4-4 2 2z"/><path d="M19 12l2 2-7 7-2-2 7-7z"/><path d="M13 3l-3 3-5-5 3-3 5 5z"/></svg>`,
+                // Specific Logos (GCP & Alibaba placeholder)
+                'GCP': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 22h20L12 2zm0 18l-5-10h10l-5 10z"/></svg>`,
+                'ALI': `<svg xmlns="http://www.w3.org/2000/svg" class="${baseClass} text-orange-500" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path fill="white" d="M12 8l4 4-4 4-4-4 4-4z"/></svg>`,
+            };
+            return icons[name.toUpperCase().replace(/\s/g, '').replace(/-/g, '')] || icons['TOOL'];
+        }
+
+        // --- JavaScript untuk Interaksi dan Injeksi Ikon ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Observer untuk memicu animasi fade-in saat elemen masuk viewport
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // LOGIKA INJEKSI IKON
+            document.querySelectorAll('.icon-placeholder').forEach(placeholder => {
+                const iconName = placeholder.getAttribute('data-icon-name');
+                const isSmall = placeholder.closest('.tech-stack') !== null;
+                
+                if (iconName) {
+                    placeholder.innerHTML = getIcon(iconName, isSmall);
+                }
+            });
+
+            console.log("Portofolio siap dimuat.");
+        });
+    </script>
+</head>
+<body class="text-primary">
+
+    <!-- Header & Navigasi (Apple Floating Navbar) -->
+    <header class="apple-navbar sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <div class="text-primary text-xl font-bold tracking-wide">
+                AGUNG ALVIAN
+            </div>
+            <nav class="space-x-8">
+                <a href="#tentang" class="text-sm font-medium text-gray-700 hover:text-secondary transition duration-300">Tentang</a>
+                <a href="#fitur" class="text-sm font-medium text-gray-700 hover:text-secondary transition duration-300">Fitur Kunci</a>
+                <a href="#kontak" class="text-sm font-medium text-gray-700 hover:text-secondary transition duration-300">Kontak</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Bagian 1: HERO - Tipografi Besar -->
+        <section id="hero" class="py-24 md:py-40 text-center fade-in bg-white border-b border-gray-200">
+            <div class="max-w-4xl mx-auto px-4">
+                <p class="text-xl md:text-2xl text-secondary font-semibold mb-4">IT INFRASTRUCTURE PROFESSIONAL</p>
+                <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter leading-none text-primary">
+                    Membangun Fondasi Digital.
+                </h1>
+                <p class="text-2xl md:text-4xl text-gray-600 mt-6 font-light">
+                    15+ tahun pengalaman menciptakan sistem yang **Tangguh**, **Skalabel**, dan **Berkinerja Tinggi**.
+                </p>
+                <a href="#fitur" class="mt-10 inline-block bg-primary text-white py-3 px-8 rounded-full text-lg font-semibold hover:bg-gray-700 transition duration-300 shadow-lg tracking-wider">
+                    Lihat Proyek Kunci
+                </a>
+            </div>
+        </section>
+
+        <!-- Bagian 2: TENTANG SAYA - Minimalis -->
+        <section id="tentang" class="py-20 max-w-5xl mx-auto px-4 fade-in">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-8 text-primary">Kejelasan dan Eksekusi</h2>
+                <p class="text-xl leading-relaxed text-gray-700 max-w-3xl mx-auto">
+                    Saya **Agung Alvian**, fokus utama saya adalah merancang, mengimplementasikan, dan mengelola infrastruktur IT yang tidak hanya memenuhi kebutuhan saat ini, tetapi juga siap menghadapi tantangan masa depan melalui adopsi *multi-cloud* dan metodologi **DevOps** modern.
+                </p>
+            </div>
+        </section>
+        
+        <!-- Bagian 3: FITUR UTAMA (Proyek) - Grid ala Produk Apple -->
+        <section id="fitur" class="py-20 bg-bg-light">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-primary mb-16 text-center">Fitur Kunci: Proyek Berdampak Besar</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    
+                    <!-- ITEM 1: Migrasi DC Bank BTN (Diberi Animasi Migrasi) -->
+                    <div class="feature-block p-8 fade-in migration-animate">
+                        <div class="flex items-start mb-4">
+                            <span class="icon-placeholder" data-icon-name="SERVER"></span>
+                            <h3 class="text-3xl font-bold text-primary ml-2">MIGRASI DATA CENTER KRITIS</h3>
+                        </div>
+                        <p class="text-lg text-gray-700 mb-4">
+                            Memimpin migrasi Data Center Bank BTN (DC Harmony ke DC Sentul) sebagai Leader Server & Storage, memastikan transisi infrastruktur vital dengan **minim *downtime***.
+                        </p>
+                        <h4 class="text-sm font-semibold text-secondary uppercase mb-2">Hardware Vital:</h4>
+                        <div class="flex flex-wrap gap-2 text-sm tech-stack">
+                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="SERVER"></span>IBM P Series</span>
+                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="SERVER"></span>Server Blade (IBM HS, HP C7000)</span>
+                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="STORAGE"></span>IBM V7000 & DS5000 Storage</span>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 2: Migrasi Exadata (Diberi Animasi Migrasi) -->
+                    <div class="feature-block p-8 fade-in migration-animate" style="animation-delay: 0.2s;">
+                        <div class="flex items-start mb-4">
+                            <span class="icon-placeholder" data-icon-name="DATABASE"></span>
+                            <h3 class="text-3xl font-bold text-primary ml-2">ORACLE EXADATA UPGRADE</h3>
+                        </div>
+                        <p class="text-lg text-gray-700 mb-4">
+                            Migrasi database kritis (Internet Banking & RTGS) dari M5000 ke **Oracle Exadata** untuk peningkatan performa dan skalabilitas yang diperlukan oleh layanan finansial kritikal.
+                        </p>
+                        <h4 class="text-sm font-semibold text-secondary uppercase mb-2">Benefit Kunci:</h4>
+                        <div class="flex flex-wrap gap-2 text-sm tech-stack">
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="DATABASE"></span>RTGS Performance Boost</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="DATABASE"></span>Skalabilitas Eksponensial</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bagian Kunci Utama (Full Width - Strong Feature) -->
+                <div class="feature-block p-10 mt-12 fade-in" style="animation-delay: 0.4s;">
+                    <div class="text-center">
+                        <div class="flex items-center justify-center mb-6">
+                            <span class="icon-placeholder" data-icon-name="CLOUD"></span>
+                            <h3 class="text-4xl font-extrabold text-primary ml-4">ARCHITECTURE: ACTIVE-ACTIVE MULTI-CLOUD</h3>
+                        </div>
+                        <p class="text-xl leading-relaxed text-gray-700 max-w-4xl mx-auto">
+                            Mengimplementasikan arsitektur *Active-Active Data Center* di **GCP** dan **Alibaba Cloud** untuk ketahanan global, didukung oleh **CockroachDB** (Distributed Database) dan **Keycloak HA** (IAM).
+                        </p>
+                        <h4 class="text-sm font-semibold text-secondary uppercase mt-8 mb-4">Aplikasi & Otomasi:</h4>
+                        <div class="flex flex-wrap justify-center gap-4 text-sm tech-stack">
+                            <span class="bg-indigo-100 text-indigo-800 px-4 py-1.5 rounded-full font-semibold flex items-center"><span class="icon-placeholder" data-icon-name="KUBERNETES"></span> Kubernetes Platform</span>
+                            <span class="bg-green-100 text-green-800 px-4 py-1.5 rounded-full font-semibold flex items-center"><span class="icon-placeholder" data-icon-name="DEVOPS"></span> Spinnaker (Auto Deployment)</span>
+                            <span class="bg-red-100 text-red-800 px-4 py-1.5 rounded-full font-semibold flex items-center"><span class="icon-placeholder" data-icon-name="GCP"></span> GCP</span>
+                            <span class="bg-orange-100 text-orange-800 px-4 py-1.5 rounded-full font-semibold flex items-center"><span class="icon-placeholder" data-icon-name="ALI"></span> Alibaba Cloud</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- DevOps and ITSM Section (2-column again) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
+                    
+                    <!-- ITEM 4: Integrasi Core Application (Diberi Animasi Migrasi) -->
+                    <div class="feature-block p-8 fade-in migration-animate" style="animation-delay: 0.6s;">
+                         <div class="flex items-start mb-4">
+                            <span class="icon-placeholder" data-icon-name="KUBERNETES"></span>
+                            <h3 class="text-3xl font-bold text-primary ml-2">KONSOLIDASI CORE APPS</h3>
+                        </div>
+                        <p class="text-lg text-gray-700 mb-4">
+                            Konsolidasi dan migrasi Core FLPP (Java/VM) ke platform **Kubernetes**, mengintegrasikannya secara *seamless* dengan Sitara Core (Golang) dalam satu *datacenter* melalui jaringan privat **IPSec**.
+                        </p>
+                        <h4 class="text-sm font-semibold text-secondary uppercase mb-2">Tools & Integrasi:</h4>
+                        <div class="flex flex-wrap gap-2 text-sm tech-stack">
+                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="KUBERNETES"></span>Kubernetes</span>
+                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="TOOL"></span>IPSec VPN</span>
+                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="TOOL"></span>Java & Golang Microservices</span>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 5: Tools ITSM Kustomisasi -->
+                    <div class="feature-block p-8 fade-in" style="animation-delay: 0.8s;">
+                        <div class="flex items-start mb-4">
+                            <span class="icon-placeholder" data-icon-name="ITSM"></span>
+                            <h3 class="text-3xl font-bold text-primary ml-2">PLATFORM ITSM KUSTOM</h3>
+                        </div>
+                        <p class="text-lg text-gray-700 mb-4">
+                            Mengembangkan dan mengkustomisasi tools ITSM berbasis Open Source untuk operasional IT yang terstruktur, mencakup: Ticketing, Change, Asset, Knowledge, dan Project Management.
+                        </p>
+                        <h4 class="text-sm font-semibold text-secondary uppercase mb-2">Komponen Kunci:</h4>
+                        <div class="flex flex-wrap gap-2 text-sm tech-stack">
+                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="ITSM"></span>Helpdesk Ticketing</span>
+                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full flex items-center"><span class="icon-placeholder" data-icon-name="ITSM"></span>Change & Asset Management</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ringkasan Tools DevOps (Footer Section) -->
+                <div class="mt-16 pt-8 border-t border-gray-300 text-center fade-in" style="animation-delay: 1.0s;">
+                    <h4 class="text-2xl font-bold text-primary mb-4">ALAT PENGEMBANGAN & KEAMANAN (DEVOPS)</h4>
+                    <div class="flex flex-wrap justify-center gap-6 text-base font-medium">
+                        <!-- Menggunakan span placeholder untuk ikon -->
+                        <span class="text-gray-600 flex items-center"><span class="icon-placeholder" data-icon-name="TOOL"></span> Bitbucket (VCS)</span>
+                        <span class="text-gray-600 flex items-center"><span class="icon-placeholder" data-icon-name="TOOL"></span> Nexus (Repo)</span>
+                        <span class="text-gray-600 flex items-center"><span class="icon-placeholder" data-icon-name="TOOL"></span> Jenkins (CI/CD)</span>
+                        <span class="text-gray-600 flex items-center"><span class="icon-placeholder" data-icon-name="TOOL"></span> Jira & Confluence (Kolaborasi)</span>
+                        <span class="text-gray-600 flex items-center"><span class="icon-placeholder" data-icon-name="SECURITY"></span> SonarQube (SAST)</span>
+                        <span class="text-gray-600 flex items-center"><span class="icon-placeholder" data-icon-name="SECURITY"></span> Burp Suite (DAST)</span>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+
+        <!-- Bagian Kontak -->
+        <section id="kontak" class="py-20 bg-white">
+            <div class="max-w-3xl mx-auto px-4 text-center fade-in">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-primary mb-6">Siap Berkolaborasi.</h2>
+                <p class="text-xl text-gray-700 mb-10">
+                    Mari diskusikan bagaimana pengalaman 15+ tahun di bidang Infrastruktur dapat memperkuat tim dan platform digital Anda.
+                </p>
+                <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-8">
+                    <a href="mailto:agung.alvian@example.com" class="bg-secondary text-white py-3 px-10 rounded-full text-lg font-semibold hover:bg-blue-800 transition duration-300 shadow-md transform hover:scale-105">
+                        KIRIM EMAIL
+                    </a>
+                    <a href="[Link Profil LinkedIn Anda]" target="_blank" class="bg-gray-200 text-primary py-3 px-10 rounded-full text-lg font-semibold hover:bg-gray-300 transition duration-300 shadow-md transform hover:scale-105">
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-gray-400 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <p>&copy; 2025 Agung Alvian Portofolio. Desain Minimalis, Kinerja Maksimal.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
