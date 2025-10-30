@@ -243,15 +243,37 @@
         .about-image {
             flex: 1;
             text-align: center;
+            position: relative;
+        }
+        
+        .profile-frame {
+            width: 350px;
+            height: 350px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary), #4da6ff);
+            padding: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
         
         .profile-img {
-            width: 320px;
-            height: 320px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 8px solid #f5f5f7;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            background: linear-gradient(135deg, #f5f5f7, #e5e5e7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 4px solid white;
+        }
+        
+        .profile-img i {
+            font-size: 120px;
+            color: var(--secondary);
+            opacity: 0.7;
         }
         
         /* Projects Section */
@@ -777,6 +799,11 @@
                 min-width: 160px;
                 padding: 25px 15px;
             }
+            
+            .profile-frame {
+                width: 280px;
+                height: 280px;
+            }
         }
         
         @media (max-width: 768px) {
@@ -826,6 +853,15 @@
                 max-width: 250px;
                 width: 100%;
             }
+            
+            .profile-frame {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .profile-img i {
+                font-size: 80px;
+            }
         }
     </style>
 </head>
@@ -854,7 +890,7 @@
     <section class="hero" id="home">
         <div class="container">
             <h1>Agung Alvian</h1>
-            <p>IT Infrastructure Professional dengan pengalaman lebih dari 15 tahun.</p>
+            <p>IT Professional dengan pengalaman lebih dari 15 tahun, Kini fokus Mendorong Transformasi Digital yang Berdampak</p>
             <a href="#projects" class="btn">Lihat Proyek Saya</a>
         </div>
     </section>
@@ -873,8 +909,12 @@
                     <p>Saya memiliki kemampuan dalam memimpin tim, mengelola proyek kompleks, dan memberikan solusi IT yang inovatif untuk memenuhi kebutuhan bisnis.</p>
                 </div>
                 <div class="about-image">
-                    <div class="profile-img-placeholder">
-                        <img src="logo/profil.png" alt="Agung Alvian">
+                    <div class="profile-frame">
+                        <div class="profile-img">
+                            <!-- Ganti dengan foto asli Anda -->
+                            <img src="logo/profil.png" alt="Agung Alvian">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -948,7 +988,7 @@
                     </div>
                     <div class="project-content">
                         <h3>Integrasi Platform Core Application</h3>
-                        <p>Integrasi platform untuk core application berbeda ke dalam satu environment Kubernetes dan satu data center.</p>
+                        <p>Integrasi platform untuk core application berbeda ke dalam satu environment Kubernetes dan hybrid datacenter.</p>
                         <div class="tech-stack">
                             <div class="tech-item"><i class="fab fa-java"></i> Java</div>
                             <div class="tech-item"><i class="fab fa-golang"></i> Golang</div>
@@ -973,7 +1013,6 @@
                             <div class="tech-item"><i class="fas fa-exchange-alt"></i> Change Management</div>
                             <div class="tech-item"><i class="fas fa-boxes"></i> Asset Management</div>
                             <div class="tech-item"><i class="fas fa-book"></i> Knowledge Base</div>
-                            <div class="tech-item"><i class="fas fa-project"></i> Project Management</div>
                         </div>
                     </div>
                 </div>
@@ -1043,7 +1082,7 @@
                     <ul class="skill-list">
                         <li><i class="fas fa-check"></i> Keycloak IAM</li>
                         <li><i class="fas fa-check"></i> Burp Suite</li>
-                        <li><i class="fas fa-check"></i> SAST/DAST</li>
+                        <li><i class="fas fa-check"></i> Sonatype</li>
                         <li><i class="fas fa-check"></i> Grafana Monitoring</li>
                         <li><i class="fas fa-check"></i> SigNoz Logging</li>
                     </ul>
@@ -1111,10 +1150,10 @@
             <div class="contact-container">
                 <div class="contact-info">
                     <h3>Mari Berkolaborasi</h3>
-                    <p>Saya terbuka untuk peluang baru dan kolaborasi dalam proyek IT Infrastructure yang menantang. Jangan ragu untuk menghubungi saya.</p>
+                    <p>Saya terbuka untuk peluang baru dan kolaborasi dalam proyek IT yang menantang. Jangan ragu untuk menghubungi saya.</p>
                     <ul class="contact-details">
-                        <li><i class="fas fa-envelope"></i> agung.alvian@example.com</li>
-                        <li><i class="fas fa-phone"></i> +62 812 3365 3953</li>
+                        <li><i class="fas fa-envelope"></i> agungalvianid@gmail.com</li>
+                        <li><i class="fas fa-phone"></i> +62 813 3653 9353</li>
                         <li><i class="fas fa-map-marker-alt"></i> Depok, Indonesia</li>
                     </ul>
                 </div>
