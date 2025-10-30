@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografik Ekosistem Digital BP Tapera</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Brilliant Blues (#004386, #005CB9, #007FFF, #41AFFF, #8EDFFF) -->
+    <!-- Application Structure Plan: Infografik ini mengikuti alur naratif dari atas ke bawah. Dimulai dengan pengenalan visi digital BP Tapera. Bagian utama adalah 'Peta Ekosistem Digital' (dibuat dengan HTML/Tailwind, TANPA SVG) yang menunjukkan hubungan antara BP Tapera, pemangku kepentingan (Peserta, Pengembang, dll.), dan layanan digital spesifik mereka (Sikasep, Sikumbang, dll.). Visualisasi "Organizational" ini memberikan konteks. Halaman kemudian berlanjut ke 'Indikator Kinerja Utama', yang menggunakan visualisasi "Inform" (Angka Besar), "Compare" (Grafik Batang), dan "Composition" (Grafik Donat) (menggunakan Chart.js) untuk menyajikan data hipotetis namun realistis (misalnya, adopsi pengguna, kepatuhan SLA, unit rumah) untuk mengukur dampak ekosistem. Struktur ini beralih dari 'apa' (sistemnya) ke 'lalu bagaimana' (hasilnya). -->
+    <!-- Visualization & Content Choices: 1. Info: Hubungan Pemangku Kepentingan/Layanan (Sikasep -> Peserta). Goal: Organize/Relationships. Viz Method: Peta ekosistem yang dibangun dengan HTML/Tailwind (layout grid, border, kartu). Justification: Menjelaskan sistem yang kompleks secara visual tanpa SVG/Mermaid (yang dilarang). Library: N/A (HTML/Tailwind). 2. Info: KPI Hipotetis "Total Pengguna Digital". Goal: Inform. Viz Method: Statistik "Big Number" (teks HTML besar). Justification: KPI berdampak tinggi, mudah dicerna. Library: N/A (HTML/Tailwind). 3. Info: KPI Hipotetis "Adopsi Pengguna per Layanan". Goal: Compare (Composition). Viz Method: Donut Chart (Chart.js di Canvas). Data: [Tapera Mobile, Sikasep, Sitara, Sikumbang]. Justification: Menunjukkan rincian dari statistik "Total Pengguna". Termasuk config tooltip yang diperlukan. Library: Chart.js. 4. Info: KPI Hipotetis "Kepatuhan SLA e-Klaim". Goal: Compare. Viz Method: Bar Chart (Chart.js di Canvas). Data: Target vs Waktu proses aktual (misal Target 5 hari, Aktual 4.5 hari). Justification: Perbandingan kinerja yang jelas terhadap standar utama. Termasuk config tooltip yang diperlukan. Library: Chart.js. 5. Info: KPI Hipotetis "Saluran Ekosistem Perumahan". Goal: Compare (Change/Flow). Viz Method: Horizontal Bar Chart (Chart.js di Canvas). Data: [Unit terdaftar (Sikumbang), Pengajuan KPR (Sikasep), Unit dibiayai (API)]. Justification: Menampilkan "funnel" proses perumahan. Label 'Unit terdaftar (Sikumbang)' akan memicu logika wrapping >16 karakter. Library: Chart.js. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1f2937;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .stakeholder-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+        .stakeholder-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-4px);
+        }
+        .service-tag {
+            background-color: #e0f2fe;
+            color: #005CB9;
+            border: 1px solid #007FFF;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <h1 class="text-2xl md:text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-[#004386] to-[#007FFF]">
+                Infografik Ekosistem Digital BP Tapera
+            </h1>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-4 md:p-8 space-y-12 md:space-y-16">
+
+        <section id="intro" class="text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Menghubungkan Kebutuhan, Mewujudkan Hunian</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                BP Tapera telah membangun ekosistem digital terintegrasi untuk melayani seluruh pemangku kepentingan. Dari peserta individu hingga pengembang dan mitra perbankan, setiap layanan dirancang untuk transparansi, kemudahan, dan percepatan kepemilikan rumah.
+            </p>
+        </section>
+
+        <section id="ecosystem-map">
+            <div class="bg-white p-6 rounded-lg shadow-xl">
+                <h2 class="text-3xl font-bold text-center mb-10 md:mb-16 text-gray-900">Peta Ekosistem Layanan</h2>
+                <div class="grid grid-cols-3 gap-4 md:gap-8 items-center justify-center">
+
+                    <div class="space-y-4 flex flex-col items-end col-span-1">
+                        <div class="stakeholder-card text-right w-full">
+                            <h3 class="font-bold text-xl text-[#004386]">👤 Peserta</h3>
+                            <p class="text-sm text-gray-600 mb-3">Individu/Pekerja penabung Tapera.</p>
+                            <div class="flex flex-col items-end space-y-2">
+                                <span class="service-tag text-xs font-medium px-2 py-1 rounded-full">Tapera Mobile</span>
+                                <span class="service-tag text-xs font-medium px-2 py-1 rounded-full">Sikasep</span>
+                                <span class="service-tag text-xs font-medium px-2 py-1 rounded-full">e-Klaim</span>
+                            </div>
+                        </div>
+                        <div class="stakeholder-card text-right w-full">
+                            <h3 class="font-bold text-xl text-[#004386]">💼 Pemberi Kerja</h3>
+                            <p class="text-sm text-gray-600 mb-3">Perusahaan/Instansi pendaftar peserta.</p>
+                            <div class="flex flex-col items-end space-y-2">
+                                <span class="service-tag text-xs font-medium px-2 py-1 rounded-full">Sitara</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-span-1 flex justify-center relative">
+                        <div class="w-40 h-40 md:w-56 md:h-56 bg-gradient-to-br from-[#004386] to-[#007FFF] text-white rounded-full flex items-center justify-center p-4 text-center shadow-2xl z-10">
+                            <span class="font-bold text-2xl md:text-3xl">BP Tapera</span>
+                        </div>
+                        <div class="absolute inset-0 bg-[#8EDFFF] opacity-30 rounded-full blur-2xl"></div>
+                    </div>
+
+                    <div class="space-y-4 flex flex-col items-start col-span-1">
+                        <div class="stakeholder-card text-left w-full">
+                            <h3 class="font-bold text-xl text-[#004386]">🏘️ Pengembang</h3>
+                            <p class="text-sm text-gray-600 mb-3">Penyedia perumahan bersubsidi.</p>
+                            <div class="flex flex-col items-start space-y-2">
+                                <span class="service-tag text-xs font-medium px-2 py-1 rounded-full">Sikumbang</span>
+                            </div>
+                        </div>
+                        <div class="stakeholder-card text-left w-full">
+                            <h3 class="font-bold text-xl text-[#004386]">🏦 Mitra & Bank</h3>
+                            <p class="text-sm text-gray-600 mb-3">Lembaga penyalur pembiayaan.</p>
+                            <div class="flex flex-col items-start space-y-2">
+                                <span class="service-tag text-xs font-medium px-2 py-1 rounded-full">API Tapera</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center mt-4 md:mt-8 col-span-3">
+                    <div class="stakeholder-card text-center w-full max-w-xs">
+                        <h3 class="font-bold text-xl text-[#004386]">📢 Publik & Umum</h3>
+                        <p class="text-sm text-gray-600 mb-3">Masyarakat umum pencari informasi.</p>
+                        <div class="flex flex-col items-center space-y-2">
+                            <span class="service-tag text-xs font-medium px-2 py-1 rounded-full">Tapera Digital Service</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="kpi">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">Kinerja Ekosistem dalam Angka</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto text-center mb-10 md:mb-16">
+                Data (hipotetis) menunjukkan bagaimana ekosistem digital ini memberikan dampak nyata dalam pelayanan dan penyaluran manfaat Tapera.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                
+                <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col justify-center items-center text-center">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-2">Total Pengguna Digital Terdaftar</h3>
+                    <p class="text-6xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#005CB9] to-[#007FFF]">
+                        5.4 Juta
+                    </p>
+                    <p class="text-gray-600 mt-2">Pengguna terverifikasi di seluruh platform (Peserta, Pengembang, dan Pemberi Kerja).</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-2">Adopsi Pengguna per Layanan</h3>
+                    <p class="text-gray-600 mb-4">Distribusi pengguna aktif terbanyak ada pada layanan yang berhadapan langsung dengan peserta.</p>
+                    <div class="chart-container" style="height: 300px; max-height: 350px;">
+                        <canvas id="adoptionChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-2">Kepatuhan SLA e-Klaim</h3>
+                    <p class="text-gray-600 mb-4">Waktu pemrosesan rata-rata untuk pengembalian tabungan berhasil dijaga di bawah target SLA.</p>
+                    <div class="chart-container">
+                        <canvas id="slaChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-2">Alur Ekosistem Perumahan</h3>
+                    <p class="text-gray-600 mb-4">Data menunjukkan jumlah unit rumah yang terverifikasi di Sikumbang dan yang telah diajukan melalui Sikasep.</p>
+                    <div class="chart-container">
+                        <canvas id="funnelChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2025 BP Tapera. Infografik ini adalah representasi data hipotetis untuk tujuan ilustrasi.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const palette = {
+                blue800: '#004386',
+                blue700: '#005CB9',
+                blue500: '#007FFF',
+                blue300: '#41AFFF',
+                blue100: '#8EDFFF'
+            };
+
+            const requiredTooltipCallback = {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            };
+
+            function wrapLabel(label) {
+                const maxLen = 16;
+                if (typeof label !== 'string' || label.length <= maxLen) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                for (const word of words) {
+                    if ((currentLine + ' ' + word).length > maxLen && currentLine.length > 0) {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    } else {
+                        currentLine += (currentLine.length > 0 ? ' ' : '') + word;
+                    }
+                }
+                if (currentLine.length > 0) {
+                    lines.push(currentLine);
+                }
+                return lines;
+            }
+
+            Chart.defaults.font.family = 'Inter, sans-serif';
+            Chart.defaults.font.weight = '500';
+
+            const adoptionCtx = document.getElementById('adoptionChart').getContext('2d');
+            new Chart(adoptionCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Tapera Mobile', 'Sikasep', 'Sitara (Pemberi Kerja)', 'Sikumbang (Pengembang)'],
+                    datasets: [{
+                        label: 'Jumlah Pengguna',
+                        data: [3500000, 1200000, 500000, 200000],
+                        backgroundColor: [
+                            palette.blue700,
+                            palette.blue500,
+                            palette.blue300,
+                            palette.blue100
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                            callbacks: requiredTooltipCallback
+                        }
+                    }
+                }
+            });
+
+            const slaCtx = document.getElementById('slaChart').getContext('2d');
+            new Chart(slaCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Proses e-Klaim (Hari Kerja)'],
+                    datasets: [
+                        {
+                            label: 'Target SLA',
+                            data: [10],
+                            backgroundColor: palette.blue300,
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Realisasi Rata-rata',
+                            data: [8.5],
+                            backgroundColor: palette.blue700,
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Hari Kerja'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                            callbacks: requiredTooltipCallback
+                        }
+                    }
+                }
+            });
+
+            const funnelCtx = document.getElementById('funnelChart').getContext('2d');
+            new Chart(funnelCtx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        wrapLabel('Unit Rumah Terdaftar (Sikumbang)'),
+                        wrapLabel('Pengajuan KPR Diterima (Sikasep)'),
+                        wrapLabel('KPR Selesai Dibiayai (via API Mitra)')
+                    ],
+                    datasets: [{
+                        label: 'Jumlah Unit Rumah',
+                        data: [120000, 75000, 68000],
+                        backgroundColor: [
+                            palette.blue700,
+                            palette.blue500,
+                            palette.blue300
+                        ],
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Jumlah Unit'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: requiredTooltipCallback
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+
+</body>
+</html>
