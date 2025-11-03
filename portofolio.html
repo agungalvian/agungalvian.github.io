@@ -340,6 +340,14 @@
             background: linear-gradient(135deg, #FF6B35, #F7931E);
         }
         
+        .project-img.cicd {
+            background: linear-gradient(135deg, #8E44AD, #3498DB);
+        }
+        
+        .project-img.ai-chatbot {
+            background: linear-gradient(135deg, #00C9FF, #92FE9D);
+        }
+        
         .migration-animation {
             position: absolute;
             width: 100%;
@@ -406,6 +414,36 @@
         .marketplace-animation i {
             font-size: 5rem;
             animation: housePulse 3s ease-in-out infinite;
+        }
+        
+        .cicd-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .cicd-animation i {
+            font-size: 5rem;
+            animation: pipelineFlow 4s linear infinite;
+        }
+        
+        .ai-chatbot-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .ai-chatbot-animation i {
+            font-size: 5rem;
+            animation: aiPulse 2s ease-in-out infinite;
         }
         
         .project-content {
@@ -828,6 +866,35 @@
             }
         }
         
+        @keyframes pipelineFlow {
+            0% {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(20px);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes aiPulse {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 0px rgba(255, 255, 255, 0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            }
+            100% {
+                transform: scale(1);
+                text-shadow: 0 0 0px rgba(255, 255, 255, 0.5);
+            }
+        }
+        
         /* Responsive Design */
         @media (max-width: 992px) {
             .about-content {
@@ -937,7 +1004,7 @@
     <section class="hero" id="home">
         <div class="container">
             <h1>Agung Alvian</h1>
-            <p>IT Infrastructure Manager dengan pengalaman lebih dari 15 tahun dalam mengelola data center, cloud computing, dan implementasi DevOps.</p>
+            <p>IT Infrastructure Manager dengan pengalaman lebih dari 15 tahun dalam manajemen data center, cloud computing, implementasi DevOps dan AI Integration.</p>
             <a href="#projects" class="btn">Lihat Proyek Saya</a>
         </div>
     </section>
@@ -951,7 +1018,7 @@
             <div class="about-content">
                 <div class="about-text">
                     <h3>IT Infrastructure Manager</h3>
-                    <p>Saya adalah seorang profesional IT dengan pengalaman lebih dari 15 tahun di industri teknologi informasi. Saya memiliki keahlian khusus dalam migrasi data center, implementasi cloud computing, dan pengelolaan infrastruktur IT yang kompleks.</p>
+                    <p>Saya adalah seorang IT Infrastructure manager dengan pengalaman lebih dari 15 tahun di industri teknologi informasi. Saya memiliki keahlian khusus dalam migrasi data center, implementasi cloud computing, dan pengelolaan infrastruktur IT yang kompleks.</p>
                     <p>Selama karir saya, saya telah memimpin berbagai proyek migrasi skala besar, membangun arsitektur cloud yang tangguh, dan mengimplementasikan praktik DevOps untuk meningkatkan efisiensi operasional.</p>
                     <p>Saya memiliki kemampuan dalam memimpin tim, mengelola proyek kompleks, dan memberikan solusi IT yang inovatif untuk memenuhi kebutuhan bisnis.</p>
                 </div>
@@ -1107,6 +1174,49 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Project 8 - CI/CD Implementation -->
+                <div class="project-card">
+                    <div class="project-img cicd">
+                        <div class="cicd-animation">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>CI/CD Pipeline Implementation</h3>
+                        <p>Mengimplementasikan end-to-end CI/CD pipeline untuk otomasi pengembangan dan deployment aplikasi dengan tools modern DevOps.</p>
+                        <div class="tech-stack">
+                            <div class="tech-item"><i class="fab fa-gitlab"></i> GitLab</div>
+                            <div class="tech-item"><i class="fas fa-code"></i> Jenkins</div>
+                            <div class="tech-item"><i class="fas fa-rocket"></i> ArgoCD</div>
+                            <div class="tech-item"><i class="fas fa-tachometer-alt"></i> K6</div>
+                            <div class="tech-item"><i class="fas fa-vial"></i> Katalon</div>
+                            <div class="tech-item"><i class="fas fa-ship"></i> Docker</div>
+                            <div class="tech-item"><i class="fas fa-cubes"></i> Kubernetes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 9 - AI Chatbot -->
+                <div class="project-card">
+                    <div class="project-img ai-chatbot">
+                        <div class="ai-chatbot-animation">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>AI Financial Chatbot</h3>
+                        <p>Membuat chatbot AI untuk pengelolaan keuangan dengan kemampuan analisa laporan keuangan dan OCR untuk ekstraksi data dari kwitansi pembayaran.</p>
+                        <div class="tech-stack">
+                            <div class="tech-item"><i class="fas fa-brain"></i> n8n</div>
+                            <div class="tech-item"><i class="fas fa-gem"></i> Gemini AI</div>
+                            <div class="tech-item"><i class="fas fa-eye"></i> OCR</div>
+                            <div class="tech-item"><i class="fas fa-comments"></i> Chatbot</div>
+                            <div class="tech-item"><i class="fas fa-file-invoice-dollar"></i> Financial Analysis</div>
+                            <div class="tech-item"><i class="fas fa-receipt"></i> Receipt Processing</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1125,7 +1235,7 @@
                         <li><i class="fas fa-check"></i> Alibaba Cloud</li>
                         <li><i class="fas fa-check"></i> Kubernetes</li>
                         <li><i class="fas fa-check"></i> Docker</li>
-                        <li><i class="fas fa-check"></i> Server & Storage</li>
+                        <li><i class="fas fa-check"></i> Data Center Migration</li>
                     </ul>
                 </div>
                 
@@ -1143,21 +1253,25 @@
                     <h3><i class="fas fa-tools"></i> DevOps Tools</h3>
                     <ul class="skill-list">
                         <li><i class="fas fa-check"></i> Jenkins</li>
-                        <li><i class="fas fa-check"></i> Gitlab</li>
+                        <li><i class="fas fa-check"></i> Bitbucket</li>
                         <li><i class="fas fa-check"></i> Nexus</li>
                         <li><i class="fas fa-check"></i> Spinnaker</li>
                         <li><i class="fas fa-check"></i> SonarQube</li>
+                        <li><i class="fas fa-check"></i> GitLab</li>
+                        <li><i class="fas fa-check"></i> ArgoCD</li>
                     </ul>
                 </div>
                 
                 <div class="skill-category">
-                    <h3><i class="fas fa-shield-alt"></i> Security & Monitoring</h3>
+                    <h3><i class="fas fa-shield-alt"></i> Security & AI</h3>
                     <ul class="skill-list">
                         <li><i class="fas fa-check"></i> Keycloak IAM</li>
                         <li><i class="fas fa-check"></i> Burp Suite</li>
                         <li><i class="fas fa-check"></i> SAST/DAST</li>
                         <li><i class="fas fa-check"></i> Grafana Monitoring</li>
-                        <li><i class="fas fa-check"></i> SigNoz Logging</li>
+                        <li><i class="fas fa-check"></i> n8n Automation</li>
+                        <li><i class="fas fa-check"></i> AI Integration</li>
+                        <li><i class="fas fa-check"></i> OCR Technology</li>
                     </ul>
                 </div>
             </div>
