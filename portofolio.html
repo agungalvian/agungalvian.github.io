@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agung Alvian - IT Infrastructure Professional</title>
+    <title>Agung Alvian - IT Infrastructure Manager</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -336,6 +336,10 @@
             background: linear-gradient(135deg, #F46800, #6C63FF);
         }
         
+        .project-img.marketplace {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+        }
+        
         .migration-animation {
             position: absolute;
             width: 100%;
@@ -389,6 +393,21 @@
             animation: chartPulse 2s infinite;
         }
         
+        .marketplace-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .marketplace-animation i {
+            font-size: 5rem;
+            animation: housePulse 3s ease-in-out infinite;
+        }
+        
         .project-content {
             padding: 30px;
         }
@@ -404,6 +423,22 @@
             margin-bottom: 20px;
             color: #6e6e73;
             line-height: 1.6;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+        
+        .project-link:hover {
+            color: #0051a8;
+            transform: translateX(5px);
         }
         
         .tech-stack {
@@ -781,6 +816,18 @@
             }
         }
         
+        @keyframes housePulse {
+            0% {
+                transform: scale(1) translateY(0px);
+            }
+            50% {
+                transform: scale(1.1) translateY(-5px);
+            }
+            100% {
+                transform: scale(1) translateY(0px);
+            }
+        }
+        
         /* Responsive Design */
         @media (max-width: 992px) {
             .about-content {
@@ -890,7 +937,7 @@
     <section class="hero" id="home">
         <div class="container">
             <h1>Agung Alvian</h1>
-            <p>IT Professional dengan pengalaman lebih dari 15 tahun, Kini fokus Mendorong Transformasi Digital yang Berdampak</p>
+            <p>IT Infrastructure Manager dengan pengalaman lebih dari 15 tahun dalam mengelola data center, cloud computing, dan implementasi DevOps.</p>
             <a href="#projects" class="btn">Lihat Proyek Saya</a>
         </div>
     </section>
@@ -903,8 +950,8 @@
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <h3>IT Infrastructure Professional</h3>
-                    <p>Saya adalah seorang profesional IT Infrastructure dengan pengalaman lebih dari 15 tahun di industri teknologi informasi. Saya memiliki keahlian khusus dalam migrasi data center, implementasi cloud computing, dan pengelolaan infrastruktur IT yang kompleks.</p>
+                    <h3>IT Infrastructure Manager</h3>
+                    <p>Saya adalah seorang profesional IT dengan pengalaman lebih dari 15 tahun di industri teknologi informasi. Saya memiliki keahlian khusus dalam migrasi data center, implementasi cloud computing, dan pengelolaan infrastruktur IT yang kompleks.</p>
                     <p>Selama karir saya, saya telah memimpin berbagai proyek migrasi skala besar, membangun arsitektur cloud yang tangguh, dan mengimplementasikan praktik DevOps untuk meningkatkan efisiensi operasional.</p>
                     <p>Saya memiliki kemampuan dalam memimpin tim, mengelola proyek kompleks, dan memberikan solusi IT yang inovatif untuk memenuhi kebutuhan bisnis.</p>
                 </div>
@@ -912,7 +959,8 @@
                     <div class="profile-frame">
                         <div class="profile-img">
                             <!-- Ganti dengan foto asli Anda -->
-                            <img src="logo/profil.png" alt="Agung Alvian">
+                            <!-- <img src="foto-agung.jpg" alt="Agung Alvian"> -->
+                            <i class="fas fa-user-tie"></i>
                         </div>
                     </div>
                 </div>
@@ -987,7 +1035,7 @@
                     </div>
                     <div class="project-content">
                         <h3>Integrasi Platform Core Application</h3>
-                        <p>Integrasi platform untuk core application berbeda ke dalam satu environment Kubernetes dan hybrid datacenter.</p>
+                        <p>Integrasi platform untuk core application berbeda ke dalam satu environment Kubernetes dan satu data center.</p>
                         <div class="tech-stack">
                             <div class="tech-item"><i class="fab fa-java"></i> Java</div>
                             <div class="tech-item"><i class="fab fa-golang"></i> Golang</div>
@@ -1005,7 +1053,7 @@
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>ITSM Tools</h3>
+                        <h3>ITSM Tools Development</h3>
                         <p>Membuat tools ITSM (IT Service Management) menggunakan open source yang dikustomisasi dengan berbagai fitur lengkap.</p>
                         <div class="tech-stack">
                             <div class="tech-item"><i class="fas fa-ticket-alt"></i> Helpdesk</div>
@@ -1024,12 +1072,38 @@
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>Implementasi Monitoring & Observability</h3>
+                        <h3>Implementation Monitoring & Observability</h3>
                         <p>Mengimplementasikan comprehensive monitoring solution untuk availability, performance, dan log monitoring menggunakan tools modern.</p>
                         <div class="tech-stack">
                             <div class="tech-item"><i class="fas fa-chart-line"></i> Grafana</div>
                             <div class="tech-item"><i class="fas fa-search"></i> SigNoz</div>
-                            <div class="tech-item"><i class="fas fa-bell"></i> Tianji</div>
+                            <div class="tech-item"><i class="fas fa-bell"></i> Alerting</div>
+                            <div class="tech-item"><i class="fas fa-tachometer-alt"></i> Performance</div>
+                            <div class="tech-item"><i class="fas fa-clipboard-list"></i> Dashboard</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 7 - Rumago.id -->
+                <div class="project-card">
+                    <div class="project-img marketplace">
+                        <div class="marketplace-animation">
+                            <i class="fas fa-home"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Marketplace Perumahan Rumago.id</h3>
+                        <a href="https://rumago.id" target="_blank" class="project-link">
+                            <i class="fas fa-external-link-alt"></i>
+                            https://rumago.id
+                        </a>
+                        <p>Mengembangkan platform marketplace perumahan yang berfokus pada perumahan subsidi. Platform ini menghubungkan developer dengan calon pembeli dan menyediakan informasi lengkap tentang program perumahan subsidi.</p>
+                        <div class="tech-stack">
+                            <div class="tech-item"><i class="fas fa-globe"></i> Web Platform</div>
+                            <div class="tech-item"><i class="fas fa-database"></i> Database</div>
+                            <div class="tech-item"><i class="fas fa-mobile-alt"></i> Responsive</div>
+                            <div class="tech-item"><i class="fas fa-search"></i> SEO Optimized</div>
+                            <div class="tech-item"><i class="fas fa-house-user"></i> Property Listing</div>
                         </div>
                     </div>
                 </div>
@@ -1051,7 +1125,7 @@
                         <li><i class="fas fa-check"></i> Alibaba Cloud</li>
                         <li><i class="fas fa-check"></i> Kubernetes</li>
                         <li><i class="fas fa-check"></i> Docker</li>
-                        <li><i class="fas fa-check"></i> Data Center Migration</li>
+                        <li><i class="fas fa-check"></i> Server & Storage</li>
                     </ul>
                 </div>
                 
@@ -1061,7 +1135,7 @@
                         <li><i class="fas fa-check"></i> Oracle Database</li>
                         <li><i class="fas fa-check"></i> CockroachDB</li>
                         <li><i class="fas fa-check"></i> Exadata</li>
-                        <li><i class="fas fa-check"></i> Postgresql</li>
+                        <li><i class="fas fa-check"></i> IBM DB2</li>
                     </ul>
                 </div>
                 
@@ -1069,7 +1143,7 @@
                     <h3><i class="fas fa-tools"></i> DevOps Tools</h3>
                     <ul class="skill-list">
                         <li><i class="fas fa-check"></i> Jenkins</li>
-                        <li><i class="fas fa-check"></i> Bitbucket</li>
+                        <li><i class="fas fa-check"></i> Gitlab</li>
                         <li><i class="fas fa-check"></i> Nexus</li>
                         <li><i class="fas fa-check"></i> Spinnaker</li>
                         <li><i class="fas fa-check"></i> SonarQube</li>
@@ -1081,7 +1155,7 @@
                     <ul class="skill-list">
                         <li><i class="fas fa-check"></i> Keycloak IAM</li>
                         <li><i class="fas fa-check"></i> Burp Suite</li>
-                        <li><i class="fas fa-check"></i> Sonatype</li>
+                        <li><i class="fas fa-check"></i> SAST/DAST</li>
                         <li><i class="fas fa-check"></i> Grafana Monitoring</li>
                         <li><i class="fas fa-check"></i> SigNoz Logging</li>
                     </ul>
@@ -1149,7 +1223,7 @@
             <div class="contact-container">
                 <div class="contact-info">
                     <h3>Mari Berkolaborasi</h3>
-                    <p>Saya terbuka untuk peluang baru dan kolaborasi dalam proyek IT yang menantang. Jangan ragu untuk menghubungi saya.</p>
+                    <p>Saya terbuka untuk peluang baru dan kolaborasi dalam proyek IT Infrastructure yang menantang. Jangan ragu untuk menghubungi saya.</p>
                     <ul class="contact-details">
                         <li><i class="fas fa-envelope"></i> agungalvianid@gmail.com</li>
                         <li><i class="fas fa-phone"></i> +62 813 3653 9353</li>
@@ -1191,7 +1265,7 @@
                     <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
                 </div>
-                <p class="footer-text">&copy; 2025 Agung Alvian. All Rights Reserved.</p>
+                <p class="footer-text">&copy; 2023 Agung Alvian. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
