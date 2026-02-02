@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Keuangan Rawinda Pratama</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js for Graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        
+        /* Utility Classes */
+        .hidden-section { display: none !important; }
+        .card-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        
+        /* Animation */
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="text-gray-800 antialiased h-screen flex flex-col overflow-hidden">
+
+    <!-- ========================================== -->
+    <!-- 1. HALAMAN LOGIN -->
+    <!-- ========================================== -->
+    <section id="page-login" class="flex-1 flex flex-col justify-center items-center p-6 bg-slate-900 relative overflow-hidden">
+        <!-- Decoration Background -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20">
+            <i class="fa-solid fa-money-bill-wave text-9xl absolute -top-10 -left-10 text-white transform rotate-12"></i>
+            <i class="fa-solid fa-chart-pie text-9xl absolute bottom-10 right-10 text-white transform -rotate-12"></i>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md z-10 fade-in">
+            <div class="text-center mb-8">
+                <div class="h-16 w-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/50">
+                    <i class="fa-solid fa-house-chimney text-3xl text-white"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800">Rawinda Pratama</h1>
+                <p class="text-gray-500 text-sm mt-1">Sistem Manajemen Keuangan Terpadu</p>
+            </div>
+
+            <form onsubmit="handleLogin(event)">
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Username / No. Rumah</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        <input type="text" id="login-username" class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition" placeholder="Contoh: admin">
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                        <input type="password" id="login-password" class="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition" placeholder="••••••••">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition shadow-lg shadow-blue-500/30">
+                    Masuk Aplikasi
+                </button>
+            </form>
+
+            <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-100 text-xs text-blue-800">
+                <p class="font-bold mb-1"><i class="fa-solid fa-circle-info mr-1"></i> Info Login (Default):</p>
+                <ul class="list-disc pl-4 space-y-1">
+                    <li><b>Admin Utama:</b> User: <code>admin</code> | Pass: <code>admin</code></li>
+                    <li><b>Warga:</b> User: <code>warga</code> | Pass: <code>warga</code></li>
+                </ul>
+            </div>
+        </div>
+        <p class="text-slate-500 text-xs mt-8 z-10">&copy; 2026 Rawinda Pratama Digital</p>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 2. HALAMAN DASHBOARD WARGA -->
+    <!-- ========================================== -->
+    <section id="page-warga" class="flex-1 flex flex-col h-full bg-gray-50 hidden-section">
+        <!-- Navbar Warga -->
+        <nav class="bg-white border-b border-gray-200 shadow-sm z-30 sticky top-0">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <span class="text-blue-600 text-lg font-bold mr-6"><i class="fa-solid fa-house-user mr-2"></i>Rawinda App</span>
+                        
+                        <!-- Warga Navigation Tabs -->
+                        <div class="hidden md:flex space-x-1">
+                            <button onclick="switchWargaTab('home')" id="btn-warga-home" class="px-3 py-2 rounded-md text-sm font-medium bg-blue-50 text-blue-700 transition">
+                                <i class="fa-solid fa-house mr-1"></i> Beranda
+                            </button>
+                            <button onclick="switchWargaTab('laporan')" id="btn-warga-laporan" class="px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition">
+                                <i class="fa-solid fa-file-invoice-dollar mr-1"></i> Laporan Keuangan
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="text-right hidden sm:block">
+                            <p class="text-sm font-bold text-gray-700">Bpk. Budi Santoso</p>
+                            <p class="text-xs text-gray-500">Blok A1 - No. 05</p>
+                        </div>
+                        <button onclick="logout()" class="text-red-500 hover:text-red-700 text-sm font-semibold ml-2">
+                            <i class="fa-solid fa-right-from-bracket mr-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile Menu Tabs -->
+            <div class="md:hidden border-t border-gray-100 grid grid-cols-2 text-center bg-gray-50">
+                 <button onclick="switchWargaTab('home')" id="mob-warga-home" class="py-3 text-sm font-bold text-blue-600 border-b-2 border-blue-600">Beranda</button>
+                 <button onclick="switchWargaTab('laporan')" id="mob-warga-laporan" class="py-3 text-sm font-medium text-gray-500 border-b-2 border-transparent">Laporan</button>
+            </div>
+        </nav>
+
+        <!-- Content Warga -->
+        <main class="flex-1 overflow-y-auto p-4 sm:p-6 bg-gray-50">
+            <div class="max-w-5xl mx-auto">
+                
+                <!-- VIEW 1: WARGA DASHBOARD / BERANDA -->
+                <div id="warga-view-home" class="fade-in space-y-6">
+                    
+                    <!-- Status Tagihan -->
+                    <div class="bg-white rounded-xl shadow-sm border-l-4 border-red-500 overflow-hidden">
+                        <div class="p-6 flex flex-col sm:flex-row justify-between items-center bg-red-50/50">
+                            <div class="mb-4 sm:mb-0">
+                                <p class="text-sm text-red-600 font-bold flex items-center">
+                                    <i class="fa-solid fa-triangle-exclamation mr-2"></i> Tagihan Belum Dibayar
+                                </p>
+                                <p class="text-3xl font-extrabold text-gray-800 mt-2">Rp 140.000</p>
+                                <p class="text-xs text-gray-500 mt-1">Akumulasi Januari & Februari 2026</p>
+                            </div>
+                            <button onclick="toggleModal('modal-upload')" class="bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-8 rounded-lg shadow-md transition transform hover:scale-105">
+                                <i class="fa-solid fa-upload mr-2"></i> Bayar Sekarang
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Transparansi Cards -->
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-800 mb-3 flex items-center">
+                            <i class="fa-solid fa-chart-simple mr-2 text-blue-600"></i> Transparansi Dana Komplek
+                        </h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <!-- Card 1: Total Saldo -->
+                            <div class="bg-blue-600 rounded-xl p-5 text-white shadow-lg relative overflow-hidden">
+                                <div class="relative z-10">
+                                    <p class="text-blue-100 text-xs uppercase font-bold">Total Saldo Kas</p>
+                                    <p class="text-2xl font-bold mt-1">Rp 15.450.000</p>
+                                    <div class="mt-4 text-xs bg-blue-800 bg-opacity-50 inline-block px-2 py-1 rounded">
+                                        +2.1jt bulan ini
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-wallet absolute right-4 bottom-4 text-white text-6xl opacity-20"></i>
+                            </div>
+                            
+                            <!-- Card 2: Kas Perumahan (NEW) -->
+                            <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+                                <p class="text-gray-500 text-xs uppercase font-bold">Kas Perumahan (50rb)</p>
+                                <p class="text-xl font-bold text-gray-800 mt-1">Rp 10.750.000</p>
+                                <div class="w-full bg-gray-100 h-1.5 rounded-full mt-3">
+                                    <div class="bg-blue-500 h-1.5 rounded-full" style="width: 70%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Card 3: Dana Sosial -->
+                            <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+                                <p class="text-gray-500 text-xs uppercase font-bold">Dana Sosial (10rb)</p>
+                                <p class="text-xl font-bold text-gray-800 mt-1">Rp 3.200.000</p>
+                                <div class="w-full bg-gray-100 h-1.5 rounded-full mt-3">
+                                    <div class="bg-green-500 h-1.5 rounded-full" style="width: 45%"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 4: Kas RT -->
+                            <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+                                <p class="text-gray-500 text-xs uppercase font-bold">Kas RT (10rb)</p>
+                                <p class="text-xl font-bold text-gray-800 mt-1">Rp 1.500.000</p>
+                                <div class="w-full bg-gray-100 h-1.5 rounded-full mt-3">
+                                    <div class="bg-purple-500 h-1.5 rounded-full" style="width: 20%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mutasi Terakhir -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                        <div class="px-6 py-4 border-b border-gray-100 bg-gray-50 font-bold text-gray-700">
+                            Mutasi Terakhir
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-600">
+                                <tbody class="divide-y divide-gray-100">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 w-24 text-gray-500">01 Feb</td>
+                                        <td class="px-6 py-4 font-medium text-gray-800">Pembayaran Iuran Warga (Anda)</td>
+                                        <td class="px-6 py-4 text-right font-bold text-green-600">+ Rp 70.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 text-gray-500">30 Jan</td>
+                                        <td class="px-6 py-4 font-medium text-gray-800">
+                                            Perbaikan Lampu Jalan Blok C
+                                            <span class="text-xs text-blue-500 ml-2 cursor-pointer hover:underline">[Bukti]</span>
+                                        </td>
+                                        <td class="px-6 py-4 text-right font-bold text-red-600">- Rp 150.000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW 2: WARGA LAPORAN KEUANGAN (NEW) -->
+                <div id="warga-view-laporan" class="hidden-section fade-in">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-800">Laporan Keuangan</h1>
+                            <p class="text-gray-500 text-sm mt-1">Bulan Berjalan: <span class="font-bold text-blue-600">Februari 2026</span></p>
+                        </div>
+                        <div class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full font-bold">
+                            <i class="fa-solid fa-circle-check mr-1"></i> Data Terverifikasi
+                        </div>
+                    </div>
+
+                    <!-- Summary Card (Warga View) -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-gray-100">
+                            <div class="pb-4 md:pb-0">
+                                <p class="text-gray-500 text-xs uppercase font-bold tracking-wide">Pemasukan Bulan Ini</p>
+                                <p class="text-xl font-bold text-green-600 mt-2" id="warga-total-in">Loading...</p>
+                            </div>
+                            <div class="py-4 md:py-0">
+                                <p class="text-gray-500 text-xs uppercase font-bold tracking-wide">Pengeluaran Bulan Ini</p>
+                                <p class="text-xl font-bold text-red-600 mt-2" id="warga-total-out">Loading...</p>
+                            </div>
+                            <div class="pt-4 md:pt-0">
+                                <p class="text-gray-500 text-xs uppercase font-bold tracking-wide">Surplus / Defisit</p>
+                                <p class="text-xl font-bold text-blue-600 mt-2">+ Rp 1.650.000</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Cards Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Card 1 -->
+                        <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm hover:shadow-md transition">
+                            <div class="flex items-center justify-between mb-4 border-b border-gray-100 pb-3">
+                                <h3 class="font-bold text-gray-800">Iuran Perumahan</h3>
+                                <div class="bg-blue-100 p-2 rounded-full text-blue-600"><i class="fa-solid fa-city"></i></div>
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between text-gray-600"><span>Pemasukan:</span> <span class="font-bold text-green-600" id="warga-housing-in">...</span></div>
+                                <div class="flex justify-between text-gray-600"><span>Pengeluaran:</span> <span class="font-bold text-red-600" id="warga-housing-out">...</span></div>
+                                <div class="flex justify-between font-bold pt-2 border-t border-gray-100 mt-2">
+                                    <span>Saldo Kas:</span> <span class="text-blue-700" id="warga-housing-bal">...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm hover:shadow-md transition">
+                            <div class="flex items-center justify-between mb-4 border-b border-gray-100 pb-3">
+                                <h3 class="font-bold text-gray-800">Dana Sosial</h3>
+                                <div class="bg-green-100 p-2 rounded-full text-green-600"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between text-gray-600"><span>Pemasukan:</span> <span class="font-bold text-green-600" id="warga-social-in">...</span></div>
+                                <div class="flex justify-between text-gray-600"><span>Pengeluaran:</span> <span class="font-bold text-red-600" id="warga-social-out">...</span></div>
+                                <div class="flex justify-between font-bold pt-2 border-t border-gray-100 mt-2">
+                                    <span>Saldo Kas:</span> <span class="text-green-700" id="warga-social-bal">...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm hover:shadow-md transition">
+                            <div class="flex items-center justify-between mb-4 border-b border-gray-100 pb-3">
+                                <h3 class="font-bold text-gray-800">Kas RT</h3>
+                                <div class="bg-purple-100 p-2 rounded-full text-purple-600"><i class="fa-solid fa-users"></i></div>
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between text-gray-600"><span>Pemasukan:</span> <span class="font-bold text-green-600" id="warga-rt-in">...</span></div>
+                                <div class="flex justify-between text-gray-600"><span>Pengeluaran:</span> <span class="font-bold text-red-600" id="warga-rt-out">...</span></div>
+                                <div class="flex justify-between font-bold pt-2 border-t border-gray-100 mt-2">
+                                    <span>Saldo Kas:</span> <span class="text-purple-700" id="warga-rt-bal">...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-blue-800 flex items-start">
+                        <i class="fa-solid fa-circle-info mt-0.5 mr-2"></i>
+                        <p>Laporan ini adalah ringkasan keuangan untuk bulan <b>Februari 2026</b>. Untuk detail laporan bulan sebelumnya atau detail transaksi, silakan hubungi pengurus RT atau Bendahara.</p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 3. HALAMAN DASHBOARD ADMIN -->
+    <!-- ========================================== -->
+    <section id="page-admin" class="flex-1 flex h-full hidden-section">
+        
+        <!-- Sidebar Admin -->
+        <aside class="w-64 bg-slate-900 text-white hidden md:flex flex-col shadow-xl z-20">
+            <div class="p-6 border-b border-slate-800">
+                <span class="text-xl font-bold tracking-wider text-blue-400 block">ADMIN</span>
+                <span class="text-xs text-slate-400 mt-1">Rawinda Pratama</span>
+            </div>
+            <nav class="flex-1 px-4 space-y-2 mt-6">
+                <button onclick="switchAdminTab('dashboard')" id="nav-dashboard" class="admin-nav-item active w-full flex items-center px-4 py-3 bg-blue-600 rounded-lg text-white shadow-lg transition text-left">
+                    <i class="fa-solid fa-chart-pie w-6"></i> <span class="font-medium">Dashboard</span>
+                </button>
+                <button onclick="switchAdminTab('warga')" id="nav-warga" class="admin-nav-item w-full flex items-center px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition text-left">
+                    <i class="fa-solid fa-users w-6"></i> <span class="font-medium">Data Warga</span>
+                </button>
+                <button onclick="switchAdminTab('rekap')" id="nav-rekap" class="admin-nav-item w-full flex items-center px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition text-left">
+                    <i class="fa-solid fa-calendar-check w-6"></i> <span class="font-medium">Rekap Tahunan</span>
+                </button>
+                <button onclick="switchAdminTab('transaksi')" id="nav-transaksi" class="admin-nav-item w-full flex items-center px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition group text-left">
+                    <i class="fa-solid fa-receipt w-6"></i> 
+                    <span class="font-medium">Transaksi</span>
+                    <span class="ml-auto bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">3</span>
+                </button>
+                <button onclick="switchAdminTab('laporan')" id="nav-laporan" class="admin-nav-item w-full flex items-center px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition text-left">
+                    <i class="fa-solid fa-file-invoice w-6"></i> <span class="font-medium">Laporan</span>
+                </button>
+                <!-- Menu Pengaturan (Renamed) -->
+                <button onclick="switchAdminTab('settings')" id="nav-settings" class="admin-nav-item w-full flex items-center px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition text-left">
+                    <i class="fa-solid fa-gears w-6"></i> <span class="font-medium">Pengaturan Sistem</span>
+                </button>
+            </nav>
+            <div class="p-4 border-t border-slate-800">
+                <button onclick="logout()" class="flex items-center w-full px-4 py-2 text-slate-400 hover:text-white transition">
+                    <i class="fa-solid fa-right-from-bracket w-6"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Admin -->
+        <div class="flex-1 flex flex-col h-full overflow-hidden bg-gray-100">
+            <!-- Mobile Header -->
+            <header class="bg-white shadow-sm h-16 flex items-center justify-between px-6 md:hidden z-10">
+                <span class="font-bold text-gray-800 text-lg">Admin Panel</span>
+                <button onclick="logout()" class="text-red-500"><i class="fa-solid fa-right-from-bracket"></i></button>
+            </header>
+
+            <main class="flex-1 overflow-y-auto p-6 md:p-8 relative">
+                
+                <!-- VIEW 1: DASHBOARD -->
+                <div id="admin-view-dashboard" class="admin-view fade-in">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-800">Ringkasan Keuangan</h1>
+                            <p class="text-gray-500 text-sm mt-1">Senin, 02 Februari 2026</p>
+                        </div>
+                        <!-- BUTTON GROUP: Pemasukan & Pengeluaran -->
+                        <div class="flex space-x-3">
+                            <button onclick="toggleModal('modal-income')" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg shadow-lg flex items-center transition">
+                                <i class="fa-solid fa-circle-plus mr-2"></i> Input Pemasukan
+                            </button>
+                            <button onclick="toggleModal('modal-expense')" class="bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-lg shadow-lg flex items-center transition">
+                                <i class="fa-solid fa-circle-minus mr-2"></i> Input Pengeluaran
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Summary Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                            <p class="text-xs font-bold text-gray-400 uppercase">Total Kas Tunai</p>
+                            <p class="text-3xl font-bold text-gray-800 mt-2">Rp 15.450.000</p>
+                        </div>
+                        <div class="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                            <p class="text-xs font-bold text-blue-500 uppercase">Kas Perumahan</p>
+                            <p class="text-2xl font-bold text-blue-900 mt-2">Rp 10.750.000</p>
+                        </div>
+                        <div class="bg-green-50 p-6 rounded-xl border border-green-100">
+                            <p class="text-xs font-bold text-green-500 uppercase">Dana Sosial</p>
+                            <p class="text-2xl font-bold text-green-900 mt-2">Rp 3.200.000</p>
+                        </div>
+                        <div class="bg-purple-50 p-6 rounded-xl border border-purple-100">
+                            <p class="text-xs font-bold text-purple-500 uppercase">Kas RT</p>
+                            <p class="text-2xl font-bold text-purple-900 mt-2">Rp 1.500.000</p>
+                        </div>
+                    </div>
+
+                    <!-- NEW: Chart Section -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-8">
+                        <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fa-solid fa-chart-line mr-2 text-blue-600"></i> Statistik Saldo Keuangan per Kategori
+                        </h2>
+                        <div class="h-80 w-full">
+                            <canvas id="financeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW 2: DATA WARGA -->
+                <div id="admin-view-warga" class="admin-view hidden-section fade-in">
+                    <!-- ... existing code for warga table ... -->
+                    <div class="flex justify-between items-center mb-6">
+                        <h1 class="text-2xl font-bold text-gray-800">Database Warga</h1>
+                        <!-- Tombol Tambah dengan onClick -->
+                        <button onclick="openWargaModal('add')" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition">
+                            <i class="fa-solid fa-plus mr-1"></i> Tambah
+                        </button>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                        <table class="w-full text-sm text-left text-gray-600">
+                            <thead class="bg-gray-50 text-xs uppercase text-gray-700">
+                                <tr>
+                                    <th class="px-6 py-3">No. Rumah</th>
+                                    <th class="px-6 py-3">Nama KK</th>
+                                    <th class="px-6 py-3">Username</th>
+                                    <th class="px-6 py-3">Password</th>
+                                    <th class="px-6 py-3">Status</th>
+                                    <th class="px-6 py-3 text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr>
+                                    <td class="px-6 py-4 font-bold">A1-05</td>
+                                    <td class="px-6 py-4">Budi Santoso</td>
+                                    <td class="px-6 py-4 font-mono text-xs text-blue-600">warga_a105</td>
+                                    <td class="px-6 py-4 font-mono text-xs text-gray-400">••••••</td>
+                                    <td class="px-6 py-4"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Dihuni</span></td>
+                                    <td class="px-6 py-4 text-center">
+                                        <button onclick="openWargaModal('edit', 'A1-05')" class="text-blue-500 hover:text-blue-700 transition"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-bold">B2-10</td>
+                                    <td class="px-6 py-4">Siti Aminah</td>
+                                    <td class="px-6 py-4 font-mono text-xs text-blue-600">warga_b210</td>
+                                    <td class="px-6 py-4 font-mono text-xs text-gray-400">••••••</td>
+                                    <td class="px-6 py-4"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Dihuni</span></td>
+                                    <td class="px-6 py-4 text-center">
+                                        <button onclick="openWargaModal('edit', 'B2-10')" class="text-blue-500 hover:text-blue-700 transition"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    </td>
+                                </tr>
+                                <!-- Added Dummy Warga -->
+                                <tr>
+                                    <td class="px-6 py-4 font-bold">C3-01</td>
+                                    <td class="px-6 py-4">Pak Doni</td>
+                                    <td class="px-6 py-4 font-mono text-xs text-blue-600">warga_c301</td>
+                                    <td class="px-6 py-4 font-mono text-xs text-gray-400">••••••</td>
+                                    <td class="px-6 py-4"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Dihuni</span></td>
+                                    <td class="px-6 py-4 text-center">
+                                        <button class="text-blue-500 hover:text-blue-700 transition"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-bold">D4-12</td>
+                                    <td class="px-6 py-4">Bu Ratna</td>
+                                    <td class="px-6 py-4 font-mono text-xs text-blue-600">warga_d412</td>
+                                    <td class="px-6 py-4 font-mono text-xs text-gray-400">••••••</td>
+                                    <td class="px-6 py-4"><span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">Sewa</span></td>
+                                    <td class="px-6 py-4 text-center">
+                                        <button class="text-blue-500 hover:text-blue-700 transition"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-bold">E5-08</td>
+                                    <td class="px-6 py-4">Pak Joko</td>
+                                    <td class="px-6 py-4 font-mono text-xs text-blue-600">warga_e508</td>
+                                    <td class="px-6 py-4 font-mono text-xs text-gray-400">••••••</td>
+                                    <td class="px-6 py-4"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Dihuni</span></td>
+                                    <td class="px-6 py-4 text-center">
+                                        <button class="text-blue-500 hover:text-blue-700 transition"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- VIEW 3: REKAP TAHUNAN -->
+                <div id="admin-view-rekap" class="admin-view hidden-section fade-in">
+                    <!-- ... existing code for rekap table ... -->
+                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                        <h1 class="text-2xl font-bold text-gray-800">Rekap Pembayaran 2026</h1>
+                        <div class="flex gap-2 text-sm mt-2 md:mt-0">
+                            <span class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-1"></span> Lunas</span>
+                            <span class="flex items-center"><span class="w-3 h-3 bg-red-500 rounded-full mr-1"></span> Nunggak</span>
+                            <span class="flex items-center"><span class="w-3 h-3 bg-gray-300 rounded-full mr-1"></span> Belum</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full text-sm text-center text-gray-600 border-collapse">
+                                <thead class="bg-gray-100 text-gray-800 font-bold border-b border-gray-300 text-xs uppercase">
+                                    <tr>
+                                        <th class="px-3 py-4 sticky left-0 bg-gray-100 border-r border-gray-300 text-left min-w-[150px] z-10">Data Warga</th>
+                                        <th class="px-2 py-3 border-r border-gray-200 w-16">Jan</th>
+                                        <th class="px-2 py-3 border-r border-gray-200 w-16">Feb</th>
+                                        <th class="px-2 py-3 border-r border-gray-200 w-16">Mar</th>
+                                        <th class="px-2 py-3 border-r border-gray-200 w-16">Apr</th>
+                                        <th class="px-2 py-3 border-r border-gray-200 w-16">Mei</th>
+                                        <th class="px-2 py-3 border-r border-gray-200 w-16">Jun</th>
+                                        <th class="px-2 py-3 border-r border-gray-200 w-16">Jul</th>
+                                        <th class="px-2 py-3 border-r border-gray-200 w-16">Ags</th>
+                                        <th class="px-2 py-3 border-r border-gray-200 w-16">Sep</th>
+                                        <th class="px-2 py-3 border-r border-gray-200 w-16">Okt</th>
+                                        <th class="px-2 py-3 border-r border-gray-200 w-16">Nov</th>
+                                        <th class="px-2 py-3 w-16">Des</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <tr class="hover:bg-blue-50 transition-colors">
+                                        <td class="px-3 py-3 sticky left-0 bg-white border-r border-gray-200 text-left font-medium text-gray-800 z-10 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">
+                                            A1-05 <br><span class="text-xs font-normal text-gray-500">Budi Santoso</span>
+                                        </td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-green-500"><i class="fa-solid fa-circle-check text-lg"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-green-500"><i class="fa-solid fa-circle-check text-lg"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                    </tr>
+                                    <!-- Added Dummy Rekap for new Warga -->
+                                    <tr class="hover:bg-blue-50 transition-colors">
+                                        <td class="px-3 py-3 sticky left-0 bg-white border-r border-gray-200 text-left font-medium text-gray-800 z-10 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">
+                                            B2-10 <br><span class="text-xs font-normal text-gray-500">Siti Aminah</span>
+                                        </td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-green-500"><i class="fa-solid fa-circle-check text-lg"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-red-500"><i class="fa-solid fa-circle-exclamation text-lg"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                    </tr>
+                                    <tr class="hover:bg-blue-50 transition-colors">
+                                        <td class="px-3 py-3 sticky left-0 bg-white border-r border-gray-200 text-left font-medium text-gray-800 z-10 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">
+                                            C3-01 <br><span class="text-xs font-normal text-gray-500">Pak Doni</span>
+                                        </td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-green-500"><i class="fa-solid fa-circle-check text-lg"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-green-500"><i class="fa-solid fa-circle-check text-lg"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                    </tr>
+                                    <tr class="hover:bg-blue-50 transition-colors">
+                                        <td class="px-3 py-3 sticky left-0 bg-white border-r border-gray-200 text-left font-medium text-gray-800 z-10 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">
+                                            D4-12 <br><span class="text-xs font-normal text-gray-500">Bu Ratna</span>
+                                        </td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-green-500"><i class="fa-solid fa-circle-check text-lg"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-green-500"><i class="fa-solid fa-circle-check text-lg"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                    </tr>
+                                    <tr class="hover:bg-blue-50 transition-colors">
+                                        <td class="px-3 py-3 sticky left-0 bg-white border-r border-gray-200 text-left font-medium text-gray-800 z-10 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)]">
+                                            E5-08 <br><span class="text-xs font-normal text-gray-500">Pak Joko</span>
+                                        </td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-red-500"><i class="fa-solid fa-circle-exclamation text-lg"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-red-500"><i class="fa-solid fa-circle-exclamation text-lg"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 border-r border-gray-100 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                        <td class="px-2 py-3 text-gray-300"><i class="fa-solid fa-circle"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW 4: TRANSAKSI -->
+                <div id="admin-view-transaksi" class="admin-view hidden-section fade-in">
+                    <!-- ... existing code for transaksi ... -->
+                    <div class="flex justify-between items-center mb-6">
+                        <h1 class="text-2xl font-bold text-gray-800">Verifikasi Transaksi</h1>
+                        <div class="text-sm text-gray-500">Menampilkan Pending</div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                        <table class="w-full text-sm text-left text-gray-600">
+                            <thead class="bg-gray-50 text-xs uppercase text-gray-700">
+                                <tr>
+                                    <th class="px-6 py-3">Tanggal</th>
+                                    <th class="px-6 py-3">Info Warga</th>
+                                    <th class="px-6 py-3">Nominal</th>
+                                    <th class="px-6 py-3 text-center">Bukti</th>
+                                    <th class="px-6 py-3 text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr class="bg-yellow-50">
+                                    <td class="px-6 py-4">02 Feb</td>
+                                    <td class="px-6 py-4 font-medium text-gray-800">Pak Doni (C3-01)<br><span class="text-xs font-normal text-gray-500">Iuran Jan-Feb</span></td>
+                                    <td class="px-6 py-4 font-bold">140.000</td>
+                                    <td class="px-6 py-4 text-center"><button class="text-blue-600 underline text-xs">Lihat Foto</button></td>
+                                    <td class="px-6 py-4 text-center">
+                                        <button class="bg-green-500 text-white p-1.5 rounded hover:bg-green-600 mr-1"><i class="fa-solid fa-check"></i></button>
+                                        <button class="bg-red-500 text-white p-1.5 rounded hover:bg-red-600"><i class="fa-solid fa-xmark"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="bg-yellow-50">
+                                    <td class="px-6 py-4">02 Feb</td>
+                                    <td class="px-6 py-4 font-medium text-gray-800">Siti Aminah (B2-10)<br><span class="text-xs font-normal text-gray-500">Iuran Feb</span></td>
+                                    <td class="px-6 py-4 font-bold">70.000</td>
+                                    <td class="px-6 py-4 text-center"><button class="text-blue-600 underline text-xs">Lihat Foto</button></td>
+                                    <td class="px-6 py-4 text-center">
+                                        <button class="bg-green-500 text-white p-1.5 rounded hover:bg-green-600 mr-1"><i class="fa-solid fa-check"></i></button>
+                                        <button class="bg-red-500 text-white p-1.5 rounded hover:bg-red-600"><i class="fa-solid fa-xmark"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4">01 Feb</td>
+                                    <td class="px-6 py-4 font-medium text-gray-800">Budi Santoso (A1-05)</td>
+                                    <td class="px-6 py-4 font-bold text-green-600">70.000</td>
+                                    <td class="px-6 py-4 text-center"><span class="text-gray-400 text-xs">Verified</span></td>
+                                    <td class="px-6 py-4 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Lunas</span></td>
+                                </tr>
+                                 <tr>
+                                    <td class="px-6 py-4">30 Jan</td>
+                                    <td class="px-6 py-4 font-medium text-gray-800">Bu Ratna (D4-12)</td>
+                                    <td class="px-6 py-4 font-bold text-green-600">140.000</td>
+                                    <td class="px-6 py-4 text-center"><span class="text-gray-400 text-xs">Verified</span></td>
+                                    <td class="px-6 py-4 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Lunas</span></td>
+                                </tr>
+                                 <tr>
+                                    <td class="px-6 py-4">15 Jan</td>
+                                    <td class="px-6 py-4 font-medium text-gray-800">Siti Aminah (B2-10)</td>
+                                    <td class="px-6 py-4 font-bold text-green-600">70.000</td>
+                                    <td class="px-6 py-4 text-center"><span class="text-gray-400 text-xs">Verified</span></td>
+                                    <td class="px-6 py-4 text-center"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Lunas</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- VIEW 5: LAPORAN (UPDATED FOR DYNAMIC DATA) -->
+                <div id="admin-view-laporan" class="admin-view hidden-section fade-in">
+                    <h1 class="text-2xl font-bold text-gray-800 mb-6">Laporan Keuangan</h1>
+                    
+                    <div class="bg-white p-8 rounded-xl shadow-lg max-w-5xl mx-auto border border-gray-200">
+                        <!-- Header Laporan with Filters -->
+                        <div class="flex flex-col md:flex-row justify-between items-center border-b border-gray-200 pb-6 mb-6 gap-4">
+                            <div class="text-center md:text-left">
+                                <h2 class="text-xl font-bold uppercase tracking-widest text-gray-800">Laporan Bulanan</h2>
+                                <p class="text-sm text-gray-500 mt-1">Periode: <span id="report-period-display" class="font-bold text-blue-600">Februari 2026</span></p>
+                            </div>
+                            
+                            <form onsubmit="filterLaporan(event)" class="flex flex-wrap justify-center items-center gap-2 bg-gray-50 p-2 rounded-lg border border-gray-200">
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <i class="fa-regular fa-calendar text-gray-400"></i>
+                                    </div>
+                                    <select id="filter-bulan" class="bg-white border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5">
+                                        <option value="Januari">Januari</option>
+                                        <option value="Februari" selected>Februari</option>
+                                        <option value="Maret">Maret</option>
+                                        <option value="April">April</option>
+                                        <option value="Mei">Mei</option>
+                                        <option value="Juni">Juni</option>
+                                        <option value="Juli">Juli</option>
+                                        <option value="Agustus">Agustus</option>
+                                        <option value="September">September</option>
+                                        <option value="Oktober">Oktober</option>
+                                        <option value="November">November</option>
+                                        <option value="Desember">Desember</option>
+                                    </select>
+                                </div>
+                                <select id="filter-tahun" class="bg-white border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026" selected>2026</option>
+                                    <option value="2027">2027</option>
+                                </select>
+                                <button type="submit" class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 transition flex items-center">
+                                    <i class="fa-solid fa-filter mr-2"></i> Tampilkan
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Grid 3 Kategori -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            
+                            <!-- 1. Iuran Perumahan (Blue) -->
+                            <div class="border border-blue-100 rounded-lg p-5 bg-blue-50/50">
+                                <h3 class="font-bold text-blue-700 mb-3 border-b border-blue-200 pb-2 flex items-center justify-between">
+                                    Iuran Perumahan
+                                    <i class="fa-solid fa-city text-blue-300"></i>
+                                </h3>
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Pemasukan</span>
+                                        <span class="font-bold text-gray-800" id="lap-housing-in">Rp 4.250.000</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Pengeluaran</span>
+                                        <span class="font-bold text-red-600" id="lap-housing-out">(Rp 3.500.000)</span>
+                                    </div>
+                                    <div class="border-t border-blue-200 pt-2 mt-2 flex justify-between font-bold text-base">
+                                        <span>Saldo Akhir</span>
+                                        <span class="text-blue-700" id="lap-housing-bal">Rp 10.750.000</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 2. Dana Sosial (Green) -->
+                            <div class="border border-green-100 rounded-lg p-5 bg-green-50/50">
+                                <h3 class="font-bold text-green-700 mb-3 border-b border-green-200 pb-2 flex items-center justify-between">
+                                    Dana Sosial
+                                    <i class="fa-solid fa-hand-holding-heart text-green-300"></i>
+                                </h3>
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Pemasukan</span>
+                                        <span class="font-bold text-gray-800" id="lap-social-in">Rp 850.000</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Pengeluaran</span>
+                                        <span class="font-bold text-red-600" id="lap-social-out">(Rp 500.000)</span>
+                                    </div>
+                                    <div class="border-t border-green-200 pt-2 mt-2 flex justify-between font-bold text-base">
+                                        <span>Saldo Akhir</span>
+                                        <span class="text-green-700" id="lap-social-bal">Rp 3.200.000</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3. Kas RT (Purple) -->
+                            <div class="border border-purple-100 rounded-lg p-5 bg-purple-50/50">
+                                <h3 class="font-bold text-purple-700 mb-3 border-b border-purple-200 pb-2 flex items-center justify-between">
+                                    Kas Operasional RT
+                                    <i class="fa-solid fa-users text-purple-300"></i>
+                                </h3>
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Pemasukan</span>
+                                        <span class="font-bold text-gray-800" id="lap-rt-in">Rp 850.000</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Pengeluaran</span>
+                                        <span class="font-bold text-red-600" id="lap-rt-out">(Rp 300.000)</span>
+                                    </div>
+                                    <div class="border-t border-purple-200 pt-2 mt-2 flex justify-between font-bold text-base">
+                                        <span>Saldo Akhir</span>
+                                        <span class="text-purple-700" id="lap-rt-bal">Rp 1.500.000</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Grand Total Summary -->
+                        <div class="bg-gray-800 text-white rounded-lg p-6 flex flex-col md:flex-row justify-between items-center shadow-lg mb-8">
+                            <div class="text-center md:text-left mb-4 md:mb-0">
+                                <p class="text-gray-400 text-xs uppercase font-bold tracking-widest mb-1">Total Saldo Gabungan (Real)</p>
+                                <p class="text-4xl font-extrabold tracking-tight" id="lap-total-real">Rp 15.450.000</p>
+                            </div>
+                            <div class="text-right text-sm space-y-1">
+                                <p class="text-gray-300">Total Pemasukan: <span class="text-green-400 font-bold" id="lap-total-in">+ Rp 5.950.000</span></p>
+                                <p class="text-gray-300">Total Pengeluaran: <span class="text-red-400 font-bold" id="lap-total-out">- Rp 4.300.000</span></p>
+                            </div>
+                        </div>
+
+                        <!-- SECTION: Rincian Transaksi Bulanan -->
+                        <div class="mt-8 border-t border-gray-200 pt-6">
+                            <h3 class="text-lg font-bold text-gray-800 mb-4">Rincian Transaksi Bulan Ini</h3>
+                            <div class="overflow-x-auto border border-gray-200 rounded-lg">
+                                <table class="w-full text-sm text-left text-gray-600">
+                                    <thead class="bg-gray-50 text-gray-700 uppercase text-xs">
+                                        <tr>
+                                            <th class="px-4 py-3">Tgl</th>
+                                            <th class="px-4 py-3">Uraian</th>
+                                            <th class="px-4 py-3">Kategori</th>
+                                            <th class="px-4 py-3">Tipe</th>
+                                            <th class="px-4 py-3 text-right">Nominal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-2">02 Feb</td>
+                                            <td class="px-4 py-2 font-medium">Honor Satpam & Kebersihan</td>
+                                            <td class="px-4 py-2">Perumahan</td>
+                                            <td class="px-4 py-2"><span class="text-red-600 font-semibold">Keluar</span></td>
+                                            <td class="px-4 py-2 text-right font-bold text-red-600">- 3.000.000</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-2">02 Feb</td>
+                                            <td class="px-4 py-2 font-medium">Iuran Warga (Blok A)</td>
+                                            <td class="px-4 py-2">Split</td>
+                                            <td class="px-4 py-2"><span class="text-green-600 font-semibold">Masuk</span></td>
+                                            <td class="px-4 py-2 text-right font-bold text-green-600">+ 1.200.000</td>
+                                        </tr>
+                                         <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-2">01 Feb</td>
+                                            <td class="px-4 py-2 font-medium">Santunan Duka (Blok B3)</td>
+                                            <td class="px-4 py-2">Sosial</td>
+                                            <td class="px-4 py-2"><span class="text-red-600 font-semibold">Keluar</span></td>
+                                            <td class="px-4 py-2 text-right font-bold text-red-600">- 500.000</td>
+                                        </tr>
+                                         <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-2">01 Feb</td>
+                                            <td class="px-4 py-2 font-medium">Konsumsi Rapat Pengurus</td>
+                                            <td class="px-4 py-2">Kas RT</td>
+                                            <td class="px-4 py-2"><span class="text-red-600 font-semibold">Keluar</span></td>
+                                            <td class="px-4 py-2 text-right font-bold text-red-600">- 150.000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <button class="w-full mt-6 border-2 border-gray-800 text-gray-800 py-3 rounded-lg hover:bg-gray-800 hover:text-white transition font-bold flex items-center justify-center group">
+                            <i class="fa-solid fa-print mr-2 group-hover:animate-bounce"></i> Cetak / Download Laporan PDF
+                        </button>
+                    </div>
+                </div>
+
+                <!-- VIEW 6: PENGATURAN SYSTEM (UPDATED) -->
+                <div id="admin-view-settings" class="admin-view hidden-section fade-in">
+                    <!-- ... existing settings content ... -->
+                    <h1 class="text-2xl font-bold text-gray-800 mb-6">Pengaturan Sistem</h1>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="flex flex-col gap-8">
+                            <!-- Card 1: Pengaturan Iuran -->
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                                <h2 class="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Atur Biaya Iuran</h2>
+                                <form onsubmit="event.preventDefault(); alert('Pengaturan Biaya Tersimpan!');">
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1">Iuran Perumahan</label>
+                                            <div class="relative">
+                                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 font-bold">Rp</span>
+                                                <input type="number" id="set-housing" value="50000" class="w-full pl-10 p-2 border border-gray-300 rounded-lg" oninput="calculateSettingsTotal()">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1">Iuran Dana Sosial</label>
+                                            <div class="relative">
+                                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 font-bold">Rp</span>
+                                                <input type="number" id="set-social" value="10000" class="w-full pl-10 p-2 border border-gray-300 rounded-lg" oninput="calculateSettingsTotal()">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1">Iuran Kas RT</label>
+                                            <div class="relative">
+                                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 font-bold">Rp</span>
+                                                <input type="number" id="set-rt" value="10000" class="w-full pl-10 p-2 border border-gray-300 rounded-lg" oninput="calculateSettingsTotal()">
+                                            </div>
+                                        </div>
+                                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-100 mt-2">
+                                            <label class="block text-xs font-bold text-blue-800 mb-1 uppercase">Total Tagihan Warga</label>
+                                            <div class="relative">
+                                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-blue-600 font-bold">Rp</span>
+                                                <input type="text" id="set-total" value="70.000" readonly class="w-full pl-10 p-1 border-0 bg-transparent font-mono text-xl font-extrabold text-blue-700 focus:ring-0">
+                                            </div>
+                                        </div>
+                                        <button class="w-full bg-blue-600 text-white font-bold py-2 rounded-lg hover:bg-blue-700 transition">Simpan Tarif</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Card 3: Pengaturan Rekening (NEW) -->
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                                <h2 class="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Pengaturan Rekening Pembayaran</h2>
+                                <form onsubmit="saveBankSettings(event)">
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1">Nama Bank</label>
+                                            <input type="text" id="set-bank-name" value="BCA" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Contoh: BCA">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1">Nomor Rekening</label>
+                                            <input type="text" id="set-bank-number" value="1234567890" class="w-full p-2 border border-gray-300 rounded-lg font-mono" placeholder="Contoh: 1234567890">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1">Atas Nama</label>
+                                            <input type="text" id="set-bank-holder" value="Paguyuban Rawinda" class="w-full p-2 border border-gray-300 rounded-lg" placeholder="Contoh: Paguyuban Warga">
+                                        </div>
+                                        <button class="w-full bg-gray-800 text-white font-bold py-2 rounded-lg hover:bg-gray-900 transition">Simpan Rekening</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Manajemen Admin (NEW) -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                            <div class="flex justify-between items-center mb-4 border-b pb-2">
+                                <h2 class="text-lg font-bold text-gray-800">Manajemen Akses Admin</h2>
+                                <button onclick="toggleModal('modal-add-admin')" class="text-xs bg-gray-800 text-white px-3 py-1.5 rounded hover:bg-gray-700 transition"><i class="fa-solid fa-user-plus mr-1"></i> Tambah</button>
+                            </div>
+                            
+                            <div class="overflow-hidden">
+                                <table class="w-full text-sm text-left">
+                                    <thead class="bg-gray-50 text-xs uppercase text-gray-500">
+                                        <tr>
+                                            <th class="py-2">Username</th>
+                                            <th class="py-2">Nama</th>
+                                            <th class="py-2 text-right">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-list-body" class="divide-y divide-gray-100">
+                                        <!-- Rendered by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-4 italic">*Admin utama tidak dapat dihapus.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </section>
+    
+    <!-- ... EXISTING MODALS (unchanged) ... -->
+    <!-- Modal 1: Upload Bukti -->
+    <div id="modal-upload" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-900 bg-opacity-70 transition-opacity backdrop-blur-sm" onclick="toggleModal('modal-upload')"></div>
+        <div class="flex items-center justify-center min-h-screen p-4 absolute inset-0 pointer-events-none">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-md relative pointer-events-auto transform transition-all">
+                <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 flex justify-between items-center rounded-t-xl">
+                    <h3 class="text-white font-bold"><i class="fa-solid fa-receipt mr-2"></i>Pilih & Bayar Tagihan</h3>
+                    <button onclick="toggleModal('modal-upload')" class="text-white hover:text-gray-200"><i class="fa-solid fa-xmark text-xl"></i></button>
+                </div>
+                <div class="p-6">
+                    <form onsubmit="event.preventDefault(); alert('Bukti terkirim! Admin akan verifikasi.'); toggleModal('modal-upload');">
+                        <!-- Pilihan Bulan -->
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">Pilih Bulan yang Dibayar:</label>
+                            <div class="space-y-2 max-h-48 overflow-y-auto pr-1 custom-scrollbar">
+                                <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition border-l-4 border-l-red-400">
+                                    <div class="flex items-center">
+                                        <input type="checkbox" class="bill-checkbox w-4 h-4 text-blue-600 rounded focus:ring-blue-500" value="70000" checked onchange="calculateTotal()">
+                                        <div class="ml-3"><p class="text-sm font-bold text-gray-800">Januari 2026</p><p class="text-xs text-red-500 font-medium">Tunggakan</p></div>
+                                    </div>
+                                    <span class="text-sm font-bold text-gray-600">Rp 70.000</span>
+                                </label>
+                                <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition border-l-4 border-l-blue-400">
+                                    <div class="flex items-center">
+                                        <input type="checkbox" class="bill-checkbox w-4 h-4 text-blue-600 rounded focus:ring-blue-500" value="70000" checked onchange="calculateTotal()">
+                                        <div class="ml-3"><p class="text-sm font-bold text-gray-800">Februari 2026</p><p class="text-xs text-blue-500 font-medium">Tagihan Baru</p></div>
+                                    </div>
+                                    <span class="text-sm font-bold text-gray-600">Rp 70.000</span>
+                                </label>
+                                <div class="relative py-2"><div class="absolute inset-0 flex items-center"><div class="w-full border-t border-gray-300"></div></div><div class="relative flex justify-center"><span class="px-2 bg-white text-xs text-gray-500">Bayar Dimuka (Max 6 Bulan)</span></div></div>
+                                
+                                <!-- Extended to 6 months future -->
+                                <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition opacity-75 hover:opacity-100">
+                                    <div class="flex items-center"><input type="checkbox" class="bill-checkbox w-4 h-4 text-blue-600" value="70000" onchange="calculateTotal()"><div class="ml-3"><p class="text-sm font-bold">Maret 2026</p><p class="text-xs text-gray-500">Akan Datang</p></div></div><span class="text-sm font-bold text-gray-500">Rp 70.000</span>
+                                </label>
+                                <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition opacity-75 hover:opacity-100 mt-2">
+                                    <div class="flex items-center"><input type="checkbox" class="bill-checkbox w-4 h-4 text-blue-600" value="70000" onchange="calculateTotal()"><div class="ml-3"><p class="text-sm font-bold">April 2026</p><p class="text-xs text-gray-500">Akan Datang</p></div></div><span class="text-sm font-bold text-gray-500">Rp 70.000</span>
+                                </label>
+                                <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition opacity-75 hover:opacity-100 mt-2">
+                                    <div class="flex items-center"><input type="checkbox" class="bill-checkbox w-4 h-4 text-blue-600" value="70000" onchange="calculateTotal()"><div class="ml-3"><p class="text-sm font-bold">Mei 2026</p><p class="text-xs text-gray-500">Akan Datang</p></div></div><span class="text-sm font-bold text-gray-500">Rp 70.000</span>
+                                </label>
+                                <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition opacity-75 hover:opacity-100 mt-2">
+                                    <div class="flex items-center"><input type="checkbox" class="bill-checkbox w-4 h-4 text-blue-600" value="70000" onchange="calculateTotal()"><div class="ml-3"><p class="text-sm font-bold">Juni 2026</p><p class="text-xs text-gray-500">Akan Datang</p></div></div><span class="text-sm font-bold text-gray-500">Rp 70.000</span>
+                                </label>
+                                <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition opacity-75 hover:opacity-100 mt-2">
+                                    <div class="flex items-center"><input type="checkbox" class="bill-checkbox w-4 h-4 text-blue-600" value="70000" onchange="calculateTotal()"><div class="ml-3"><p class="text-sm font-bold">Juli 2026</p><p class="text-xs text-gray-500">Akan Datang</p></div></div><span class="text-sm font-bold text-gray-500">Rp 70.000</span>
+                                </label>
+                                <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition opacity-75 hover:opacity-100 mt-2">
+                                    <div class="flex items-center"><input type="checkbox" class="bill-checkbox w-4 h-4 text-blue-600" value="70000" onchange="calculateTotal()"><div class="ml-3"><p class="text-sm font-bold">Agustus 2026</p><p class="text-xs text-gray-500">Akan Datang</p></div></div><span class="text-sm font-bold text-gray-500">Rp 70.000</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-100 p-4 rounded-lg mb-5 border border-gray-200">
+                            <span class="text-sm font-bold text-gray-600">Total Transfer:</span>
+                            <span id="total-display" class="text-xl font-extrabold text-blue-600">Rp 140.000</span>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded mb-4 border border-blue-100 text-center">
+                            <p class="text-xs font-bold text-blue-600 uppercase tracking-wide" id="display-bank-info">Transfer ke BCA - 1234567890</p>
+                            <p class="text-xs text-gray-500" id="display-bank-holder">a.n Paguyuban Rawinda</p>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">Tanggal Transfer</label>
+                            <input type="date" class="block w-full border p-2.5 rounded-lg bg-gray-50 border-gray-300 text-sm focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div class="mb-5"><label class="block text-sm font-semibold mb-2 text-gray-700">Upload Bukti Transfer</label><input type="file" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 transition cursor-pointer bg-gray-50 rounded-lg border border-gray-300"/></div>
+                        <button class="w-full bg-blue-600 text-white font-bold py-3.5 rounded-lg hover:bg-blue-700 shadow-lg shadow-blue-500/30 transition">Kirim Bukti Pembayaran</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Input Pengeluaran -->
+    <div id="modal-expense" class="fixed inset-0 z-50 hidden" role="dialog">
+        <div class="fixed inset-0 bg-gray-900 bg-opacity-70 transition-opacity backdrop-blur-sm" onclick="toggleModal('modal-expense')"></div>
+        <div class="flex items-center justify-center min-h-screen p-4 absolute inset-0 pointer-events-none">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-md relative pointer-events-auto">
+                <div class="bg-red-600 px-6 py-4 flex justify-between items-center rounded-t-xl">
+                    <h3 class="text-white font-bold">Catat Pengeluaran</h3>
+                    <button onclick="toggleModal('modal-expense')" class="text-white"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="p-6">
+                    <form onsubmit="event.preventDefault(); alert('Pengeluaran tersimpan!'); toggleModal('modal-expense');">
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold mb-1">Tanggal</label>
+                            <input type="date" class="w-full border p-2 rounded bg-gray-50" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold mb-1">Sumber Dana</label>
+                            <select class="w-full border p-2 rounded bg-gray-50"><option>Kas Perumahan</option><option>Dana Sosial</option><option>Kas RT</option></select>
+                        </div>
+                        <div class="mb-4"><label class="block text-sm font-semibold mb-1">Keperluan</label><input type="text" class="w-full border p-2 rounded" placeholder="Contoh: Beli Semen"></div>
+                        <div class="mb-4"><label class="block text-sm font-semibold mb-1">Nominal</label><input type="number" class="w-full border p-2 rounded font-bold" placeholder="Rp"></div>
+                        <button class="w-full bg-gray-800 text-white font-bold py-3 rounded hover:bg-gray-900">Simpan Data</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Input Pemasukan -->
+    <div id="modal-income" class="fixed inset-0 z-50 hidden" role="dialog">
+        <div class="fixed inset-0 bg-gray-900 bg-opacity-70 transition-opacity backdrop-blur-sm" onclick="toggleModal('modal-income')"></div>
+        <div class="flex items-center justify-center min-h-screen p-4 absolute inset-0 pointer-events-none">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-md relative pointer-events-auto">
+                <div class="bg-green-600 px-6 py-4 flex justify-between items-center rounded-t-xl">
+                    <h3 class="text-white font-bold">Input Pemasukan Lainnya</h3>
+                    <button onclick="toggleModal('modal-income')" class="text-white"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="p-6">
+                    <form onsubmit="event.preventDefault(); alert('Pemasukan berhasil dicatat!'); toggleModal('modal-income');">
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold mb-1">Tanggal</label>
+                            <input type="date" class="w-full border p-2 rounded bg-gray-50" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold mb-1">Masuk ke Kas</label>
+                            <select class="w-full border p-2 rounded bg-gray-50">
+                                <option>Kas Perumahan</option>
+                                <option>Dana Sosial</option>
+                                <option>Kas RT</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold mb-1">Kategori</label>
+                            <select class="w-full border p-2 rounded bg-gray-50">
+                                <option>Sumbangan / Donasi</option>
+                                <option>Dana Hibah</option>
+                                <option>Penjualan Aset/Barang Bekas</option>
+                                <option>Lain-lain</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold mb-1">Keterangan</label>
+                            <input type="text" class="w-full border p-2 rounded" placeholder="Contoh: Sumbangan Warga untuk 17an">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold mb-1">Nominal</label>
+                            <input type="number" class="w-full border p-2 rounded font-bold text-green-600" placeholder="Rp">
+                        </div>
+                        <button class="w-full bg-green-600 text-white font-bold py-3 rounded hover:bg-green-700">Simpan Pemasukan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4: Data Warga -->
+    <div id="modal-warga" class="fixed inset-0 z-50 hidden" role="dialog">
+        <div class="fixed inset-0 bg-gray-900 bg-opacity-70 transition-opacity backdrop-blur-sm" onclick="toggleModal('modal-warga')"></div>
+        <div class="flex items-center justify-center min-h-screen p-4 absolute inset-0 pointer-events-none">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg relative pointer-events-auto transform transition-all">
+                <div class="bg-blue-600 px-6 py-4 flex justify-between items-center rounded-t-xl">
+                    <h3 class="text-white font-bold" id="warga-modal-title">Data Warga</h3>
+                    <button onclick="toggleModal('modal-warga')" class="text-white"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="p-6">
+                    <form onsubmit="event.preventDefault(); alert('Data Warga Disimpan!'); toggleModal('modal-warga');">
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div><label class="block text-sm font-semibold mb-1">No. Rumah</label><input type="text" id="warga-no" class="w-full border p-2 rounded bg-gray-50 uppercase" placeholder="A1-01"></div>
+                             <div><label class="block text-sm font-semibold mb-1">Status</label><select class="w-full border p-2 rounded bg-gray-50"><option>Dihuni</option><option>Kosong</option><option>Sewa</option></select></div>
+                        </div>
+                        <div class="mb-4"><label class="block text-sm font-semibold mb-1">Nama Kepala Keluarga</label><input type="text" id="warga-nama" class="w-full border p-2 rounded" placeholder="Nama Lengkap"></div>
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div><label class="block text-sm font-semibold mb-1">Username</label><input type="text" id="warga-user" class="w-full border p-2 rounded bg-gray-50 text-sm" placeholder="warga_a101"></div>
+                             <div><label class="block text-sm font-semibold mb-1">Password</label><input type="text" id="warga-pass" class="w-full border p-2 rounded bg-gray-50 text-sm" placeholder="Default: 1234"></div>
+                        </div>
+                        <button class="w-full bg-blue-600 text-white font-bold py-3 rounded hover:bg-blue-700">Simpan Data Warga</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5: Tambah Admin -->
+    <div id="modal-add-admin" class="fixed inset-0 z-50 hidden" role="dialog">
+        <div class="fixed inset-0 bg-gray-900 bg-opacity-70 transition-opacity backdrop-blur-sm" onclick="toggleModal('modal-add-admin')"></div>
+        <div class="flex items-center justify-center min-h-screen p-4 absolute inset-0 pointer-events-none">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm relative pointer-events-auto transform transition-all">
+                <div class="bg-gray-800 px-6 py-4 flex justify-between items-center rounded-t-xl">
+                    <h3 class="text-white font-bold"><i class="fa-solid fa-user-shield mr-2"></i>Tambah Admin</h3>
+                    <button onclick="toggleModal('modal-add-admin')" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="p-6">
+                    <form onsubmit="saveNewAdmin(event)">
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold mb-1">Nama Lengkap</label>
+                            <input type="text" id="new-admin-name" required class="w-full border p-2 rounded focus:ring-gray-500 focus:border-gray-500" placeholder="Contoh: Sekretaris RT">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold mb-1">Username</label>
+                            <input type="text" id="new-admin-user" required class="w-full border p-2 rounded bg-gray-50 focus:ring-gray-500 focus:border-gray-500" placeholder="username">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-semibold mb-1">Password</label>
+                            <input type="password" id="new-admin-pass" required class="w-full border p-2 rounded bg-gray-50 focus:ring-gray-500 focus:border-gray-500" placeholder="••••••">
+                        </div>
+                        <button class="w-full bg-gray-800 text-white font-bold py-2.5 rounded hover:bg-gray-900 transition">Simpan Admin</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC -->
+    <!-- ========================================== -->
+    <script>
+        // --- DATA SIMULATION ---
+        let adminAccounts = [
+            { user: 'admin', pass: 'admin', name: 'Super Admin' },
+            { user: 'bendahara', pass: '1234', name: 'Ibu Bendahara' }
+        ];
+
+        let chartInstance = null; // Store chart instance
+
+        // --- AUTH LOGIC ---
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('login-username').value.toLowerCase();
+            const p = document.getElementById('login-password').value;
+
+            if (u === 'warga' && p === 'warga') {
+                switchPage('page-warga');
+                // Auto switch to home tab
+                switchWargaTab('home');
+                return;
+            }
+
+            const foundAdmin = adminAccounts.find(acc => acc.user === u && acc.pass === p);
+            
+            if (foundAdmin) {
+                switchPage('page-admin');
+                switchAdminTab('dashboard');
+            } else {
+                alert('Username atau Password salah!');
+            }
+        }
+
+        function logout() {
+            if(confirm('Apakah anda yakin ingin keluar?')) {
+                document.getElementById('login-username').value = '';
+                document.getElementById('login-password').value = '';
+                switchPage('page-login');
+                switchAdminTab('dashboard');
+            }
+        }
+
+        function switchPage(pageId) {
+            ['page-login', 'page-warga', 'page-admin'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.classList.add('hidden-section');
+            });
+            const target = document.getElementById(pageId);
+            if(target) target.classList.remove('hidden-section');
+        }
+
+        // --- WARGA SPA NAVIGATION & LOGIC ---
+        function switchWargaTab(tabName) {
+            const homeView = document.getElementById('warga-view-home');
+            const reportView = document.getElementById('warga-view-laporan');
+            
+            // Buttons
+            const btnHome = document.getElementById('btn-warga-home');
+            const btnReport = document.getElementById('btn-warga-laporan');
+            const mobHome = document.getElementById('mob-warga-home');
+            const mobReport = document.getElementById('mob-warga-laporan');
+
+            // Reset Styles
+            const activeClass = "bg-blue-50 text-blue-700";
+            const inactiveClass = "text-gray-500 hover:text-gray-700 hover:bg-gray-50";
+            
+            // Mobile Styles
+            const mobActive = "text-blue-600 border-blue-600";
+            const mobInactive = "text-gray-500 border-transparent";
+
+            if (tabName === 'home') {
+                homeView.classList.remove('hidden-section');
+                reportView.classList.add('hidden-section');
+                
+                // Desktop
+                if(btnHome) { btnHome.className = `px-3 py-2 rounded-md text-sm font-medium ${activeClass} transition`; }
+                if(btnReport) { btnReport.className = `px-3 py-2 rounded-md text-sm font-medium ${inactiveClass} transition`; }
+                
+                // Mobile
+                if(mobHome) { mobHome.className = `py-3 text-sm font-bold border-b-2 ${mobActive}`; }
+                if(mobReport) { mobReport.className = `py-3 text-sm font-medium border-b-2 ${mobInactive}`; }
+            } else {
+                homeView.classList.add('hidden-section');
+                reportView.classList.remove('hidden-section');
+                
+                // Desktop
+                if(btnHome) { btnHome.className = `px-3 py-2 rounded-md text-sm font-medium ${inactiveClass} transition`; }
+                if(btnReport) { btnReport.className = `px-3 py-2 rounded-md text-sm font-medium ${activeClass} transition`; }
+
+                // Mobile
+                if(mobHome) { mobHome.className = `py-3 text-sm font-medium border-b-2 ${mobInactive}`; }
+                if(mobReport) { mobReport.className = `py-3 text-sm font-bold border-b-2 ${mobActive}`; }
+
+                // Load Data
+                loadWargaReport();
+            }
+        }
+
+        function loadWargaReport() {
+             // Simulate loading
+            const data = monthlyData['Februari'];
+            
+            if(data) {
+                // Housing
+                document.getElementById('warga-housing-in').innerText = data.housing.in;
+                document.getElementById('warga-housing-out').innerText = data.housing.out;
+                document.getElementById('warga-housing-bal').innerText = data.housing.bal;
+
+                // Social
+                document.getElementById('warga-social-in').innerText = data.social.in;
+                document.getElementById('warga-social-out').innerText = data.social.out;
+                document.getElementById('warga-social-bal').innerText = data.social.bal;
+
+                // RT
+                document.getElementById('warga-rt-in').innerText = data.rt.in;
+                document.getElementById('warga-rt-out').innerText = data.rt.out;
+                document.getElementById('warga-rt-bal').innerText = data.rt.bal;
+
+                // Totals
+                document.getElementById('warga-total-in').innerText = data.total.in;
+                document.getElementById('warga-total-out').innerText = data.total.out;
+            }
+        }
+
+
+        // --- ADMIN SPA NAVIGATION ---
+        function switchAdminTab(tabName) {
+            const views = document.querySelectorAll('.admin-view');
+            views.forEach(el => el.classList.add('hidden-section'));
+
+            const targetView = document.getElementById('admin-view-' + tabName);
+            if (targetView) targetView.classList.remove('hidden-section');
+
+            const navs = document.querySelectorAll('.admin-nav-item');
+            navs.forEach(el => {
+                el.className = 'admin-nav-item w-full flex items-center px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition text-left';
+            });
+            
+            const activeBtn = document.getElementById('nav-' + tabName);
+            if(activeBtn) activeBtn.className = 'admin-nav-item w-full flex items-center px-4 py-3 bg-blue-600 rounded-lg text-white shadow-lg transition text-left';
+
+            if(tabName === 'settings') {
+                renderAdminList();
+            }
+            if(tabName === 'dashboard') {
+                // Short delay to ensure DOM is ready for Canvas
+                setTimeout(renderChart, 100);
+            }
+        }
+
+        // --- REPORT FILTER LOGIC (UPDATED WITH DYNAMIC DATA) ---
+        const monthlyData = {
+            'Februari': {
+                housing: { in: 'Rp 4.250.000', out: '(Rp 3.500.000)', bal: 'Rp 10.750.000' },
+                social: { in: 'Rp 850.000', out: '(Rp 500.000)', bal: 'Rp 3.200.000' },
+                rt: { in: 'Rp 850.000', out: '(Rp 300.000)', bal: 'Rp 1.500.000' },
+                total: { real: 'Rp 15.450.000', in: '+ Rp 5.950.000', out: '- Rp 4.300.000' }
+            },
+            'Januari': {
+                housing: { in: 'Rp 3.800.000', out: '(Rp 1.200.000)', bal: 'Rp 10.000.000' },
+                social: { in: 'Rp 700.000', out: '(Rp 200.000)', bal: 'Rp 2.850.000' },
+                rt: { in: 'Rp 700.000', out: '(Rp 500.000)', bal: 'Rp 950.000' },
+                total: { real: 'Rp 13.800.000', in: '+ Rp 5.200.000', out: '- Rp 1.900.000' }
+            }
+        };
+
+        function filterLaporan(e) {
+            e.preventDefault();
+            const bulan = document.getElementById('filter-bulan').value;
+            const tahun = document.getElementById('filter-tahun').value;
+            
+            // Show loading simulation
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Loading...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // Update text display
+                document.getElementById('report-period-display').innerText = `${bulan} ${tahun}`;
+                
+                // Get data for selected month (fallback to Feb if not found/other months)
+                const data = monthlyData[bulan] || monthlyData['Februari'];
+
+                // Update Housing
+                document.getElementById('lap-housing-in').innerText = data.housing.in;
+                document.getElementById('lap-housing-out').innerText = data.housing.out;
+                document.getElementById('lap-housing-bal').innerText = data.housing.bal;
+
+                // Update Social
+                document.getElementById('lap-social-in').innerText = data.social.in;
+                document.getElementById('lap-social-out').innerText = data.social.out;
+                document.getElementById('lap-social-bal').innerText = data.social.bal;
+
+                // Update RT
+                document.getElementById('lap-rt-in').innerText = data.rt.in;
+                document.getElementById('lap-rt-out').innerText = data.rt.out;
+                document.getElementById('lap-rt-bal').innerText = data.rt.bal;
+
+                // Update Totals
+                document.getElementById('lap-total-real').innerText = data.total.real;
+                document.getElementById('lap-total-in').innerText = data.total.in;
+                document.getElementById('lap-total-out').innerText = data.total.out;
+
+                // Restore button
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }, 800);
+        }
+
+        // --- CHART LOGIC (UPDATED) ---
+        function renderChart() {
+            const ctx = document.getElementById('financeChart').getContext('2d');
+            
+            // Destroy existing chart if any to prevent duplicates
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'],
+                    datasets: [
+                        {
+                            label: 'Kas Perumahan',
+                            data: [8000000, 10750000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            backgroundColor: 'rgba(59, 130, 246, 0.7)', // Blue-500
+                            borderColor: 'rgba(59, 130, 246, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Dana Sosial',
+                            data: [2500000, 3200000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            backgroundColor: 'rgba(34, 197, 94, 0.7)', // Green-500
+                            borderColor: 'rgba(34, 197, 94, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Kas RT',
+                            data: [1200000, 1500000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                            backgroundColor: 'rgba(168, 85, 247, 0.7)', // Purple-500
+                            borderColor: 'rgba(168, 85, 247, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- ADMIN MANAGEMENT LOGIC ---
+        function renderAdminList() {
+            const tbody = document.getElementById('admin-list-body');
+            tbody.innerHTML = '';
+            
+            adminAccounts.forEach((acc, index) => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-gray-50';
+                
+                let deleteBtn = '';
+                if(acc.user !== 'admin') {
+                    deleteBtn = `<button onclick="deleteAdmin(${index})" class="text-red-500 hover:text-red-700 text-xs font-bold border border-red-200 bg-red-50 px-2 py-1 rounded">Hapus</button>`;
+                } else {
+                    deleteBtn = `<span class="text-gray-400 text-xs italic">Utama</span>`;
+                }
+
+                tr.innerHTML = `
+                    <td class="py-3 font-mono text-gray-600">${acc.user}</td>
+                    <td class="py-3 font-medium text-gray-800">${acc.name}</td>
+                    <td class="py-3 text-right">${deleteBtn}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function saveNewAdmin(e) {
+            e.preventDefault();
+            const name = document.getElementById('new-admin-name').value;
+            const user = document.getElementById('new-admin-user').value.toLowerCase();
+            const pass = document.getElementById('new-admin-pass').value;
+
+            if(adminAccounts.find(a => a.user === user)) {
+                alert('Username sudah digunakan!');
+                return;
+            }
+
+            adminAccounts.push({ user, pass, name });
+            alert('Admin berhasil ditambahkan!');
+            toggleModal('modal-add-admin');
+            renderAdminList();
+            
+            document.getElementById('new-admin-name').value = '';
+            document.getElementById('new-admin-user').value = '';
+            document.getElementById('new-admin-pass').value = '';
+        }
+
+        function deleteAdmin(index) {
+            if(confirm('Hapus akses admin ini?')) {
+                adminAccounts.splice(index, 1);
+                renderAdminList();
+            }
+        }
+
+        // --- BANK SETTINGS LOGIC (NEW) ---
+        function saveBankSettings(e) {
+            e.preventDefault();
+            const bank = document.getElementById('set-bank-name').value;
+            const number = document.getElementById('set-bank-number').value;
+            const holder = document.getElementById('set-bank-holder').value;
+
+            // Update Warga Modal Display
+            const displayInfo = document.getElementById('display-bank-info');
+            const displayHolder = document.getElementById('display-bank-holder');
+            
+            if(displayInfo) displayInfo.innerText = `Transfer ke ${bank} - ${number}`;
+            if(displayHolder) displayHolder.innerText = `a.n ${holder}`;
+
+            alert('Data Rekening Berhasil Diperbarui!');
+        }
+
+        // --- MODAL UTILS ---
+        function toggleModal(modalId) {
+            const el = document.getElementById(modalId);
+            if (el) el.classList.toggle('hidden');
+        }
+
+        // --- MANAJEMEN WARGA ---
+        function openWargaModal(mode, id = null) {
+            const title = document.getElementById('warga-modal-title');
+            const noInput = document.getElementById('warga-no');
+            const namaInput = document.getElementById('warga-nama');
+            const userInput = document.getElementById('warga-user');
+            
+            if (mode === 'add') {
+                title.innerText = 'Tambah Warga Baru';
+                noInput.value = '';
+                namaInput.value = '';
+                userInput.value = '';
+            } else {
+                title.innerText = 'Edit Data Warga (' + id + ')';
+                noInput.value = id;
+                namaInput.value = id === 'A1-05' ? 'Budi Santoso' : 'Siti Aminah';
+                userInput.value = 'warga_' + id.toLowerCase().replace('-', '');
+            }
+            toggleModal('modal-warga');
+        }
+
+        // --- PAYMENT & SETTINGS LOGIC ---
+        function calculateTotal() {
+            const checkboxes = document.querySelectorAll('.bill-checkbox');
+            let total = 0;
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    total += parseInt(cb.value);
+                }
+            });
+            const display = document.getElementById('total-display');
+            if(display) display.innerText = 'Rp ' + total.toLocaleString('id-ID');
+        }
+
+        function calculateSettingsTotal() {
+            const h = parseInt(document.getElementById('set-housing').value) || 0;
+            const s = parseInt(document.getElementById('set-social').value) || 0;
+            const r = parseInt(document.getElementById('set-rt').value) || 0;
+            const total = h + s + r;
+            document.getElementById('set-total').value = total.toLocaleString('id-ID');
+        }
+    </script>
+</body>
+</html>
