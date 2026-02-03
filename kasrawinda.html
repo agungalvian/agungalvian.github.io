@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Keuangan Rawinda Pratama (Dinamis)</title>
+    <title>Sistem Keuangan Rawinda Pratama (Responsive)</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -29,6 +29,9 @@
         /* Table sticky headers for large tables */
         .sticky-col { position: sticky; left: 0; background-color: #f9fafb; z-index: 10; }
         .sticky-col-2 { position: sticky; left: 60px; background-color: #f9fafb; z-index: 10; }
+
+        /* Mobile Sidebar Transition */
+        .sidebar-transition { transition: transform 0.3s ease-in-out; }
     </style>
 </head>
 <body class="text-gray-800 antialiased h-screen flex flex-col overflow-hidden">
@@ -84,7 +87,14 @@
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
                     <div class="flex items-center">
+                        <!-- Mobile Menu Button -->
+                        <button onclick="toggleWargaMobileMenu()" class="md:hidden mr-4 text-gray-600 focus:outline-none">
+                            <i class="fa-solid fa-bars text-xl"></i>
+                        </button>
+                        
                         <span class="text-blue-600 text-lg font-bold mr-6"><i class="fa-solid fa-house-user mr-2"></i>Rawinda App</span>
+                        
+                        <!-- Desktop Menu -->
                         <div class="hidden md:flex space-x-1">
                             <button onclick="switchWargaTab('home')" id="btn-warga-home" class="px-3 py-2 rounded-md text-sm font-medium bg-blue-50 text-blue-700 transition">Beranda</button>
                             <button onclick="switchWargaTab('laporan')" id="btn-warga-laporan" class="px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition">Laporan</button>
@@ -98,6 +108,16 @@
                         <button onclick="logout()" class="text-red-500 hover:text-red-700 text-sm font-semibold ml-2"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Mobile Menu Dropdown -->
+            <div id="warga-mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-4 py-2 space-y-1 shadow-lg absolute w-full left-0 top-16 z-40">
+                <div class="mb-3 pb-2 border-b border-gray-100">
+                    <p class="text-sm font-bold text-gray-800" id="warga-nav-name-mobile">Nama Warga</p>
+                    <p class="text-xs text-gray-500" id="warga-nav-blok-mobile">Blok</p>
+                </div>
+                <button onclick="switchWargaTab('home'); toggleWargaMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-50">Beranda</button>
+                <button onclick="switchWargaTab('laporan'); toggleWargaMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-50">Laporan</button>
             </div>
         </nav>
 
@@ -116,7 +136,7 @@
                                 <p class="text-3xl font-extrabold text-gray-800 mt-2" id="warga-bill-amount">Rp 0</p>
                                 <p id="card-tagihan-desc" class="text-xs text-gray-500 mt-1">Akumulasi Bulan Berjalan</p>
                             </div>
-                            <button id="btn-bayar-utama" onclick="openPaymentModal()" class="bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-8 rounded-lg shadow-md transition transform hover:scale-105">
+                            <button id="btn-bayar-utama" onclick="openPaymentModal()" class="bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-8 rounded-lg shadow-md transition transform hover:scale-105 w-full sm:w-auto">
                                 <i class="fa-solid fa-upload mr-2"></i> Bayar Sekarang
                             </button>
                         </div>
@@ -167,9 +187,9 @@
 
                 <!-- VIEW LAPORAN WARGA (UPDATED TO MATCH ADMIN) -->
                 <div id="warga-view-laporan" class="hidden-section fade-in">
-                    <div class="flex justify-between items-center mb-6">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
                         <h1 class="text-2xl font-bold text-gray-800">Laporan Keuangan (Bulan Ini)</h1>
-                        <span class="text-sm font-bold bg-blue-100 text-blue-800 px-3 py-1 rounded-full" id="warga-report-period">...</span>
+                        <span class="text-sm font-bold bg-blue-100 text-blue-800 px-3 py-1 rounded-full mt-2 md:mt-0" id="warga-report-period">...</span>
                     </div>
 
                     <!-- TOTAL GABUNGAN CARD (WARGA) -->
@@ -279,22 +299,32 @@
     <!-- ========================================== -->
     <!-- 3. HALAMAN DASHBOARD ADMIN -->
     <!-- ========================================== -->
-    <section id="page-admin" class="flex-1 flex h-full hidden-section">
-        <aside class="w-64 bg-slate-900 text-white hidden md:flex flex-col shadow-xl z-20">
-            <div class="p-6 border-b border-slate-800">
-                <span class="text-xl font-bold tracking-wider text-blue-400 block">ADMIN</span>
-                <span class="text-xs text-slate-400 mt-1">Rawinda Pratama</span>
+    <section id="page-admin" class="flex-1 flex h-full hidden-section relative">
+        <!-- Overlay for Mobile Sidebar -->
+        <div id="admin-sidebar-overlay" onclick="toggleAdminSidebar()" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden md:hidden"></div>
+
+        <!-- Sidebar (Responsive: Fixed slide-in on mobile, Flex on Desktop) -->
+        <aside id="admin-sidebar" class="w-64 bg-slate-900 text-white fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out md:relative md:flex flex-col shadow-xl z-30 h-full">
+            <div class="p-6 border-b border-slate-800 flex justify-between items-center">
+                <div>
+                    <span class="text-xl font-bold tracking-wider text-blue-400 block">ADMIN</span>
+                    <span class="text-xs text-slate-400 mt-1">Rawinda Pratama</span>
+                </div>
+                <!-- Close Button (Mobile Only) -->
+                <button onclick="toggleAdminSidebar()" class="md:hidden text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
             </div>
             <nav class="flex-1 px-4 space-y-2 mt-6 overflow-y-auto">
-                <button onclick="switchAdminTab('dashboard')" id="nav-dashboard" class="admin-nav-item active w-full flex items-center px-4 py-3 bg-blue-600 rounded-lg text-white shadow-lg transition text-left"><i class="fa-solid fa-chart-pie w-6"></i> Dashboard</button>
-                <button onclick="switchAdminTab('warga')" id="nav-warga" class="admin-nav-item w-full flex items-center px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition text-left"><i class="fa-solid fa-users w-6"></i> Data Warga</button>
-                <button onclick="switchAdminTab('recap')" id="nav-recap" class="admin-nav-item w-full flex items-center px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition text-left"><i class="fa-solid fa-list-check w-6"></i> Rekap Pembayaran</button>
-                <button onclick="switchAdminTab('transaksi')" id="nav-transaksi" class="admin-nav-item w-full flex items-center px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition group text-left">
+                <button onclick="switchAdminTab('dashboard'); toggleAdminSidebar()" id="nav-dashboard" class="admin-nav-item active w-full flex items-center px-4 py-3 bg-blue-600 rounded-lg text-white shadow-lg transition text-left"><i class="fa-solid fa-chart-pie w-6"></i> Dashboard</button>
+                <button onclick="switchAdminTab('warga'); toggleAdminSidebar()" id="nav-warga" class="admin-nav-item w-full flex items-center px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition text-left"><i class="fa-solid fa-users w-6"></i> Data Warga</button>
+                <button onclick="switchAdminTab('recap'); toggleAdminSidebar()" id="nav-recap" class="admin-nav-item w-full flex items-center px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition text-left"><i class="fa-solid fa-list-check w-6"></i> Rekap Pembayaran</button>
+                <button onclick="switchAdminTab('transaksi'); toggleAdminSidebar()" id="nav-transaksi" class="admin-nav-item w-full flex items-center px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition group text-left">
                     <i class="fa-solid fa-receipt w-6"></i> Transaksi 
                     <span id="badge-pending" class="ml-auto bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full hidden">0</span>
                 </button>
-                <button onclick="switchAdminTab('laporan')" id="nav-laporan" class="admin-nav-item w-full flex items-center px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition text-left"><i class="fa-solid fa-file-invoice w-6"></i> Laporan</button>
-                <button onclick="switchAdminTab('settings')" id="nav-settings" class="admin-nav-item w-full flex items-center px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition text-left"><i class="fa-solid fa-gears w-6"></i> Pengaturan</button>
+                <button onclick="switchAdminTab('laporan'); toggleAdminSidebar()" id="nav-laporan" class="admin-nav-item w-full flex items-center px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition text-left"><i class="fa-solid fa-file-invoice w-6"></i> Laporan</button>
+                <button onclick="switchAdminTab('settings'); toggleAdminSidebar()" id="nav-settings" class="admin-nav-item w-full flex items-center px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white rounded-lg transition text-left"><i class="fa-solid fa-gears w-6"></i> Pengaturan</button>
             </nav>
             <div class="p-4 border-t border-slate-800">
                 <button onclick="logout()" class="flex items-center w-full px-4 py-2 text-slate-400 hover:text-white transition"><i class="fa-solid fa-right-from-bracket w-6"></i> Logout</button>
@@ -302,8 +332,14 @@
         </aside>
 
         <div class="flex-1 flex flex-col h-full overflow-hidden bg-gray-100">
-            <header class="bg-white shadow-sm h-16 flex items-center justify-between px-6 md:hidden z-10">
-                <span class="font-bold text-gray-800 text-lg">Admin Panel</span>
+            <!-- Mobile Header (Visible on Mobile Only) -->
+            <header class="bg-white shadow-sm h-16 flex items-center justify-between px-6 md:hidden z-10 sticky top-0">
+                <div class="flex items-center">
+                    <button onclick="toggleAdminSidebar()" class="text-gray-600 mr-4 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                    <span class="font-bold text-gray-800 text-lg">Admin Panel</span>
+                </div>
                 <button onclick="logout()" class="text-red-500"><i class="fa-solid fa-right-from-bracket"></i></button>
             </header>
 
@@ -312,9 +348,9 @@
                 <div id="admin-view-dashboard" class="admin-view fade-in">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                         <div><h1 class="text-2xl font-bold text-gray-800">Ringkasan Keuangan</h1><p class="text-gray-500 text-sm mt-1" id="current-date-display">Senin, 02 Februari 2026</p></div>
-                        <div class="flex space-x-3">
-                            <button onclick="toggleModal('modal-income')" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg shadow-lg flex items-center transition"><i class="fa-solid fa-circle-plus mr-2"></i> Pemasukan</button>
-                            <button onclick="toggleModal('modal-expense')" class="bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-lg shadow-lg flex items-center transition"><i class="fa-solid fa-circle-minus mr-2"></i> Pengeluaran</button>
+                        <div class="flex space-x-3 w-full md:w-auto">
+                            <button onclick="toggleModal('modal-income')" class="flex-1 md:flex-none bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-lg shadow-lg flex items-center justify-center transition"><i class="fa-solid fa-circle-plus mr-2"></i> Pemasukan</button>
+                            <button onclick="toggleModal('modal-expense')" class="flex-1 md:flex-none bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-lg shadow-lg flex items-center justify-center transition"><i class="fa-solid fa-circle-minus mr-2"></i> Pengeluaran</button>
                         </div>
                     </div>
                     <!-- Cards Admin -->
@@ -350,7 +386,7 @@
                 <div id="admin-view-warga" class="admin-view hidden-section fade-in">
                     <div class="flex justify-between items-center mb-6">
                         <h1 class="text-2xl font-bold text-gray-800">Database Warga</h1>
-                        <button onclick="toggleModal('modal-warga')" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition"><i class="fa-solid fa-plus mr-1"></i> Tambah</button>
+                        <button onclick="openAddWargaModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition"><i class="fa-solid fa-plus mr-1"></i> Tambah</button>
                     </div>
                     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                         <table class="w-full text-sm text-left text-gray-600">
@@ -424,6 +460,26 @@
                 <!-- VIEW LAPORAN (UPDATED) -->
                 <div id="admin-view-laporan" class="admin-view hidden-section fade-in">
                     <h1 class="text-2xl font-bold text-gray-800 mb-6">Laporan Keuangan</h1>
+                    
+                    <!-- NEW SECTION: REALTIME SALDO -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                        <div class="bg-blue-600 text-white p-4 rounded-xl shadow-lg">
+                            <p class="text-xs font-bold opacity-80 uppercase"><i class="fa-solid fa-house-chimney mr-1"></i> Saldo Kas Perumahan</p>
+                            <p class="text-xl font-bold mt-1" id="report-page-saldo-housing">Rp 0</p>
+                        </div>
+                        <div class="bg-green-600 text-white p-4 rounded-xl shadow-lg">
+                            <p class="text-xs font-bold opacity-80 uppercase"><i class="fa-solid fa-hand-holding-heart mr-1"></i> Saldo Dana Sosial</p>
+                            <p class="text-xl font-bold mt-1" id="report-page-saldo-social">Rp 0</p>
+                        </div>
+                        <div class="bg-purple-600 text-white p-4 rounded-xl shadow-lg">
+                            <p class="text-xs font-bold opacity-80 uppercase"><i class="fa-solid fa-users mr-1"></i> Saldo Kas RT</p>
+                            <p class="text-xl font-bold mt-1" id="report-page-saldo-rt">Rp 0</p>
+                        </div>
+                         <div class="bg-gray-800 text-white p-4 rounded-xl shadow-lg border-2 border-gray-700">
+                            <p class="text-xs font-bold opacity-80 uppercase"><i class="fa-solid fa-wallet mr-1"></i> Total Saldo Keseluruhan</p>
+                            <p class="text-xl font-bold mt-1" id="report-page-saldo-total">Rp 0</p>
+                        </div>
+                    </div>
                     
                     <!-- FILTER SECTION -->
                     <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 mb-6 flex flex-col md:flex-row gap-4 items-center">
@@ -631,7 +687,7 @@
                 </div>
                 <!-- FILE UPLOAD FIX -->
                 <div class="mb-4">
-                    <label class="block text-sm font-semibold mb-1">Bukti Transfer</label>
+                    <label class="block text-sm font-semibold mb-1">Bukti Transfer <span class="text-red-500">*Wajib</span></label>
                     <input type="file" id="file-upload" class="hidden" accept="image/*" onchange="handleFileSelect(this)">
                     
                     <div onclick="document.getElementById('file-upload').click()" class="border-2 border-dashed border-gray-300 rounded p-4 text-center cursor-pointer hover:bg-gray-50 transition" id="upload-area">
@@ -647,7 +703,7 @@
                 
                 <div class="flex gap-2">
                     <button type="button" onclick="toggleModal('modal-upload')" class="flex-1 bg-gray-200 py-2 rounded">Batal</button>
-                    <button type="submit" id="btn-submit-pay" disabled class="flex-1 bg-blue-600 text-white py-2 rounded font-bold hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed">Kirim</button>
+                    <button type="submit" id="btn-submit-pay" disabled class="flex-1 bg-blue-600 text-white py-2 rounded font-bold hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed">Pilih Bulan</button>
                 </div>
             </form>
         </div>
@@ -684,22 +740,39 @@
         </div>
     </div>
 
-    <!-- Modal Tambah Warga -->
+    <!-- Modal Tambah/Edit Warga -->
     <div id="modal-warga" class="fixed inset-0 z-50 hidden bg-gray-900 bg-opacity-70 flex items-center justify-center p-4">
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-md relative p-6">
-            <h3 class="font-bold text-lg mb-4">Tambah Warga</h3>
-            <form onsubmit="handleAddWarga(event)">
+            <h3 class="font-bold text-lg mb-4" id="modal-warga-title">Tambah Warga</h3>
+            <form onsubmit="handleSaveWarga(event)">
+                <input type="hidden" id="edit-warga-id">
                 <div class="grid grid-cols-2 gap-4 mb-4">
                     <div><label class="block text-sm font-semibold mb-1">Blok/No</label><input type="text" id="new-warga-no" required class="w-full border p-2 rounded uppercase" placeholder="A1-99"></div>
                     <div><label class="block text-sm font-semibold mb-1">Status</label><select id="new-warga-status" class="w-full border p-2 rounded"><option>Dihuni</option><option>Sewa</option></select></div>
                 </div>
                 <div class="mb-4"><label class="block text-sm font-semibold mb-1">Nama KK</label><input type="text" id="new-warga-name" required class="w-full border p-2 rounded"></div>
                 <div class="mb-4"><label class="block text-sm font-semibold mb-1">Username</label><input type="text" id="new-warga-user" required class="w-full border p-2 rounded"></div>
+                <!-- Password Input -->
+                <div class="mb-4"><label class="block text-sm font-semibold mb-1">Password</label><input type="text" id="new-warga-pass" value="1234" required class="w-full border p-2 rounded"></div>
+                
                 <div class="flex gap-2">
                     <button type="button" onclick="toggleModal('modal-warga')" class="flex-1 bg-gray-200 py-2 rounded">Batal</button>
                     <button type="submit" class="flex-1 bg-blue-600 text-white py-2 rounded font-bold">Simpan</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi Hapus -->
+    <div id="modal-delete" class="fixed inset-0 z-50 hidden bg-gray-900 bg-opacity-70 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 text-center">
+            <i class="fa-solid fa-triangle-exclamation text-4xl text-red-500 mb-4"></i>
+            <h3 class="font-bold text-lg mb-2">Hapus Data Warga?</h3>
+            <p class="text-sm text-gray-500 mb-6">Tindakan ini tidak dapat dibatalkan.</p>
+            <div class="flex gap-2">
+                <button onclick="toggleModal('modal-delete')" class="flex-1 bg-gray-200 py-2 rounded">Batal</button>
+                <button onclick="confirmDeleteWarga()" class="flex-1 bg-red-600 text-white py-2 rounded font-bold hover:bg-red-700">Hapus</button>
+            </div>
         </div>
     </div>
 
@@ -762,6 +835,7 @@
         let currentUser = null; 
         let chartInstance = null; 
         let selectedMonths = [];
+        let deleteTargetId = null; // NEW for delete modal
 
         // --- RESTORED AUTHENTICATION LOGIC ---
         function handleLogin(e) {
@@ -794,6 +868,31 @@
             document.getElementById('login-username').value = '';
             document.getElementById('login-password').value = '';
             switchPage('page-login');
+            // Reset mobile states
+            document.getElementById('warga-mobile-menu').classList.add('hidden');
+            const sidebar = document.getElementById('admin-sidebar');
+            if(sidebar) sidebar.classList.add('-translate-x-full');
+            const overlay = document.getElementById('admin-sidebar-overlay');
+            if(overlay) overlay.classList.add('hidden');
+        }
+
+        // --- NEW: MOBILE MENU LOGIC ---
+        function toggleWargaMobileMenu() {
+            document.getElementById('warga-mobile-menu').classList.toggle('hidden');
+        }
+
+        function toggleAdminSidebar() {
+            const sidebar = document.getElementById('admin-sidebar');
+            const overlay = document.getElementById('admin-sidebar-overlay');
+            
+            // Toggle Translate Class
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
         }
 
         // --- RESTORED CORE LOGIC ---
@@ -836,6 +935,10 @@
         function initWarga() {
             document.getElementById('warga-nav-name').innerText = currentUser.name;
             document.getElementById('warga-nav-blok').innerText = currentUser.blok;
+            
+            // Update Mobile Menu Info
+            document.getElementById('warga-nav-name-mobile').innerText = currentUser.name;
+            document.getElementById('warga-nav-blok-mobile').innerText = currentUser.blok;
 
             const { bal, totalIn, totalOut } = calculateBalances();
             
@@ -1073,6 +1176,12 @@
             formatId('admin-saldo-housing', bal.perumahan);
             formatId('admin-saldo-social', bal.sosial);
             formatId('admin-saldo-rt', bal.rt);
+
+            // NEW: Update Report Page Realtime Balances as well
+            formatId('report-page-saldo-total', bal.total);
+            formatId('report-page-saldo-housing', bal.perumahan);
+            formatId('report-page-saldo-social', bal.sosial);
+            formatId('report-page-saldo-rt', bal.rt);
         }
 
         function renderAdminWargaTable() {
@@ -1086,11 +1195,89 @@
                         <td class="px-6 py-4 font-mono text-xs text-blue-600">${w.user}</td>
                         <td class="px-6 py-4"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Aktif</span></td>
                         <td class="px-6 py-4 text-center">
-                            <button class="text-blue-500 hover:text-blue-700 transition"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button type="button" onclick="handleEditWarga(${w.id})" class="text-blue-500 hover:text-blue-700 transition"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button type="button" onclick="handleDeleteWarga(${w.id})" class="text-red-500 hover:text-red-700 transition ml-2"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 `;
             });
+        }
+        
+        // NEW: Open Add Modal (Clears form)
+        function openAddWargaModal() {
+            document.getElementById('modal-warga-title').innerText = "Tambah Warga";
+            document.getElementById('edit-warga-id').value = "";
+            document.getElementById('new-warga-no').value = "";
+            document.getElementById('new-warga-name').value = "";
+            document.getElementById('new-warga-user').value = "";
+            document.getElementById('new-warga-pass').value = "1234";
+            toggleModal('modal-warga');
+        }
+
+        // NEW: Handle Edit Warga (Opens Modal with Data)
+        function handleEditWarga(id) {
+            const w = dbWarga.find(x => x.id === id);
+            if(!w) return;
+            
+            document.getElementById('modal-warga-title').innerText = "Edit Warga";
+            document.getElementById('edit-warga-id').value = w.id;
+            document.getElementById('new-warga-no').value = w.blok;
+            document.getElementById('new-warga-name').value = w.name;
+            document.getElementById('new-warga-user').value = w.user;
+            document.getElementById('new-warga-pass').value = w.pass;
+            document.getElementById('new-warga-status').value = "Dihuni"; // Simplification
+            
+            toggleModal('modal-warga');
+        }
+        
+        // NEW: Handle Delete Warga (Opens Confirm Modal)
+        function handleDeleteWarga(id) {
+            deleteTargetId = id;
+            toggleModal('modal-delete');
+        }
+
+        function confirmDeleteWarga() {
+            if(deleteTargetId) {
+                dbWarga = dbWarga.filter(w => w.id !== deleteTargetId);
+                renderAdminWargaTable();
+                showToast("Data warga dihapus", "success");
+            }
+            toggleModal('modal-delete');
+        }
+
+        // NEW: Unified Save (Add/Edit)
+        function handleSaveWarga(e) {
+            e.preventDefault();
+            const id = document.getElementById('edit-warga-id').value;
+            const no = document.getElementById('new-warga-no').value;
+            const name = document.getElementById('new-warga-name').value;
+            const user = document.getElementById('new-warga-user').value;
+            const pass = document.getElementById('new-warga-pass').value;
+
+            if(id) {
+                // Edit Mode
+                const idx = dbWarga.findIndex(w => w.id == id);
+                if(idx !== -1) {
+                    dbWarga[idx].name = name;
+                    dbWarga[idx].blok = no;
+                    dbWarga[idx].user = user;
+                    dbWarga[idx].pass = pass;
+                    showToast("Data warga diperbarui", "success");
+                }
+            } else {
+                // Add Mode
+                dbWarga.push({
+                    id: Date.now(),
+                    name: name,
+                    blok: no,
+                    user: user,
+                    pass: pass,
+                    role: 'warga'
+                });
+                showToast("Warga baru berhasil ditambahkan", "success");
+            }
+            toggleModal('modal-warga');
+            renderAdminWargaTable();
         }
 
         function renderAdminTransactions() {
@@ -1439,6 +1626,12 @@
             const container = document.getElementById('month-checkboxes');
             container.innerHTML = '';
             selectedMonths = [];
+            
+            // Reset Input File
+            const fileInput = document.getElementById('file-upload');
+            fileInput.value = ''; // Reset value
+            
+            // Reset Validation UI
             updateTotalPayment();
 
             const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
@@ -1508,7 +1701,7 @@
             }
             
             // Reset Upload UI
-            document.getElementById('file-upload').value = '';
+            // document.getElementById('file-upload').value = ''; (Moved above)
             document.getElementById('upload-placeholder').classList.remove('hidden');
             document.getElementById('upload-preview').classList.add('hidden');
             document.getElementById('upload-preview').classList.remove('flex');
@@ -1522,6 +1715,9 @@
                 document.getElementById('upload-preview').classList.remove('hidden');
                 document.getElementById('upload-preview').classList.add('flex');
                 document.getElementById('file-name-display').innerText = input.files[0].name;
+                
+                // NEW: Update validation state immediately
+                updateTotalPayment();
             }
         }
 
@@ -1538,14 +1734,43 @@
             const total = selectedMonths.length * dbConfig.total; // Use Dynamic Config
             document.getElementById('pay-amount-raw').value = total;
             document.getElementById('pay-amount-display').value = formatRupiah(total);
-            document.getElementById('btn-submit-pay').disabled = total === 0;
+            
+            // NEW: Check Mandatory File
+            const fileInput = document.getElementById('file-upload');
+            const hasFile = fileInput.files && fileInput.files.length > 0;
+            
+            const btn = document.getElementById('btn-submit-pay');
+            
+            // Validasi: Harus pilih bulan DAN harus ada file
+            const isValid = total > 0 && hasFile;
+            
+            btn.disabled = !isValid;
+            
+            // Update Text Button for better UX
+            if (total === 0) {
+                btn.innerText = "Pilih Bulan";
+            } else if (!hasFile) {
+                btn.innerText = "Upload Bukti";
+            } else {
+                btn.innerText = "Kirim Pembayaran";
+            }
         }
 
         // 2. Warga Bayar
         function handleWargaPayment(e) {
             e.preventDefault();
             const amount = parseInt(document.getElementById('pay-amount-raw').value);
-            if(amount === 0) return;
+            const fileInput = document.getElementById('file-upload');
+
+            // Double Validation Check
+            if(amount === 0) {
+                showToast('Harap pilih bulan yang akan dibayar!', 'error');
+                return;
+            }
+            if(!fileInput.files || fileInput.files.length === 0) {
+                showToast('Bukti pembayaran wajib diupload!', 'error');
+                return;
+            }
 
             // Sort months to look nice in description
             const desc = `Iuran: ${selectedMonths.join(', ')}`;
@@ -1584,7 +1809,7 @@
                 document.getElementById('modal-trx').classList.remove('hidden');
                 document.getElementById('modal-trx-title').innerText = "Input Pemasukan Lainnya";
                 document.getElementById('trx-type').value = 'in';
-                document.getElementById('trx-amount').classList.remove('text-red-600');
+                document.getElementById('trx-amount').classList.remove('text-green-600');
                 document.getElementById('trx-amount').classList.add('text-green-600');
                 
                 // Set Default Date to Today
@@ -1634,51 +1859,8 @@
             initAdmin();
         }
 
-        function handleAddWarga(e) {
-            e.preventDefault();
-            const no = document.getElementById('new-warga-no').value;
-            const name = document.getElementById('new-warga-name').value;
-            const user = document.getElementById('new-warga-user').value;
-
-            dbWarga.push({
-                id: Date.now(),
-                name: name,
-                blok: no,
-                user: user,
-                pass: '1234', 
-                role: 'warga'
-            });
-
-            toggleModal('modal-warga');
-            showToast('Warga baru berhasil ditambahkan', 'success');
-            renderAdminWargaTable();
-        }
-
         // --- SETTINGS LOGIC ---
-        function initAdminSettings() {
-            document.getElementById('set-housing').value = dbConfig.housing;
-            document.getElementById('set-social').value = dbConfig.social;
-            document.getElementById('set-rt').value = dbConfig.rt;
-            calculateSettingsTotal();
-        }
-
-        function calculateSettingsTotal() {
-            const h = parseInt(document.getElementById('set-housing').value) || 0;
-            const s = parseInt(document.getElementById('set-social').value) || 0;
-            const r = parseInt(document.getElementById('set-rt').value) || 0;
-            const total = h + s + r;
-            document.getElementById('set-total').value = formatRupiah(total);
-        }
-
-        function handleSaveSettings(e) {
-            e.preventDefault();
-            dbConfig.housing = parseInt(document.getElementById('set-housing').value) || 0;
-            dbConfig.social = parseInt(document.getElementById('set-social').value) || 0;
-            dbConfig.rt = parseInt(document.getElementById('set-rt').value) || 0;
-            
-            showToast('Tarif Baru Disimpan! Tagihan warga akan otomatis mengikuti tarif baru.', 'success');
-        }
-
+        // (Moved function to be grouped with other Admin functions)
 
         function formatRupiah(num) {
             return 'Rp ' + num.toLocaleString('id-ID');
