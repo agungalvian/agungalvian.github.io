@@ -37,12 +37,6 @@
             color: white;
             border-color: #0f766e;
         }
-        
-        .tab-btn.active-warning {
-            background-color: #d97706; 
-            color: white;
-            border-color: #d97706;
-        }
 
         .timeline-step {
             position: relative;
@@ -131,11 +125,11 @@
                         <p class="text-emerald-700 text-sm mt-1">SIT & UAT Signed-off. Piloting dengan 42 Bank Penyalur berhasil.</p>
                         <span class="mt-4 inline-block bg-emerald-200 text-emerald-800 text-xs font-bold px-2 py-1 rounded uppercase tracking-wide w-max">✅ Siap</span>
                     </div>
-                    <div class="bg-amber-50 p-6 rounded-2xl border border-amber-100 shadow-sm flex flex-col justify-center">
+                    <div class="bg-emerald-50 p-6 rounded-2xl border border-emerald-100 shadow-sm flex flex-col justify-center">
                         <span class="text-3xl mb-2">💾</span>
-                        <h4 class="font-bold text-amber-900 text-lg">Kesiapan Data</h4>
-                        <p class="text-amber-700 text-sm mt-1">Skema disesuaikan. Menunggu penyalinan data aktual pada saat migrasi (Cut-over).</p>
-                        <span class="mt-4 inline-block bg-amber-200 text-amber-800 text-xs font-bold px-2 py-1 rounded uppercase tracking-wide w-max">⏳ Dalam Proses</span>
+                        <h4 class="font-bold text-emerald-900 text-lg">Kesiapan Data</h4>
+                        <p class="text-emerald-700 text-sm mt-1">Skema disesuaikan. Data siap disalin pada saat migrasi (Cut-over).</p>
+                        <span class="mt-4 inline-block bg-emerald-200 text-emerald-800 text-xs font-bold px-2 py-1 rounded uppercase tracking-wide w-max">✅ Siap</span>
                     </div>
                     <div class="bg-emerald-50 p-6 rounded-2xl border border-emerald-100 shadow-sm flex flex-col justify-center relative overflow-hidden">
                         <div class="absolute top-4 right-4 bg-red-100 text-red-700 text-xs px-2 py-1 rounded font-bold">⚠️ Catatan</div>
@@ -246,10 +240,10 @@
                                 <td class="p-4 text-center"><span class="bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full text-sm">✅ SIAP</span></td>
                                 <td class="p-4 text-stone-600 text-sm">UAT selesai, integrasi berhasil diverifikasi.</td>
                             </tr>
-                            <tr class="bg-amber-50">
+                            <tr>
                                 <td class="p-4 font-medium text-stone-800 flex items-center gap-2"><span>💾</span> Data</td>
-                                <td class="p-4 text-center"><span class="bg-amber-200 text-amber-900 font-bold px-3 py-1 rounded-full text-sm">⏳ PROSES</span></td>
-                                <td class="p-4 text-amber-800 text-sm font-medium">Data siap disalin saat waktu cut-over. Backup standby.</td>
+                                <td class="p-4 text-center"><span class="bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full text-sm">✅ SIAP</span></td>
+                                <td class="p-4 text-stone-600 text-sm">Data siap disalin saat waktu cut-over. Backup standby.</td>
                             </tr>
                             <tr class="bg-red-50">
                                 <td class="p-4 font-medium text-stone-800 flex items-center gap-2"><span>👥</span> Operasional</td>
@@ -311,9 +305,9 @@
                 id: 'data',
                 title: '3. Kesiapan Data',
                 focus: 'Memastikan tidak ada data yang hilang, tertinggal, atau rusak',
-                status: 'DALAM PROSES',
-                statusColor: 'bg-amber-200 text-amber-900',
-                icon: '⏳',
+                status: 'SIAP',
+                statusColor: 'bg-emerald-100 text-emerald-800',
+                icon: '✅',
                 points: [
                     '<strong>Pemetaan & Penyalinan Data (Cleansing & Copy):</strong> Format data lama (Sikasep) telah disesuaikan dengan skema database yang baru (Tapera Mobile). Penyalinan data akan dilakukan pada saat migrasi.',
                     '<strong>Siklus Migrasi (Mock Migration):</strong> Simulasi migrasi (Dry-run) telah dilakukan untuk mengukur waktu yang dibutuhkan (Downtime estimation).',
@@ -361,15 +355,11 @@
 
         function switchPillar(pillarKey) {
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active', 'active-warning');
+                btn.classList.remove('active');
             });
 
             const activeBtn = document.getElementById(`btn-${pillarKey}`);
-            if(pillarKey === 'data') {
-                activeBtn.classList.add('active-warning');
-            } else {
-                activeBtn.classList.add('active');
-            }
+            activeBtn.classList.add('active');
 
             const contentDiv = document.getElementById('pillar-content');
             contentDiv.style.opacity = 0;
@@ -390,7 +380,7 @@
                 data: {
                     labels: ['Siap', 'Dalam Proses'],
                     datasets: [{
-                        data: [75, 25], 
+                        data: [100, 0], 
                         backgroundColor: [
                             '#10b981', 
                             '#f59e0b'  
@@ -417,7 +407,7 @@
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return context.label + ': ' + context.parsed + '% (3 Pilar vs 1 Pilar)';
+                                    return context.label + ': ' + context.parsed + '% (4 Pilar vs 0 Pilar)';
                                 }
                             }
                         }
@@ -438,7 +428,7 @@
                     ctx.textBaseline = "middle";
                     ctx.fillStyle = "#292524";
 
-                    var text = "75%",
+                    var text = "100%",
                         textX = Math.round((width - ctx.measureText(text).width) / 2),
                         textY = height / 2 - 10; 
 
