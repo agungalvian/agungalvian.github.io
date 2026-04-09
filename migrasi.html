@@ -7,7 +7,7 @@
     
     <!-- Chosen Palette: Warm Neutrals with Semantic Accents (Stone, Emerald, Amber, Slate) -->
     <!-- Application Structure Plan: A centralized Dashboard/SPA layout. Top section provides an executive summary and high-level metric (Donut chart). Middle section is an interactive tabbed module allowing deep-dive into the 5 pillars without overwhelming the user with text simultaneously. Bottom sections linearize the Rollback Strategy and Final Decision matrix for clear, conclusive reading. This task-oriented flow moves from 'At a Glance' -> 'Detailed Exploration' -> 'Mitigation' -> 'Conclusion'. -->
-    <!-- Visualization & Content Choices: 1. Executive Summary -> Goal: Inform -> Donut Chart (Chart.js) -> Shows proportion of ready vs in-progress pillars. 2. 5 Pillars -> Goal: Organize/Explore -> Interactive Tabs (Vanilla JS) -> Allows focused reading of dense bullet points per pillar. 3. Rollback Plan -> Goal: Process Flow -> Vertical CSS Timeline -> Clear sequence of steps. 4. Conclusion -> Goal: Summary -> CSS Grid Matrix -> Quick visual confirmation. Confirming NO SVG/Mermaid used. -->
+    <!-- Visualization & Content Choices: 1. Executive Summary -> Goal: Inform -> Donut Chart (Chart.js) -> Shows proportion of ready vs in-progress pillars. 2. 5 Pillars -> Goal: Organize/Explore -> Interactive Tabs (Vanilla JS) -> Allows focused reading of dense bullet points per pillar. Added Bar Chart for Pillar 5 to show distribution. 3. Rollback Plan -> Goal: Process Flow -> Vertical CSS Timeline -> Clear sequence of steps. 4. Conclusion -> Goal: Summary -> CSS Grid Matrix -> Quick visual confirmation. Confirming NO SVG/Mermaid used. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -63,6 +63,25 @@
         .timeline-step:last-child {
             border-left: 2px solid transparent;
         }
+
+        /* Animasi Migrasi */
+        @keyframes migrate {
+            0% { left: 0%; opacity: 0; transform: scale(0.8); }
+            15% { opacity: 1; transform: scale(1); }
+            85% { opacity: 1; transform: scale(1); }
+            100% { left: calc(100% - 2rem); opacity: 0; transform: scale(0.8); }
+        }
+        .animate-migrate {
+            animation: migrate 2.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse-soft {
+            animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
@@ -76,6 +95,7 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#background" class="hover:bg-stone-700 px-3 py-2 rounded-md text-sm font-medium">Latar Belakang</a>
                         <a href="#summary" class="hover:bg-stone-700 px-3 py-2 rounded-md text-sm font-medium">Ringkasan Eksekutif</a>
                         <a href="#pillars" class="hover:bg-stone-700 px-3 py-2 rounded-md text-sm font-medium">Evaluasi 5 Pilar</a>
                         <a href="#rollback" class="hover:bg-stone-700 px-3 py-2 rounded-md text-sm font-medium">Mitigasi Risiko</a>
@@ -104,6 +124,133 @@
             </div>
         </header>
 
+        <!-- Bagian Latar Belakang & Animasi Migrasi -->
+        <section id="background" class="scroll-mt-24 pt-4">
+            
+            <!-- Animasi Migrasi Sikasep -> Tapera Mobile -->
+            <div class="flex flex-col items-center justify-center mb-16 bg-stone-50 py-10 rounded-2xl border border-stone-200 shadow-inner">
+                <h3 class="text-stone-500 font-bold tracking-widest uppercase text-sm mb-8">Proses Transisi Sistem</h3>
+                
+                <div class="flex items-center justify-center w-full max-w-3xl px-4">
+                    <!-- Logo Sikasep -->
+                    <div class="flex flex-col items-center bg-white p-4 rounded-2xl shadow-md border border-stone-200 transition-transform hover:scale-105 z-10 w-40">
+                        <img src="image_74a197.png" alt="Logo Sikasep" class="h-16 object-contain rounded-lg">
+                        <span class="mt-3 font-bold text-stone-700 text-sm">Sistem Lama</span>
+                    </div>
+
+                    <!-- Jalur Animasi -->
+                    <div class="flex-grow flex items-center relative h-16 mx-4">
+                        <!-- Garis Putus-Putus -->
+                        <div class="w-full h-1 bg-stone-300 rounded-full border-dashed border-t-4 border-stone-300 absolute top-1/2 -translate-y-1/2"></div>
+                        
+                        <!-- Panah Bergerak -->
+                        <div class="animate-migrate absolute text-emerald-500 font-black text-3xl flex items-center justify-center" style="top: 50%; transform: translateY(-50%);">
+                            ❱❱
+                        </div>
+                    </div>
+
+                    <!-- Logo Tapera Mobile -->
+                    <div class="flex flex-col items-center bg-stone-900 p-4 rounded-2xl shadow-md border border-stone-800 transition-transform hover:scale-105 z-10 w-40">
+                        <img src="image_74a1b5.png" alt="Logo Tapera Mobile" class="h-16 object-contain rounded-lg">
+                        <span class="mt-3 font-bold text-stone-100 text-sm">Sistem Baru</span>
+                    </div>
+                </div>
+                <p class="mt-8 text-emerald-600 text-sm font-semibold animate-pulse-soft">Memindahkan Data & Mengintegrasikan API...</p>
+            </div>
+
+            <h2 class="text-2xl font-bold text-stone-800 border-b-2 border-stone-200 pb-2 mb-4">Latar Belakang & Peningkatan Sistem</h2>
+            <p class="text-stone-600 mb-6 max-w-4xl text-lg">
+                Migrasi ini bertujuan untuk meningkatkan keandalan, keamanan, dan pengalaman pengguna secara menyeluruh. Berikut adalah perbandingan kapabilitas antara sistem lama (Sikasep & API v1) dengan sistem baru (Tapera Mobile & API v2).
+            </p>
+
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                <!-- Perbandingan Aplikasi -->
+                <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden">
+                    <div class="bg-stone-800 text-white p-4">
+                        <h3 class="font-bold text-lg flex items-center gap-2"><span>📱</span> Perbandingan Fitur Aplikasi</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead>
+                                <tr class="bg-stone-50 border-b border-stone-200 text-stone-500">
+                                    <th class="p-4 font-semibold w-1/4">Fitur</th>
+                                    <th class="p-4 font-semibold w-1/3">Sikasep</th>
+                                    <th class="p-4 font-semibold text-emerald-700 bg-emerald-50 w-5/12">Tapera Mobile</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-stone-100">
+                                <tr>
+                                    <td class="p-4 font-medium text-stone-800">Registrasi</td>
+                                    <td class="p-4 text-stone-600">Input Manual (Risiko Typo)</td>
+                                    <td class="p-4 bg-emerald-50/30 text-stone-800"><strong class="text-emerald-700">OCR Technology</strong> (Foto KTP Langsung Auto-fill)</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-medium text-stone-800">Validasi Identitas</td>
+                                    <td class="p-4 text-stone-600">Tidak ada validasi KTP</td>
+                                    <td class="p-4 bg-emerald-50/30 text-stone-800"><strong class="text-emerald-700">Integrasi Real-time Dukcapil</strong></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-medium text-stone-800">Keamanan Akun</td>
+                                    <td class="p-4 text-stone-600">Tidak ada validasi No. HP</td>
+                                    <td class="p-4 bg-emerald-50/30 text-stone-800"><strong class="text-emerald-700">Verifikasi OTP</strong> (Lebih aman)</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-medium text-stone-800">Distribusi Pengajuan</td>
+                                    <td class="p-4 text-stone-600">Manual (Tidak langsung ke wilayah)</td>
+                                    <td class="p-4 bg-emerald-50/30 text-stone-800"><strong class="text-emerald-700">Direct Distribution</strong> (Ke PIC Bank sesuai wilayah)</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-medium text-stone-800">User Experience</td>
+                                    <td class="p-4 text-stone-600">Pencarian rumah standar</td>
+                                    <td class="p-4 bg-emerald-50/30 text-stone-800"><strong class="text-emerald-700">Smart Search</strong> (Proses pencarian lebih mudah)</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-medium text-stone-800">Perangkat</td>
+                                    <td class="p-4 text-stone-600">Hanya tersedia di Android</td>
+                                    <td class="p-4 bg-emerald-50/30 text-stone-800"><strong class="text-emerald-700">Android & iOS</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Perbandingan API -->
+                <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden flex flex-col">
+                    <div class="bg-stone-800 text-white p-4">
+                        <h3 class="font-bold text-lg flex items-center gap-2"><span>🔌</span> Perbedaan Backend API</h3>
+                    </div>
+                    <div class="overflow-x-auto flex-grow">
+                        <table class="w-full text-left text-sm h-full">
+                            <thead>
+                                <tr class="bg-stone-50 border-b border-stone-200 text-stone-500">
+                                    <th class="p-4 font-semibold w-1/2">API v1 (Legacy)</th>
+                                    <th class="p-4 font-semibold text-emerald-700 bg-emerald-50 w-1/2">API v2 (Modern)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-stone-100">
+                                <tr>
+                                    <td class="p-4 text-stone-600 align-top">Menggunakan teknologi lama (SOAP)</td>
+                                    <td class="p-4 bg-emerald-50/30 text-stone-800 align-top font-medium">Menggunakan teknologi baru (REST)</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 text-stone-600 align-top">Silo System antara pembiayaan KPR FLPP dan KPR Tapera</td>
+                                    <td class="p-4 bg-emerald-50/30 text-stone-800 align-top font-medium">Single system terpadu untuk seluruh sistem pembiayaan BPTAPERA</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 text-stone-600 align-top">Proses follow up bank di distribusi manual oleh Bank Pusat</td>
+                                    <td class="p-4 bg-emerald-50/30 text-stone-800 align-top font-medium">Proses follow up pengajuan lebih cepat dengan menyediakan aplikasi khusus PIC Bank penyalur</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 text-stone-600 align-top">kurang flexible dalam integrasi dengan teknologi lanjutan</td>
+                                    <td class="p-4 bg-emerald-50/30 text-stone-800 align-top font-medium">Lebih siap untuk integrasi dengan teknologi lanjutan</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="summary" class="scroll-mt-24">
             <h2 class="text-2xl font-bold text-stone-800 border-b-2 border-stone-200 pb-2 mb-4">Ringkasan Eksekutif</h2>
             <p class="text-stone-600 mb-6 max-w-4xl text-lg">
@@ -112,7 +259,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200 flex flex-col items-center justify-center">
-                    <h3 class="text-lg font-semibold text-stone-700 mb-4 text-center">Proporsi Kesiapan Pilar</h3>
+                    <h3 class="text-lg font-semibold text-stone-700 mb-4 text-center">Proporsi Kesiapan Migrasi</h3>
                     <div class="chart-container">
                         <canvas id="readinessChart"></canvas>
                     </div>
@@ -148,7 +295,7 @@
                     <div class="bg-amber-50 p-6 rounded-2xl border border-amber-100 shadow-sm flex flex-col justify-center sm:col-span-2">
                         <span class="text-3xl mb-2">🏦</span>
                         <h4 class="font-bold text-amber-900 text-lg">Kesiapan Bank Penyalur</h4>
-                        <p class="text-amber-700 text-sm mt-1">Rata-rata kesiapan 43 bank mencapai 84,15%. Mayoritas di tahap akhir, namun aspek administratif dan sosialisasi cabang (61,40%) masih diproses.</p>
+                        <p class="text-amber-700 text-sm mt-1">Rata-rata kesiapan 42 bank mencapai 87%. Mayoritas di tahap akhir, namun aspek administratif dan sosialisasi cabang (72%) masih diproses.</p>
                         <span class="mt-4 inline-block bg-amber-200 text-amber-800 text-xs font-bold px-2 py-1 rounded uppercase tracking-wide w-max">⏳ Dalam Proses</span>
                     </div>
                 </div>
@@ -269,7 +416,7 @@
                             <tr class="bg-amber-50">
                                 <td class="p-4 font-medium text-stone-800 flex items-center gap-2"><span>🏦</span> Bank Penyalur</td>
                                 <td class="p-4 text-center"><span class="bg-amber-200 text-amber-900 font-bold px-3 py-1 rounded-full text-sm">⏳ PROSES</span></td>
-                                <td class="p-4 text-amber-800 text-sm font-medium">Rata-rata kesiapan 84,15%. Sosialisasi cabang 61,40%.</td>
+                                <td class="p-4 text-amber-800 text-sm font-medium">Rata-rata kesiapan 87%. Sosialisasi cabang 72%.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -294,6 +441,8 @@
     </footer>
 
     <script>
+        let currentBankChart = null;
+
         const pillarData = {
             infra: {
                 id: 'infra',
@@ -339,7 +488,7 @@
                 id: 'ops',
                 title: '4. Kesiapan Operasional',
                 focus: 'Memastikan dukungan dan proses siap menghadapi sistem baru',
-                status: 'SIAP (Dengan Catatan)',
+                status: 'SIAP (Ada Catatan)',
                 statusColor: 'bg-emerald-100 text-emerald-800',
                 icon: '⚠️',
                 points: [
@@ -357,14 +506,15 @@
                 statusColor: 'bg-amber-200 text-amber-900',
                 icon: '⏳',
                 points: [
-                    'Data merangkum tingkat kesiapan 43 bank penyalur dengan rata-rata kesiapan mencapai <strong>84,15%</strong>.',
+                    'Data merangkum tingkat kesiapan 42 bank penyalur dengan rata-rata kesiapan mencapai <strong>87%</strong>.',
                     `<strong>1. Status Kesiapan Bank:</strong><br>
                      <ul class="list-disc pl-5 mt-2 space-y-1 text-stone-600">
-                        <li><strong>Kesiapan 100%:</strong> Terdapat 6 bank (Bank Mega Syariah, BPD Riau Kepri Syariah, BPD Bengkulu, BPD Jawa Barat dan Banten (BJB), BPD Kalimantan Selatan & Syariah).</li>
-                        <li><strong>Kesiapan Tinggi (80-99%):</strong> 29 bank berada dalam kategori ini, termasuk BTN (90%), BRI (90%), Bank Mandiri (80%), BNI (90%), dan BSI (95%).</li>
-                        <li><strong>Kesiapan Rendah (<80%):</strong> 6 bank masih di bawah 80% (BPD SulutGo 60%, Bank Artha Graha Internasional 70-80%, BPD Sumut & Syariah 70-80%, BPD Kalteng 70%, Bank Syariah Nasional 70%).</li>
+                        <li><strong>Kesiapan 100%:</strong> Terdapat 7 bank (Termasuk Bank Mega Syariah, BPD Riau Kepri Syariah, dll).</li>
+                        <li><strong>90% - 99%:</strong> 10 bank berada dalam rentang kesiapan ini.</li>
+                        <li><strong>80% - 89%:</strong> Mayoritas atau 24 bank berada dalam kategori ini.</li>
+                        <li><strong>Below 80%:</strong> 1 bank masih di bawah 80%.</li>
                      </ul>`,
-                    '<strong>2. Sosialisasi Cabang:</strong> Rata-rata tingkat sosialisasi ke cabang-cabang bank adalah sebesar <strong>61,40%</strong>. Beberapa bank seperti Bank National Nobu dan BPD Bengkulu telah menyelesaikan sosialisasi 100%, sementara yang lain masih dalam proses atau baru akan memulai setelah tahap piloting selesai.',
+                    '<strong>2. Sosialisasi Cabang:</strong> Rata-rata tingkat sosialisasi ke cabang-cabang bank adalah sebesar <strong>72%</strong>. Beberapa bank seperti Bank National Nobu dan BPD Bengkulu telah menyelesaikan sosialisasi 100%, sementara yang lain masih dalam proses atau baru akan memulai setelah tahap piloting selesai.',
                     `<strong>3. Catatan dan Kendala Utama:</strong> Beberapa faktor yang memengaruhi tingkat kesiapan meliputi:<br>
                      <ul class="list-disc pl-5 mt-2 space-y-1 text-stone-600">
                         <li><strong>Teknis & Sistem:</strong> Finalisasi UAT, proses mapping list PIC cabang, dan pengembangan sistem internal.</li>
@@ -381,6 +531,17 @@
                 `<li class="mb-4 pl-6 relative before:content-['▸'] before:absolute before:left-0 before:text-stone-400 before:font-bold text-stone-700 leading-relaxed">${point}</li>`
             ).join('');
 
+            let chartContainer = '';
+            if (data.id === 'bank') {
+                chartContainer = `
+                <div class="mt-8 border-t border-stone-200 pt-8">
+                    <h4 class="text-xl font-bold text-stone-800 mb-6 text-center">Distribusi Kesiapan Bank Penyalur</h4>
+                    <div class="w-full max-w-2xl mx-auto h-72 relative bg-stone-50/50 p-4 rounded-xl border border-stone-100">
+                        <canvas id="bankDistributionChart"></canvas>
+                    </div>
+                </div>`;
+            }
+
             return `
                 <div class="flex justify-between items-start mb-6 gap-4">
                     <div>
@@ -395,8 +556,97 @@
                     <ul class="list-none m-0 p-0 text-lg">
                         ${listHTML}
                     </ul>
+                    ${chartContainer}
                 </div>
             `;
+        }
+
+        function renderDistributionChart() {
+            const ctx = document.getElementById('bankDistributionChart');
+            if (!ctx) return;
+
+            if (currentBankChart) {
+                currentBankChart.destroy();
+            }
+
+            currentBankChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['100%', '90% - 99%', '80% - 89%', 'Below 80%'],
+                    datasets: [{
+                        label: 'Jumlah Bank',
+                        data: [7, 10, 24, 1], 
+                        backgroundColor: [
+                            '#2c5a77', // 100% (Dark Blue)
+                            '#cd733b', // 90%-99% (Orange)
+                            '#35682f', // 80%-89% (Green)
+                            '#4399cb'  // Below 80% (Light Blue)
+                        ],
+                        borderWidth: 0,
+                        borderRadius: 4,
+                        barPercentage: 0.6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 25,
+                            ticks: {
+                                stepSize: 5,
+                                font: {
+                                    family: "'Inter', sans-serif"
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Jumlah Bank',
+                                font: {
+                                    family: "'Inter', sans-serif",
+                                    weight: 'bold'
+                                }
+                            },
+                            grid: {
+                                color: '#e2e8f0'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                font: {
+                                    family: "'Inter', sans-serif",
+                                    size: 13
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Tingkat Kesiapan',
+                                padding: {top: 15},
+                                font: {
+                                    family: "'Inter', sans-serif",
+                                    weight: 'bold'
+                                }
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y + ' Bank';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         function switchPillar(pillarKey) {
@@ -418,11 +668,48 @@
                 contentDiv.innerHTML = renderPillarContent(pillarData[pillarKey]);
                 contentDiv.style.transition = 'opacity 0.3s ease';
                 contentDiv.style.opacity = 1;
+
+                // Render bagan upami pilar bank kapilih
+                if(pillarKey === 'bank') {
+                    requestAnimationFrame(() => {
+                        renderDistributionChart();
+                    });
+                }
             }, 150);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             switchPillar('infra');
+
+            const centerTextPlugin = {
+                id: 'centerText',
+                beforeDraw: function(chart) {
+                    var width = chart.width,
+                        height = chart.height,
+                        ctx = chart.ctx;
+
+                    ctx.restore();
+                    var fontSize = (height / 114).toFixed(2);
+                    ctx.font = "bold " + fontSize + "em Inter";
+                    ctx.textBaseline = "middle";
+                    ctx.fillStyle = "#292524";
+
+                    var text = "87%",
+                        textX = Math.round((width - ctx.measureText(text).width) / 2),
+                        textY = height / 2 - 10; 
+
+                    ctx.fillText(text, textX, textY);
+                    
+                    ctx.font = "normal " + (fontSize * 0.4).toFixed(2) + "em Inter";
+                    ctx.fillStyle = "#78716c";
+                    var text2 = "Siap",
+                        text2X = Math.round((width - ctx.measureText(text2).width) / 2),
+                        text2Y = height / 2 + 15;
+                    ctx.fillText(text2, text2X, text2Y);
+                    
+                    ctx.save();
+                }
+            };
 
             const ctx = document.getElementById('readinessChart').getContext('2d');
             new Chart(ctx, {
@@ -430,7 +717,7 @@
                 data: {
                     labels: ['Siap', 'Dalam Proses'],
                     datasets: [{
-                        data: [80, 20], 
+                        data: [87, 13], 
                         backgroundColor: [
                             '#10b981', 
                             '#f59e0b'  
@@ -457,44 +744,13 @@
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    let baseLabel = context.label + ': ' + context.parsed + '%';
-                                    if(context.label === 'Siap') return baseLabel + ' (4 Pilar)';
-                                    return baseLabel + ' (1 Pilar)';
+                                    return context.label + ': ' + context.parsed + '%';
                                 }
                             }
                         }
                     }
-                }
-            });
-            
-            Chart.register({
-                id: 'centerText',
-                beforeDraw: function(chart) {
-                    var width = chart.width,
-                        height = chart.height,
-                        ctx = chart.ctx;
-
-                    ctx.restore();
-                    var fontSize = (height / 114).toFixed(2);
-                    ctx.font = "bold " + fontSize + "em Inter";
-                    ctx.textBaseline = "middle";
-                    ctx.fillStyle = "#292524";
-
-                    var text = "80%",
-                        textX = Math.round((width - ctx.measureText(text).width) / 2),
-                        textY = height / 2 - 10; 
-
-                    ctx.fillText(text, textX, textY);
-                    
-                    ctx.font = "normal " + (fontSize * 0.4).toFixed(2) + "em Inter";
-                    ctx.fillStyle = "#78716c";
-                    var text2 = "Ready",
-                        text2X = Math.round((width - ctx.measureText(text2).width) / 2),
-                        text2Y = height / 2 + 15;
-                    ctx.fillText(text2, text2X, text2Y);
-                    
-                    ctx.save();
-                }
+                },
+                plugins: [centerTextPlugin]
             });
         });
     </script>
