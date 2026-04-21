@@ -1,815 +1,1051 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RumahKu - Platform Jual Beli Rumah Terpercaya</title>
-    <style>
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        /* Header Styles */
-        header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ecf0f1;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 20px;
-        }
-        
-        .nav-links a {
-            color: #ecf0f1;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: #3498db;
-        }
-        
-        /* Banner Styles */
-        .banner {
-            height: 400px;
-            background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            margin-bottom: 30px;
-            position: relative;
-        }
-        
-        .banner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
-        
-        .banner-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            padding: 0 20px;
-        }
-        
-        .banner h1 {
-            font-size: 42px;
-            margin-bottom: 20px;
-        }
-        
-        .banner p {
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: #3498db;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        
-        .btn:hover {
-            background-color: #2980b9;
-        }
-        
-        /* Search Section */
-        .search-section {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-        }
-        
-        .search-section h2 {
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-        
-        .search-form {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        
-        .form-group select, 
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        
-        .search-btn {
-            background-color: #2ecc71;
-            border: none;
-            color: white;
-            padding: 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            align-self: flex-end;
-        }
-        
-        .search-btn:hover {
-            background-color: #27ae60;
-        }
-        
-        /* Property Listing */
-        .property-section {
-            margin-bottom: 50px;
-        }
-        
-        .section-title {
-            margin-bottom: 30px;
-            color: #2c3e50;
-            font-size: 28px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background-color: #3498db;
-        }
-        
-        .property-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-        }
-        
-        .property-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .property-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .property-image {
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .property-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .property-card:hover .property-image img {
-            transform: scale(1.05);
-        }
-        
-        .property-info {
-            padding: 20px;
-        }
-        
-        .property-price {
-            font-size: 22px;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        
-        .property-address {
-            color: #7f8c8d;
-            margin-bottom: 15px;
-        }
-        
-        .property-features {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            color: #7f8c8d;
-        }
-        
-        .property-features span {
-            display: flex;
-            align-items: center;
-        }
-        
-        .property-features i {
-            margin-right: 5px;
-        }
-        
-        .property-developer {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .developer-logo {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin-right: 10px;
-        }
-        
-        .developer-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .developer-info h4 {
-            font-size: 16px;
-            margin-bottom: 3px;
-        }
-        
-        .developer-rating {
-            display: flex;
-            align-items: center;
-            color: #f39c12;
-        }
-        
-        .property-bank {
-            border-top: 1px solid #eee;
-            padding-top: 15px;
-            margin-top: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .bank-logo {
-            width: 80px;
-            height: 30px;
-            object-fit: contain;
-        }
-        
-        .bank-rating {
-            display: flex;
-            align-items: center;
-            color: #f39c12;
-        }
-        
-        .property-actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-        }
-        
-        .btn-detail {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            flex-grow: 1;
-            margin-right: 10px;
-        }
-        
-        .btn-finance {
-            background-color: #2ecc71;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            flex-grow: 1;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            padding: 40px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .footer-column h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: #3498db;
-        }
-        
-        .footer-column ul {
-            list-style: none;
-        }
-        
-        .footer-column ul li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-column ul li a {
-            color: #bdc3c7;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-column ul li a:hover {
-            color: #3498db;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #34495e;
-            color: #bdc3c7;
-            font-size: 14px;
-        }
-        
-        /* Rating Stars */
-        .rating {
-            display: inline-flex;
-            flex-direction: row-reverse;
-            unicode-bidi: bidi-override;
-            direction: rtl;
-        }
-        
-        .rating > span {
-            display: inline-block;
-            position: relative;
-            width: 1.1em;
-            font-size: 16px;
-            color: #f39c12;
-        }
-        
-        .rating > span:hover:before,
-        .rating > span:hover ~ span:before {
-            content: "\2605";
-            position: absolute;
-            color: #f39c12;
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-</head>
-<body>
-    <!-- Header Navigation -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">RumahKu</div>
-                <ul class="nav-links">
-                    <li><a href="#">Beranda</a></li>
-                    <li><a href="#">Cari Rumah</a></li>
-                    <li><a href="#">Pembiayaan</a></li>
-                    <li><a href="#">Pengembang</a></li>
-                    <li><a href="#">Bank Partner</a></li>
-                    <li><a href="#">Tentang Kami</a></li>
-                </ul>
-            </nav>
+import { useState } from 'react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
+import { Database, Network, Users, Home, Building2, Wrench, FileText, DollarSign, GitBranch, Settings, Shield, ArrowRight, CheckCircle2, Target } from 'lucide-react';
+import { IntegrationDecisionMatrix } from './components/IntegrationDecisionMatrix';
+import { IntegrationTechStack } from './components/IntegrationTechStack';
+import { IntegrationFlowExample } from './components/IntegrationFlowExample';
+import { UserManagementModule } from './components/UserManagementModule';
+import { UserManagementTechStack } from './components/UserManagementTechStack';
+import { PermissionMatrix } from './components/PermissionMatrix';
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState('architecture');
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+          <h1 className="text-4xl mb-2">Ekosistem Perumahan Nasional</h1>
+          <p className="text-gray-600">Sistem Core Terintegrasi untuk SIKUMBANG & Marketplace Perumahan Indonesia</p>
         </div>
-    </header>
 
-    <!-- Banner Section -->
-    <section class="banner">
-        <div class="banner-content">
-            <h1>Temukan Rumah Impian Anda</h1>
-            <p>Lebih dari 10.000 properti tersedia dengan berbagai pilihan pembiayaan dari bank terpercaya</p>
-            <a href="#" class="btn">Jelajahi Sekarang</a>
+        {/* Main Tabs */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="flex gap-2 bg-white p-2 rounded-lg shadow mb-6 overflow-x-auto">
+            <TabsTrigger
+              value="architecture"
+              className="px-4 py-2 rounded data-[state=active]:bg-blue-600 data-[state=active]:text-white transition-colors cursor-pointer"
+            >
+              <Network className="w-4 h-4 inline mr-2" />
+              Arsitektur Sistem
+            </TabsTrigger>
+            <TabsTrigger
+              value="entities"
+              className="px-4 py-2 rounded data-[state=active]:bg-blue-600 data-[state=active]:text-white transition-colors cursor-pointer"
+            >
+              <Database className="w-4 h-4 inline mr-2" />
+              Data Model
+            </TabsTrigger>
+            <TabsTrigger
+              value="integrations"
+              className="px-4 py-2 rounded data-[state=active]:bg-blue-600 data-[state=active]:text-white transition-colors cursor-pointer"
+            >
+              <GitBranch className="w-4 h-4 inline mr-2" />
+              Integrasi
+            </TabsTrigger>
+            <TabsTrigger
+              value="decision"
+              className="px-4 py-2 rounded data-[state=active]:bg-blue-600 data-[state=active]:text-white transition-colors cursor-pointer"
+            >
+              <Target className="w-4 h-4 inline mr-2" />
+              Decision Matrix
+            </TabsTrigger>
+            <TabsTrigger
+              value="usermgmt"
+              className="px-4 py-2 rounded data-[state=active]:bg-blue-600 data-[state=active]:text-white transition-colors cursor-pointer"
+            >
+              <Users className="w-4 h-4 inline mr-2" />
+              User Management
+            </TabsTrigger>
+            <TabsTrigger
+              value="modules"
+              className="px-4 py-2 rounded data-[state=active]:bg-blue-600 data-[state=active]:text-white transition-colors cursor-pointer"
+            >
+              <Settings className="w-4 h-4 inline mr-2" />
+              Modular System
+            </TabsTrigger>
+          </TabsList>
+
+          {/* Architecture Tab */}
+          <TabsContent value="architecture" className="space-y-6">
+            <div className="bg-white rounded-lg shadow-lg p-8">
+              <h2 className="text-2xl mb-6 flex items-center gap-2">
+                <Network className="w-6 h-6 text-blue-600" />
+                Arsitektur 3-Tier System
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Presentation Layer */}
+                <div className="border-2 border-blue-300 rounded-lg p-6 bg-blue-50">
+                  <h3 className="mb-4">Presentation Layer</h3>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Web Portal (Marketplace)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Mobile App (iOS/Android)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Admin Dashboard</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Partner Portal (Developer/Supplier)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>API Gateway (REST/GraphQL)</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Business Logic Layer */}
+                <div className="border-2 border-indigo-300 rounded-lg p-6 bg-indigo-50">
+                  <h3 className="mb-4">Business Logic Layer</h3>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Supply Management Service</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Demand Processing Service</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Program Engine (KPR/KRR/KBR)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Monetization & PNBP Service</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Integration Hub (Middleware)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Algorithm Engine (Matching/Pricing)</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Data Layer */}
+                <div className="border-2 border-purple-300 rounded-lg p-6 bg-purple-50">
+                  <h3 className="mb-4">Data Layer</h3>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Master Database (PostgreSQL)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Document Store (MongoDB)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Cache Layer (Redis)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>File Storage (S3/MinIO)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Data Warehouse (Analytics)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                      <span>Audit & Logging Database</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Infrastructure */}
+              <div className="mt-8 border-2 border-gray-300 rounded-lg p-6 bg-gray-50">
+                <h3 className="mb-4 flex items-center gap-2">
+                  <Shield className="w-5 h-5 text-gray-600" />
+                  Infrastructure & Security
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                  <div>Load Balancer</div>
+                  <div>Container Orchestration (K8s)</div>
+                  <div>API Gateway & Rate Limiting</div>
+                  <div>OAuth 2.0 / SSO</div>
+                  <div>Encryption (TLS/SSL)</div>
+                  <div>WAF & DDoS Protection</div>
+                  <div>Message Queue (RabbitMQ/Kafka)</div>
+                  <div>Monitoring & Alerting</div>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* Entities Tab */}
+          <TabsContent value="entities" className="space-y-6">
+            <div className="bg-white rounded-lg shadow-lg p-8">
+              <h2 className="text-2xl mb-6 flex items-center gap-2">
+                <Database className="w-6 h-6 text-blue-600" />
+                Core Data Model (Parameterized)
+              </h2>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* User Entity */}
+                <div className="border rounded-lg p-4 bg-gradient-to-br from-blue-50 to-blue-100">
+                  <h3 className="mb-3 flex items-center gap-2">
+                    <Users className="w-5 h-5" />
+                    Entity: User (Parameterized)
+                  </h3>
+                  <div className="bg-white rounded p-3 font-mono text-xs space-y-1">
+                    <div>id: UUID</div>
+                    <div>user_type: ENUM (parameterized)</div>
+                    <div className="pl-4 text-gray-600">- CITIZEN (Masyarakat)</div>
+                    <div className="pl-4 text-gray-600">- DEVELOPER (Pengembang)</div>
+                    <div className="pl-4 text-gray-600">- SUPPLIER (Pemasok)</div>
+                    <div className="pl-4 text-gray-600">- GOVERNMENT (Pemerintah)</div>
+                    <div className="pl-4 text-gray-600">- BANK (Lembaga Keuangan)</div>
+                    <div>attributes: JSONB (flexible)</div>
+                    <div className="pl-4 text-gray-600">{"{ nik, npwp, income, ... }"}</div>
+                    <div>verification_status: JSONB</div>
+                    <div>roles: ARRAY (dynamic permissions)</div>
+                    <div>metadata: JSONB</div>
+                  </div>
+                </div>
+
+                {/* Product Entity */}
+                <div className="border rounded-lg p-4 bg-gradient-to-br from-green-50 to-green-100">
+                  <h3 className="mb-3 flex items-center gap-2">
+                    <Home className="w-5 h-5" />
+                    Entity: Product (Parameterized)
+                  </h3>
+                  <div className="bg-white rounded p-3 font-mono text-xs space-y-1">
+                    <div>id: UUID</div>
+                    <div>product_category: ENUM</div>
+                    <div className="pl-4 text-gray-600">- HOUSE (Rumah Tapak)</div>
+                    <div className="pl-4 text-gray-600">- APARTMENT (Rumah Susun)</div>
+                    <div className="pl-4 text-gray-600">- MATERIAL (Bahan Baku)</div>
+                    <div className="pl-4 text-gray-600">- SERVICE (Jasa)</div>
+                    <div>product_type: ENUM (subsidi/komersial)</div>
+                    <div>specifications: JSONB (flexible)</div>
+                    <div className="pl-4 text-gray-600">{"{ area, bedrooms, price, ... }"}</div>
+                    <div>location_data: JSONB</div>
+                    <div>tags: ARRAY (searchable)</div>
+                    <div>status: workflow_state</div>
+                  </div>
+                </div>
+
+                {/* Program Entity */}
+                <div className="border rounded-lg p-4 bg-gradient-to-br from-purple-50 to-purple-100">
+                  <h3 className="mb-3 flex items-center gap-2">
+                    <FileText className="w-5 h-5" />
+                    Entity: Program (Parameterized)
+                  </h3>
+                  <div className="bg-white rounded p-3 font-mono text-xs space-y-1">
+                    <div>id: UUID</div>
+                    <div>program_type: ENUM</div>
+                    <div className="pl-4 text-gray-600">- KPR (Kredit Pemilikan Rumah)</div>
+                    <div className="pl-4 text-gray-600">- KRR (Kredit Renovasi Rumah)</div>
+                    <div className="pl-4 text-gray-600">- KBR (Kredit Bangun Rumah)</div>
+                    <div className="pl-4 text-gray-600">- RENTAL (Sewa)</div>
+                    <div className="pl-4 text-gray-600">- CUSTOM (Extensible)</div>
+                    <div>eligibility_rules: JSONB (dynamic)</div>
+                    <div className="pl-4 text-gray-600">{"{ income_min, age_max, ... }"}</div>
+                    <div>benefits: JSONB</div>
+                    <div>funding_source: relation</div>
+                    <div>algorithm_config: JSONB</div>
+                  </div>
+                </div>
+
+                {/* Transaction Entity */}
+                <div className="border rounded-lg p-4 bg-gradient-to-br from-orange-50 to-orange-100">
+                  <h3 className="mb-3 flex items-center gap-2">
+                    <DollarSign className="w-5 h-5" />
+                    Entity: Transaction
+                  </h3>
+                  <div className="bg-white rounded p-3 font-mono text-xs space-y-1">
+                    <div>id: UUID</div>
+                    <div>transaction_type: ENUM</div>
+                    <div className="pl-4 text-gray-600">- PURCHASE, RENTAL, SERVICE</div>
+                    <div>user_id: FK → User</div>
+                    <div>product_id: FK → Product</div>
+                    <div>program_id: FK → Program (nullable)</div>
+                    <div>amount: DECIMAL</div>
+                    <div>payment_details: JSONB</div>
+                    <div>workflow_state: state_machine</div>
+                    <div>integrations: JSONB (external refs)</div>
+                    <div>monetization_records: JSONB</div>
+                  </div>
+                </div>
+
+                {/* Integration Entity */}
+                <div className="border rounded-lg p-4 bg-gradient-to-br from-indigo-50 to-indigo-100">
+                  <h3 className="mb-3 flex items-center gap-2">
+                    <GitBranch className="w-5 h-5" />
+                    Entity: Integration (Parameterized)
+                  </h3>
+                  <div className="bg-white rounded p-3 font-mono text-xs space-y-1">
+                    <div>id: UUID</div>
+                    <div>integration_type: ENUM</div>
+                    <div className="pl-4 text-gray-600">- GOVERNMENT (Dukcapil, Pajak)</div>
+                    <div className="pl-4 text-gray-600">- SUPPLIER (SIG, Krakatau Steel)</div>
+                    <div className="pl-4 text-gray-600">- FINANCIAL (Bank)</div>
+                    <div className="pl-4 text-gray-600">- ANALYTICS (BPS)</div>
+                    <div>endpoint_config: JSONB</div>
+                    <div>auth_config: JSONB (encrypted)</div>
+                    <div>mapping_rules: JSONB</div>
+                    <div>callback_config: JSONB</div>
+                    <div>status: active/inactive</div>
+                  </div>
+                </div>
+
+                {/* Configuration Entity */}
+                <div className="border rounded-lg p-4 bg-gradient-to-br from-yellow-50 to-yellow-100">
+                  <h3 className="mb-3 flex items-center gap-2">
+                    <Settings className="w-5 h-5" />
+                    Entity: Configuration
+                  </h3>
+                  <div className="bg-white rounded p-3 font-mono text-xs space-y-1">
+                    <div>id: UUID</div>
+                    <div>config_category: ENUM</div>
+                    <div className="pl-4 text-gray-600">- BUSINESS_RULE</div>
+                    <div className="pl-4 text-gray-600">- ALGORITHM_PARAM</div>
+                    <div className="pl-4 text-gray-600">- WORKFLOW_STATE</div>
+                    <div className="pl-4 text-gray-600">- PRICING_MODEL</div>
+                    <div>config_key: VARCHAR</div>
+                    <div>config_value: JSONB (flexible)</div>
+                    <div>scope: ENUM (global/regional)</div>
+                    <div>version: INT (versioning)</div>
+                    <div>effective_date: TIMESTAMP</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <p className="text-sm">
+                  <strong>Keunggulan Parameterized Design:</strong> Semua entitas menggunakan JSONB untuk atribut yang fleksibel, ENUM yang dapat dikonfigurasi, dan relasi yang dinamis. Ini memungkinkan sistem beradaptasi tanpa perubahan skema database.
+                </p>
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* Integrations Tab */}
+          <TabsContent value="integrations" className="space-y-6">
+            {/* Architecture Comparison */}
+            <div className="bg-white rounded-lg shadow-lg p-8">
+              <h2 className="text-2xl mb-6 flex items-center gap-2">
+                <GitBranch className="w-6 h-6 text-blue-600" />
+                Arsitektur Integrasi: Middleware vs Dedicated Module
+              </h2>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                {/* Middleware Approach */}
+                <div className="border-2 border-orange-300 rounded-lg p-6 bg-orange-50">
+                  <h3 className="mb-4 text-orange-800">❌ Pure Middleware (Tidak Disarankan)</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <div className="mb-2">✅ Kelebihan:</div>
+                      <ul className="text-sm space-y-1 text-gray-600 ml-4">
+                        <li>• Simple untuk integrasi sederhana</li>
+                        <li>• Less code overhead</li>
+                        <li>• Quick implementation</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <div className="mb-2">❌ Kekurangan:</div>
+                      <ul className="text-sm space-y-1 text-gray-600 ml-4">
+                        <li>• Tight coupling dengan business logic</li>
+                        <li>• Sulit maintain untuk 20+ mitra</li>
+                        <li>• No dedicated monitoring per mitra</li>
+                        <li>• Kompleks handling retry & circuit breaker</li>
+                        <li>• Sulit versioning per integration</li>
+                        <li>• No isolation jika satu mitra bermasalah</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Dedicated Module Approach */}
+                <div className="border-2 border-green-300 rounded-lg p-6 bg-green-50">
+                  <h3 className="mb-4 text-green-800">✅ Dedicated Integration Module (Disarankan)</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <div className="mb-2">✅ Kelebihan:</div>
+                      <ul className="text-sm space-y-1 text-gray-600 ml-4">
+                        <li>• Loose coupling & separation of concerns</li>
+                        <li>• Independent scaling per mitra</li>
+                        <li>• Dedicated monitoring & alerting</li>
+                        <li>• Easy to add/remove mitra</li>
+                        <li>• Isolation: error di 1 mitra tidak affect lainnya</li>
+                        <li>• Versioning per integration</li>
+                        <li>• Specialized team dapat handle per module</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <div className="mb-2">⚠️ Trade-off:</div>
+                      <ul className="text-sm space-y-1 text-gray-600 ml-4">
+                        <li>• More initial setup complexity</li>
+                        <li>• Butuh orchestration layer</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Recommended Hybrid Architecture */}
+              <div className="border-4 border-blue-500 rounded-lg p-6 bg-gradient-to-br from-blue-50 to-indigo-50">
+                <h3 className="text-xl mb-4 text-blue-900">🏆 Rekomendasi: Hybrid Architecture (Best Practice)</h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                  <div className="bg-white rounded-lg p-4 shadow">
+                    <div className="mb-2">Layer 1: API Gateway</div>
+                    <div className="text-sm text-gray-600">
+                      Authentication, rate limiting, routing awal
+                    </div>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 shadow">
+                    <div className="mb-2">Layer 2: Integration Hub</div>
+                    <div className="text-sm text-gray-600">
+                      Orchestration, routing ke module spesifik
+                    </div>
+                  </div>
+                  <div className="bg-white rounded-lg p-4 shadow">
+                    <div className="mb-2">Layer 3: Dedicated Modules</div>
+                    <div className="text-sm text-gray-600">
+                      Per-partner integration modules
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-lg p-5">
+                  <h4 className="mb-3">Struktur Module:</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <div className="text-sm mb-2">Government Integration Module:</div>
+                      <div className="bg-gray-50 rounded p-3 font-mono text-xs space-y-1">
+                        <div>├── dukcapil-service/</div>
+                        <div>│   ├── adapter.ts (protocol conversion)</div>
+                        <div>│   ├── mapper.ts (data transformation)</div>
+                        <div>│   ├── validator.ts</div>
+                        <div>│   └── config.ts</div>
+                        <div>├── pajak-service/</div>
+                        <div>├── bps-service/</div>
+                        <div>└── pemda-service/</div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-sm mb-2">Supplier Integration Module:</div>
+                      <div className="bg-gray-50 rounded p-3 font-mono text-xs space-y-1">
+                        <div>├── sig-service/ (Semen Indonesia)</div>
+                        <div>│   ├── catalog-sync.ts</div>
+                        <div>│   ├── pricing-engine.ts</div>
+                        <div>│   ├── order-handler.ts</div>
+                        <div>│   └── inventory-sync.ts</div>
+                        <div>├── krakatau-service/</div>
+                        <div>├── supplier-marketplace/</div>
+                        <div>└── common-adapter/</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Detailed Architecture Diagram */}
+            <div className="bg-white rounded-lg shadow-lg p-8">
+              <h2 className="text-2xl mb-6">Arsitektur Detail: Integration Layer</h2>
+
+              <div className="space-y-4">
+                {/* Layer 1: API Gateway */}
+                <div className="border-2 border-gray-400 rounded-lg p-4 bg-gray-100">
+                  <div className="mb-2">🌐 API Gateway (Shared Infrastructure)</div>
+                  <div className="text-sm text-gray-600">Kong / AWS API Gateway / Azure APIM</div>
+                  <div className="text-xs text-gray-500 mt-1">Cross-cutting: Auth, Rate Limit, SSL, Logging</div>
+                </div>
+
+                <div className="flex justify-center">
+                  <div className="text-2xl text-gray-400">↓</div>
+                </div>
+
+                {/* Layer 2: Integration Hub */}
+                <div className="border-2 border-indigo-400 rounded-lg p-4 bg-indigo-50">
+                  <div className="mb-2">🔄 Integration Hub (Middleware/Orchestrator)</div>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs mt-2">
+                    <div className="bg-white rounded p-2">Request Router</div>
+                    <div className="bg-white rounded p-2">Protocol Handler</div>
+                    <div className="bg-white rounded p-2">Message Queue</div>
+                    <div className="bg-white rounded p-2">Circuit Breaker</div>
+                  </div>
+                  <div className="text-xs text-gray-600 mt-2">
+                    Responsibilities: Routing, queuing, error handling, retry logic
+                  </div>
+                </div>
+
+                <div className="flex justify-center">
+                  <div className="text-2xl text-gray-400">↓</div>
+                </div>
+
+                {/* Layer 3: Dedicated Modules */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="border-2 border-blue-400 rounded-lg p-4 bg-blue-50">
+                    <div className="mb-3">📋 Government Module</div>
+                    <div className="space-y-2">
+                      <div className="bg-white rounded p-2 text-sm">
+                        <div>Dukcapil Integration</div>
+                        <div className="text-xs text-gray-500">NIK verification, KK data</div>
+                      </div>
+                      <div className="bg-white rounded p-2 text-sm">
+                        <div>Pajak Integration</div>
+                        <div className="text-xs text-gray-500">NPWP, SPT validation</div>
+                      </div>
+                      <div className="bg-white rounded p-2 text-sm">
+                        <div>BPS Integration</div>
+                        <div className="text-xs text-gray-500">Statistical data sync</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="border-2 border-green-400 rounded-lg p-4 bg-green-50">
+                    <div className="mb-3">🏭 Supplier Module</div>
+                    <div className="space-y-2">
+                      <div className="bg-white rounded p-2 text-sm">
+                        <div>SIG Integration</div>
+                        <div className="text-xs text-gray-500">Catalog, pricing, orders</div>
+                      </div>
+                      <div className="bg-white rounded p-2 text-sm">
+                        <div>Krakatau Steel</div>
+                        <div className="text-xs text-gray-500">Steel inventory sync</div>
+                      </div>
+                      <div className="bg-white rounded p-2 text-sm">
+                        <div>Generic Supplier API</div>
+                        <div className="text-xs text-gray-500">Standardized interface</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="border-2 border-purple-400 rounded-lg p-4 bg-purple-50">
+                    <div className="mb-3">🏦 Financial Module</div>
+                    <div className="space-y-2">
+                      <div className="bg-white rounded p-2 text-sm">
+                        <div>Bank KPR Integration</div>
+                        <div className="text-xs text-gray-500">Credit application API</div>
+                      </div>
+                      <div className="bg-white rounded p-2 text-sm">
+                        <div>Payment Gateway</div>
+                        <div className="text-xs text-gray-500">Midtrans, Xendit</div>
+                      </div>
+                      <div className="bg-white rounded p-2 text-sm">
+                        <div>BI Checking</div>
+                        <div className="text-xs text-gray-500">Credit score check</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Shared Components */}
+              <div className="mt-6 border-2 border-yellow-300 rounded-lg p-4 bg-yellow-50">
+                <h4 className="mb-3">🔧 Shared Components (Digunakan oleh semua modules)</h4>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                  <div className="bg-white rounded p-3">
+                    <div className="mb-1">Retry Handler</div>
+                    <div className="text-xs text-gray-600">Exponential backoff</div>
+                  </div>
+                  <div className="bg-white rounded p-3">
+                    <div className="mb-1">Circuit Breaker</div>
+                    <div className="text-xs text-gray-600">Fault tolerance</div>
+                  </div>
+                  <div className="bg-white rounded p-3">
+                    <div className="mb-1">Cache Manager</div>
+                    <div className="text-xs text-gray-600">Redis distributed cache</div>
+                  </div>
+                  <div className="bg-white rounded p-3">
+                    <div className="mb-1">Audit Logger</div>
+                    <div className="text-xs text-gray-600">Compliance tracking</div>
+                  </div>
+                  <div className="bg-white rounded p-3">
+                    <div className="mb-1">Health Checker</div>
+                    <div className="text-xs text-gray-600">Endpoint monitoring</div>
+                  </div>
+                  <div className="bg-white rounded p-3">
+                    <div className="mb-1">Credential Vault</div>
+                    <div className="text-xs text-gray-600">Secure API key storage</div>
+                  </div>
+                  <div className="bg-white rounded p-3">
+                    <div className="mb-1">Rate Limiter</div>
+                    <div className="text-xs text-gray-600">Per-partner limits</div>
+                  </div>
+                  <div className="bg-white rounded p-3">
+                    <div className="mb-1">Metrics Collector</div>
+                    <div className="text-xs text-gray-600">Performance tracking</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Integration Hub & Stakeholders */}
+            <div className="bg-white rounded-lg shadow-lg p-8">
+              <h2 className="text-2xl mb-6 flex items-center gap-2">
+                <GitBranch className="w-6 h-6 text-blue-600" />
+                Detail Integration per Stakeholder
+              </h2>
+
+              <div className="space-y-6">
+                {/* Government Integrations */}
+                <div className="border-2 border-blue-300 rounded-lg p-6 bg-blue-50">
+                  <h3 className="mb-4 flex items-center gap-2">
+                    <Building2 className="w-5 h-5 text-blue-600" />
+                    Integrasi Pemerintah
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-white rounded p-4">
+                      <h4 className="mb-2">Kementerian PKP</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Data perumahan subsidi</li>
+                        <li>• Validasi penerima bantuan</li>
+                        <li>• Quota & alokasi program</li>
+                      </ul>
+                    </div>
+                    <div className="bg-white rounded p-4">
+                      <h4 className="mb-2">Dukcapil</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Verifikasi NIK</li>
+                        <li>• Data kependudukan</li>
+                        <li>• Validasi KK</li>
+                      </ul>
+                    </div>
+                    <div className="bg-white rounded p-4">
+                      <h4 className="mb-2">Direktorat Pajak</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Verifikasi NPWP</li>
+                        <li>• Data penghasilan (SPT)</li>
+                        <li>• Status pajak</li>
+                      </ul>
+                    </div>
+                    <div className="bg-white rounded p-4">
+                      <h4 className="mb-2">BPS</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Data statistik regional</li>
+                        <li>• Indeks harga bahan baku</li>
+                        <li>• Proyeksi kebutuhan</li>
+                      </ul>
+                    </div>
+                    <div className="bg-white rounded p-4">
+                      <h4 className="mb-2">Pemda (Regional)</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Data tata ruang</li>
+                        <li>• Perizinan (IMB, SLF)</li>
+                        <li>• Program lokal</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Supplier Integrations */}
+                <div className="border-2 border-green-300 rounded-lg p-6 bg-green-50">
+                  <h3 className="mb-4 flex items-center gap-2">
+                    <Wrench className="w-5 h-5 text-green-600" />
+                    Integrasi Pemasok Bahan Baku
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="bg-white rounded p-4">
+                      <h4 className="mb-2">Semen Indonesia Group</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Katalog produk & harga</li>
+                        <li>• Real-time stock</li>
+                        <li>• Harga khusus developer</li>
+                        <li>• Order & delivery tracking</li>
+                      </ul>
+                    </div>
+                    <div className="bg-white rounded p-4">
+                      <h4 className="mb-2">Krakatau Steel</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Katalog besi & baja</li>
+                        <li>• Volume pricing</li>
+                        <li>• Kontrak jangka panjang</li>
+                        <li>• Sertifikasi produk</li>
+                      </ul>
+                    </div>
+                    <div className="bg-white rounded p-4">
+                      <h4 className="mb-2">Supplier Lainnya</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Cat & finishing</li>
+                        <li>• Keramik & sanitasi</li>
+                        <li>• Electrical & plumbing</li>
+                        <li>• Marketplace bahan baku</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Financial Integrations */}
+                <div className="border-2 border-purple-300 rounded-lg p-6 bg-purple-50">
+                  <h3 className="mb-4 flex items-center gap-2">
+                    <DollarSign className="w-5 h-5 text-purple-600" />
+                    Integrasi Lembaga Keuangan
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-white rounded p-4">
+                      <h4 className="mb-2">Bank Penyalur KPR</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Pengajuan kredit online</li>
+                        <li>• Validasi BI Checking</li>
+                        <li>• Scoring & approval</li>
+                        <li>• Disbursement tracking</li>
+                      </ul>
+                    </div>
+                    <div className="bg-white rounded p-4">
+                      <h4 className="mb-2">Payment Gateway</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Pembayaran DP/booking</li>
+                        <li>• Cicilan online</li>
+                        <li>• PNBP collection</li>
+                        <li>• Refund & settlement</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Integration Architecture */}
+                <div className="border-2 border-gray-300 rounded-lg p-6 bg-gray-50">
+                  <h3 className="mb-4">Integration Architecture Pattern</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm">
+                    <div className="bg-white rounded p-3">
+                      <div className="mb-2">API Gateway</div>
+                      <div className="text-xs text-gray-600">Rate limiting, auth, routing</div>
+                    </div>
+                    <div className="bg-white rounded p-3 flex items-center justify-center">
+                      <ArrowRight className="w-6 h-6 text-gray-400" />
+                    </div>
+                    <div className="bg-white rounded p-3">
+                      <div className="mb-2">Integration Hub</div>
+                      <div className="text-xs text-gray-600">Transform, validate, route</div>
+                    </div>
+                    <div className="bg-white rounded p-3 flex items-center justify-center">
+                      <ArrowRight className="w-6 h-6 text-gray-400" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm mt-3">
+                    <div className="bg-white rounded p-3">
+                      <div className="mb-2">Message Queue</div>
+                      <div className="text-xs text-gray-600">Async processing</div>
+                    </div>
+                    <div className="bg-white rounded p-3">
+                      <div className="mb-2">Adapter Layer</div>
+                      <div className="text-xs text-gray-600">Protocol conversion</div>
+                    </div>
+                    <div className="bg-white rounded p-3">
+                      <div className="mb-2">Cache Layer</div>
+                      <div className="text-xs text-gray-600">Performance optimization</div>
+                    </div>
+                    <div className="bg-white rounded p-3">
+                      <div className="mb-2">Audit Trail</div>
+                      <div className="text-xs text-gray-600">Compliance & logging</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* Decision Matrix Tab */}
+          <TabsContent value="decision" className="space-y-6">
+            <IntegrationDecisionMatrix />
+            <IntegrationFlowExample />
+            <IntegrationTechStack />
+          </TabsContent>
+
+          {/* User Management Tab */}
+          <TabsContent value="usermgmt" className="space-y-6">
+            <UserManagementModule />
+            <PermissionMatrix />
+            <UserManagementTechStack />
+          </TabsContent>
+
+          {/* Modules Tab */}
+          <TabsContent value="modules" className="space-y-6">
+            <div className="bg-white rounded-lg shadow-lg p-8">
+              <h2 className="text-2xl mb-6 flex items-center gap-2">
+                <Settings className="w-6 h-6 text-blue-600" />
+                Modular System: Supply, Demand, Program, Monetisasi
+              </h2>
+
+              <div className="space-y-6">
+                {/* Supply Module */}
+                <div className="border-2 border-green-300 rounded-lg p-6 bg-gradient-to-r from-green-50 to-green-100">
+                  <h3 className="mb-4 flex items-center gap-2">
+                    <Home className="w-5 h-5 text-green-600" />
+                    Supply Module (Produk Perumahan)
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <h4 className="text-sm mb-2">Inventory Management</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Multi-product catalog (rumah tapak, rusun, material)</li>
+                        <li>• Geo-spatial indexing</li>
+                        <li>• Real-time availability</li>
+                        <li>• Bulk import/export</li>
+                        <li>• Media management (foto, video, 3D)</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="text-sm mb-2">Developer Portal</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Project submission & approval</li>
+                        <li>• Document management (SLF, IMB)</li>
+                        <li>• Pricing configuration</li>
+                        <li>• Sales dashboard</li>
+                        <li>• Commission tracking</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="text-sm mb-2">Material Marketplace</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Supplier catalog integration</li>
+                        <li>• Price comparison engine</li>
+                        <li>• Bulk order quotation</li>
+                        <li>• Delivery scheduling</li>
+                        <li>• Quality certification</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="mt-4 p-3 bg-white rounded">
+                    <strong className="text-sm">Parameterization:</strong>
+                    <span className="text-sm text-gray-600 ml-2">Product attributes stored in JSONB, category-based workflows, dynamic pricing rules</span>
+                  </div>
+                </div>
+
+                {/* Demand Module */}
+                <div className="border-2 border-blue-300 rounded-lg p-6 bg-gradient-to-r from-blue-50 to-blue-100">
+                  <h3 className="mb-4 flex items-center gap-2">
+                    <Users className="w-5 h-5 text-blue-600" />
+                    Demand Module (Kebutuhan Masyarakat)
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <h4 className="text-sm mb-2">User Profiling</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• KYC automation (Dukcapil, Pajak)</li>
+                        <li>• Income verification</li>
+                        <li>• Credit scoring integration</li>
+                        <li>• Preference & wishlist</li>
+                        <li>• Family composition analysis</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="text-sm mb-2">Matching Engine</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• AI-based recommendation</li>
+                        <li>• Eligibility checker</li>
+                        <li>• Location-based search</li>
+                        <li>• Budget calculator</li>
+                        <li>• Comparison tool</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="text-sm mb-2">Application Processing</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Unified application form</li>
+                        <li>• Document upload & verification</li>
+                        <li>• Workflow orchestration</li>
+                        <li>• Status tracking</li>
+                        <li>• Notification system</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="mt-4 p-3 bg-white rounded">
+                    <strong className="text-sm">Parameterization:</strong>
+                    <span className="text-sm text-gray-600 ml-2">User segments in JSONB, configurable matching algorithms, dynamic eligibility rules</span>
+                  </div>
+                </div>
+
+                {/* Program Module */}
+                <div className="border-2 border-purple-300 rounded-lg p-6 bg-gradient-to-r from-purple-50 to-purple-100">
+                  <h3 className="mb-4 flex items-center gap-2">
+                    <FileText className="w-5 h-5 text-purple-600" />
+                    Program Module (KPR, KRR, KBR, dll)
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <h4 className="text-sm mb-2">Program Configuration</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Template-based program creation</li>
+                        <li>• Eligibility rule builder</li>
+                        <li>• Benefit calculation engine</li>
+                        <li>• Quota & budget management</li>
+                        <li>• Regional customization</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="text-sm mb-2">Program Types</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• KPR (subsidi & komersial)</li>
+                        <li>• KRR (renovasi)</li>
+                        <li>• KBR (bangun baru)</li>
+                        <li>• Rental/sewa</li>
+                        <li>• Custom programs</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="text-sm mb-2">Lifecycle Management</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Application → Approval workflow</li>
+                        <li>• Disbursement tracking</li>
+                        <li>• Repayment monitoring</li>
+                        <li>• Default management</li>
+                        <li>• Reporting & analytics</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="mt-4 p-3 bg-white rounded">
+                    <strong className="text-sm">Parameterization:</strong>
+                    <span className="text-sm text-gray-600 ml-2">Rule engine in JSONB, state machine workflows, extensible program types</span>
+                  </div>
+                </div>
+
+                {/* Monetization Module */}
+                <div className="border-2 border-orange-300 rounded-lg p-6 bg-gradient-to-r from-orange-50 to-orange-100">
+                  <h3 className="mb-4 flex items-center gap-2">
+                    <DollarSign className="w-5 h-5 text-orange-600" />
+                    Monetisasi Module (PNBP & Revenue)
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <h4 className="text-sm mb-2">Revenue Streams</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Listing fee (developer)</li>
+                        <li>• Transaction fee (marketplace)</li>
+                        <li>• Premium placement</li>
+                        <li>• Data access fee (analytics)</li>
+                        <li>• Integration fee (API access)</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="text-sm mb-2">PNBP Management</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Automated billing</li>
+                        <li>• Payment reconciliation</li>
+                        <li>• Revenue recognition</li>
+                        <li>• Government reporting</li>
+                        <li>• Audit trail</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="text-sm mb-2">Pricing Models</h4>
+                      <ul className="text-sm space-y-1 text-gray-600">
+                        <li>• Tiered pricing</li>
+                        <li>• Volume-based discounts</li>
+                        <li>• Subscription plans</li>
+                        <li>• Performance-based fees</li>
+                        <li>• Regional pricing</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="mt-4 p-3 bg-white rounded">
+                    <strong className="text-sm">Parameterization:</strong>
+                    <span className="text-sm text-gray-600 ml-2">Fee structures in JSONB, configurable pricing models, rule-based discounts</span>
+                  </div>
+                </div>
+
+                {/* Cross-Module Features */}
+                <div className="border-2 border-indigo-300 rounded-lg p-6 bg-gradient-to-r from-indigo-50 to-indigo-100">
+                  <h3 className="mb-4">Cross-Module Features</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+                    <div className="bg-white rounded p-3">
+                      <h4 className="mb-2">Analytics Engine</h4>
+                      <p className="text-xs text-gray-600">Real-time dashboards, predictive analytics, trend analysis</p>
+                    </div>
+                    <div className="bg-white rounded p-3">
+                      <h4 className="mb-2">Workflow Engine</h4>
+                      <p className="text-xs text-gray-600">Configurable state machines, approval chains, SLA tracking</p>
+                    </div>
+                    <div className="bg-white rounded p-3">
+                      <h4 className="mb-2">Notification Hub</h4>
+                      <p className="text-xs text-gray-600">Email, SMS, push, in-app notifications with templates</p>
+                    </div>
+                    <div className="bg-white rounded p-3">
+                      <h4 className="mb-2">Reporting Suite</h4>
+                      <p className="text-xs text-gray-600">Custom reports, scheduled exports, data visualization</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
+
+        {/* Footer Summary */}
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg shadow-lg p-6 mt-8">
+          <h3 className="text-xl mb-4">🎯 Kesimpulan: Arsitektur Integrasi untuk Ekosistem Perumahan Nasional</h3>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <div className="space-y-3">
+              <h4 className="text-lg">Rekomendasi Arsitektur:</h4>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                  <span><strong>Dedicated Integration Module</strong> untuk 7+ stakeholder critical (Dukcapil, Pajak, BPS, SIG, Krakatau Steel, Bank, Payment Gateway)</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                  <span><strong>Middleware/Generic Adapter</strong> cukup untuk supplier dengan standard API dan low complexity</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                  <span><strong>Hybrid Architecture:</strong> API Gateway → Integration Hub (orchestrator) → Dedicated Modules → External APIs</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                  <span><strong>Message Queue (RabbitMQ)</strong> untuk async processing dan decoupling antar modules</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <h4 className="text-lg">Prinsip Desain Core System:</h4>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                  <span><strong>Parameterized & Flexible:</strong> JSONB untuk atribut dinamis, ENUM configurable, extensible rule engine</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                  <span><strong>Scalable & Distributed:</strong> Microservices per module, Kubernetes orchestration, independent scaling</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                  <span><strong>Resilient & Observable:</strong> Circuit breaker, retry logic, comprehensive monitoring per module</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                  <span><strong>Security First:</strong> mTLS, API key rotation, credential vault, audit logging</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-blue-400 pt-4 space-y-3">
+            <div className="text-sm space-y-1">
+              <div><strong>Tech Stack Recommendation:</strong></div>
+              <div className="text-blue-100">
+                Node.js/NestJS (modules) • PostgreSQL + Redis (data) • RabbitMQ (queue) • Kong (gateway) •
+                Kubernetes (orchestration) • Prometheus + Grafana (monitoring) • Terraform (IaC)
+              </div>
+            </div>
+            <div className="text-sm space-y-1">
+              <div><strong>User Management:</strong></div>
+              <div className="text-blue-100">
+                Auth0/Keycloak (auth) • 6 user types (Citizen, Developer, Supplier, Government, Bank, Admin) •
+                RBAC + ABAC hybrid • Multi-channel auth (Email, Phone, NIK, SSO) • Auto KYC integration
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
-
-    <!-- Main Content -->
-    <main class="container">
-        <!-- Search Section -->
-        <section class="search-section">
-            <h2>Cari Rumah Ideal Anda</h2>
-            <form class="search-form">
-                <div class="form-group">
-                    <label for="location">Lokasi</label>
-                    <select id="location">
-                        <option value="">Semua Lokasi</option>
-                        <option value="jakarta">Jakarta</option>
-                        <option value="bandung">Bandung</option>
-                        <option value="surabaya">Surabaya</option>
-                        <option value="bali">Bali</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="type">Tipe Rumah</label>
-                    <select id="type">
-                        <option value="">Semua Tipe</option>
-                        <option value="apartment">Apartemen</option>
-                        <option value="house">Rumah</option>
-                        <option value="villa">Villa</option>
-                        <option value="land">Tanah</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="price">Harga Maksimal</label>
-                    <select id="price">
-                        <option value="">Tidak Terbatas</option>
-                        <option value="500">Rp 500 juta</option>
-                        <option value="1000">Rp 1 Miliar</option>
-                        <option value="2000">Rp 2 Miliar</option>
-                        <option value="5000">Rp 5 Miliar</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="bedrooms">Kamar Tidur</label>
-                    <select id="bedrooms">
-                        <option value="">Semua</option>
-                        <option value="1">1+</option>
-                        <option value="2">2+</option>
-                        <option value="3">3+</option>
-                        <option value="4">4+</option>
-                    </select>
-                </div>
-                <button type="submit" class="search-btn">Cari Properti</button>
-            </form>
-        </section>
-
-        <!-- Property Listing Section -->
-        <section class="property-section">
-            <h2 class="section-title">Rumah Terbaru</h2>
-            <div class="property-grid">
-                <!-- Property 1 -->
-                <div class="property-card">
-                    <div class="property-image">
-                        <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Rumah Modern">
-                    </div>
-                    <div class="property-info">
-                        <div class="property-price">Rp 1,2 Miliar</div>
-                        <div class="property-address">Jl. Melati Indah No. 15, Bandung</div>
-                        <div class="property-features">
-                            <span><i class="fas fa-bed"></i> 3 KT</span>
-                            <span><i class="fas fa-bath"></i> 2 KM</span>
-                            <span><i class="fas fa-ruler-combined"></i> 120 m²</span>
-                        </div>
-                        <div class="property-developer">
-                            <div class="developer-logo">
-                                <img src="https://via.placeholder.com/100" alt="Logo Pengembang">
-                            </div>
-                            <div class="developer-info">
-                                <h4>Griya Indah Jaya</h4>
-                                <div class="developer-rating">
-                                    <div class="rating">
-                                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                    </div>
-                                    <span>(24)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="property-bank">
-                            <img src="https://via.placeholder.com/100x30" alt="Bank ABC" class="bank-logo">
-                            <div class="bank-rating">
-                                <div class="rating">
-                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                </div>
-                                <span>(18)</span>
-                            </div>
-                        </div>
-                        <div class="property-actions">
-                            <button class="btn-detail">Lihat Detail</button>
-                            <button class="btn-finance">Ajukan Pembiayaan</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Property 2 -->
-                <div class="property-card">
-                    <div class="property-image">
-                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Rumah Minimalis">
-                    </div>
-                    <div class="property-info">
-                        <div class="property-price">Rp 950 juta</div>
-                        <div class="property-address">Jl. Anggrek Raya No. 42, Jakarta Selatan</div>
-                        <div class="property-features">
-                            <span><i class="fas fa-bed"></i> 2 KT</span>
-                            <span><i class="fas fa-bath"></i> 2 KM</span>
-                            <span><i class="fas fa-ruler-combined"></i> 90 m²</span>
-                        </div>
-                        <div class="property-developer">
-                            <div class="developer-logo">
-                                <img src="https://via.placeholder.com/100" alt="Logo Pengembang">
-                            </div>
-                            <div class="developer-info">
-                                <h4>Bangun Properti</h4>
-                                <div class="developer-rating">
-                                    <div class="rating">
-                                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                    </div>
-                                    <span>(32)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="property-bank">
-                            <img src="https://via.placeholder.com/100x30" alt="Bank XYZ" class="bank-logo">
-                            <div class="bank-rating">
-                                <div class="rating">
-                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                </div>
-                                <span>(25)</span>
-                            </div>
-                        </div>
-                        <div class="property-actions">
-                            <button class="btn-detail">Lihat Detail</button>
-                            <button class="btn-finance">Ajukan Pembiayaan</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Property 3 -->
-                <div class="property-card">
-                    <div class="property-image">
-                        <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Apartemen Mewah">
-                    </div>
-                    <div class="property-info">
-                        <div class="property-price">Rp 2,8 Miliar</div>
-                        <div class="property-address">Tower Gardenia, Jakarta Pusat</div>
-                        <div class="property-features">
-                            <span><i class="fas fa-bed"></i> 3 KT</span>
-                            <span><i class="fas fa-bath"></i> 2 KM</span>
-                            <span><i class="fas fa-ruler-combined"></i> 150 m²</span>
-                        </div>
-                        <div class="property-developer">
-                            <div class="developer-logo">
-                                <img src="https://via.placeholder.com/100" alt="Logo Pengembang">
-                            </div>
-                            <div class="developer-info">
-                                <h4>Mega City Development</h4>
-                                <div class="developer-rating">
-                                    <div class="rating">
-                                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                    </div>
-                                    <span>(45)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="property-bank">
-                            <img src="https://via.placeholder.com/100x30" alt="Bank DEF" class="bank-logo">
-                            <div class="bank-rating">
-                                <div class="rating">
-                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                </div>
-                                <span>(30)</span>
-                            </div>
-                        </div>
-                        <div class="property-actions">
-                            <button class="btn-detail">Lihat Detail</button>
-                            <button class="btn-finance">Ajukan Pembiayaan</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Property 4 -->
-                <div class="property-card">
-                    <div class="property-image">
-                        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Villa Modern">
-                    </div>
-                    <div class="property-info">
-                        <div class="property-price">Rp 3,5 Miliar</div>
-                        <div class="property-address">Perumahan Bukit Damai, Bogor</div>
-                        <div class="property-features">
-                            <span><i class="fas fa-bed"></i> 4 KT</span>
-                            <span><i class="fas fa-bath"></i> 3 KM</span>
-                            <span><i class="fas fa-ruler-combined"></i> 200 m²</span>
-                        </div>
-                        <div class="property-developer">
-                            <div class="developer-logo">
-                                <img src="https://via.placeholder.com/100" alt="Logo Pengembang">
-                            </div>
-                            <div class="developer-info">
-                                <h4>Alam Indah Property</h4>
-                                <div class="developer-rating">
-                                    <div class="rating">
-                                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                    </div>
-                                    <span>(28)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="property-bank">
-                            <img src="https://via.placeholder.com/100x30" alt="Bank GHI" class="bank-logo">
-                            <div class="bank-rating">
-                                <div class="rating">
-                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                </div>
-                                <span>(22)</span>
-                            </div>
-                        </div>
-                        <div class="property-actions">
-                            <button class="btn-detail">Lihat Detail</button>
-                            <button class="btn-finance">Ajukan Pembiayaan</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Property 5 -->
-                <div class="property-card">
-                    <div class="property-image">
-                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Apartemen Studio">
-                    </div>
-                    <div class="property-info">
-                        <div class="property-price">Rp 750 juta</div>
-                        <div class="property-address">Tower Jasmine, Surabaya</div>
-                        <div class="property-features">
-                            <span><i class="fas fa-bed"></i> 1 KT</span>
-                            <span><i class="fas fa-bath"></i> 1 KM</span>
-                            <span><i class="fas fa-ruler-combined"></i> 45 m²</span>
-                        </div>
-                        <div class="property-developer">
-                            <div class="developer-logo">
-                                <img src="https://via.placeholder.com/100" alt="Logo Pengembang">
-                            </div>
-                            <div class="developer-info">
-                                <h4>Surya Property</h4>
-                                <div class="developer-rating">
-                                    <div class="rating">
-                                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                    </div>
-                                    <span>(19)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="property-bank">
-                            <img src="https://via.placeholder.com/100x30" alt="Bank JKL" class="bank-logo">
-                            <div class="bank-rating">
-                                <div class="rating">
-                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                </div>
-                                <span>(15)</span>
-                            </div>
-                        </div>
-                        <div class="property-actions">
-                            <button class="btn-detail">Lihat Detail</button>
-                            <button class="btn-finance">Ajukan Pembiayaan</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Property 6 -->
-                <div class="property-card">
-                    <div class="property-image">
-                        <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Rumah Tipe 36">
-                    </div>
-                    <div class="property-info">
-                        <div class="property-price">Rp 650 juta</div>
-                        <div class="property-address">Perumahan Bumi Asri, Tangerang</div>
-                        <div class="property-features">
-                            <span><i class="fas fa-bed"></i> 2 KT</span>
-                            <span><i class="fas fa-bath"></i> 1 KM</span>
-                            <span><i class="fas fa-ruler-combined"></i> 60 m²</span>
-                        </div>
-                        <div class="property-developer">
-                            <div class="developer-logo">
-                                <img src="https://via.placeholder.com/100" alt="Logo Pengembang">
-                            </div>
-                            <div class="developer-info">
-                                <h4>Bumi Asri Development</h4>
-                                <div class="developer-rating">
-                                    <div class="rating">
-                                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                    </div>
-                                    <span>(36)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="property-bank">
-                            <img src="https://via.placeholder.com/100x30" alt="Bank MNO" class="bank-logo">
-                            <div class="bank-rating">
-                                <div class="rating">
-                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                </div>
-                                <span>(27)</span>
-                            </div>
-                        </div>
-                        <div class="property-actions">
-                            <button class="btn-detail">Lihat Detail</button>
-                            <button class="btn-finance">Ajukan Pembiayaan</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Tentang RumahKu</h3>
-                    <p>RumahKu adalah platform jual beli rumah terpercaya yang menghubungkan pembeli dengan pengembang properti dan bank pembiayaan.</p>
-                </div>
-                <div class="footer-column">
-                    <h3>Link Cepat</h3>
-                    <ul>
-                        <li><a href="#">Beranda</a></li>
-                        <li><a href="#">Cari Rumah</a></li>
-                        <li><a href="#">Pembiayaan</a></li>
-                        <li><a href="#">Pengembang</a></li>
-                        <li><a href="#">Bank Partner</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Layanan</h3>
-                    <ul>
-                        <li><a href="#">KPR</a></li>
-                        <li><a href="#">Kalkulator KPR</a></li>
-                        <li><a href="#">Simulasi KPR</a></li>
-                        <li><a href="#">Tips Membeli Rumah</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Hubungi Kami</h3>
-                    <ul>
-                        <li><i class="fas fa-phone"></i> (021) 12345678</li>
-                        <li><i class="fas fa-envelope"></i> info@rumahku.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Jl. Sudirman No. 1, Jakarta</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                &copy; 2023 RumahKu. All Rights Reserved.
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+      </div>
+    </div>
+  );
+}
