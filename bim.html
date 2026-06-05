@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -106,32 +106,48 @@
         /* 3D BIM Playground Styles */
         #bim-canvas-container {
             width: 100%;
-            height: 400px;
+            height: 100%;
+            min-height: 450px;
             cursor: grab;
             position: relative;
+            outline: none;
         }
         #bim-canvas-container:active {
             cursor: grabbing;
         }
         .bim-overlay {
             position: absolute;
-            bottom: 10px;
-            left: 10px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
+            bottom: 15px;
+            left: 15px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(4px);
+            color: #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 8px;
             font-size: 11px;
             font-weight: 600;
             pointer-events: none;
-            letter-spacing: 0.5px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
+        
         .animate-fade-in {
             animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px) scale(0.98); }
             to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -140,7 +156,6 @@
 
     <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden">
         
-        <!-- Header Section -->
         <header class="bg-gradient-to-br from-primary to-secondary p-8 md:p-12 text-center text-white relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 20px 20px, #ffffff 2px, transparent 0); background-size: 40px 40px;"></div>
             <span class="inline-block bg-warning text-primary font-bold px-4 py-1.5 rounded-full text-xs tracking-wider uppercase mb-5 shadow-lg border border-yellow-300">Integrasi Pusat & Daerah</span>
@@ -196,7 +211,6 @@
                 </div>
             </section>
 
-            <!-- THE INTERACTIVE 3D BIM PLAYGROUND -->
             <section class="bg-slate-800 text-white p-6 md:p-10 rounded-2xl shadow-2xl relative overflow-hidden">
                 <!-- Background decorative elements -->
                 <div class="absolute top-0 right-0 w-64 h-64 bg-accent opacity-10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
@@ -205,12 +219,12 @@
                 <div class="mb-8 relative z-10">
                     <div class="flex items-center gap-3 mb-3">
                         <span class="inline-block bg-accent text-white font-bold px-3 py-1 rounded-md text-xs uppercase tracking-wide">Simulasi 3D Interaktif</span>
-                        <span class="inline-block bg-slate-700 text-slate-300 px-2 py-1 rounded text-[10px] uppercase font-bold border border-slate-600">Teknologi Three.js</span>
+                        <span class="inline-block bg-slate-700 text-slate-300 px-2 py-1 rounded text-[10px] uppercase font-bold border border-slate-600">Teknologi OpenBIM</span>
                     </div>
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-3">Playground OpenBIM</h2>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-3">Playground Viewer 3D</h2>
                     <p class="text-slate-300 text-sm md:text-base max-w-3xl leading-relaxed">
-                        Visualisasi cara kerja sistem rumah.go.id saat mengekstrak data dari file BIM (.ifc4). <br class="hidden md:block">
-                        <b>Cara Penggunaan:</b> Geser/drag area 3D untuk memutar kamera, Scroll untuk zoom. <b>Klik salah satu unit rumah</b> di blok siteplan untuk melihat ekstraksi spesifikasi bangunan dan validasi tata ruang secara <i>real-time</i>.
+                        Visualisasi ekstraksi model siteplan MBR perumahan. <br class="hidden md:block">
+                        <b>Cara Penggunaan:</b> Geser/drag area 3D untuk memutar kamera, Scroll untuk zoom. <b>Klik (Tap) salah satu atap/dinding unit rumah</b> untuk melihat ekstraksi spesifikasi bangunannya!
                     </p>
                 </div>
                 
@@ -226,14 +240,14 @@
                     
                     <!-- Metadata Dashboard Panel -->
                     <div class="w-full lg:w-2/5 xl:w-1/3 bg-slate-800 rounded-xl p-5 border border-slate-600 flex flex-col shadow-xl">
-                        <div class="flex items-center justify-between border-b border-slate-600 pb-3 mb-4">
+                        <div class="flex items-center justify-between border-b border-slate-600 pb-3 mb-4 shrink-0">
                             <h3 class="text-base font-bold text-accent uppercase tracking-wider flex items-center gap-2">
-                                📊 Metadata Ekstraksi BIM
+                                📊 Ekstraksi Metadata BIM
                             </h3>
-                            <span class="text-xs text-slate-400">Live Sync</span>
+                            <span class="text-xs text-slate-400">Real-time</span>
                         </div>
                         
-                        <div id="bim-data-panel" class="flex-1 flex flex-col justify-center items-center text-center text-slate-400 bg-slate-900/50 rounded-lg border border-slate-700/50 p-6 transition-all duration-300">
+                        <div id="bim-data-panel" class="flex-1 overflow-y-auto custom-scrollbar flex flex-col justify-center items-center text-center text-slate-400 bg-slate-900/50 rounded-lg border border-slate-700/50 p-6 transition-all duration-300 min-h-[350px]">
                             <div class="text-5xl mb-4 opacity-50 animate-bounce">🖱️</div>
                             <p class="text-sm">Belum ada unit yang dipilih.</p>
                             <p class="text-xs mt-2 opacity-75">Silakan pilih salah satu unit rumah pada area 3D di samping untuk memuat datanya secara sistem.</p>
@@ -444,7 +458,6 @@
 
     <script>
         // --- UTILITIES FOR CHART.JS ---
-        // Function to wrap long labels on charts
         function wrapLabelText(text) {
             const limit = 16;
             if (text.length <= limit) return text;
@@ -473,117 +486,130 @@
             }
         };
 
-        // --- NEW THREE.JS BIM PLAYGROUND LOGIC WITH DETAILED METADATA ---
+        // --- NEW THREE.JS BIM PLAYGROUND LOGIC (Mendekati Realistis & Sesuai Gambar) ---
         function initBIMPlayground() {
             const container = document.getElementById('bim-canvas-container');
-            if (!container) return; // Guard clause
+            if (!container) return;
 
-            // Scene Setup
+            // Inisialisasi Scene
             const scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x0f172a); // Tailwind slate-900
-            
-            // Fog to create depth
-            scene.fog = new THREE.FogExp2(0x0f172a, 0.02);
+            scene.background = new THREE.Color(0xa7d8b1); // Warna background hijau muda (seperti tanah rumput area luas)
 
-            // Camera Setup
-            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-            camera.position.set(20, 15, 25); // Positioned to look down at the neighborhood
+            // Kamera
+            const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(25, 20, 35); // View Isometrik/Bird-eye mirip gambar
 
-            // Renderer Setup
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+            // Renderer
+            const renderer = new THREE.WebGLRenderer({ antialias: true });
             renderer.setSize(container.clientWidth, container.clientHeight);
-            renderer.setPixelRatio(window.devicePixelRatio);
             renderer.shadowMap.enabled = true;
             renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             container.appendChild(renderer.domElement);
 
-            // Controls (Orbit)
+            // Orbit Controls
             const controls = new THREE.OrbitControls(camera, renderer.domElement);
             controls.enableDamping = true;
             controls.dampingFactor = 0.05;
-            controls.maxPolarAngle = Math.PI / 2 - 0.05; // Don't let camera go below ground
-            controls.minDistance = 10;
-            controls.maxDistance = 50;
+            controls.maxPolarAngle = Math.PI / 2 - 0.05; // Mencegah kamera tembus tanah
+            controls.target.set(0, 0, 0);
 
-            // Lighting Setup
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+            // Pencahayaan
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6); // Cahaya merata
             scene.add(ambientLight);
 
             const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
-            dirLight.position.set(15, 30, 15);
+            dirLight.position.set(20, 30, 10);
             dirLight.castShadow = true;
             dirLight.shadow.mapSize.width = 1024;
             dirLight.shadow.mapSize.height = 1024;
-            dirLight.shadow.camera.near = 0.5;
-            dirLight.shadow.camera.far = 100;
-            const d = 20;
-            dirLight.shadow.camera.left = -d;
-            dirLight.shadow.camera.right = d;
-            dirLight.shadow.camera.top = d;
-            dirLight.shadow.camera.bottom = -d;
+            dirLight.shadow.camera.left = -30;
+            dirLight.shadow.camera.right = 30;
+            dirLight.shadow.camera.top = 30;
+            dirLight.shadow.camera.bottom = -30;
             scene.add(dirLight);
 
-            // Environment Objects
-            // 1. Ground Plane
-            const groundGeometry = new THREE.PlaneGeometry(60, 40);
-            const groundMaterial = new THREE.MeshLambertMaterial({ color: 0x1e293b }); // slate-800
-            const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+            // Elemen Lingkungan (Lahan & Jalan)
+            // Lahan Rumput Utama
+            const groundGeo = new THREE.PlaneGeometry(80, 60);
+            const groundMat = new THREE.MeshLambertMaterial({ color: 0x81c784 }); // Warna rumput hijau
+            const ground = new THREE.Mesh(groundGeo, groundMat);
             ground.rotation.x = -Math.PI / 2;
             ground.receiveShadow = true;
             scene.add(ground);
 
-            // 2. Main Road
-            const roadMat = new THREE.MeshLambertMaterial({ color: 0x0f172a }); // dark slate
-            const road = new THREE.Mesh(new THREE.PlaneGeometry(60, 6), roadMat);
+            // Jalan Utama (Jalan Akses memanjang)
+            const roadGeo = new THREE.PlaneGeometry(80, 5);
+            const roadMat = new THREE.MeshLambertMaterial({ color: 0x9e9e9e }); // Abu-abu aspal
+            const road = new THREE.Mesh(roadGeo, roadMat);
             road.rotation.x = -Math.PI / 2;
-            road.position.y = 0.02; // slightly above ground to prevent z-fighting
-            road.receiveShadow = true;
+            road.position.y = 0.01; // Sedikit di atas rumput
             scene.add(road);
 
-            // House Building Function
-            const houses = [];
+            // Array untuk Raycaster (Interaksi Klik)
+            const interactableObjects = [];
             const houseGroup = new THREE.Group();
             scene.add(houseGroup);
 
-            // Function to generate a house mesh with metadata
-            const buildHouse = (x, z, id, status, type) => {
-                const isApproved = status === 'Siap KPR';
-                const wallColor = isApproved ? 0xe2e8f0 : 0xfdcb6e; // Slate 200 or Warning Yellow
-                const roofColor = isApproved ? 0x00b4d8 : 0xff7675; // Accent Blue or Danger Red
+            // Material Standar untuk Rumah
+            const wallMaterial = new THREE.MeshLambertMaterial({ color: 0xf5f5f5 }); // Tembok putih krem
+            const roofMaterial = new THREE.MeshLambertMaterial({ color: 0x757575 }); // Atap genteng abu-abu/coklat pudar
+            
+            // Palet warna untuk kanopi (seperti di gambar: merah, kuning, hijau)
+            const canopyColors = [0xe53935, 0xfbc02d, 0x43a047, 0xf57c00];
 
-                const houseObj = new THREE.Group();
+            const buildRowHouse = (x, z, rotationY, id, status, type, canopyColorIdx) => {
+                const house = new THREE.Group();
+                house.position.set(x, 0, z);
+                house.rotation.y = rotationY;
 
-                // Base / Pondasi visual
-                const baseGeo = new THREE.BoxGeometry(2.7, 0.2, 3.7);
-                const baseMat = new THREE.MeshLambertMaterial({ color: 0x64748b });
-                const base = new THREE.Mesh(baseGeo, baseMat);
-                base.position.y = 0.1;
-                houseObj.add(base);
+                // 1. Badan Rumah (Tembok)
+                // Dimensi: lebar 3m, tinggi 2.5m, panjang 4m
+                const bodyGeo = new THREE.BoxGeometry(3, 2.5, 4);
+                const body = new THREE.Mesh(bodyGeo, wallMaterial);
+                body.position.y = 2.5 / 2;
+                body.castShadow = true;
+                body.receiveShadow = true;
+                house.add(body);
 
-                // Dinding / Wall
-                const wallGeo = new THREE.BoxGeometry(2.5, 2.2, 3.5);
-                const wallMat = new THREE.MeshLambertMaterial({ color: wallColor });
-                const wall = new THREE.Mesh(wallGeo, wallMat);
-                wall.position.y = 1.3;
-                wall.castShadow = true;
-                wall.receiveShadow = true;
-                houseObj.add(wall);
-
-                // Atap / Roof
-                const roofGeo = new THREE.ConeGeometry(2.3, 1.5, 4);
-                const roofMat = new THREE.MeshLambertMaterial({ color: roofColor });
-                const roof = new THREE.Mesh(roofGeo, roofMat);
-                roof.position.y = 3.15;
+                // 2. Atap (Model pelana/gable sederhana menggunakan bentuk prisma/cylinder 4 sisi)
+                // Karena bentuk dasar, kita putar cylinder 4 sisi sebesar 45 derajat
+                const roofGeo = new THREE.CylinderGeometry(0, 3 / Math.sqrt(2) + 0.2, 4.4, 4);
+                const roof = new THREE.Mesh(roofGeo, roofMaterial);
                 roof.rotation.y = Math.PI / 4;
+                roof.rotation.x = Math.PI / 2;
+                roof.position.y = 2.5 + (1.5 / 2); // Di atas badan rumah
                 roof.castShadow = true;
-                houseObj.add(roof);
+                house.add(roof);
 
-                // Position the entire group
-                houseObj.position.set(x, 0, z);
-                
-                // Embed UserData specifically matching the detailed requested specs
-                // This simulates the IFC property extraction
-                wall.userData = {
+                // 3. Kanopi Depan / Carport (Berwarna seperti di gambar referensi)
+                const canopyColor = canopyColors[canopyColorIdx % canopyColors.length];
+                const canopyMat = new THREE.MeshLambertMaterial({ color: canopyColor });
+                const canopyGeo = new THREE.BoxGeometry(2.8, 0.1, 2.5);
+                const canopy = new THREE.Mesh(canopyGeo, canopyMat);
+                canopy.position.set(0, 2.2, 2 + (2.5/2)); // Menempel di depan atas tembok
+                canopy.castShadow = true;
+                house.add(canopy);
+
+                // 4. Area Carport/Semen di depan
+                const drivewayGeo = new THREE.PlaneGeometry(3, 3);
+                const drivewayMat = new THREE.MeshLambertMaterial({ color: 0xb0bec5 });
+                const driveway = new THREE.Mesh(drivewayGeo, drivewayMat);
+                driveway.rotation.x = -Math.PI / 2;
+                driveway.position.set(0, 0.02, 2 + 1.5);
+                driveway.receiveShadow = true;
+                house.add(driveway);
+
+                // 5. Pintu (Detail kecil)
+                const doorGeo = new THREE.BoxGeometry(0.8, 1.8, 0.1);
+                const doorMat = new THREE.MeshLambertMaterial({ color: 0x5d4037 });
+                const door = new THREE.Mesh(doorGeo, doorMat);
+                door.position.set(-0.6, 1.8/2, 2 + 0.05);
+                house.add(door);
+
+                // -- Hitbox untuk keperluan Raycaster (Interaksi) --
+                // Kita gunakan objek 'body' sebagai target klik, dan tempelkan data di dalamnya
+                const isApproved = status === 'Siap KPR';
+                body.userData = {
                     id: id,
                     type: type,
                     status: status,
@@ -595,93 +621,63 @@
                     atap: 'GALVALUM',
                     dinding: 'BATA MERAH',
                     lantaiPondasi: 'KERAMIK 40x40 & BATU KALI',
-                    izin: isApproved ? 'Sesuai RDTR (Zona Kuning - Pemukiman)' : 'Tertunda (Menunggu Overlay RTRW Pemda)'
+                    izin: isApproved ? 'Sesuai RDTR (Zona Pemukiman)' : 'Verifikasi Pemda (Tertunda / Tumpang Tindih)'
                 };
                 
-                // We add the wall to the 'houses' array so the raycaster can detect it
-                houses.push(wall);
-                houseGroup.add(houseObj);
+                interactableObjects.push(body);
+                houseGroup.add(house);
             };
 
-            // Generate rows of houses (Siteplan Simulation)
-            // Block A (Top row)
-            for(let i=0; i<5; i++) {
-                buildHouse(-16 + (i*8), -6, `Blok A-${i+1}`, 'Siap KPR', 'Tipe 30/84');
-            }
-            // Block B (Bottom row) - Include one problematic unit for demonstration
-            for(let i=0; i<5; i++) {
-                let stat = i === 2 ? 'Pending Review' : 'Siap KPR'; 
-                buildHouse(-16 + (i*8), 6, `Blok B-${i+1}`, stat, 'Tipe 30/84');
+            const numHousesPerRow = 8;
+            const houseWidth = 3;
+            const houseSpacing = 0.2; // Jarak mepet antar rumah deret (townhouse)
+            const startX = -((numHousesPerRow * (houseWidth + houseSpacing)) / 2) + (houseWidth/2);
+
+            for(let i = 0; i < numHousesPerRow; i++) {
+                const posX = startX + (i * (houseWidth + houseSpacing));
+                
+                // Baris Atas (Menghadap ke arah +z / jalan raya)
+                // Warna kanopi kita selang-selingkan
+                buildRowHouse(posX, -4.5, 0, `Blok A-${i+1} (Subsidi)`, 'Siap KPR', 'Tipe 30/84', i);
+
+                // Baris Bawah (Menghadap ke arah -z / jalan raya)
+                // Sengaja membuat 1 unit bermasalah agar pengguna bisa melihat perbedaannya
+                let stat = (i === 3) ? 'Pending Review' : 'Siap KPR'; 
+                buildRowHouse(posX, 4.5, Math.PI, `Blok B-${i+1} (Subsidi)`, stat, 'Tipe 30/84', i+1);
             }
 
-            // Raycaster setup for clicking
+            // Raycaster Setup (Mendeteksi Klik Mouse)
             const raycaster = new THREE.Raycaster();
             const mouse = new THREE.Vector2();
             const dataPanel = document.getElementById('bim-data-panel');
-            
-            // Mouse tracking for hover effect (optional visual enhancement)
-            let hoveredObject = null;
-            const originalColors = new Map();
 
-            container.addEventListener('mousemove', (event) => {
-                const rect = container.getBoundingClientRect();
-                mouse.x = ((event.clientX - rect.left) / container.clientWidth) * 2 - 1;
-                mouse.y = -((event.clientY - rect.top) / container.clientHeight) * 2 + 1;
-
-                raycaster.setFromCamera(mouse, camera);
-                const intersects = raycaster.intersectObjects(houses);
-
-                if (intersects.length > 0) {
-                    container.style.cursor = 'pointer';
-                    const object = intersects[0].object;
-                    
-                    if (hoveredObject !== object) {
-                        // Restore previous hovered object
-                        if (hoveredObject) {
-                            hoveredObject.material.emissive.setHex(originalColors.get(hoveredObject.uuid));
-                        }
-                        // Set new hovered object
-                        hoveredObject = object;
-                        if(!originalColors.has(object.uuid)) {
-                            originalColors.set(object.uuid, object.material.emissive.getHex());
-                        }
-                        object.material.emissive.setHex(0x222222); // slight highlight
-                    }
-                } else {
-                    container.style.cursor = 'grab';
-                    if (hoveredObject) {
-                        hoveredObject.material.emissive.setHex(originalColors.get(hoveredObject.uuid));
-                        hoveredObject = null;
-                    }
-                }
-            });
-
-            // Click Interaction to populate Metadata Dashboard
             function onMouseClick(event) {
-                // Raycast already updated in mousemove, but recalculate to be safe
+                // Menghitung koordinat mouse relatif terhadap canvas
                 const rect = container.getBoundingClientRect();
                 mouse.x = ((event.clientX - rect.left) / container.clientWidth) * 2 - 1;
                 mouse.y = -((event.clientY - rect.top) / container.clientHeight) * 2 + 1;
 
                 raycaster.setFromCamera(mouse, camera);
-                const intersects = raycaster.intersectObjects(houses);
+                const intersects = raycaster.intersectObjects(interactableObjects);
 
                 if (intersects.length > 0) {
+                    // Ambil data dari objek yang diklik
                     const data = intersects[0].object.userData;
-                    const isOk = data.status === 'Siap KPR';
+                    const isApproved = data.status === 'Siap KPR';
+                    const statusColor = isApproved ? 'text-emerald-400' : 'text-warning';
+                    const statusIcon = isApproved ? '✅' : '⏳';
+                    const statusBg = isApproved ? 'from-emerald-900/40 to-emerald-800/20 border-emerald-500/30' : 'from-yellow-900/40 to-yellow-800/20 border-yellow-500/30';
+                    const decisionText = isApproved ? 'DITERIMA (SIAP KPR)' : 'MENUNGGU VERIFIKASI';
                     
-                    // Design the highly detailed metadata dashboard using Tailwind
-                    dataPanel.className = "flex-1 w-full flex flex-col justify-between";
+                    // Ganti struktur panel agar bisa menampung data lengkap
+                    dataPanel.className = "flex-1 w-full flex flex-col justify-between overflow-y-auto custom-scrollbar";
                     dataPanel.innerHTML = `
                         <div class="text-left animate-fade-in w-full">
                             <!-- Main Header -->
                             <div class="flex justify-between items-start border-b border-slate-600 pb-3 mb-3">
                                 <div>
-                                    <div class="flex items-center gap-2">
-                                        <span class="font-extrabold text-2xl text-white">${data.id}</span>
-                                        ${!isOk ? '<span class="bg-red-500/20 text-red-400 text-[10px] px-2 py-0.5 rounded font-bold border border-red-500/30 animate-pulse">BERMASALAH</span>' : ''}
-                                    </div>
-                                    <div class="text-accent font-black text-lg mt-0.5 tracking-tight">${data.harga}</div>
+                                    <div class="font-extrabold text-2xl text-white tracking-tight">${data.id}</div>
+                                    <div class="text-accent font-black text-lg mt-0.5">${data.harga}</div>
                                 </div>
                                 <span class="bg-slate-700 px-2.5 py-1 rounded text-xs font-bold text-slate-200 border border-slate-500">${data.type}</span>
                             </div>
@@ -698,7 +694,7 @@
                                 </div>
                             </div>
 
-                            <!-- Material Extractions (The core requirement) -->
+                            <!-- Material Extractions -->
                             <div class="mb-4 relative">
                                 <div class="absolute -left-2 top-0 bottom-0 w-1 bg-accent/30 rounded-full"></div>
                                 <div class="text-[10px] font-bold text-accent uppercase tracking-wider mb-2">📦 Ekstraksi Material Otomatis:</div>
@@ -719,22 +715,22 @@
                             </div>
                             
                             <!-- Pemda Overlay Status -->
-                            <div class="mb-2 bg-slate-900/60 p-3 rounded-lg border ${isOk ? 'border-emerald-500/20' : 'border-amber-500/30'}">
+                            <div class="mb-2 bg-slate-900/60 p-3 rounded-lg border ${isApproved ? 'border-emerald-500/20' : 'border-yellow-500/20'}">
                                  <div class="flex items-center gap-2 mb-1">
                                     <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">🗺️ Overlay Tata Ruang (Pemda)</span>
                                  </div>
-                                 <div class="text-xs font-bold ${isOk ? 'text-emerald-400' : 'text-amber-400'} flex items-start gap-1.5 leading-tight">
-                                    <span class="mt-0.5">${isOk ? '✓' : '⚠️'}</span> 
+                                 <div class="text-xs font-bold ${isApproved ? 'text-emerald-400' : 'text-warning'} flex items-start gap-1.5 leading-tight">
+                                    <span class="mt-0.5">${isApproved ? '✓' : '⚠️'}</span> 
                                     <span>${data.izin}</span>
                                  </div>
                             </div>
                         </div>
 
                         <!-- Final Decision Output -->
-                        <div class="mt-3 ${isOk ? 'bg-gradient-to-r from-emerald-900/40 to-emerald-800/20 border-emerald-500/30' : 'bg-gradient-to-r from-amber-900/40 to-amber-800/20 border-amber-500/30'} p-3 rounded-lg text-center shadow-inner border">
+                        <div class="mt-3 bg-gradient-to-r ${statusBg} p-3 rounded-lg text-center shadow-inner border animate-fade-in" style="animation-delay: 0.1s;">
                             <div class="text-[9px] text-white/60 uppercase tracking-widest mb-1 font-bold">Status Sistem Bank & Tapera</div>
-                            <div class="font-black text-sm tracking-wide ${isOk ? 'text-emerald-400' : 'text-amber-400'}">
-                                ${isOk ? '✅ DITERIMA (SIAP KPR)' : '⏳ MENUNGGU VERIFIKASI'}
+                            <div class="font-black text-sm tracking-wide ${statusColor}">
+                                ${statusIcon} ${decisionText}
                             </div>
                         </div>
                     `;
@@ -743,28 +739,25 @@
 
             container.addEventListener('click', onMouseClick);
 
-            // Responsive Canvas Resize
+            // Menangani Perubahan Ukuran Layar (Responsive)
             window.addEventListener('resize', () => {
-                if(container && camera && renderer) {
-                    camera.aspect = container.clientWidth / container.clientHeight;
-                    camera.updateProjectionMatrix();
-                    renderer.setSize(container.clientWidth, container.clientHeight);
-                }
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
             });
 
-            // Animation Loop
+            // Loop Animasi
             function animate() {
                 requestAnimationFrame(animate);
-                controls.update(); // required if controls.enableDamping or controls.autoRotate are set
+                controls.update(); // Dibutuhkan untuk OrbitControls (damping)
                 renderer.render(scene, camera);
             }
             animate();
         }
 
-        // --- INIT ALL SCRIPTS ON LOAD ---
         window.onload = function() {
             
-            // Initialize 3D Simulation
+            // Render Scene 3D
             setTimeout(initBIMPlayground, 300);
 
             // Chart 1: Donut Chart - Proyeksi Adopsi Format Data
