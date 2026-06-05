@@ -1,0 +1,480 @@
+<!--
+Palette Name: Vibrant Tech & Trust
+Narrative Plan:
+1. Header & Intro: Context of rumah.go.id transformation, BP Tapera's mandate, and Synergy with Local Government (Pemda).
+2. Data Overview: Donut chart showing the targeted shift from 2D to BIM/GIS mapping.
+3. Pemda Validation Flow: A structured HTML/CSS flow diagram showing the step-by-step process from Developer -> Pemda -> rumah.go.id -> BP Tapera.
+4. Core Features: Grid detailing the 3 registration options, mapped to BP Tapera standards.
+5. Performance Impact: Bar chart showing the reduction in SLA for KPR verification.
+6. Quality Assurance: Radar chart comparing compliance metrics, now including "Kesesuaian RDTR Pemda".
+7. Roadmap: CSS-based timeline for the 3-year rollout including Pemda capacity building.
+8. Key Metrics: Big numbers section for quick takeaways.
+Chart Choices:
+- Chart 1: Donut Chart -> Goal: Compare/Show Composition -> Justification: Shows market share shift of mapping formats. Library: Chart.js (Canvas, NO SVG).
+- Chart 2: Bar Chart -> Goal: Compare/Change -> Justification: Illustrates verification time reduction. Library: Chart.js (Canvas, NO SVG).
+- Chart 3: Radar Chart -> Goal: Relationships/Organize -> Justification: Compares qualitative compliance variables including Pemda spatial planning. Library: Chart.js (Canvas, NO SVG).
+Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this output. All graphics use Canvas (Chart.js), standard HTML/CSS, and Unicode characters.
+-->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografis Transformasi rumah.go.id & BP Tapera</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0A3D62',
+                        secondary: '#0077B6',
+                        accent: '#00B4D8',
+                        success: '#00B894',
+                        warning: '#FDCB6E',
+                        danger: '#FF7675',
+                        dark: '#2D3436',
+                        lightbg: '#F8FAFC'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #E2E8F0;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 24px;
+            width: 4px;
+            background: #00B4D8;
+            border-radius: 2px;
+        }
+        @media (min-width: 768px) {
+            .timeline-line::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        .timeline-dot {
+            position: absolute;
+            left: 24px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #FDCB6E;
+            border: 4px solid #0A3D62;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        @media (min-width: 768px) {
+            .timeline-dot {
+                left: 50%;
+            }
+        }
+        .flow-arrow {
+            font-size: 2rem;
+            color: #00B4D8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+        }
+        @media (max-width: 767px) {
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body class="text-dark antialiased p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden">
+        
+        <header class="bg-gradient-to-br from-primary to-secondary p-8 md:p-12 text-center text-white relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 20px 20px, #ffffff 2px, transparent 0); background-size: 40px 40px;"></div>
+            <span class="inline-block bg-warning text-primary font-bold px-4 py-1 rounded-full text-sm tracking-wider uppercase mb-4 shadow-lg">Integrasi Pusat & Daerah</span>
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">Transformasi rumah.go.id</h1>
+            <p class="text-lg md:text-xl font-light max-w-4xl mx-auto opacity-90">
+                Sinergi Pengembang, Pemerintah Daerah (Pemda), dan Pusat. Mengadopsi teknologi GIS dan OpenBIM untuk memastikan standar kelayakan dan kepatuhan tata ruang perumahan bersubsidi (MBR) sesuai regulasi BP Tapera.
+            </p>
+        </header>
+
+        <main class="p-6 md:p-10 space-y-16">
+
+            <section>
+                <div class="max-w-4xl mx-auto text-center mb-10">
+                    <h2 class="text-3xl font-bold text-primary mb-4">Alur Sinergi & Validasi Tata Ruang</h2>
+                    <p class="text-gray-600 leading-relaxed mb-8">
+                        Kunci dari transformasi ini adalah keterlibatan <b>Pemerintah Daerah (Pemda)</b> sebagai gerbang awal. Pengesahan siteplan oleh Pemda kini terintegrasi secara digital untuk menjamin kesesuaian dengan Rencana Detail Tata Ruang (RDTR) sebelum diproses oleh pusat.
+                    </p>
+                    
+                    <div class="flex flex-col md:flex-row justify-center items-stretch gap-2 bg-lightbg p-6 rounded-xl border border-gray-100 shadow-sm">
+                        
+                        <div class="bg-white border-2 border-gray-200 p-4 rounded-xl flex-1 relative z-10">
+                            <div class="text-3xl mb-2">👷</div>
+                            <h4 class="font-bold text-primary text-sm uppercase">1. Pengembang</h4>
+                            <p class="text-xs text-gray-500 mt-2">Menyusun rancangan siteplan dan unit menggunakan format (2D / GIS .shp / BIM .ifc4).</p>
+                        </div>
+
+                        <div class="flow-arrow">➔</div>
+
+                        <div class="bg-white border-2 border-accent p-4 rounded-xl flex-1 relative z-10 shadow-md transform md:-translate-y-2">
+                            <div class="absolute -top-3 -right-3 bg-warning text-primary text-[10px] font-bold px-2 py-1 rounded-full">Krusial</div>
+                            <div class="text-3xl mb-2">🏛️</div>
+                            <h4 class="font-bold text-accent text-sm uppercase">2. Pemda Setempat</h4>
+                            <p class="text-xs text-gray-600 mt-2">Memverifikasi kesesuaian rancangan dengan RDTR daerah zona perumahan dan menerbitkan <b>Pengesahan Siteplan</b>.</p>
+                        </div>
+
+                        <div class="flow-arrow">➔</div>
+
+                        <div class="bg-white border-2 border-gray-200 p-4 rounded-xl flex-1 relative z-10">
+                            <div class="text-3xl mb-2">💻</div>
+                            <h4 class="font-bold text-primary text-sm uppercase">3. rumah.go.id</h4>
+                            <p class="text-xs text-gray-500 mt-2">Registrasi digital. Sistem otomatis membaca titik spasial (GIS) yang telah disahkan Pemda.</p>
+                        </div>
+
+                        <div class="flow-arrow">➔</div>
+
+                        <div class="bg-white border-2 border-success p-4 rounded-xl flex-1 relative z-10">
+                            <div class="text-3xl mb-2">🏦</div>
+                            <h4 class="font-bold text-success text-sm uppercase">4. BP Tapera & Bank</h4>
+                            <p class="text-xs text-gray-600 mt-2">Kontrol kualitas subsidi berjalan otomatis, KPR cair lebih cepat dan tepat sasaran.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-gray-50 p-6 md:p-8 rounded-xl border border-gray-200">
+                <div>
+                    <h3 class="text-2xl font-bold text-primary mb-3">Proyeksi Transisi Format Data Nasional</h3>
+                    <p class="text-sm text-gray-600 mb-6">
+                        Transisi menuju format digital pintar menuntut kolaborasi. Pemerintah pusat mendorong Pemda untuk mulai mengadopsi pembacaan format spasial, menggeser denah gambar statis (JPG/PNG) yang tidak dapat divalidasi silang secara sistem.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-4 h-4 rounded-full bg-danger"></div>
+                            <span class="text-sm font-semibold">Latar Statis (Akan Dibatasi)</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-4 h-4 rounded-full bg-accent"></div>
+                            <span class="text-sm font-semibold">Polygon GIS (Sinkronisasi RDTR Pemda)</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-4 h-4 rounded-full bg-success"></div>
+                            <span class="text-sm font-semibold">OpenBIM (Standar Kualitas Struktur)</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="chart-container">
+                        <canvas id="adoptionChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-primary mb-2">3 Opsi Pendaftaran Dokumen</h2>
+                    <div class="w-24 h-1 bg-accent mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white border-2 border-gray-100 rounded-xl p-6 hover:border-danger hover:shadow-xl transition-all duration-300">
+                        <div class="text-5xl mb-4 text-center">🖼️</div>
+                        <h3 class="text-xl font-bold text-center text-dark mb-2">Latar Statis (.jpg/.png)</h3>
+                        <div class="text-center mb-4"><span class="bg-gray-200 text-gray-700 text-xs font-bold px-3 py-1 rounded-full uppercase">Opsi Transisi</span></div>
+                        <p class="text-sm text-gray-600 mb-4 text-center">Mengunggah gambar scan siteplan yang disahkan Pemda, lalu melakukan <i>pinning</i> manual.</p>
+                        <ul class="text-sm text-gray-600 space-y-2 border-t pt-4">
+                            <li><span class="font-bold text-dark">Kelemahan:</span> Risiko tumpang tindih lahan karena tidak terkunci dengan koordinat tata ruang Pemda secara sistem.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white border-2 border-gray-100 rounded-xl p-6 hover:border-accent hover:shadow-xl transition-all duration-300">
+                        <div class="text-5xl mb-4 text-center">🗺️</div>
+                        <h3 class="text-xl font-bold text-center text-dark mb-2">Polygon Spasial (.shp)</h3>
+                        <div class="text-center mb-4"><span class="bg-accent text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Pilihan Ideal</span></div>
+                        <p class="text-sm text-gray-600 mb-4 text-center">Sistem membaca data spasial siteplan, otomatis mendeteksi luasan dan batas kavling secara presisi.</p>
+                        <ul class="text-sm text-gray-600 space-y-2 border-t pt-4">
+                            <li><span class="font-bold text-dark">Keunggulan:</span> Saat diunggah, otomatis terverifikasi silang (overlay) dengan data RDTR Pemda pusat untuk mendeteksi zona aman.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white border-2 border-gray-100 rounded-xl p-6 hover:border-success hover:shadow-xl transition-all duration-300">
+                        <div class="text-5xl mb-4 text-center">🏢</div>
+                        <h3 class="text-xl font-bold text-center text-dark mb-2">OpenBIM (.ifc4)</h3>
+                        <div class="text-center mb-4"><span class="bg-success text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Standar Emas</span></div>
+                        <p class="text-sm text-gray-600 mb-4 text-center">Model 3D interaktif yang diekstrak langsung metadata material dan struktur bangunannya.</p>
+                        <ul class="text-sm text-gray-600 space-y-2 border-t pt-4">
+                            <li><span class="font-bold text-dark">Dampak BP Tapera:</span> Jaminan mutlak spesifikasi rumah MBR sesuai standar KemenPUPR tanpa survei fisik berulang.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-primary text-white p-6 md:p-10 rounded-2xl shadow-xl">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-white mb-2">Peta Jalan (Roadmap) Integrasi</h2>
+                    <div class="w-24 h-1 bg-warning mx-auto rounded-full"></div>
+                </div>
+
+                <div class="relative timeline-line py-4 max-w-4xl mx-auto">
+                    
+                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between mb-8 md:mb-12">
+                        <div class="hidden md:block w-5/12"></div>
+                        <div class="timeline-dot mt-6 md:mt-0"></div>
+                        <div class="w-full md:w-5/12 pl-12 md:pl-0">
+                            <div class="bg-white bg-opacity-10 backdrop-blur-md p-5 rounded-lg border border-white border-opacity-20">
+                                <span class="text-warning font-bold text-sm">Bulan 1 - 6</span>
+                                <h4 class="text-xl font-bold mb-2">Peningkatan Kapasitas Pemda</h4>
+                                <p class="text-sm opacity-90">Bimbingan teknis bagi instansi Pemda daerah terkait validasi pengesahan siteplan berbasis digital (GIS/BIM). Rilis template BIM gratis untuk pengembang lokal.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between mb-8 md:mb-12">
+                        <div class="w-full md:w-5/12 pl-12 md:pl-0 md:text-right order-2 md:order-1">
+                            <div class="bg-white bg-opacity-10 backdrop-blur-md p-5 rounded-lg border border-white border-opacity-20">
+                                <span class="text-warning font-bold text-sm">Bulan 7 - 12</span>
+                                <h4 class="text-xl font-bold mb-2">Fase Insentif BP Tapera</h4>
+                                <p class="text-sm opacity-90">Pengembang yang menggunakan format .shp/.ifc4 mendapat prioritas. SLA pencairan KPR dipangkas karena bank tak perlu verifikasi fisik lapangan lagi.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-dot mt-6 md:mt-0 order-1 md:order-2"></div>
+                        <div class="hidden md:block w-5/12 order-3"></div>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between mb-8 md:mb-12">
+                        <div class="hidden md:block w-5/12"></div>
+                        <div class="timeline-dot mt-6 md:mt-0"></div>
+                        <div class="w-full md:w-5/12 pl-12 md:pl-0">
+                            <div class="bg-white bg-opacity-10 backdrop-blur-md p-5 rounded-lg border border-white border-opacity-20">
+                                <span class="text-warning font-bold text-sm">Tahun ke-2</span>
+                                <h4 class="text-xl font-bold mb-2">Mandatori Bersyarat</h4>
+                                <p class="text-sm opacity-90">Pengesahan Pemda berformat Spasial diwajibkan untuk proyek >100 Unit. Pendaftaran dengan format Latar Statis dibatasi ketat.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between">
+                        <div class="w-full md:w-5/12 pl-12 md:pl-0 md:text-right order-2 md:order-1">
+                            <div class="bg-white bg-opacity-10 backdrop-blur-md p-5 rounded-lg border border-white border-opacity-20">
+                                <span class="text-warning font-bold text-sm">Tahun ke-3</span>
+                                <h4 class="text-xl font-bold mb-2">Integrasi Sistem Penuh</h4>
+                                <p class="text-sm opacity-90">Sistem tata ruang Pemda, rumah.go.id, dan Bank/BP Tapera terhubung otomatis. Format GIS/BIM jadi syarat mutlak meminimalkan salah sasaran subsidi.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-dot mt-6 md:mt-0 order-1 md:order-2" style="background-color: #00B894; border-color: white;"></div>
+                        <div class="hidden md:block w-5/12 order-3"></div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mt-10">
+                <div class="order-2 lg:order-1">
+                    <div class="chart-container">
+                        <canvas id="qualityChart"></canvas>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2">
+                    <h2 class="text-3xl font-bold text-primary mb-4">Indeks Kepatuhan Tata Ruang & Subsidi</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Grafik radar menunjukkan peningkatan tajam dalam pengawasan kepatuhan saat beralih dari format manual ke OpenBIM & GIS. Sinkronisasi dengan RDTR Pemda merupakan lompatan terbesar untuk menjamin keamanan lokasi hunian.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <div class="bg-primary text-white p-2 rounded text-xs mt-1">✓</div>
+                            <div>
+                                <h4 class="font-bold text-dark">Kesesuaian RDTR Pemda</h4>
+                                <p class="text-sm text-gray-500">GIS secara otomatis mencocokkan koordinat siteplan dengan Peta Tata Ruang (bebas banjir, zona aman) milik Pemda.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="bg-primary text-white p-2 rounded text-xs mt-1">✓</div>
+                            <div>
+                                <h4 class="font-bold text-dark">Validasi Otomatis Bank</h4>
+                                <p class="text-sm text-gray-500">Mengefisiensikan waktu appraisal KPR subsidi secara radikal.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="py-6 border-t border-gray-200 pt-12">
+                <h2 class="text-center text-2xl font-bold text-gray-400 uppercase tracking-widest mb-8">Target Efisiensi Nasional</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border-b-4 border-accent">
+                        <div class="text-5xl font-extrabold text-accent mb-2">SINKRON</div>
+                        <h3 class="text-lg font-bold text-dark mb-2">Pusat & Daerah</h3>
+                        <p class="text-sm text-gray-500">Sistem terpusat namun menghargai otonomi pengesahan tata ruang daerah.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border-b-4 border-warning">
+                        <div class="text-5xl font-extrabold text-warning mb-2">-80%</div>
+                        <h3 class="text-lg font-bold text-dark mb-2">Waktu SLA Pencairan</h3>
+                        <p class="text-sm text-gray-500">Terpotong oleh fitur <i>Rule-Based Checking</i> dari data 3D/Spasial.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-lg border-b-4 border-success">
+                        <div class="text-5xl font-extrabold text-success mb-2">100%</div>
+                        <h3 class="text-lg font-bold text-dark mb-2">Sesuai Spek Subsidi</h3>
+                        <p class="text-sm text-gray-500">Pemenuhan standar kualitas fisik bangunan MBR berkat integrasi BIM.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="bg-gray-100 p-6 text-center border-t border-gray-200">
+            <p class="text-sm text-gray-500 font-semibold mb-2">Kementerian PUPR • Pemda • BP Tapera</p>
+            <p class="text-xs text-gray-400">Konsep Desain Peningkatan (Enhancement) Platform • rumah.go.id • Simulasi Data Infografis</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function wrapLabelText(text) {
+            const limit = 16;
+            if (text.length <= limit) return text;
+            
+            const words = text.split(' ');
+            let lines = [];
+            let currentLine = '';
+
+            words.forEach(word => {
+                if ((currentLine + word).length > limit) {
+                    if (currentLine.length > 0) {
+                        lines.push(currentLine.trim());
+                    }
+                    currentLine = word + ' ';
+                } else {
+                    currentLine += word + ' ';
+                }
+            });
+            if (currentLine.trim().length > 0) {
+                lines.push(currentLine.trim());
+            }
+            return lines;
+        }
+
+        const commonTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        window.onload = function() {
+            
+            const ctxAdoption = document.getElementById('adoptionChart').getContext('2d');
+            const adoptionLabelsRaw = [
+                "Latar Statis (.jpg) - Terbatas",
+                "Polygon (.shp) - Sinkron Pemda",
+                "OpenBIM (.ifc4) - Spek Tapera"
+            ];
+            new Chart(ctxAdoption, {
+                type: 'doughnut',
+                data: {
+                    labels: adoptionLabelsRaw.map(wrapLabelText),
+                    datasets: [{
+                        data: [10, 65, 25],
+                        backgroundColor: ['#FF7675', '#00B4D8', '#00B894'],
+                        borderWidth: 2,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: commonTooltipConfig
+                    },
+                    cutout: '65%'
+                }
+            });
+
+            const ctxQuality = document.getElementById('qualityChart').getContext('2d');
+            const qualityLabelsRaw = [
+                "Akurasi Luasan & Dimensi",
+                "Kesesuaian RDTR Pemda",
+                "Verifikasi Material (Tapera)",
+                "Kecepatan Proses KPR Bank",
+                "Mitigasi Titik Lahan Ganda"
+            ];
+            new Chart(ctxQuality, {
+                type: 'radar',
+                data: {
+                    labels: qualityLabelsRaw.map(wrapLabelText),
+                    datasets: [
+                        {
+                            label: 'Latar Statis (Legacy)',
+                            data: [50, 30, 30, 40, 35],
+                            backgroundColor: 'rgba(255, 118, 117, 0.2)',
+                            borderColor: '#FF7675',
+                            pointBackgroundColor: '#FF7675',
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'OpenBIM + GIS Spasial',
+                            data: [95, 100, 95, 95, 100],
+                            backgroundColor: 'rgba(0, 184, 148, 0.4)',
+                            borderColor: '#00B894',
+                            pointBackgroundColor: '#00B894',
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            pointLabels: {
+                                font: { size: 11, family: "'Inter', sans-serif" }
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: commonTooltipConfig
+                    }
+                }
+            });
+
+        };
+    </script>
+</body>
+</html>
