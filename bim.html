@@ -8,8 +8,6 @@
     <!-- External Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
     <script>
@@ -104,28 +102,22 @@
         }
 
         /* 3D BIM Playground Styles */
-        #bim-canvas-container {
-            width: 100%;
-            height: 400px;
-            cursor: grab;
+        .iframe-container {
             position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            width: 100%;
         }
-        #bim-canvas-container:active {
-            cursor: grabbing;
-        }
-        .bim-overlay {
+        .iframe-container iframe {
             position: absolute;
-            bottom: 10px;
-            left: 10px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 600;
-            pointer-events: none;
-            letter-spacing: 0.5px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
+        
         .animate-fade-in {
             animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -312,6 +304,54 @@
                 </div>
             </section>
 
+            <!-- THE INTERACTIVE 3D BIM PLAYGROUND -->
+            <section class="bg-slate-800 text-white p-6 md:p-10 rounded-2xl shadow-2xl relative overflow-hidden">
+                <!-- Background decorative elements -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-accent opacity-10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+                <div class="absolute bottom-0 left-0 w-80 h-80 bg-success opacity-10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4"></div>
+                
+                <div class="mb-8 relative z-10">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="inline-block bg-accent text-white font-bold px-3 py-1 rounded-md text-xs uppercase tracking-wide">Simulasi 3D Interaktif</span>
+                        <span class="inline-block bg-slate-700 text-slate-300 px-2 py-1 rounded text-[10px] uppercase font-bold border border-slate-600">Integrasi SketchUp / OpenBIM</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-3">Playground Viewer 3D</h2>
+                    <p class="text-slate-300 text-sm md:text-base max-w-3xl leading-relaxed">
+                        Visualisasi model rumah MBR menggunakan SketchUp 3D Warehouse. <br class="hidden md:block">
+                        <b>Cara Penggunaan:</b> Geser/drag area 3D untuk memutar kamera. Klik tombol <b>"Ekstrak Metadata"</b> pada panel di samping untuk mensimulasikan sistem membaca file BIM (.ifc4/.skp) dan memvalidasi material serta tata ruang secara <i>real-time</i>.
+                    </p>
+                </div>
+                
+                <div class="flex flex-col lg:flex-row gap-6 relative z-10">
+                    <!-- 3D Canvas Area (IFRAME) -->
+                    <div class="w-full lg:w-3/5 xl:w-2/3 bg-slate-900 rounded-xl border border-slate-600 overflow-hidden relative shadow-inner">
+                        <div class="iframe-container">
+                            <iframe src="https://embed-3dwarehouse-classic.sketchup.com/embed/144dd939-9b61-4658-a590-4a9209382fdc?token=ESw_RJQjYyQ=&binaryName=s21" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    
+                    <!-- Metadata Dashboard Panel -->
+                    <div class="w-full lg:w-2/5 xl:w-1/3 bg-slate-800 rounded-xl p-5 border border-slate-600 flex flex-col shadow-xl">
+                        <div class="flex items-center justify-between border-b border-slate-600 pb-3 mb-4">
+                            <h3 class="text-base font-bold text-accent uppercase tracking-wider flex items-center gap-2">
+                                📊 Metadata Ekstraksi BIM
+                            </h3>
+                            <span class="text-xs text-slate-400" id="sync-status">Status: Siaga</span>
+                        </div>
+                        
+                        <div id="bim-data-panel" class="flex-1 flex flex-col justify-center items-center text-center text-slate-400 bg-slate-900/50 rounded-lg border border-slate-700/50 p-6 transition-all duration-300">
+                            <div class="text-5xl mb-4 opacity-50 animate-pulse">⚙️</div>
+                            <p class="text-sm font-bold text-white mb-2">Sistem Siap Menganalisis Model</p>
+                            <p class="text-xs mb-6 opacity-75 leading-relaxed">Sistem akan membaca komponen 3D (dinding, atap, pondasi) pada model di samping dan menghitung standar subsidi otomatis.</p>
+                            <button onclick="simulateExtraction()" class="bg-accent hover:bg-secondary text-white font-bold py-2.5 px-6 rounded-lg shadow-[0_0_15px_rgba(0,180,216,0.4)] hover:shadow-[0_0_20px_rgba(0,180,216,0.6)] transition-all flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                Ekstrak Metadata
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section class="bg-gradient-to-br from-[#0A3D62] to-[#0f4d7a] text-white p-6 md:p-10 rounded-2xl shadow-xl">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-white mb-3">Peta Jalan (Roadmap) Integrasi</h2>
@@ -473,300 +513,109 @@
             }
         };
 
-        // --- NEW THREE.JS BIM PLAYGROUND LOGIC WITH DETAILED METADATA ---
-        function initBIMPlayground() {
-            const container = document.getElementById('bim-canvas-container');
-            if (!container) return; // Guard clause
-
-            // Scene Setup
-            const scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x0f172a); // Tailwind slate-900
+        // --- NEW METADATA EXTRACTION SIMULATION ---
+        function simulateExtraction() {
+            const panel = document.getElementById('bim-data-panel');
+            const status = document.getElementById('sync-status');
             
-            // Fog to create depth
-            scene.fog = new THREE.FogExp2(0x0f172a, 0.02);
+            // Loading State
+            status.innerHTML = '<span class="text-warning animate-pulse">Mengekstrak Data...</span>';
+            panel.innerHTML = `
+                <div class="flex flex-col items-center justify-center animate-fade-in">
+                    <div class="w-10 h-10 border-4 border-slate-600 border-t-accent rounded-full animate-spin mb-4"></div>
+                    <p class="text-sm text-white font-bold">Membaca format .ifc4 / .skp</p>
+                    <p class="text-xs text-slate-400 mt-2">Mengkalkulasi Kubikasi Material...</p>
+                </div>
+            `;
 
-            // Camera Setup
-            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-            camera.position.set(20, 15, 25); // Positioned to look down at the neighborhood
-
-            // Renderer Setup
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            renderer.setPixelRatio(window.devicePixelRatio);
-            renderer.shadowMap.enabled = true;
-            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-            container.appendChild(renderer.domElement);
-
-            // Controls (Orbit)
-            const controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            controls.dampingFactor = 0.05;
-            controls.maxPolarAngle = Math.PI / 2 - 0.05; // Don't let camera go below ground
-            controls.minDistance = 10;
-            controls.maxDistance = 50;
-
-            // Lighting Setup
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
-            scene.add(ambientLight);
-
-            const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
-            dirLight.position.set(15, 30, 15);
-            dirLight.castShadow = true;
-            dirLight.shadow.mapSize.width = 1024;
-            dirLight.shadow.mapSize.height = 1024;
-            dirLight.shadow.camera.near = 0.5;
-            dirLight.shadow.camera.far = 100;
-            const d = 20;
-            dirLight.shadow.camera.left = -d;
-            dirLight.shadow.camera.right = d;
-            dirLight.shadow.camera.top = d;
-            dirLight.shadow.camera.bottom = -d;
-            scene.add(dirLight);
-
-            // Environment Objects
-            // 1. Ground Plane
-            const groundGeometry = new THREE.PlaneGeometry(60, 40);
-            const groundMaterial = new THREE.MeshLambertMaterial({ color: 0x1e293b }); // slate-800
-            const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-            ground.rotation.x = -Math.PI / 2;
-            ground.receiveShadow = true;
-            scene.add(ground);
-
-            // 2. Main Road
-            const roadMat = new THREE.MeshLambertMaterial({ color: 0x0f172a }); // dark slate
-            const road = new THREE.Mesh(new THREE.PlaneGeometry(60, 6), roadMat);
-            road.rotation.x = -Math.PI / 2;
-            road.position.y = 0.02; // slightly above ground to prevent z-fighting
-            road.receiveShadow = true;
-            scene.add(road);
-
-            // House Building Function
-            const houses = [];
-            const houseGroup = new THREE.Group();
-            scene.add(houseGroup);
-
-            // Function to generate a house mesh with metadata
-            const buildHouse = (x, z, id, status, type) => {
-                const isApproved = status === 'Siap KPR';
-                const wallColor = isApproved ? 0xe2e8f0 : 0xfdcb6e; // Slate 200 or Warning Yellow
-                const roofColor = isApproved ? 0x00b4d8 : 0xff7675; // Accent Blue or Danger Red
-
-                const houseObj = new THREE.Group();
-
-                // Base / Pondasi visual
-                const baseGeo = new THREE.BoxGeometry(2.7, 0.2, 3.7);
-                const baseMat = new THREE.MeshLambertMaterial({ color: 0x64748b });
-                const base = new THREE.Mesh(baseGeo, baseMat);
-                base.position.y = 0.1;
-                houseObj.add(base);
-
-                // Dinding / Wall
-                const wallGeo = new THREE.BoxGeometry(2.5, 2.2, 3.5);
-                const wallMat = new THREE.MeshLambertMaterial({ color: wallColor });
-                const wall = new THREE.Mesh(wallGeo, wallMat);
-                wall.position.y = 1.3;
-                wall.castShadow = true;
-                wall.receiveShadow = true;
-                houseObj.add(wall);
-
-                // Atap / Roof
-                const roofGeo = new THREE.ConeGeometry(2.3, 1.5, 4);
-                const roofMat = new THREE.MeshLambertMaterial({ color: roofColor });
-                const roof = new THREE.Mesh(roofGeo, roofMat);
-                roof.position.y = 3.15;
-                roof.rotation.y = Math.PI / 4;
-                roof.castShadow = true;
-                houseObj.add(roof);
-
-                // Position the entire group
-                houseObj.position.set(x, 0, z);
-                
-                // Embed UserData specifically matching the detailed requested specs
-                // This simulates the IFC property extraction
-                wall.userData = {
-                    id: id,
-                    type: type,
-                    status: status,
-                    harga: 'Rp 185.000.000',
-                    luasLahan: '84 m²',
-                    luasBangun: '30 m²',
-                    kamarTidur: 2,
-                    kamarMandi: 1,
-                    atap: 'GALVALUM',
-                    dinding: 'BATA MERAH',
-                    lantaiPondasi: 'KERAMIK 40x40 & BATU KALI',
-                    izin: isApproved ? 'Sesuai RDTR (Zona Kuning - Pemukiman)' : 'Tertunda (Menunggu Overlay RTRW Pemda)'
-                };
-                
-                // We add the wall to the 'houses' array so the raycaster can detect it
-                houses.push(wall);
-                houseGroup.add(houseObj);
+            // Data Data spesifik yang direquest
+            const extractedData = {
+                id: 'Blok A-1 (Subsidi)',
+                type: 'Tipe 30/84',
+                harga: 'Rp 185.000.000',
+                luasLahan: '84 m²',
+                luasBangun: '30 m²',
+                kamarTidur: 2,
+                kamarMandi: 1,
+                atap: 'GALVALUM',
+                dinding: 'BATA MERAH',
+                lantaiPondasi: 'KERAMIK 40x40 & BATU KALI',
+                izin: 'Sesuai RDTR (Zona Pemukiman)'
             };
 
-            // Generate rows of houses (Siteplan Simulation)
-            // Block A (Top row)
-            for(let i=0; i<5; i++) {
-                buildHouse(-16 + (i*8), -6, `Blok A-${i+1}`, 'Siap KPR', 'Tipe 30/84');
-            }
-            // Block B (Bottom row) - Include one problematic unit for demonstration
-            for(let i=0; i<5; i++) {
-                let stat = i === 2 ? 'Pending Review' : 'Siap KPR'; 
-                buildHouse(-16 + (i*8), 6, `Blok B-${i+1}`, stat, 'Tipe 30/84');
-            }
-
-            // Raycaster setup for clicking
-            const raycaster = new THREE.Raycaster();
-            const mouse = new THREE.Vector2();
-            const dataPanel = document.getElementById('bim-data-panel');
-            
-            // Mouse tracking for hover effect (optional visual enhancement)
-            let hoveredObject = null;
-            const originalColors = new Map();
-
-            container.addEventListener('mousemove', (event) => {
-                const rect = container.getBoundingClientRect();
-                mouse.x = ((event.clientX - rect.left) / container.clientWidth) * 2 - 1;
-                mouse.y = -((event.clientY - rect.top) / container.clientHeight) * 2 + 1;
-
-                raycaster.setFromCamera(mouse, camera);
-                const intersects = raycaster.intersectObjects(houses);
-
-                if (intersects.length > 0) {
-                    container.style.cursor = 'pointer';
-                    const object = intersects[0].object;
-                    
-                    if (hoveredObject !== object) {
-                        // Restore previous hovered object
-                        if (hoveredObject) {
-                            hoveredObject.material.emissive.setHex(originalColors.get(hoveredObject.uuid));
-                        }
-                        // Set new hovered object
-                        hoveredObject = object;
-                        if(!originalColors.has(object.uuid)) {
-                            originalColors.set(object.uuid, object.material.emissive.getHex());
-                        }
-                        object.material.emissive.setHex(0x222222); // slight highlight
-                    }
-                } else {
-                    container.style.cursor = 'grab';
-                    if (hoveredObject) {
-                        hoveredObject.material.emissive.setHex(originalColors.get(hoveredObject.uuid));
-                        hoveredObject = null;
-                    }
-                }
-            });
-
-            // Click Interaction to populate Metadata Dashboard
-            function onMouseClick(event) {
-                // Raycast already updated in mousemove, but recalculate to be safe
-                const rect = container.getBoundingClientRect();
-                mouse.x = ((event.clientX - rect.left) / container.clientWidth) * 2 - 1;
-                mouse.y = -((event.clientY - rect.top) / container.clientHeight) * 2 + 1;
-
-                raycaster.setFromCamera(mouse, camera);
-                const intersects = raycaster.intersectObjects(houses);
-
-                if (intersects.length > 0) {
-                    const data = intersects[0].object.userData;
-                    const isOk = data.status === 'Siap KPR';
-                    
-                    // Design the highly detailed metadata dashboard using Tailwind
-                    dataPanel.className = "flex-1 w-full flex flex-col justify-between";
-                    dataPanel.innerHTML = `
-                        <div class="text-left animate-fade-in w-full">
-                            <!-- Main Header -->
-                            <div class="flex justify-between items-start border-b border-slate-600 pb-3 mb-3">
-                                <div>
-                                    <div class="flex items-center gap-2">
-                                        <span class="font-extrabold text-2xl text-white">${data.id}</span>
-                                        ${!isOk ? '<span class="bg-red-500/20 text-red-400 text-[10px] px-2 py-0.5 rounded font-bold border border-red-500/30 animate-pulse">BERMASALAH</span>' : ''}
-                                    </div>
-                                    <div class="text-accent font-black text-lg mt-0.5 tracking-tight">${data.harga}</div>
-                                </div>
-                                <span class="bg-slate-700 px-2.5 py-1 rounded text-xs font-bold text-slate-200 border border-slate-500">${data.type}</span>
+            // Tampilkan hasil setelah 1.5 detik (simulasi proses)
+            setTimeout(() => {
+                status.innerHTML = '<span class="text-emerald-400">✓ Sinkronisasi Selesai</span>';
+                panel.className = "flex-1 w-full flex flex-col justify-between";
+                panel.innerHTML = `
+                    <div class="text-left animate-fade-in w-full">
+                        <!-- Main Header -->
+                        <div class="flex justify-between items-start border-b border-slate-600 pb-3 mb-3">
+                            <div>
+                                <div class="font-extrabold text-2xl text-white tracking-tight">${extractedData.id}</div>
+                                <div class="text-accent font-black text-lg mt-0.5">${extractedData.harga}</div>
                             </div>
-                            
-                            <!-- Spatial Data -->
-                            <div class="grid grid-cols-2 gap-2 text-xs mb-4">
-                                <div class="bg-slate-700/40 p-2.5 rounded border border-slate-600/50 flex flex-col justify-center">
-                                    <div class="text-slate-400 mb-0.5 text-[10px] uppercase font-semibold">Luas (Tanah / Bangun)</div>
-                                    <div class="font-bold text-white text-sm">${data.luasLahan} <span class="text-slate-500 font-normal">/</span> ${data.luasBangun}</div>
-                                </div>
-                                <div class="bg-slate-700/40 p-2.5 rounded border border-slate-600/50 flex flex-col justify-center">
-                                    <div class="text-slate-400 mb-0.5 text-[10px] uppercase font-semibold">Ruang (Tidur / Mandi)</div>
-                                    <div class="font-bold text-white text-sm">${data.kamarTidur} <span class="text-slate-500 font-normal">KT /</span> ${data.kamarMandi} <span class="text-slate-500 font-normal">KM</span></div>
-                                </div>
+                            <span class="bg-slate-700 px-2.5 py-1 rounded text-xs font-bold text-slate-200 border border-slate-500">${extractedData.type}</span>
+                        </div>
+                        
+                        <!-- Spatial Data -->
+                        <div class="grid grid-cols-2 gap-2 text-xs mb-4">
+                            <div class="bg-slate-700/40 p-2.5 rounded border border-slate-600/50 flex flex-col justify-center">
+                                <div class="text-slate-400 mb-0.5 text-[10px] uppercase font-semibold">Luas (Tanah / Bangun)</div>
+                                <div class="font-bold text-white text-sm">${extractedData.luasLahan} <span class="text-slate-500 font-normal">/</span> ${extractedData.luasBangun}</div>
                             </div>
-
-                            <!-- Material Extractions (The core requirement) -->
-                            <div class="mb-4 relative">
-                                <div class="absolute -left-2 top-0 bottom-0 w-1 bg-accent/30 rounded-full"></div>
-                                <div class="text-[10px] font-bold text-accent uppercase tracking-wider mb-2">📦 Ekstraksi Material Otomatis:</div>
-                                <ul class="text-xs text-white space-y-2">
-                                    <li class="flex justify-between items-end border-b border-slate-700/50 pb-1">
-                                        <span class="text-slate-400">Atap</span> 
-                                        <span class="font-bold text-right text-emerald-300">${data.atap}</span>
-                                    </li>
-                                    <li class="flex justify-between items-end border-b border-slate-700/50 pb-1">
-                                        <span class="text-slate-400">Dinding</span> 
-                                        <span class="font-bold text-right text-orange-200">${data.dinding}</span>
-                                    </li>
-                                    <li class="flex justify-between items-end pb-1">
-                                        <span class="text-slate-400">Lantai & Pondasi</span> 
-                                        <span class="font-bold text-right text-slate-200 w-1/2 leading-tight">${data.lantaiPondasi}</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            
-                            <!-- Pemda Overlay Status -->
-                            <div class="mb-2 bg-slate-900/60 p-3 rounded-lg border ${isOk ? 'border-emerald-500/20' : 'border-amber-500/30'}">
-                                 <div class="flex items-center gap-2 mb-1">
-                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">🗺️ Overlay Tata Ruang (Pemda)</span>
-                                 </div>
-                                 <div class="text-xs font-bold ${isOk ? 'text-emerald-400' : 'text-amber-400'} flex items-start gap-1.5 leading-tight">
-                                    <span class="mt-0.5">${isOk ? '✓' : '⚠️'}</span> 
-                                    <span>${data.izin}</span>
-                                 </div>
+                            <div class="bg-slate-700/40 p-2.5 rounded border border-slate-600/50 flex flex-col justify-center">
+                                <div class="text-slate-400 mb-0.5 text-[10px] uppercase font-semibold">Ruang (Tidur / Mandi)</div>
+                                <div class="font-bold text-white text-sm">${extractedData.kamarTidur} <span class="text-slate-500 font-normal">KT /</span> ${extractedData.kamarMandi} <span class="text-slate-500 font-normal">KM</span></div>
                             </div>
                         </div>
 
-                        <!-- Final Decision Output -->
-                        <div class="mt-3 ${isOk ? 'bg-gradient-to-r from-emerald-900/40 to-emerald-800/20 border-emerald-500/30' : 'bg-gradient-to-r from-amber-900/40 to-amber-800/20 border-amber-500/30'} p-3 rounded-lg text-center shadow-inner border">
-                            <div class="text-[9px] text-white/60 uppercase tracking-widest mb-1 font-bold">Status Sistem Bank & Tapera</div>
-                            <div class="font-black text-sm tracking-wide ${isOk ? 'text-emerald-400' : 'text-amber-400'}">
-                                ${isOk ? '✅ DITERIMA (SIAP KPR)' : '⏳ MENUNGGU VERIFIKASI'}
-                            </div>
+                        <!-- Material Extractions -->
+                        <div class="mb-4 relative">
+                            <div class="absolute -left-2 top-0 bottom-0 w-1 bg-accent/30 rounded-full"></div>
+                            <div class="text-[10px] font-bold text-accent uppercase tracking-wider mb-2">📦 Ekstraksi Material Otomatis:</div>
+                            <ul class="text-xs text-white space-y-2">
+                                <li class="flex justify-between items-end border-b border-slate-700/50 pb-1">
+                                    <span class="text-slate-400">Atap</span> 
+                                    <span class="font-bold text-right text-emerald-300">${extractedData.atap}</span>
+                                </li>
+                                <li class="flex justify-between items-end border-b border-slate-700/50 pb-1">
+                                    <span class="text-slate-400">Dinding</span> 
+                                    <span class="font-bold text-right text-orange-200">${extractedData.dinding}</span>
+                                </li>
+                                <li class="flex justify-between items-end pb-1">
+                                    <span class="text-slate-400">Lantai & Pondasi</span> 
+                                    <span class="font-bold text-right text-slate-200 w-1/2 leading-tight">${extractedData.lantaiPondasi}</span>
+                                </li>
+                            </ul>
                         </div>
-                    `;
-                }
-            }
+                        
+                        <!-- Pemda Overlay Status -->
+                        <div class="mb-2 bg-slate-900/60 p-3 rounded-lg border border-emerald-500/20">
+                             <div class="flex items-center gap-2 mb-1">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">🗺️ Overlay Tata Ruang (Pemda)</span>
+                             </div>
+                             <div class="text-xs font-bold text-emerald-400 flex items-start gap-1.5 leading-tight">
+                                <span class="mt-0.5">✓</span> 
+                                <span>${extractedData.izin}</span>
+                             </div>
+                        </div>
+                    </div>
 
-            container.addEventListener('click', onMouseClick);
-
-            // Responsive Canvas Resize
-            window.addEventListener('resize', () => {
-                if(container && camera && renderer) {
-                    camera.aspect = container.clientWidth / container.clientHeight;
-                    camera.updateProjectionMatrix();
-                    renderer.setSize(container.clientWidth, container.clientHeight);
-                }
-            });
-
-            // Animation Loop
-            function animate() {
-                requestAnimationFrame(animate);
-                controls.update(); // required if controls.enableDamping or controls.autoRotate are set
-                renderer.render(scene, camera);
-            }
-            animate();
+                    <!-- Final Decision Output -->
+                    <div class="mt-3 bg-gradient-to-r from-emerald-900/40 to-emerald-800/20 border-emerald-500/30 p-3 rounded-lg text-center shadow-inner border animate-fade-in" style="animation-delay: 0.2s;">
+                        <div class="text-[9px] text-white/60 uppercase tracking-widest mb-1 font-bold">Status Sistem Bank & Tapera</div>
+                        <div class="font-black text-sm tracking-wide text-emerald-400">
+                            ✅ DITERIMA (SIAP KPR)
+                        </div>
+                    </div>
+                `;
+            }, 1500); // 1.5 seconds loading simulation
         }
 
         // --- INIT ALL SCRIPTS ON LOAD ---
         window.onload = function() {
             
-            // Initialize 3D Simulation
-            setTimeout(initBIMPlayground, 300);
-
             // Chart 1: Donut Chart - Proyeksi Adopsi Format Data
             const ctxAdoption = document.getElementById('adoptionChart').getContext('2d');
             const adoptionLabelsRaw = [
